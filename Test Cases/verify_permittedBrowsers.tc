@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_permittedBrowsers</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>fd139f56-1963-4213-9d21-ee4ef1c986b2</testCaseGuid>
+</TestCaseEntity>
