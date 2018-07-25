@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_mail_search_result_to_team_member</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>c62a470f-e60f-41dc-aa03-8df97be158a8</testCaseGuid>
+</TestCaseEntity>

@@ -4,6 +4,12 @@
    <name>a_Admin</name>
    <tag></tag>
    <elementGuidId>523cffb0-6b80-4ca4-bafe-987169b46161</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@href = 'admin.cgi' and (text() = 'Admin' or . = 'Admin')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>

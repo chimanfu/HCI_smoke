@@ -23,5 +23,5 @@ import org.sikuli.script.Screen;
 Screen s = new Screen();
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
 println('found cp_hazard_logo')

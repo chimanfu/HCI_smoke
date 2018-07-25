@@ -36,6 +36,6 @@ println('value of value_dagger_server = '+value_dagger_server)
 //GlobalVariable.G_dagger_server_url='https://dig-it-dev.nas.nasa.gov/dig_it-server/services/'
 WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false)
 
-WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/a_Home'))
+//WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/a_Home'))
 
 

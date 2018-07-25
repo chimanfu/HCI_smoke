@@ -90,5 +90,5 @@ if (bad_browser_blurb_message.contains(string1)){
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
-WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'))
+//WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'))
 

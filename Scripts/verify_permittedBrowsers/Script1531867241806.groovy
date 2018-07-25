@@ -26,16 +26,17 @@ WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Admin'))
 WebUI.click(findTestObject('Page_Administer your installation/a_Parameters'))
 
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_Index'))
-WebUI.delay(3)
+WebUI.delay(1)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/dd_The browsers that this system support'),15)
+WebUI.waitForElementClickable(findTestObject('Page_Parameters Index/a_permittedBrowsers'),10)
 WebUI.click(findTestObject('Page_Parameters Index/a_permittedBrowsers'))
-value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative P/txt_permittedBrowsers'), 'value')
+value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'), 'value')
 println('value of permittedBrowsers = '+value_permittedBrowsers)
 
 WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, false)
-println('done')
+println('matched')
 //*[@id="permittedBrowsers"]
 //*[@id="bugzilla-body"]/div[2]/table/tbody/tr/td[2]/div/table/tbody/tr[33]/td[1]/a
-//WebUI.click(findTestObject('Page_Configuration Administrative P/txt_permittedBrowsers'))
+//WebUI.click(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'))
 
-//WebUI.click(findTestObject('Page_Configuration Administrative P/dd_The browsers that this syst'))
 

@@ -35,36 +35,50 @@ catch (Exception e) {
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
    }
 */
+
 WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Help'))
-
+WebUI.delay(1)
 WebUI.switchToWindowTitle('CP-Hazard User Guide')
+WebUI.waitForPageLoad(5)
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'),25)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'),25)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'),25)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'),25)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'),15)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec (1)'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'),15)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents (1)'))
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Entering Editing and Viewin'))
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'),25)
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'))
 
+WebUI.waitForElementClickable(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'),25)
+WebUI.click(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'))
+
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'),25)
 WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'))
 
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'),25)
 WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'))
 
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'),15)
 WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'))
 
 WebUI.closeWindowTitle('CP-Hazard User Guide')
 
 WebUI.switchToWindowTitle('CP-Hazard Main Page')
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Home'))
+//WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Home'))
 
 
 

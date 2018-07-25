@@ -32,33 +32,31 @@ WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 
 
 WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_New'))
-
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-
+CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Hazard'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-
-
+CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Action'))
-
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause Tree'))
-
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 //WebUI.click(findTestObject('Object Repository/Page_Enter Record ES Cause Tree/a_New'))
 
@@ -68,6 +66,7 @@ WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Watch'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()

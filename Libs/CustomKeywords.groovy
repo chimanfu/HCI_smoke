@@ -274,6 +274,10 @@ def static "helper.browserhelper.CustomBrowser.closeBrowser"() {
     (new helper.browserhelper.CustomBrowser()).closeBrowser()
 }
 
+def static "helper.browserhelper.CustomBrowser.takingScreenshot"() {
+    (new helper.browserhelper.CustomBrowser()).takingScreenshot()
+}
+
 def static "helper.grid.GridHelper.GetValueFromGrid"(
     	TestObject baseTestObject	
      , 	int rowIndex	

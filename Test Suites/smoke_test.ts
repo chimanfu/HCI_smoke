@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-07-21T15:37:05</lastRun>
+   <lastRun>2018-07-25T11:40:14</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>2</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -60,15 +60,45 @@
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
+      <guid>722fae47-218c-43d6-9bd5-cddbd6a97ec1</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/run_sanityCheck</testCaseId>
+      <testCaseId>Test Cases/verify_run_keyword_search</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>584836d5-dbb5-4153-8123-7dd7badf6897</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_run_saved_search</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b03962a4-345a-4b44-8bdf-9dc8abf8aa43</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_create_page_loads</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>a4b6976b-3d35-429d-a19d-32930484f08a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_mail_search_result_to_team_member</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/run_sanityCheck</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>f59afac7-4fc3-4595-b731-0cab00d02a0a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_diff_report</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
