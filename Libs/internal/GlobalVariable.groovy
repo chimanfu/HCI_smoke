@@ -73,10 +73,20 @@ public class GlobalVariable {
      */
     public static Object G_tag_ver
      
+    /**
+     * <p></p>
+     */
+    public static Object userPin2
+     
+    /**
+     * <p></p>
+     */
+    public static Object userPin3
+     
 
     static {
         def allVariables = [:]        
-        allVariables.put('default', ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_cp_hazard_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303'])
+        allVariables.put('default', ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_cp_hazard_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016'])
         
         String profileName = RunConfiguration.getExecutionProfile()
         
@@ -93,6 +103,8 @@ public class GlobalVariable {
         G_git_hash_ver = selectedVariables['G_git_hash_ver']
         G_permitted_browser = selectedVariables['G_permitted_browser']
         G_tag_ver = selectedVariables['G_tag_ver']
+        userPin2 = selectedVariables['userPin2']
+        userPin3 = selectedVariables['userPin3']
         
     }
 }

@@ -64,4 +64,14 @@
       <initValue>'21303'</initValue>
       <name>G_tag_ver</name>
    </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'108676523'</initValue>
+      <name>userPin2</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'10062016'</initValue>
+      <name>userPin3</name>
+   </GlobalVariableEntity>
 </GlobalVariableEntities>
