@@ -23,6 +23,7 @@ import org.sikuli.script.Screen as Screen
 
 Screen s = new Screen()
 
+
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 // smoke testcase: run_sanityCheck
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
