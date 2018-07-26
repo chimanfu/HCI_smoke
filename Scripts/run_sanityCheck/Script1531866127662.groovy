@@ -26,40 +26,39 @@ Screen s = new Screen()
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 // smoke testcase: run_sanityCheck
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
+WebUI.waitForPageLoad(50)
 WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Admin'))
-
+//WebUI.waitForPageLoad(5)
 try {
-    //WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'))
-    //s.wait(GlobalVariable.G_image_path+'sanityCheck_link.png',20)
+	/*
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'), 10)
+    WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'))
+	s.wait(10)
+	*/
     s.wait(GlobalVariable.G_image_path + 'sanityCheck_link.png', 20)
-
     s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
-
     WebUI.delay(1)
-
-    //s.wait(1)
     s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
-
-    WebUI.delay(1) //s.click(GlobalVariable.G_image_path+'sanityCheck_link.png')
+    WebUI.delay(1) 
+    //s.click(GlobalVariable.G_image_path+'sanityCheck_link.png')
+    
 }
 catch (Exception e) {
     println('ERROR: Unable to find sanity check link: ' + e.getMessage()) //throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 } 
 
 //WebUI.click(findTestObject('Object Repository/Page_Sanity Check/html_Sanity Check'))
-//WebUI.waitForPageLoad(60)
+//WebUI.waitForPageLoad(5)
+WebUI.delay(10)
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/p_OK now running sanity checks'), 90)
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Sanity Check/p_OK now running sanity checks'), 10)
+//WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Sanity Check/p_OK now running sanity checks'), 100)
+//WebUI.delay(1)
+//WebUI.click(findTestObject('Object Repository/Page_Sanity Check/p_OK now running sanity checks'))
 WebUI.delay(1)
-WebUI.click(findTestObject('Object Repository/Page_Sanity Check/p_OK now running sanity checks'))
-
-WebUI.delay(1)
-
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 160)
-
-WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 10)
-WebUI.click(findTestObject('Page_Sanity Check/p_Sanity check completed'))
+//WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
+WebUI.delay(1)
+//WebUI.click(findTestObject('Page_Sanity Check/p_Sanity check completed'))
 
 //WebUI.click(findTestObject('Object Repository/Page_Sanity Check/a_Home'))
 

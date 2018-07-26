@@ -18,7 +18,6 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
 /*
 WebUI.openBrowser('')
 
@@ -29,54 +28,20 @@ WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_SavedSearches'))
+println('add a new record with tile - test_automation_record')
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_My Records'))
+WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Enter a new record'))
 
-WebUI.delay(1)
+WebUI.click(findTestObject('Page_Select Record Type/a_Hazard'))
 
-WebUI.click(findTestObject('Page_Record List/a_EditSearch'))
+WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EGSHazards'))
 
-WebUI.setText(findTestObject('Page_Search for records/input_content'), 'test_automation_record')
+WebUI.setText(findTestObject('Object Repository/Page_Enter Record EGS Hazards/input_short_desc'), 'test_automation_record')
 
-WebUI.click(findTestObject('Page_Search for records/input_Search'))
+WebUI.click(findTestObject('Object Repository/Page_Enter Record EGS Hazards/input_Create New Record'))
 
-WebUI.click(findTestObject('Page_Record List/label_SaveSearch'))
+WebUI.waitForElementVisible(findTestObject('Page_Hazard Record View - test_automation_record/div_Hazard Record - INWORK'),20)
 
-WebUI.setText(findTestObject('Page_Record List/input_newqueryname'), 'joe_search')
+WebUI.waitForElementVisible(findTestObject('Page_Hazard Record View - test_automation_record/div_test_automation_record'),5)
 
-WebUI.click(findTestObject('Page_Record List/button_Save'))
-
-WebUI.click(findTestObject('Page_Search created/a_SavedSearches'))
-
-WebUI.click(findTestObject('Page_Search created/a_joe_search'))
-
-/*
-WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'))
-
-WebUI.click(findTestObject('Object Repository/Page_Search for records/input_Search'))
-
-WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'))
-
-
-WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/button_Cancel'))
-
-WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_SavedSearches'))
-
-WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_joe_search'))
-*/
-WebUI.delay(1)
-
-WebUI.click(findTestObject('Page_Record List joe_search/a_ForgetSearch'))
-
-WebUI.delay(1)
-
-WebUI.click(findTestObject('Page_Search is gone/div_search_notification_message'))
-
-WebUI.click(findTestObject('Object Repository/Page_Search is gone/a_SavedSearches'))
-
-//WebUI.click(findTestObject('Object Repository/Page_Search is gone/a_Home'))
-
-
-
-
+//WebUI.closeBrowser()
