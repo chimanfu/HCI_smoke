@@ -39,6 +39,7 @@ WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Hazard P
 
 WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Generate PDF'))
 
-WebUI.delay(4)
+WebUI.delay(5)
 WebUI.waitForElementPresent(findTestObject('Page_Hazard Record test_automation_record/a_Home'),10)
+WebUI.waitForElementClickable(findTestObject('Page_Hazard Record test_automation_record/a_Home'),10)
 //WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Home'))

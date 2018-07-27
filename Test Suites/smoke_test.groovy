@@ -52,12 +52,9 @@ import com.kms.katalon.core.annotation.AfterTestCase
 import com.kms.katalon.core.annotation.AfterTestSuite
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
-
+/*
 class NewTestListener {
-	/**
-	 * Executes before every test case starts.
-	 * @param testCaseContext related information of the executed test case.
-	 */
+	
 	@BeforeTestCase
 	def beforeTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
@@ -65,10 +62,7 @@ class NewTestListener {
 		
 	}
 
-	/**
-	 * Executes after every test case ends.
-	 * @param testCaseContext related information of the executed test case.
-	 */
+	
 	@AfterTestCase
 	def afterTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
@@ -76,20 +70,14 @@ class NewTestListener {
 		
 	}
 
-	/**
-	 * Executes before every test suite starts.
-	 * @param testSuiteContext: related information of the executed test suite.
-	 */
+	
 	@BeforeTestSuite
 	def beforeTestSuite(TestSuiteContext testSuiteContext) {
 		println testSuiteContext.getTestSuiteId()
 				
 	}
 
-	/**
-	 * Executes after every test suite ends.
-	 * @param testSuiteContext: related information of the executed test suite.
-	 */
+	
 	@AfterTestSuite
 	def afterTestSuite(TestSuiteContext testSuiteContext) {
 		println testSuiteContext.getTestSuiteId()
@@ -97,6 +85,7 @@ class NewTestListener {
 		
 	}
 }
+*/
 /**
  * Some methods below are samples for using SetUp/TearDown in a test suite.
  */

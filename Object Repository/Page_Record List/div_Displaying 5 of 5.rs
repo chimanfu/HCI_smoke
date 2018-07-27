@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>p_OK now running sanity checks</name>
+   <name>div_Displaying 5 of 5</name>
    <tag></tag>
-   <elementGuidId>21854140-9f0c-4877-9e51-a6046cab0031</elementGuidId>
-   <selectorCollection>
-      <entry>
-         <key>BASIC</key>
-         <value>//p[(contains(text(), 'now running sanity checks') or contains(., 'now running sanity checks'))]</value>
-      </entry>
-   </selectorCollection>
+   <elementGuidId>ea6bda5b-90e9-4aed-84f7-7342ddcf478d</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -17,20 +11,27 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>p</value>
+      <value>div</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>displaying</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>now running sanity checks</value>
+      <value>Displaying 5 of 5</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;bugzilla-body&quot;)/div[2]/p[192]</value>
+      <value>id(&quot;bugzilla-body&quot;)/div[@class=&quot;displaying&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

@@ -32,9 +32,8 @@ Screen s = new Screen()
 if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a_Home'), 1, FailureHandling.OPTIONAL)) {
     //s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
     WebUI.navigateToUrl(GlobalVariable.G_cp_hazard_url)
-
     println('found home link, login to cp_hazard succeeded!')
-
+	
     WebUI.waitForPageLoad(30)
 
     if (WebUI.verifyAlertPresent(1, FailureHandling.OPTIONAL)) {
@@ -45,7 +44,7 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a
         println('accept alert=' + alertText)
     }
 	WebUI.waitForPageLoad(4)
-	println('perform some basic checks on the menu items...')
+	println('perform some basic checks on the menu items from the CP-Hazard Main Page...')
 	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_New'))
@@ -76,7 +75,7 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a
 
     return null
 }
-
+println('not found home link, so needs to login first')
 try {
     // cp hazard login
     WebUI.click(findTestObject('Page_Login/input_login_btn'))

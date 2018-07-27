@@ -58,10 +58,6 @@ CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
-//WebUI.click(findTestObject('Object Repository/Page_Enter Record ES Cause Tree/a_New'))
-
-//WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-
 WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
