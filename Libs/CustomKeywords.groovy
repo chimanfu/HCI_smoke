@@ -138,6 +138,10 @@ def static "reusableComponents.Verify_Text_In_WebElement.verifyTextInWebelement"
          , 	expText)
 }
 
+def static "helper.login.LoginHelper.login"() {
+    (new helper.login.LoginHelper()).login()
+}
+
 def static "helper.login.LoginHelper.loginIntoApplication"(
     	String applicationUrl	
      , 	String Username	

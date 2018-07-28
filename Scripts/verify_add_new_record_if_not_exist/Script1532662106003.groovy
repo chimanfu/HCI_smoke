@@ -32,7 +32,7 @@ search_term='test_automation_record'
 println('will create a new record ONLY if not already exists')
 WebUI.setText(findTestObject('Page_CP-Hazard Main Page/input_quicksearch'), search_term)
 WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/bt_Search'))
-String url=GlobalVariable.G_cp_hazard_url
+String url=GlobalVariable.G_MAKE_MAS_url
 if (url.contains('MAKE-MAS')){
 	println('The URL is a test instance')
 }else{

@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>p_output_log_message</name>
+   <name>h1_CP-OMS User Guide</name>
    <tag></tag>
-   <elementGuidId>21854140-9f0c-4877-9e51-a6046cab0031</elementGuidId>
-   <selectorCollection>
-      <entry>
-         <key>BASIC</key>
-         <value>id(&quot;bugzilla-body&quot;)/div[2]</value>
-      </entry>
-   </selectorCollection>
+   <elementGuidId>3d1d3543-9f67-46a9-bf0d-5bf2cc1bab5a</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>p</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>contains</matchCondition>
-      <name>text</name>
-      <type>Main</type>
-      <value>now running sanity checks</value>
+      <value>h1</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>CP-OMS User Guide</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;bugzilla-body&quot;)/div[2]</value>
+      <value>id(&quot;help&quot;)/h1[1]</value>
    </webElementProperties>
 </WebElementEntity>

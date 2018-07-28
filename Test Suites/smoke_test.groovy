@@ -121,10 +121,11 @@ def setupTestCase() {
 	println('*** SetupTestCase started ***')
 	//println testCaseContext.getTestCaseId()
 	Screen s = new Screen();
-	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
+	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
+	//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 		//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-		WebUI.navigateToUrl(GlobalVariable.G_cp_hazard_url)
-		println('found home link, login to cp_hazard succeeded!')
+		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
 		WebUI.waitForPageLoad(30)
 		if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
 			alertText=WebUI.getAlertText()
@@ -137,7 +138,7 @@ def setupTestCase() {
 	
 	CustomKeywords.'helper.browserhelper.CustomBrowser.openBrowser'()
 	//WebUI.openBrowser('')
-	WebUI.navigateToUrl(GlobalVariable.G_cp_hazard_url)
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 	if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 		// cp hazard login
 		WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -188,8 +189,13 @@ def setupTestCase() {
 			println('accept alert='+alertText)
 		}
 	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),10,FailureHandling.OPTIONAL)){
-		s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-		println('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+		//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+		if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+			s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+			println('found cp_hazard_logo')
+			println('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+		}
+		
 		//WebUI.waitForPageLoad(30)
 		println('*** SetupTestCase done ***')
 	}else{

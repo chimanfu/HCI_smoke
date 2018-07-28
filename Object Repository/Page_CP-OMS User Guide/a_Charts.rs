@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>a_Home</name>
+   <name>a_Charts</name>
    <tag></tag>
-   <elementGuidId>ba5281c1-1619-478b-baa0-33c8e330bf30</elementGuidId>
+   <elementGuidId>eacbf826-43bb-4925-8036-85df782cf45d</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -18,20 +18,20 @@
       <matchCondition>equals</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>./</value>
+      <value>#Charts</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Home</value>
+      <value>Charts</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;home_label&quot;)/a[1]</value>
+      <value>id(&quot;help&quot;)/nav[@class=&quot;toc&quot;]/ul[1]/li[3]/a[1]</value>
    </webElementProperties>
 </WebElementEntity>

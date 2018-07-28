@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>div_CP-Hazard-git-hash</name>
+   <name>a_Preferences and Privileges</name>
    <tag></tag>
-   <elementGuidId>0d4a0343-da85-440e-b6ff-664498ea9fdd</elementGuidId>
-   <selectorCollection>
-      <entry>
-         <key>XPATH</key>
-      </entry>
-      <entry>
-         <key>BASIC</key>
-         <value>//div[(contains(text(), 'About ') or contains(., 'About '))]</value>
-      </entry>
-   </selectorCollection>
+   <elementGuidId>805132d7-e852-450d-97e8-e5d03139eb1a</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -20,20 +11,27 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>div</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
+      <name>href</name>
+      <type>Main</type>
+      <value>#Settings</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>About </value>
+      <value>Preferences and Privileges</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;footer_gradient&quot;)//div[(contains(text(), 'About CP-Hazard rev ') or contains(., 'About CP-Hazard rev '))]</value>
+      <value>id(&quot;help&quot;)/nav[@class=&quot;toc&quot;]/ul[1]/li[4]/a[1]</value>
    </webElementProperties>
 </WebElementEntity>

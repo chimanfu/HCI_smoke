@@ -1,26 +1,29 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import internal.GlobalVariable as GlobalVariable
-import org.sikuli.script.Key as Key
+import java.util.List;
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.python.antlr.PythonParser.return_stmt_return
+import org.openqa.selenium.WebDriver
 import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
+import internal.GlobalVariable as GlobalVariable
+
+KeywordLogger log = new KeywordLogger()
+
+/*
+log.logError("")
+log.logFailed("")
+log.logInfo("")
+log.logNotRun("")
+log.logPassed("")
+log.logWarning("")
+*/
+
 String logMessage=''
 def checkLogMessage(String checklogMessage,String logMessage){
 	//checklogMessage='Checking for attachment indexer.'
@@ -33,19 +36,11 @@ def checkLogMessage(String checklogMessage,String logMessage){
 }
 Screen s = new Screen()
 
+CustomKeywords.'helper.login.LoginHelper.login'()
 
-/*
-WebUI.openBrowser('')
 
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
-
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-*/
-
-println('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
-println('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
+log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
+log.logInfo('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
 
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 // smoke testcase: run_sanityCheck
@@ -74,13 +69,14 @@ try {
     
 }
 catch (Exception e) {
-    println('ERROR: Unable to find sanity check link: ' + e.getMessage()) //throw new AssertionError('ERROR: Unable to verify alert present: ', e)
+    println('Unable to find sanity check link: ' + e.getMessage()) 
+	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 } 
 
 //WebUI.click(findTestObject('Object Repository/Page_Sanity Check/html_Sanity Check'))
 //WebUI.waitForPageLoad(5)
 WebUI.delay(10)
-println('verify sanity check is working and without new issue.')
+log.logInfo('verify sanity check is working and without new issue.')
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 90)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
 //WebUI.delay(1)
@@ -90,10 +86,49 @@ WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check com
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 WebUI.delay(1)
 
+
+
+
+//alertMessages=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_alert_messages'))
+//println(alertMessages)
+
+dataFile='sanity_check_log'
+columnName='accepted_failed_message'
+boolean found_expected_log_message=false
+log.logInfo('Get all found ALERT MESSAGES and compare with the expected ALERT MESSAGES from the sanity check log in columnName='+columnName)
+WebDriver driver = DriverFactory.getWebDriver()
+List<WebElement> elements = driver.findElements(By.xpath("//p[@class = 'alert']"));
+for (int i = 0; i < elements.size(); i++) {
+	found_expected_log_message=false
+	String found_ALERT_MESSAGE=elements.get(i).getText()
+	log.logInfo("found ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	////
+	for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
+		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()
+		if (!StringUtils.isNullOrEmpty(expected_log_message)){
+			if (found_ALERT_MESSAGE.contains(expected_log_message)){
+				log.logInfo('found expected log message : '+expected_log_message)
+				found_expected_log_message=true
+				break
+			}
+		}
+		else{
+		   println('found expected log message isNullOrEmpty, so it should be end of rows in '+dataFile)
+		   break
+		}
+	}
+	if (!found_expected_log_message){
+		log.logWarning('This found ALERT MESSAGE could be an issue : '+found_ALERT_MESSAGE)
+	}
+	////
+	
+}
+
+//return
+		
 // print out all log message
 logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))
-println(logMessage)
-
+//println(logMessage)
 // check log message
 /*expectedlogMessage='Checking for attachment indexer.'
 checkLogMessage(expectedlogMessage,logMessage)
@@ -101,21 +136,26 @@ checkLogMessage(expectedlogMessage,logMessage)
 expectedlogMessage='Checking for unindexed attachments...'
 checkLogMessage(expectedlogMessage,logMessage)*/
 
-println('check expected log message')
-for (row = 1; row <= findTestData('sanity_check_log').getRowNumbers(); row++){
+dataFile='sanity_check_log'
+columnName='expected_log_message'
+log.logInfo('check expected log messages from data file: '+dataFile)
+for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 	//checkLogMessage(findTestData('sanity_check_log').getValue('log_message', row),logMessage)
-	String expected_log_message=(findTestData('sanity_check_log').getValue('expected_log_message', row)).trim()
+	String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()
 	//println('expected_log_message='+expected_log_message)
 	if (!StringUtils.isNullOrEmpty(expected_log_message)){
 		if (! logMessage.contains(expected_log_message)){
-			println('not found expected log message : '+expected_log_message)
-			throw new AssertionError('ERROR: not found expected log message : '+expected_log_message)
+			log.logWarning('not found expected log message : '+expected_log_message)
+			//throw new AssertionError('ERROR: not found expected log message : '+expected_log_message)
 		}
 	}
-	/*else{
-	   println('isNullOrEmpty')
-	}*/
+	else{
+	   println('found expected log message isNullOrEmpty, so it should be end of rows in '+dataFile)
+	   break
+	}
 }
+
+
 println('all expected log messages found in actual sanity check log output')
 
 /*
@@ -128,5 +168,5 @@ if (logMessage.contains(checklogMessage)){
 */
 //WebUI.click(findTestObject('Page_Sanity Check/p_Sanity check completed'))
 
-//WebUI.click(findTestObject('Object Repository/Page_Sanity Check/a_Home'))
+//WebUI.click(findTestObject('Page_Sanity Check/p_alert_messages'))
 

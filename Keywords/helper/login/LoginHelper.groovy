@@ -40,7 +40,16 @@ import WebUiBuiltInKeywords as WebUI
  * */
 
 public class LoginHelper {
-
+	@Keyword
+	public void login(){
+		WebUI.openBrowser('')
+		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),15)
+		WebUI.click(findTestObject('Page_Login/input_login_btn'))
+		WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),10)
+		WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+	}
+	
 	@Keyword
 	public void loginIntoApplication(String applicationUrl,String Username,String Password){
 

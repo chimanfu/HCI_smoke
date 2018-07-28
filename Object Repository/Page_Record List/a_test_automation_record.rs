@@ -4,6 +4,12 @@
    <name>a_test_automation_record</name>
    <tag></tag>
    <elementGuidId>b363c61f-ac98-4812-a28c-29203245cc4a</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@href = 'show_bug.cgi?id=' and (text() = 'test_automation_record' or . = 'test_automation_record')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -15,10 +21,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>show_bug.cgi?id=7629</value>
+      <value>show_bug.cgi?id=</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

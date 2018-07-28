@@ -24,14 +24,14 @@ import org.sikuli.script.Screen as Screen
 
 Screen s = new Screen()
 
-//sikuli_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
-//WebUI.openBrowser()
-//WebUI.waitForPageLoad(30)
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-//WebUI.navigateToUrl(GlobalVariable.G_cp_hazard_url)
-if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a_Home'), 1, FailureHandling.OPTIONAL)) {
+/*WebUI.openBrowser('')
+WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+WebUI.click(findTestObject('Page_Login/input_login_btn'))
+WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))*/
+
+if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'), 20, FailureHandling.OPTIONAL)) {
     //s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-    WebUI.navigateToUrl(GlobalVariable.G_cp_hazard_url)
+    //WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
     println('found home link, login to cp_hazard succeeded!')
 	
     WebUI.waitForPageLoad(30)
@@ -47,7 +47,13 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a
 	println('perform some basic checks on the menu items from the CP-Hazard Main Page...')
 	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_New'))
+	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_New'), 2, FailureHandling.OPTIONAL)) {
+		WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_New'))
+		println('found New Record link from the user menu')
+	}else{
+		println('not found New Record link from the user menu')
+	}
+	
 	
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Charts'))
 	
@@ -67,9 +73,15 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Configuration NASA Params/a
 	
 	WebUI.click(findTestObject('Page_Administer your installation/a_Home'))
 	WebUI.click(findTestObject('Object Repository/Page_Search for records/a_Help'))
-	WebUI.switchToWindowTitle('CP-Hazard User Guide')
-	WebUI.closeWindowTitle('CP-Hazard User Guide')
-	WebUI.switchToWindowTitle('CP-Hazard Main Page')
+	//WebUI.switchToWindowTitle('CP-Hazard User Guide')
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+	//WebUI.closeWindowTitle('CP-Hazard User Guide')
+	//WebUI.switchToWindowTitle('CP-Hazard Main Page')
+	
+	WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+	
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
+	
 	println('perform some basic checks on the menu items done!')
     //println('*** SetupTestCase done ***')
 
@@ -128,7 +140,7 @@ catch (Exception e) {
 //WebUI.switchToWindowIndex(2)
 //WebUI.acceptAlert()
 //WebUI.clickImage(findTestObject('Object Repository/Page_Access Launchpad/cert_ok_button'))
-WebUI.openBrowser()
+WebUI.openBrowser('')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 
 // cp hazard login
@@ -150,7 +162,7 @@ catch (Exception e) {
     println('not found input_login_btn' + e.getMessage()) //throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 } 
 
-s.wait(GlobalVariable.G_image_path + 'cp_hazard_logo.png', 10)
+//s.wait(GlobalVariable.G_image_path + 'cp_hazard_logo.png', 10)
 
 
 

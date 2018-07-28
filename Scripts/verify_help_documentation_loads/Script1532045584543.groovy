@@ -19,64 +19,93 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-//WebUI.openBrowser('')
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-/*
-try{
-	// check if alert is showing
-	if (WebUI.verifyAlertPresent(1)){
-		WebUI.acceptAlert()
-		alertText=WebUI.getAlertText()
-		println('alertText='+alertText)
-	}
-}
-catch (Exception e) {
-	println('ERROR: Unable to verify alert present: ' + e.getMessage())
-	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
-   }
-*/
+
+//CustomKeywords.'helper.login.LoginHelper.login'()
+
 
 WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Help'))
 WebUI.delay(1)
-WebUI.switchToWindowTitle('CP-Hazard User Guide')
-WebUI.waitForPageLoad(5)
+//GlobalVariable.G_MAKE_MAS_title
+WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+WebUI.delay(1)
+//WebUI.waitForPageLoad(5)
 
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'),15)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'),15)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'))
-
-WebUI.waitForElementClickable(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'),25)
-WebUI.click(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'),25)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'))
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'),15)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'))
-
-WebUI.closeWindowTitle('CP-Hazard User Guide')
-
-WebUI.switchToWindowTitle('CP-Hazard Main Page')
+if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+	println 'this is cp_hazard'
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h1_User Guide'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Entering Editing and Viewing'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Searching Records'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Charts'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'),15)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Preferences and Privileges'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'),15)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/a_Approvals and Release of Rec'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Table of Contents'))
+	
+	WebUI.waitForElementClickable(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'),25)
+	WebUI.click(findTestObject('Page_CP-Hazard User Guide/h3_Entering Editing and Viewing'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Searching Records'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'),25)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Charts'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'),15)
+	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard User Guide/h3_Preferences and Privileges'))
+}
+else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
+	println 'this is cp_oms'
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h1_CP-OMS User Guide'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/a_Entering Editing and Viewing'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Entering Editing and Viewin'))
+	
+	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/a_Searching Records'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Searching Records'))
+	
+	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/a_Charts'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Charts'))
+	
+	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/a_Preferences and Privileges'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Settings and Permissions'))
+	
+	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/a_Approval of Records'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Record Approval'))
+	
+	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))
+	
+	
+	
+}
+WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
 
 //WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Home'))
 
