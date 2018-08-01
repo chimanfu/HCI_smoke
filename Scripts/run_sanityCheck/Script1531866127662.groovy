@@ -36,7 +36,21 @@ def checkLogMessage(String checklogMessage,String logMessage){
 }
 Screen s = new Screen()
 
-CustomKeywords.'helper.login.LoginHelper.login'()
+/*
+WebUI.openBrowser('')
+
+WebUI.navigateToUrl('https://auth.launchpad.nasa.gov')
+//https://auth.launchpad.nasa.gov/unauth/login.fcc?TYPE=33554433&REALMOID=06-d97b45f0-4c59-4fc7-8c03-4310733383a8&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-2xi60B%2fAvg4xOSpz0Mt6pyiElB8BrikAClsl871iq%2fIUTFlBrJuGsybz%2fr%2f58XECW%2fPJ9gdSxD1vNBezGnH6THheeHVh%2fj4mRGyYKibiqpFUNI9lOFvcnFeNoYR8e%2fkN&TARGET=-SM-HTTPS%3a%2f%2fauth%2elaunchpad%2enasa%2egov%2flp%2flandingpad%2easpx%3ftype%3ddef
+WebUI.delay(2)
+//WebUI.click(findTestObject('Page_Login/input_login_btn'))
+
+WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+
+WebUI.delay(10)
+
+WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
+*/
+//CustomKeywords.'helper.login.LoginHelper.login'()
 
 
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
@@ -46,7 +60,8 @@ log.logInfo('You can also automate this check by running sanitycheck.pl from a c
 // smoke testcase: run_sanityCheck
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 WebUI.waitForPageLoad(60)
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Admin'))
+WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 //WebUI.waitForPageLoad(5)
 try {
 	// it may crash selenium by clciking on the Sanity Check link or it may wait for the page load forever.
@@ -102,6 +117,9 @@ for (int i = 0; i < elements.size(); i++) {
 	found_expected_log_message=false
 	String found_ALERT_MESSAGE=elements.get(i).getText()
 	log.logInfo("found ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	if (found_ALERT_MESSAGE.contains('attachment')){
+		continue
+	}
 	////
 	for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()
@@ -117,6 +135,7 @@ for (int i = 0; i < elements.size(); i++) {
 		   break
 		}
 	}
+	////
 	if (!found_expected_log_message){
 		log.logWarning('This found ALERT MESSAGE could be an issue : '+found_ALERT_MESSAGE)
 	}
@@ -124,7 +143,7 @@ for (int i = 0; i < elements.size(); i++) {
 	
 }
 
-//return
+return
 		
 // print out all log message
 logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))

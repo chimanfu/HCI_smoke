@@ -11,7 +11,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/'</initValue>
+      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/sims_dev'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -91,7 +91,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description>CP-Hazard, CP-OMS</description>
-      <initValue>'CP-OMS'</initValue>
+      <initValue>'SIMS'</initValue>
       <name>G_MAKE_MAS_title</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>

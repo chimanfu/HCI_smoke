@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-07-27T20:51:00</lastRun>
+   <lastRun>2018-07-31T22:32:25</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -15,7 +15,7 @@
       <guid>f19d1a53-82f2-41a5-b55c-2639235e175b</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/login_cp_hazard</testCaseId>
+      <testCaseId>Test Cases/login_basic_checks</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>43538696-da1a-4895-a64e-9248a2d03fe9</guid>
@@ -62,13 +62,13 @@
    <testCaseLink>
       <guid>b03962a4-345a-4b44-8bdf-9dc8abf8aa43</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_create_page_loads</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>a6cbfc62-8fa0-4791-a95e-46d1357be38f</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_add_new_record_if_not_exist</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -104,7 +104,7 @@
    <testCaseLink>
       <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/run_sanityCheck</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

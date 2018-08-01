@@ -28,29 +28,29 @@ import internal.GlobalVariable as GlobalVariable
  WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
  */
  
-WebUI.setText(findTestObject('Page_CP-Hazard Main Page/input_quicksearch'), 'test_automation_record')
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/bt_Search'))
+WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 
 WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
 
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Create Record Snapshot'))
+WebUI.click(findTestObject('Page_Record test_automation_record/a_Create Record Snapshot'))
 
-WebUI.setText(findTestObject('Page_Hazard Record test_automation_record/input_xml_version_description'), 'test automation snapshot')
+WebUI.setText(findTestObject('Page_Record test_automation_record/input_xml_version_description'), 'test automation snapshot')
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Create Snapshot'))
+WebUI.click(findTestObject('Page_Record test_automation_record/button_Create Snapshot'))
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
 //WebUI.delay(2)
-WebUI.waitForElementClickable(findTestObject('Page_Hazard Record test_automation_record/a_Hazard PDF') ,30)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Hazard PDF') ,40)
 WebUI.delay(5)
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Hazard PDF'))
+WebUI.click(findTestObject('Page_Record test_automation_record/a_Hazard PDF'))
 WebUI.delay(1)
-WebUI.selectOptionByValue(findTestObject('Page_Hazard Record test_automation_record/select_diff_report_version'), '3', true)
+WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
 WebUI.delay(1)
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Generate PDF'))
+WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 WebUI.delay(4)
-WebUI.waitForElementClickable(findTestObject('Page_Hazard Record test_automation_record/a_Home'),20)
-//WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Home'))
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),20)
+//WebUI.click(findTestObject('Page_Record test_automation_record/a_Home'))
 

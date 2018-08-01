@@ -21,7 +21,7 @@ import internal.GlobalVariable as GlobalVariable
 
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Admin'))
+WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
 WebUI.click(findTestObject('Page_Administer your installation/a_Parameters'))
 

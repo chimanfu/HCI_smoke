@@ -4,6 +4,12 @@
    <name>a_Help</name>
    <tag></tag>
    <elementGuidId>e5b9a02b-bb1b-4279-b765-55f4a1ff5a26</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[(text() = 'Help' or . = 'Help')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -14,11 +20,11 @@
       <value>a</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <isSelected>false</isSelected>
+      <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>load_file.cgi?file=help/help.html</value>
+      <value>help/help.html</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

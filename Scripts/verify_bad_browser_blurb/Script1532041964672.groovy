@@ -24,8 +24,9 @@ WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
+CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Admin'))
+WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 
@@ -54,7 +55,7 @@ if (bad_browser_blurb_message.contains(string1)){
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
-string1='Internet Explorer 11'
+string1='Internet Explorer'
 if (bad_browser_blurb_message.contains(string1)){
 	println('bad_browser_blurb_message is OK, found string: '+string1)
 }else{

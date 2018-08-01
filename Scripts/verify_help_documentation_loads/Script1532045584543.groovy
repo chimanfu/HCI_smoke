@@ -23,7 +23,7 @@ import internal.GlobalVariable as GlobalVariable
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Help'))
+WebUI.click(findTestObject('Page_Main Page/a_Help'))
 WebUI.delay(1)
 //GlobalVariable.G_MAKE_MAS_title
 WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
@@ -107,7 +107,7 @@ else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
 WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
 WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
 
-//WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_Home'))
+//WebUI.click(findTestObject('Page_Main Page/a_Home'))
 
 
 

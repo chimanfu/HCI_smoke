@@ -29,17 +29,17 @@ WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
 
-WebUI.waitForElementPresent(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_test_automation_record'),10)
+WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_test_automation_record'),10)
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_test_automation_record'))
+WebUI.click(findTestObject('Page_Main Page/a_test_automation_record'))
 
-WebUI.waitForElementPresent(findTestObject('Page_Hazard Record test_automation_record/html_Hazard test_automation_record'),10)
+WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/html_Hazard test_automation_record'),10)
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Hazard PDF'))
+WebUI.click(findTestObject('Page_Record test_automation_record/a_Hazard PDF'))
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Generate PDF'))
+WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 
 WebUI.delay(5)
-WebUI.waitForElementPresent(findTestObject('Page_Hazard Record test_automation_record/a_Home'),10)
-WebUI.waitForElementClickable(findTestObject('Page_Hazard Record test_automation_record/a_Home'),10)
-//WebUI.click(findTestObject('Page_Hazard Record test_automation_record/a_Home'))
+WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)
+//WebUI.click(findTestObject('Page_Record test_automation_record/a_Home'))

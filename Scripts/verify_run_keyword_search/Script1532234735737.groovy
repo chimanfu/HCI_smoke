@@ -22,15 +22,15 @@ import internal.GlobalVariable as GlobalVariable
 /*
 // search by record ID
  
-WebUI.setText(findTestObject('Object Repository/Page_CP-Hazard Main Page/input_quicksearch'), '7626')
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), '7626')
 
 WebUI.waitForPageLoad(5)
 
-WebUI.selectOptionByValue(findTestObject('Object Repository/Page_CP-Hazard Main Page/select_search_option'), 'all', true)
+WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
 
 WebUI.waitForPageLoad(15)
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/input'))
+WebUI.click(findTestObject('Page_Main Page/input'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Hazard Record 7626/div_Hazard Record 7626 - INWOR'), 15)
 
@@ -45,7 +45,7 @@ WebUI.waitForElementVisible(findTestObject('Page_Hazard Record 7626/div_Close al
 //WebUI.click(findTestObject('Page_Hazard Record 7626/div_Close alertRecord Saved'))
 WebUI.delay(1)
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'))
+WebUI.click(findTestObject('Page_Main Page/a_Home'))
 */
 
 ////////////////////
@@ -61,23 +61,23 @@ WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'))
  WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
  */
  
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard Main Page/input_quicksearch'),15)
-WebUI.selectOptionByValue(findTestObject('Object Repository/Page_CP-Hazard Main Page/select_search_option'), 'all', true)
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
 WebUI.waitForPageLoad(5)
-WebUI.setText(findTestObject('Object Repository/Page_CP-Hazard Main Page/input_quicksearch'), 'test_automation_record')
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/bt_Search'))
+WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Record List/li_Content_test_automation_record'),15)
 
 WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/div_test_automation_record'))
+WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
 WebUI.delay(1)
 
-WebUI.click(findTestObject('Page_Hazard Record test_automation_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
 
-WebUI.waitForElementVisible(findTestObject('Page_Hazard Record test_automation_record/div_Close alertRecord Saved'),12)
+WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/div_Close alertRecord Saved'),12)
 //WebUI.delay(1)
-//WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_Home'))
+//WebUI.click(findTestObject('Page_Main Page/a_Home'))
 

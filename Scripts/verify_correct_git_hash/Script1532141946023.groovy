@@ -28,11 +28,11 @@ WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
 
-//WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/html_CP-Hazard Main Page'))
+//WebUI.click(findTestObject('Page_Main Page/html_Main Page'))
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/div_CP-Hazard-git-hash'))
+WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
 
-git_hash_ver=WebUI.getText(findTestObject('Object Repository/Page_CP-Hazard Main Page/div_CP-Hazard-git-hash'))
+git_hash_ver=WebUI.getText(findTestObject('Page_Main Page/div_About-git-hash'))
 
 //WebUI.verifyMatch(GlobalVariable.G_git_hash_ver, git_hash_ver, false)
 println('expected git_hash_ver='+GlobalVariable.G_git_hash_ver)

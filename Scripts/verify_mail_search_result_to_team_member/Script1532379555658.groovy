@@ -29,9 +29,9 @@ import internal.GlobalVariable as GlobalVariable
  WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
  
 */
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_SavedSearches'))
+WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_My Records'))
+WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)
 
@@ -45,7 +45,7 @@ WebUI.click(findTestObject('Object Repository/Page_Record List/button_Send'))
 
 //WebUI.delay(1)
 
-WebUI.waitForElementVisible(findTestObject('Page_Hazard Record test_automation_record/a_My Records'),10)
+WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/a_My Records'),10)
 
 //WebUI.click(findTestObject('Object Repository/Page_Record List/a_Home'))
 

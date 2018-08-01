@@ -29,9 +29,9 @@ WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_SavedSearches'))
+WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
-WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_My Records'))
+WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)
 

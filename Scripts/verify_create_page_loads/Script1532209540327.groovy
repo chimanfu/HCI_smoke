@@ -31,50 +31,190 @@ WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 //////
 
 
-WebUI.click(findTestObject('Page_CP-Hazard Main Page/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Hazard'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Action'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause Tree'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Watch'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
-WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_Home'))
+WebUI.click(findTestObject('Page_Main Page/a_New'))
 CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 
+if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+	println 'this is cp_hazard'
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Hazard'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Action'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause Tree'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Watch'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All'))
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+
+}else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
+	println 'this is cp_oms'
+
+}else if ((GlobalVariable.G_MAKE_MAS_url).contains('arc_praca')){
+	println 'this is arc_praca'
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ADEPTSR1'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AdvancedRodentHabitat'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AirborneSciencesUASProjects'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ArcJet'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_Astrobee'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ATD1'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AVA'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_BioNutrients'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_BioSentinel'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CAP'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CellScience'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CHOMPTT'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_COAST'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CodeQS(SystemSafetyandMissio'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CodeRM(AppliedManufacturing)'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CSP'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EcAMSat'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EDSN'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EEL'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_FruitFly'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_GEOCAMSPACE'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_HECC'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ISSPayloads'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_LADEE'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_LADEEORT'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_MEDLI'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_MEDLI2MISP'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_NLAS'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_NODES'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_OOREOS'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_OrionDFI'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PathfinderTechnologyDemonstr'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PhoneSat'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PowerCell'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ResourceProspector'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SOFIAProject'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SPHERES'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SporeSat'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_TechEdSat'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_TPSADP'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record TPS ADP/a_New'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_UTPWindTunnel'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_VMS'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
+	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_WetLab'))
+	
+}
 
