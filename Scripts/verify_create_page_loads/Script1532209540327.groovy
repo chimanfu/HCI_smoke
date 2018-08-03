@@ -2,6 +2,9 @@ import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+
+import org.python.antlr.PythonParser.raise_stmt_return
+
 import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
 import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
 import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
@@ -18,25 +21,12 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-/*
-WebUI.openBrowser('')
 
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
-
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-*/
-
-//////
-
-
-WebUI.click(findTestObject('Page_Main Page/a_New'))
-CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-
+//CustomKeywords.'helper.login.LoginHelper.login'()
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 	println 'this is cp_hazard'
+	WebUI.click(findTestObject('Page_Main Page/a_New'))
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 	
@@ -77,6 +67,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
 }else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
+	WebUI.click(findTestObject('Page_Main Page/a_New'))
 	println 'this is cp_oms'
 
 }else if ((GlobalVariable.G_MAKE_MAS_url).contains('arc_praca')){
@@ -216,5 +207,8 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
 	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_WetLab'))
 	
-}
+}else if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
+	println 'this is iss_hazard'
+	CustomKeywords.'hci_smoke_test.create_new_record.iss_hazard'()
 
+}

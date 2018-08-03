@@ -4,6 +4,12 @@
    <name>button_Save Changes</name>
    <tag></tag>
    <elementGuidId>791edcba-6c90-42e1-9d0d-4b9ea07cc9f6</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>id(&quot;record_background&quot;)//button[@class=&quot;saveBtn btn btn-primary&quot;][count(. | //button[@type = 'button' and (text() = 'Save Changes' or . = 'Save Changes')]) = count(//button[@type = 'button' and (text() = 'Save Changes' or . = 'Save Changes')])]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -35,10 +41,10 @@
       <value>Save Changes</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;record_background&quot;)/div[@class=&quot;row&quot;]/div[@class=&quot;col-md-12 col-sm-12 col-xs-12&quot;]/div[@class=&quot;Footer&quot;]/div[1]/button[@class=&quot;saveBtn btn btn-primary&quot;]</value>
+      <value>id(&quot;record_background&quot;)//button[@class=&quot;saveBtn btn btn-primary&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

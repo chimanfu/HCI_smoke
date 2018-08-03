@@ -399,3 +399,7 @@ def static "question.VerifyInItemGrid.multipleTestObject"(
          , 	objectTwo
          , 	ObjectThree)
 }
+
+def static "hci_smoke_test.create_new_record.openBrowser"() {
+    (new hci_smoke_test.create_new_record()).openBrowser()
+}

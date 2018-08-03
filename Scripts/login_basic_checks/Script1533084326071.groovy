@@ -59,7 +59,10 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, Fai
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Charts'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_Generate Chart/a_Advanced Search'))
-	
+	if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
+		println 'this is iss_hazard'
+		WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_VTL'))
+	}
 	WebUI.click(findTestObject('Object Repository/Page_Search for records/a_Signatures'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_Request Queue/a_SavedSearches'))
@@ -74,6 +77,8 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, Fai
 	
 	WebUI.click(findTestObject('Page_Administer your installation/a_Home'))
 	WebUI.click(findTestObject('Object Repository/Page_Search for records/a_Help'))
+	
+	
 	
 	try{
 		WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')

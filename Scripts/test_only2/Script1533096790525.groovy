@@ -19,3 +19,26 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+WebUI.openBrowser('')
+
+WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev/')
+
+WebUI.click(findTestObject('Page_Login/input_login_btn'))
+
+WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+
+WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_New'))
+
+WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_New blank record'))
+
+WebUI.click(findTestObject('Page_Enter Record/a_AdAstraRocketCompany'))
+
+WebUI.setText(findTestObject('Object Repository/Page_Enter Record Ad Astra Rocket C/input_short_desc'), 'test')
+
+WebUI.selectOptionByValue(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'), 
+    'Safety Data Package', true)
+
+WebUI.click(findTestObject('Object Repository/Page_Enter Record Ad Astra Rocket C/input_commit'))
+
+WebUI.closeBrowser()
+

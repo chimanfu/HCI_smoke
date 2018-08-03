@@ -24,7 +24,8 @@ import internal.GlobalVariable
 import MobileBuiltInKeywords as Mobile
 import WSBuiltInKeywords as WS
 import WebUiBuiltInKeywords as WebUI
-
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
 /**
  * Open browser
  * Open Bugzila --> Get from Global variable
@@ -42,12 +43,76 @@ import WebUiBuiltInKeywords as WebUI
 public class LoginHelper {
 	@Keyword
 	public void login(){
+		
+		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
+			//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
+			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
+			WebUI.waitForPageLoad(30)
+			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
+				alertText=WebUI.getAlertText()
+				WebUI.acceptAlert()
+				println('accept alert='+alertText)
+			}
+			println('*** Done Login ***')
+			return
+		}
+		String cmd = "pkill -f Chrome"
+		Runtime.getRuntime().exec(cmd)
+		//cmd="killall -9 chromedriver"
+		//Runtime.getRuntime().exec(cmd)
+		println('killed all processes of Chrome and chromedriver before running test')
+		
+		Screen s = new Screen();
 		WebUI.openBrowser('')
 		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 		WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),15)
 		WebUI.click(findTestObject('Page_Login/input_login_btn'))
-		WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),10)
-		WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
+		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+		
+		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15,FailureHandling.OPTIONAL)){
+			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+			WebUI.waitForPageLoad(6)
+			WebUI.delay(1)
+			
+			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+			
+			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',3)!=null){
+				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+			}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				}
+			}			
+			WebUI.delay(5)
+			s.type(GlobalVariable.G_userPin+"\n")		
+		}
+		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+		}
+		// check if alert is showing
+		if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
+			String alertText=WebUI.getAlertText()
+			WebUI.acceptAlert()
+			println('accept alert='+alertText)
+		}
+		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
+			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+			if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+				println('found cp_hazard_logo')
+				println('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+			}
+			
+			//WebUI.waitForPageLoad(30)
+			println('*** Done Login ***')
+		}
 	}
 	
 	@Keyword

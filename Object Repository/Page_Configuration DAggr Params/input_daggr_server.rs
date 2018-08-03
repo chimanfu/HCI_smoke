@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//input[@type = 'text' and @name = 'daggr_server' and @id = 'daggr_server' and contains(@value, 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/')]</value>
+         <value>//input[@type = 'text' and @name = 'daggr_server' and @id = 'daggr_server' and contains(@value, 'https://dig-it-dev.nas.nasa.gov/')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -52,7 +52,7 @@
       <matchCondition>contains</matchCondition>
       <name>value</name>
       <type>Main</type>
-      <value>https://dig-it-dev.nas.nasa.gov/dig_it-server/services/</value>
+      <value>https://dig-it-dev.nas.nasa.gov/</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

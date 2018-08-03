@@ -19,19 +19,19 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+//CustomKeywords.'helper.login.LoginHelper.login'()
+
 /*
-WebUI.openBrowser('')
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
-
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-*/
-
 WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_test_automation_record'),10)
-
 WebUI.click(findTestObject('Page_Main Page/a_test_automation_record'))
+*/
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
+WebUI.waitForPageLoad(5)
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')
+WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+WebUI.waitForElementVisible(findTestObject('Page_Record List/li_Content_test_automation_record'),15)
+WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))
 
 WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/html_Hazard test_automation_record'),10)
 

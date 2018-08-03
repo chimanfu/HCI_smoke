@@ -24,7 +24,7 @@ WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 WebUI.click(findTestObject('Page_Login/input_login_btn'))
 WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 */
-CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>input_quicksearch (1)</name>
+   <name>input_commit</name>
    <tag></tag>
-   <elementGuidId>7f4bb828-3bab-4930-aac0-0c8fadedadc2</elementGuidId>
+   <elementGuidId>04dd56f2-773b-4a07-a317-59f12cda5e2a</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -14,66 +14,38 @@
       <value>input</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>class</name>
-      <type>Main</type>
-      <value>txt</value>
-   </webElementProperties>
-   <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>type</name>
       <type>Main</type>
-      <value>text</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>name</name>
-      <type>Main</type>
-      <value>quicksearch</value>
+      <value>submit</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>size</name>
+      <name>class</name>
       <type>Main</type>
-      <value>32</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>onfocus</name>
-      <type>Main</type>
-      <value>if(this.value == quicksearch_default){this.value=''}this.style.color='#000000'</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>onblur</name>
-      <type>Main</type>
-      <value>if(this.value == ''){this.value = quicksearch_default;this.style.color='#aaa'}</value>
+      <value>center_it</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>id</name>
       <type>Main</type>
-      <value>quicksearch</value>
+      <value>commit</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>value</name>
       <type>Main</type>
-      <value>enter keywords, record ID, etc.</value>
+      <value>Create New Record</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;quicksearch&quot;)</value>
+      <value>id(&quot;knob-buttons&quot;)/input[@id=&quot;commit&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

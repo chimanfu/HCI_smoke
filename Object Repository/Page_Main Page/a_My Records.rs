@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[contains(@href, 'buglist.cgi?emailassigned_to1=1') and (text() = 'My Records' or . = 'My Records')]</value>
+         <value>//a[contains(@href, 'buglist.cgi?') and (text() = 'My Records' or . = 'My Records')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -24,7 +24,7 @@
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>buglist.cgi?emailassigned_to1=1</value>
+      <value>buglist.cgi?</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

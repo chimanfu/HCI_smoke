@@ -17,17 +17,14 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKey
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import org.openqa.selenium.Keys as Keys
 import internal.GlobalVariable as GlobalVariable
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
 
-/*WebUI.openBrowser('')
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
-
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))*/
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
+Screen s = new Screen()
 ///////////////
 search_term='test_automation_record'
 println('will create a new record ONLY if not already exists')
@@ -60,11 +57,64 @@ if (WebUI.getText(findTestObject('Page_Record List/div_Displaying_how_many_found
 			WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))		
 			WebUI.selectOptionByValue(findTestObject('Page_Enter Record 20g Centrifuge/select_options'),
 				'AF - Aviation Systems Division', true)
+		}else if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
+			println 'this is iss_hazard'
+			
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New blank record'))		
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AdAstraRocketCompany'))
+			/*
+			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
+			WebUI.selectOptionByLabel(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),
+				'.*Ha.*',true)
+			
+			WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_Create New Record'),5)
+			WebUI.sendKeys(Keys.TAB)
+			WebUI.sendKeys(Keys.TAB)
+			WebUI.sendKeys(Keys.TAB)
+			WebUI.sendKeys(Keys.ArrowDown+Keys.Enter)
+			
+			
+			
+			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
+			WebUI.selectOptionByIndex(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),
+				2)*/
+			//WebUI.delay(1)
 		}
+		
+		
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		println('going to add a short description in title field, then create a new record with ttile '+search_term)
-		WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
 		
+		if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
+			WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
+			println 'this is iss_hazard'
+			WebUI.delay(1)
+			s.type(Key.TAB)
+			s.type(Key.TAB)
+			WebUI.delay(1)
+			s.type(Key.DOWN)
+			WebUI.delay(2)
+			s.type(Key.DOWN)
+			WebUI.delay(1)
+			s.type(Key.DOWN)
+			WebUI.delay(2)
+			s.type(Key.SPACE)
+			WebUI.delay(3)
+			//WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term+Keys.TAB+Keys.TAB+Keys.DOWN+Keys.DOWN+Keys.DOWN+Keys.ENTER)
+			/*
+			WebUI.sendKeys(findTestObject('Page_Enter Record View/input_short_desc'),Keys.chord(Keys.TAB))
+			WebUI.sendKeys(findTestObject('Page_Enter Record View/input_short_desc'),Keys.chord(Keys.TAB))
+			WebUI.sendKeys(findTestObject('Page_Enter Record View/input_short_desc'),Keys.chord(Keys.ARROW_DOWN))
+			WebUI.sendKeys(findTestObject('Page_Enter Record View/input_short_desc'),Keys.chord(Keys.ARROW_DOWN))
+			WebUI.sendKeys(findTestObject('Page_Enter Record View/input_short_desc'),Keys.chord(Keys.ENTER))
+			*/
+			
+		
+			
+		}else{
+			WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
+		}
 		WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))
 		
 		WebUI.waitForElementVisible(findTestObject('Page_Record View - test_automation_record/div_Record Title'), 

@@ -18,22 +18,14 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-/*
- WebUI.openBrowser('')
- 
- WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
- 
- WebUI.click(findTestObject('Page_Login/input_login_btn'))
- 
- WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
- */
- 
+
+//CustomKeywords.'helper.login.LoginHelper.login'()
+
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 
 WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
-
 
 WebUI.click(findTestObject('Page_Record test_automation_record/a_Create Record Snapshot'))
 
@@ -41,7 +33,9 @@ WebUI.setText(findTestObject('Page_Record test_automation_record/input_xml_versi
 
 WebUI.click(findTestObject('Page_Record test_automation_record/button_Create Snapshot'))
 
-WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Save Changes'),20)
+//WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
+
 //WebUI.delay(2)
 WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Hazard PDF') ,40)
 WebUI.delay(5)
@@ -51,6 +45,6 @@ WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/sel
 WebUI.delay(1)
 WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 WebUI.delay(4)
-WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),20)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),25)
 //WebUI.click(findTestObject('Page_Record test_automation_record/a_Home'))
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>a_VTL</name>
+   <tag></tag>
+   <elementGuidId>6a3ec9b5-9a5d-48a0-9bff-0e7457cef264</elementGuidId>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>a</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>href</name>
+      <type>Main</type>
+      <value>buglist.cgi?format=vtl&amp;search_type=vtl&amp;cf_record_type=Verification Tracking Item&amp;start_with_empty_list=1</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>VTL</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;bugzilla_body_tag&quot;)/div[@class=&quot;praca_global_toolbar&quot;]/div[@class=&quot;left_menu&quot;]/ul[1]/li[1]/a[1]</value>
+   </webElementProperties>
+</WebElementEntity>
