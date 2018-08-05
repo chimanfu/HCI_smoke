@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>Start Chrome maximized and hide info bars</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>e16f0568-ef08-4037-a6dc-6fc08e39c5c3</testCaseGuid>
+</TestCaseEntity>
