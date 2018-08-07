@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalVariableEntities>
    <description></description>
-   <name>cp_oms_dev</name>
+   <name>cp_inventory_dev</name>
    <tag></tag>
    <defaultProfile>false</defaultProfile>
    <GlobalVariableEntity>
@@ -10,8 +10,8 @@
       <name>G_image_path</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
-      <description></description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/'</initValue>
+      <description>PASS smoke test</description>
+      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_inventory_dev'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -51,7 +51,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'debf133'</initValue>
+      <initValue>'48654b9'</initValue>
       <name>G_git_hash_ver</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -61,7 +61,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'21303'</initValue>
+      <initValue>'develop HEAD (21372)'</initValue>
       <name>G_tag_ver</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -91,7 +91,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description>CP-Hazard, CP-OMS</description>
-      <initValue>'CP-OMS'</initValue>
+      <initValue>'CP-Hazard'</initValue>
       <name>G_MAKE_MAS_title</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>

@@ -19,6 +19,13 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+/*
+ * open the record with name 'test_automation_record'
+ * click 'Create PDF' link
+ * click 'Generate PDF' button
+ * verify PDF is generated 
+ */
+
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
 /*

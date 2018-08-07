@@ -19,6 +19,16 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+/*
+ * get the record with name 'test_automation_record'
+ * make some changes on the record
+ * create snapshot (should save the record automatically)
+ * click on PDF link 
+ * PDF dialog popup with 'Show changes relative to the version:'
+ * select a version from the snapshots
+ * click 'Generate PDF' to create a pdf file
+ * check pdf file is generated correctly
+ */
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')

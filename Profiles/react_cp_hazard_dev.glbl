@@ -51,7 +51,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'debf133'</initValue>
+      <initValue>'48654b9'</initValue>
       <name>G_git_hash_ver</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -61,7 +61,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'21303'</initValue>
+      <initValue>'develop HEAD (21372)'</initValue>
       <name>G_tag_ver</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

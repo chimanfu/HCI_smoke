@@ -400,6 +400,6 @@ def static "question.VerifyInItemGrid.multipleTestObject"(
          , 	ObjectThree)
 }
 
-def static "hci_smoke_test.create_new_record.openBrowser"() {
-    (new hci_smoke_test.create_new_record()).openBrowser()
+def static "hci_smoke_test.create_new_record.iss_hazard"() {
+    (new hci_smoke_test.create_new_record()).iss_hazard()
 }

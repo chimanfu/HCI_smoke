@@ -18,16 +18,9 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
 /*
- WebUI.openBrowser('')
- 
- WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
- 
- WebUI.click(findTestObject('Page_Login/input_login_btn'))
- 
- WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
- 
+ * do a search of test_automation_record
+ * mail search result to any team member
 */
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 

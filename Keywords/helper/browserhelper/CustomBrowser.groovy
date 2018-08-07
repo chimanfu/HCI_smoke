@@ -34,6 +34,8 @@ public class CustomBrowser {
 		WebUI.openBrowser("")
 		WebUI.waitForPageLoad(GlobalVariable.G_timeout)
 		WebUI.maximizeWindow()
+		WebUI.switchToDefaultContent()
+		WebUI.switchToWindowIndex(0)
 	}
 
 	@Keyword

@@ -19,9 +19,13 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+/*
+ * click the Help link to open up Help doc
+ * verify all links are working fine in the Help doc
+ */
+
 
 //CustomKeywords.'helper.login.LoginHelper.login'()
-
 
 WebUI.click(findTestObject('Page_Main Page/a_Help'))
 WebUI.delay(1)

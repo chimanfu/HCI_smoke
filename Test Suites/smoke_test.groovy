@@ -28,7 +28,7 @@ import com.kms.katalon.core.annotation.TearDownIfError
 import com.kms.katalon.core.annotation.TearDownIfFailed
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
-
+import org.sikuli.script.App;
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -149,20 +149,26 @@ def setupTestCase() {
 		println('accept alert='+alertText)
 	}
 	
-	if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),8,FailureHandling.OPTIONAL)){
+	if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),30,FailureHandling.OPTIONAL)){
 		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-		WebUI.waitForPageLoad(6)
-		//WebUI.delay(2)
-		
-		s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+		WebUI.waitForPageLoad(10)
+		WebUI.delay(2)
+		App.focus('Chrome')
+		s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',35)
 		s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+		try {
+			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
 		
-		if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+		WebUI.delay(2)
+		if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',10)!=null){
 			//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 			s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 		}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',10)!=null){
 				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 			}

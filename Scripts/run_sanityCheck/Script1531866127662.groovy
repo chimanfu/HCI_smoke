@@ -5,6 +5,8 @@ import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.osgi.framework.AdminPermission
+import org.postgresql.translation.messages_bg
 import org.python.antlr.PythonParser.return_stmt_return
 import org.openqa.selenium.WebDriver
 import org.sikuli.script.Screen as Screen
@@ -12,6 +14,11 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
+
+/*goto Admin
+select 'Sanity Check'
+check acceptable errors in red (alert)
+check key expected messages*/
 
 KeywordLogger log = new KeywordLogger()
 
@@ -23,6 +30,9 @@ log.logNotRun("")
 log.logPassed("")
 log.logWarning("")
 */
+
+CustomKeywords.'helper.login.LoginHelper.login'()
+
 
 String logMessage=''
 def checkLogMessage(String checklogMessage,String logMessage){
@@ -50,7 +60,6 @@ WebUI.delay(10)
 
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 */
-//CustomKeywords.'helper.login.LoginHelper.login'()
 
 
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
@@ -102,8 +111,6 @@ WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check com
 WebUI.delay(1)
 
 
-
-
 //alertMessages=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_alert_messages'))
 //println(alertMessages)
 
@@ -116,10 +123,14 @@ List<WebElement> elements = driver.findElements(By.xpath("//p[@class = 'alert']"
 for (int i = 0; i < elements.size(); i++) {
 	found_expected_log_message=false
 	String found_ALERT_MESSAGE=elements.get(i).getText()
-	log.logInfo("found ALERT MESSAGE: " + found_ALERT_MESSAGE);
 	if (found_ALERT_MESSAGE.contains('attachment')){
 		continue
 	}
+	if (found_ALERT_MESSAGE.contains('Records that have changes but no mail sent for at least half an hour')){
+		continue
+	}
+	log.logInfo("found ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	
 	////
 	for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()

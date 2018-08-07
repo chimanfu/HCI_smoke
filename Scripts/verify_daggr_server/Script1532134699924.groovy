@@ -19,6 +19,13 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+/*
+ * goto Admin->Parameters->DAggr Params
+ * check value of daggr_server
+ */
+
+//CustomKeywords.'helper.login.LoginHelper.login'()
+
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))

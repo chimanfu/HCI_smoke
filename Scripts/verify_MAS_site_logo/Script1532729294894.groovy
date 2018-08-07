@@ -20,6 +20,14 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
+
+/*
+ * verify the MAS site logo is correct
+ * use OpenCV to locate image
+ */
+
+//CustomKeywords.'helper.login.LoginHelper.login'()
+
 Screen s = new Screen();
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')

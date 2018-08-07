@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-02T22:02:11</lastRun>
+   <lastRun>2018-08-06T23:15:51</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -14,49 +14,49 @@
    <testCaseLink>
       <guid>f19d1a53-82f2-41a5-b55c-2639235e175b</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/login_basic_checks</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>43538696-da1a-4895-a64e-9248a2d03fe9</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_permittedBrowsers</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>14753340-2871-4427-a248-22fb9c42b281</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_bad_browser_blurb</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>4efdb960-8e9b-4a20-bbeb-1067ef446855</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_help_documentation_loads</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>86e702fa-dbe8-4676-a77a-bd9eafc40984</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_daggr_server</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>7de3bedb-ab49-416e-84bb-eaaeebdee1fc</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_correct_git_hash</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b41a32be-ddec-4fbe-b396-817fc04d6609</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -104,7 +104,7 @@
    <testCaseLink>
       <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/run_sanityCheck</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

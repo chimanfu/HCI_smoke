@@ -22,6 +22,14 @@ import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.Keys as Keys
 import org.sikuli.script.Key as Key
 import org.sikuli.script.Screen as Screen
+
+/*
+login to site
+check Home page elements
+click on each tab on toolbar
+*/
+
+
 KeywordLogger log = new KeywordLogger()
 Screen s = new Screen()
 

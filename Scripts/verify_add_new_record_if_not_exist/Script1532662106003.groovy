@@ -22,6 +22,10 @@ import internal.GlobalVariable as GlobalVariable
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
 
+/*if the site url contains 'MAKE-MAS', then
+add a new record 'test_automation_record' if not exists
+*/
+
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
 Screen s = new Screen()

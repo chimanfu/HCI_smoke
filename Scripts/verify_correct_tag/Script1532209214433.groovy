@@ -20,16 +20,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 /*
- WebUI.openBrowser('')
- 
- WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
- 
- WebUI.click(findTestObject('Page_Login/input_login_btn'))
- 
- WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+ * check git hash at the bottom
+ * which one is git hash or tag
+ * About RHEO rev 9756b6b develop HEAD (21366)
  */
- 
- //WebUI.click(findTestObject('Page_Main Page/html_Main Page'))
+
+
  
  WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
  
