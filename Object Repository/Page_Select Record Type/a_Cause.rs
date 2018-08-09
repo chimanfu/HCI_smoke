@@ -4,6 +4,12 @@
    <name>a_Cause</name>
    <tag></tag>
    <elementGuidId>86a227b1-d6ea-48e8-abf2-ff9a5fc3fd13</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[starts-with(@href, 'enter_bug.cgi?classification=')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -15,13 +21,13 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>starts with</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>enter_bug.cgi?classification=Cause</value>
+      <value>enter_bug.cgi?classification=</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>

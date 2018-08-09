@@ -18,22 +18,25 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.Keys as Keys
 import org.sikuli.script.Key as Key
 import org.sikuli.script.Screen as Screen
 
 /*
-login to site
-check Home page elements
+login to site and home page
+check Links Broken (http return code != 200) On Home Page 
+check Home page elements/links
 click on each tab on toolbar
+
 */
 
 
 KeywordLogger log = new KeywordLogger()
 Screen s = new Screen()
 
-//CustomKeywords.'helper.login.LoginHelper.login'()
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 /*WebUI.openBrowser('')
 WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -54,6 +57,10 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, Fai
     }
 	WebUI.waitForPageLoad(4)
 	println('perform some basic checks on the menu toolbar and items from the Main Page...')
+	
+	println('check Links Broken (http return code != 200) On Current Page of New Record Record')
+	CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
+	
 	WebUI.click(findTestObject('Page_Main Page/a_Home'))
 	
 	if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_New'), 2, FailureHandling.OPTIONAL)) {
@@ -84,6 +91,7 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, Fai
 	WebUI.click(findTestObject('Object Repository/Page_User Preferences/a_Admin'))
 	
 	WebUI.click(findTestObject('Page_Administer your installation/a_Home'))
+	/*
 	WebUI.click(findTestObject('Object Repository/Page_Search for records/a_Help'))
 	
 	
@@ -96,8 +104,9 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, Fai
 		WebUI.closeWindowTitle('Help')
 	}
 	
-	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
 	
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
+	*/
 	println('perform some basic checks on the menu items done!')
     //println('*** SetupTestCase done ***')
 

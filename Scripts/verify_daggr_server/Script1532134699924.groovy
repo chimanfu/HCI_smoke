@@ -18,14 +18,23 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import com.mysql.jdbc.StringUtils;
 
 /*
+ * 
  * goto Admin->Parameters->DAggr Params
- * check value of daggr_server
+ * check value of daggr_server from profile (G_dagger_server_url)
+ * will skip test if G_dagger_server_url is empty
+ * 
  */
 
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
+//if (GlobalVariable.G_dagger_server_url.)
+if (!StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
+	println('do not need to run this test')
+	return
+}
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))

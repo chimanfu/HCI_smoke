@@ -60,11 +60,18 @@ WebUI.click(findTestObject('Page_Main Page/a_Home'))
  
  WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
  */
- 
+
+/*
+ * search for keyword '10,11' with search option as 'all' in the simple search field'
+ * is should show records 10 and 11 from the system
+ * 
+ */
+
+String search_term='10,11'
 WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
 WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
 WebUI.waitForPageLoad(5)
-WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), 'test_automation_record')
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 

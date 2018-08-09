@@ -21,8 +21,12 @@ import internal.GlobalVariable as GlobalVariable
 
 /*
  * check git hash at the bottom
- * which one is git hash or tag
- * About RHEO rev 9756b6b develop HEAD (21366)
+ * check for this format:
+ * 		About RHEO rev 9756b6b develop HEAD (21366)
+ * need a way to verify the expected git hash (may only require in production sites
+ * for example:
+ * 	https://docs.google.com/spreadsheets/d/1ouQAmhtSV9Z1pxPs1gGEtkUhc4Dd4Fap6hCJFfXXDyk/edit#gid=0
+ *
  */
 
 

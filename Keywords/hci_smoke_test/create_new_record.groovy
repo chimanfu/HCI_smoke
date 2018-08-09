@@ -27,7 +27,7 @@ import com.kms.katalon.core.webui.common.WebUiCommonHelper
 import com.kms.katalon.core.webui.driver.DriverFactory
 
 import internal.GlobalVariable
-
+//import internal.GlobalVariable
 //import org.openqa.selenium.WebDriver as WebDriver
 import org.openqa.selenium.logging.LogEntries as LogEntries
 import org.openqa.selenium.logging.LogEntry as LogEntry
@@ -45,6 +45,7 @@ import WSBuiltInKeywords as WS
 import WebUiBuiltInKeywords as WebUI
 
 public class create_new_record {
+
 
 	public void appendBrowserLogs() {
 		WebDriver driver = DriverFactory.getWebDriver()

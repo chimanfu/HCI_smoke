@@ -15,10 +15,19 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 
-/*goto Admin
-select 'Sanity Check'
+/*
+click 'Admin' link
+select 'Sanity Check' link
 check acceptable errors in red (alert)
-check key expected messages*/
+	only check after seeing....OK, now running sanity checks.
+	compare it with the list of acceptable errors
+	will fail test if see unexpected alert messages
+check important expected log messages such as...
+	OK, now running sanity checks.
+	Sanity check completed.
+
+*
+*/
 
 KeywordLogger log = new KeywordLogger()
 
@@ -31,7 +40,7 @@ log.logPassed("")
 log.logWarning("")
 */
 
-CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.login'()
 
 
 String logMessage=''

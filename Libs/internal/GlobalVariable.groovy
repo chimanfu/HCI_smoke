@@ -156,10 +156,55 @@ Profile wstf_dev : CP-Hazard, CP-OMS</p>
      */
     public static Object G_MAKE_MAS_title
      
+    /**
+     * <p></p>
+     */
+    public static Object recordName1
+     
+    /**
+     * <p></p>
+     */
+    public static Object recordName2
+     
+    /**
+     * <p></p>
+     */
+    public static Object search_term
+     
+    /**
+     * <p></p>
+     */
+    public static Object search_keyWord
+     
+    /**
+     * <p></p>
+     */
+    public static Object signatureDisabled
+     
+    /**
+     * <p></p>
+     */
+    public static Object addNewRecord
+     
+    /**
+     * <p></p>
+     */
+    public static Object bad_browser_blurb_message
+     
+    /**
+     * <p></p>
+     */
+    public static Object allowedBrowsers
+     
+    /**
+     * <p></p>
+     */
+    public static Object savedSearchName
+     
 
     static {
         def allVariables = [:]        
-        allVariables.put('default', ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/sims_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SIMS'])
+        allVariables.put('default', ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/sims_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SIMS', 'recordName1' : '', 'recordName2' : '', 'search_term' : '', 'search_keyWord' : '', 'signatureDisabled' : false, 'addNewRecord' : true, 'bad_browser_blurb_message' : '', 'allowedBrowsers' : ['Explorer', 'Chrome', 'Firefox', 'Safari'], 'savedSearchName' : 'joe_search'])
         allVariables.put('arc_praca_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/arc_praca_dev/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'CP-Hazard'])
         allVariables.put('cofr_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : '48654b9', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : 'develop HEAD (21372)', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'CP-Hazard'])
         allVariables.put('cp_dmm_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_dmm_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : '48654b9', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : 'develop HEAD (21372)', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'CP-Hazard'])
@@ -190,7 +235,7 @@ Profile wstf_dev : CP-Hazard, CP-OMS</p>
         allVariables.put('rheo_dev_qa', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-stage.nas.nasa.gov/MAKE-MAS/mas/rheo_dev_qa/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SIMS'])
         allVariables.put('rheo_stage', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/rheo_stage_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SIMS'])
         allVariables.put('sims_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/sims_dev/', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'CP-Hazard'])
-        allVariables.put('ssma_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/ssma_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SIMS'])
+        allVariables.put('ssma_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/ssma_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : '', 'G_git_hash_ver' : 'debf133', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : '21303', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'SSMA'])
         allVariables.put('wstf_dev', allVariables['default'] + ['G_image_path' : '/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/', 'G_MAKE_MAS_url' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/wstf_dev', 'G_timeout' : 30, 'G_wait_s' : 2, 'G_wait_m' : 5, 'G_wait_l' : 10, 'smartcard_login_button' : 'G_image_path+\'smartcard_login_button.png\'', 'G_userPin' : '10051965', 'G_dagger_server_url' : 'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/', 'G_git_hash_ver' : '48654b9', 'G_permitted_browser' : 'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari', 'G_tag_ver' : 'develop HEAD (21372)', 'userPin2' : '108676523', 'userPin3' : '10062016', 'cp_oms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/', 'cp_hazard_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/', 'cp_lms_dev' : 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_lms_dev/', 'G_MAKE_MAS_title' : 'CP-Hazard'])
         
         String profileName = RunConfiguration.getExecutionProfile()
@@ -214,6 +259,15 @@ Profile wstf_dev : CP-Hazard, CP-OMS</p>
         cp_hazard_dev = selectedVariables['cp_hazard_dev']
         cp_lms_dev = selectedVariables['cp_lms_dev']
         G_MAKE_MAS_title = selectedVariables['G_MAKE_MAS_title']
+        recordName1 = selectedVariables['recordName1']
+        recordName2 = selectedVariables['recordName2']
+        search_term = selectedVariables['search_term']
+        search_keyWord = selectedVariables['search_keyWord']
+        signatureDisabled = selectedVariables['signatureDisabled']
+        addNewRecord = selectedVariables['addNewRecord']
+        bad_browser_blurb_message = selectedVariables['bad_browser_blurb_message']
+        allowedBrowsers = selectedVariables['allowedBrowsers']
+        savedSearchName = selectedVariables['savedSearchName']
         
     }
 }

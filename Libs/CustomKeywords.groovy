@@ -5,9 +5,11 @@
 
 import java.lang.String
 
+import java.util.List
+
 import com.kms.katalon.core.testobject.TestObject
 
-import java.util.List
+import org.openqa.selenium.WebElement
 
 
 def static "question.CustomDatabase.executeQuery"(
@@ -16,6 +18,24 @@ def static "question.CustomDatabase.executeQuery"(
     (new question.CustomDatabase()).executeQuery(
         	connectionUrl
          , 	query)
+}
+
+def static "com.common.utils.SetDesiredCapability.chrome"(
+    	List desiredCapabilities	) {
+    (new com.common.utils.SetDesiredCapability()).chrome(
+        	desiredCapabilities)
+}
+
+def static "com.common.utils.SetDesiredCapability.firefox"(
+    	Object desiredCapabilities	) {
+    (new com.common.utils.SetDesiredCapability()).firefox(
+        	desiredCapabilities)
+}
+
+def static "com.common.utils.SetDesiredCapability.ie"(
+    	Object desiredCapabilities	) {
+    (new com.common.utils.SetDesiredCapability()).ie(
+        	desiredCapabilities)
 }
 
 def static "helper.javascript.JavaScriptHelper.appendBrowserLogs"() {
@@ -180,6 +200,28 @@ def static "question.RandomEmail.getEmail"(
          , 	prefix)
 }
 
+def static "hci_smoke_test.common.checkLinksBrokenOnCurrentPage"() {
+    (new hci_smoke_test.common()).checkLinksBrokenOnCurrentPage()
+}
+
+def static "hci_smoke_test.common.refreshBrowser"() {
+    (new hci_smoke_test.common()).refreshBrowser()
+}
+
+def static "hci_smoke_test.common.clickElement"(
+    	TestObject to	) {
+    (new hci_smoke_test.common()).clickElement(
+        	to)
+}
+
+def static "hci_smoke_test.common.getHtmlTableRows"(
+    	TestObject table	
+     , 	String outerTagName	) {
+    (new hci_smoke_test.common()).getHtmlTableRows(
+        	table
+         , 	outerTagName)
+}
+
 def static "reusableComponents.DatepickerHandler.handleDatepicker"(
     	TestObject calender	
      , 	String exp_Date	
@@ -194,7 +236,7 @@ def static "reusableComponents.DatepickerHandler.handleDatepicker"(
 
 def static "reusableComponents.VerifyExpectedAndActualOptionsInDropdown.VerifyExpectedAndActual"(
     	TestObject objectto	
-     , 	java.util.List<String> listOfOptions	) {
+     , 	List listOfOptions	) {
     (new reusableComponents.VerifyExpectedAndActualOptionsInDropdown()).VerifyExpectedAndActual(
         	objectto
          , 	listOfOptions)
@@ -238,6 +280,30 @@ def static "reusableComponents.webTable.Selecting_CheckBox_From_WebTable"(
     (new reusableComponents.webTable()).Selecting_CheckBox_From_WebTable(
         	ExpectedRowName
          , 	Column)
+}
+
+def static "com.jira.components.JSelect.selectByText"(
+    	TestObject o	
+     , 	String optionText	) {
+    (new com.jira.components.JSelect()).selectByText(
+        	o
+         , 	optionText)
+}
+
+def static "com.jira.components.JSelect.selectByText"(
+    	String labelSelect	
+     , 	String optionText	) {
+    (new com.jira.components.JSelect()).selectByText(
+        	labelSelect
+         , 	optionText)
+}
+
+def static "com.jira.components.JSelect.selectByText"(
+    	WebElement el	
+     , 	String optionText	) {
+    (new com.jira.components.JSelect()).selectByText(
+        	el
+         , 	optionText)
 }
 
 def static "helper.excel.ExcelHelper.writeTOExcelFile"(
@@ -376,6 +442,14 @@ def static "randomData.TestDataGenerator.getRandomPhoneNumberINDIA"() {
 
 def static "randomData.TestDataGenerator.getRandom_Mailiantor_Email"() {
     (new randomData.TestDataGenerator()).getRandom_Mailiantor_Email()
+}
+
+def static "com.jira.utils.CustomGlobalVariable.addGlobalVariable"(
+    	String name	
+     , 	Object value	) {
+    (new com.jira.utils.CustomGlobalVariable()).addGlobalVariable(
+        	name
+         , 	value)
 }
 
 def static "question.VerifyInItemGrid.verifyItemInTheGrid"(

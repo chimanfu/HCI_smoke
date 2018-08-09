@@ -102,6 +102,13 @@ def setUp() {
 	cmd="killall -9 chromedriver"
 	Runtime.getRuntime().exec(cmd)
 	println('killed all processes of Chrome and chromedriver before running test')
+	
+	/*List desiredCapabilities = []
+	desiredCapabilities.add("--start-maximized")
+	desiredCapabilities.add("--disable-infobars")
+	desiredCapabilities.add("--user-data-dir=/Users/jcfu/Library/Application Support/Google/Chrome")
+	desiredCapabilities.add("--profile-directory=Default")
+	CustomKeywords.'com.common.utils.SetDesiredCapability.chrome'(desiredCapabilities)*/
 }
 
 /**

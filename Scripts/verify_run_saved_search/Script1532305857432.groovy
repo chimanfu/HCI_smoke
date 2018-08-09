@@ -20,6 +20,22 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 /*
+ * click on Saved Searches
+ * select 'My Records'
+ * enter search_term 10,11 into keyword search field
+ * click Search button
+ * click on 'Save Search'
+ * type 'joe_search'
+ * click Save button
+ * click on Saved Searches
+ * select 'joe_search'
+ * verify records shown
+ * select 'Forget Search' link
+ * verify notification_message that search search 'joe_search' is gone
+ */
+String search_term='10,11'
+String saveSearchName='joe_search'
+/*
 WebUI.openBrowser('')
 
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
@@ -35,15 +51,16 @@ WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)
 
-WebUI.click(findTestObject('Page_Record List/a_EditSearch'))
+//WebUI.click(findTestObject('Page_Record List/a_EditSearch'))
 
-WebUI.setText(findTestObject('Page_Search for records/input_content'), 'test_automation_record')
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
-WebUI.click(findTestObject('Page_Search for records/input_Search'))
+WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+
 
 WebUI.click(findTestObject('Page_Record List/label_SaveSearch'))
 
-WebUI.setText(findTestObject('Page_Record List/input_newqueryname'), 'joe_search')
+WebUI.setText(findTestObject('Page_Record List/input_newqueryname'), saveSearchName)
 
 WebUI.click(findTestObject('Page_Record List/button_Save'))
 

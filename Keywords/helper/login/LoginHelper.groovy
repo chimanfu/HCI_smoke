@@ -43,7 +43,7 @@ import org.sikuli.script.Screen;
 public class LoginHelper {
 	@Keyword
 	public void login(){
-		
+
 		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
 			//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
@@ -63,7 +63,7 @@ public class LoginHelper {
 		//cmd="killall -9 chromedriver"
 		//Runtime.getRuntime().exec(cmd)
 		println('killed all processes of Chrome and chromedriver before running test')
-		
+
 		Screen s = new Screen();
 		WebUI.openBrowser('')
 		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -71,15 +71,15 @@ public class LoginHelper {
 		WebUI.click(findTestObject('Page_Login/input_login_btn'))
 		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-		
+
 		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15,FailureHandling.OPTIONAL)){
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 			WebUI.waitForPageLoad(6)
 			WebUI.delay(1)
-			
+
 			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
 			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-			
+
 			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',3)!=null){
 				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
@@ -89,9 +89,9 @@ public class LoginHelper {
 					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 				}
-			}			
+			}
 			WebUI.delay(5)
-			s.type(GlobalVariable.G_userPin+"\n")		
+			s.type(GlobalVariable.G_userPin+"\n")
 		}
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -109,12 +109,12 @@ public class LoginHelper {
 				println('found cp_hazard_logo')
 				println('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
 			}
-			
+
 			//WebUI.waitForPageLoad(30)
 			println('*** Done Login ***')
 		}
 	}
-	
+
 	@Keyword
 	public void loginIntoApplication(String applicationUrl,String Username,String Password){
 

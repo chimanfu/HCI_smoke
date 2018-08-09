@@ -19,14 +19,72 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import java.util.List
+import com.kms.katalon.core.webui.driver.DriverFactory
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import java.util.List;
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.osgi.framework.AdminPermission
+import org.postgresql.translation.messages_bg
+import org.python.antlr.PythonParser.return_stmt_return
+import org.openqa.selenium.WebDriver
+import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.mysql.jdbc.StringUtils;
+import internal.GlobalVariable as GlobalVariable
 
 /*
- * need a way to dynamically get all the add new record links on the page
- * then open each link to see if there is js error
+ * click on New link
+ * check Links Broken (http return code != 200) On Current Page of New Record Record
+ * dynamically get all the add new record links on the page (Page_Select Record Type)
+ * 		get new record link name and url
+ * 		navigate each link url to open new record page 
+ * 		check for js error on new record page 
  */
-//CustomKeywords.'helper.login.LoginHelper.login'()
 
-if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+CustomKeywords.'helper.login.LoginHelper.login'()
+KeywordLogger log = new KeywordLogger()
+String found_new_record_link
+String url
+
+println('click New Record link')
+WebUI.click(findTestObject('Page_Main Page/a_New'))
+println('check Links Broken (http return code != 200) On Current Page of New Record Record')
+CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
+WebDriver driver = DriverFactory.getWebDriver()
+println('get all new record links from the New Record Page')
+List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
+
+WebElement firstElement = elements.get(0);
+
+int size=elements.size()
+urls = new String[size]
+for (int i = 0; i < size; i++) {
+	println('get new record link name and url')
+	found_new_record_link=elements.get(i).getText()
+	url = elements.get(i).getAttribute("href");
+	urls[i]=url
+	log.logInfo("found_new_record_link: " + found_new_record_link);
+	log.logInfo("with URL: " + url);
+
+}
+for (int i = 0; i < size; i++) {
+	println('navigate to new record link: '+urls[i])
+	WebUI.navigateToUrl(urls[i])
+	//driver.navigate().to(url)
+	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+	//WebUI.click(findTestObject('Page_Main Page/a_New'))
+
+}
+return
+
+if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 	println 'this is cp_hazard'
 	WebUI.click(findTestObject('Page_Main Page/a_New'))
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
@@ -212,5 +270,33 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 }else if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
 	println 'this is iss_hazard'
 	CustomKeywords.'hci_smoke_test.create_new_record.iss_hazard'()
+
+}else{
+	 found_new_record_link
+	 url
+	WebUI.click(findTestObject('Page_Main Page/a_New'))
+	CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
+	//WebDriver driver = DriverFactory.getWebDriver()
+	println('get all new record links from the New Record Page')
+	elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
+	size=elements.size()
+	urls = new String[size]
+	for (int i = 0; i < size; i++) {
+		println('get new record link name and url')
+		found_new_record_link=elements.get(i).getText()
+		url = elements.get(i).getAttribute("href");
+		urls[i]=url
+		log.logInfo("found_new_record_link: " + found_new_record_link);
+		log.logInfo("with URL: " + url);
+
+	}
+	for (int i = 0; i < size; i++) {
+		println('navigate to new record link: '+urls[i])
+		WebUI.navigateToUrl(urls[i])
+		//driver.navigate().to(url)
+		CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
+		//WebUI.click(findTestObject('Page_Main Page/a_New'))
+
+	}
 
 }

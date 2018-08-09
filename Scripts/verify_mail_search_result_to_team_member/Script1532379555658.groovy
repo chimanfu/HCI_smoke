@@ -22,6 +22,8 @@ import internal.GlobalVariable as GlobalVariable
  * do a search of test_automation_record
  * mail search result to any team member
 */
+String search_term='10,11'
+
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
 WebUI.click(findTestObject('Page_Main Page/a_My Records'))

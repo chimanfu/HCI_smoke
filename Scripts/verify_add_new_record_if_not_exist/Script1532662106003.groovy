@@ -21,10 +21,41 @@ import org.openqa.selenium.Keys as Keys
 import internal.GlobalVariable as GlobalVariable
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import java.util.List
+import com.kms.katalon.core.webui.driver.DriverFactory
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import java.util.List;
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.osgi.framework.AdminPermission
+import org.postgresql.translation.messages_bg
+import org.python.antlr.PythonParser.return_stmt_return
+import org.openqa.selenium.WebDriver
+import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.mysql.jdbc.StringUtils;
+import internal.GlobalVariable as GlobalVariable
+/*
+ NOT REQUIRED AND should not create new record on production site
+ 
+only for dev sites
+if the site url contains 'MAKE-MAS', then
+create a new record 'test_automation_record' if not exists
 
-/*if the site url contains 'MAKE-MAS', then
-add a new record 'test_automation_record' if not exists
+need a list of records for production sites that can do search, snapshot or diff report
+need a list of sites who can do snapshot, diff report etc...
+which sites support dagger_server ?
+need a better way to capture git hash and tag on production sites
+sanity check only checks after 'OK, now running sanity checks'
+
 */
+println('The test will not run, as no need to add a new record for smoke test')
+return
 
 //CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -36,11 +67,12 @@ WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 String url=GlobalVariable.G_MAKE_MAS_url
 if (url.contains('MAKE-MAS')){
-	println('The URL is a test instance')
+	println('The URL is a test OR dev instance')
 }else{
 	println('The URL is NOT a test instance, so should not create new record on production site')
 	return null
 }
+WebUI.waitForElementVisible(findTestObject('Page_Record List/div_Displaying_how_many_found'), 10)
 if (WebUI.getText(findTestObject('Page_Record List/div_Displaying_how_many_found')).contains('0 of 0')){
 	println('0 of 0 record found with search term='+search_term)
 	if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'),FailureHandling.OPTIONAL)){
@@ -48,6 +80,8 @@ if (WebUI.getText(findTestObject('Page_Record List/div_Displaying_how_many_found
 		println('will add a new record with tile ='+search_term)
 		
 		WebUI.click(findTestObject('Page_Main Page/a_New'))
+		
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 			println 'this is cp_hazard'		
@@ -77,12 +111,17 @@ if (WebUI.getText(findTestObject('Page_Record List/div_Displaying_how_many_found
 			WebUI.sendKeys(Keys.TAB)
 			WebUI.sendKeys(Keys.ArrowDown+Keys.Enter)
 			
-			
-			
 			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
 			WebUI.selectOptionByIndex(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),
 				2)*/
 			//WebUI.delay(1)
+		}else{
+			WebDriver driver = DriverFactory.getWebDriver()
+			println('get all new record links from the New Record Page')
+			List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
+			WebElement firstElement = elements.get(0);
+			//String url = elements.get(0).getAttribute("href");
+			WebUI.navigateToUrl(elements.get(0).getAttribute("href"))
 		}
 		
 		

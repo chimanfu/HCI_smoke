@@ -18,7 +18,10 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
+if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
+	println('do not need to run this test')
+	return
+}
 /*
  * open the record with name 'test_automation_record'
  * click 'Create PDF' link

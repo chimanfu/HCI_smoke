@@ -24,13 +24,25 @@ import internal.GlobalVariable as GlobalVariable
  * verify all links are working fine in the Help doc
  */
 
-
-//CustomKeywords.'helper.login.LoginHelper.login'()
+if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
+	println('do not need to run this test')
+	return
+}
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Help'))
+int currentTab = WebUI.getWindowIndex()
 WebUI.delay(1)
 //GlobalVariable.G_MAKE_MAS_title
-WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+try{
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+}catch (Exception e) {
+	println('cannot switch window ' + e.getMessage())
+	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
+	WebUI.switchToWindowIndex(currentTab+1)
+}
+
+
 WebUI.delay(1)
 //WebUI.waitForPageLoad(5)
 
@@ -108,9 +120,18 @@ else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
 	
 	
 }
-WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
-WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
+try{
+	WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
 
+}catch (Exception e) {
+	println('cannot close/switch window ' + e.getMessage())
+	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
+	WebUI.closeWindowIndex(currentTab+1)
+	WebUI.switchToWindowIndex(currentTab)
+	
+}
+WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
 //WebUI.click(findTestObject('Page_Main Page/a_Home'))
 
 

@@ -4,6 +4,12 @@
    <name>a_All</name>
    <tag></tag>
    <elementGuidId>63d12cba-2cf0-48ee-a3eb-f42543cf535a</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@href = 'enter_bug.cgi?classification=__all' and (contains(text(), 'All') or contains(., 'All'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -22,11 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>
-      All</value>
+      <value>All</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
