@@ -75,9 +75,17 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordName_forDiffReport)
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
-
-WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
-
+WebUI.delay(2)
+try{
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),5)){
+		WebUI.click(findTestObject('Page_Record List/a_record_1'))
+	}
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_test_automation_record'),1)){
+		WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
+	}
+}catch (Exception e) {
+	e.printStackTrace()
+}
 /*WebUI.click(findTestObject('Page_Record test_automation_record/a_Create Record Snapshot'))
 
 WebUI.setText(findTestObject('Page_Record test_automation_record/input_xml_version_description'), recordName_forDiffReport)

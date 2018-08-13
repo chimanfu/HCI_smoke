@@ -7,30 +7,30 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//h1[(contains(text(), 'User Guide') or contains(., 'User Guide'))]</value>
+         <value>//h1[(contains(text(), 'User Guide') or (contains(text(), 'user guide') or contains(., 'User Guide')) or contains(., 'user guide'))]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>h1</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>User Guide</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>/html[1]/body[1]/div[@class=&quot;page-title&quot;]/h1[1]</value>
+      <value>//h1[(contains(text(), 'User Guide') or (contains(text(), 'user guide') or contains(., 'User Guide')) or contains(., 'user guide'))]</value>
    </webElementProperties>
 </WebElementEntity>

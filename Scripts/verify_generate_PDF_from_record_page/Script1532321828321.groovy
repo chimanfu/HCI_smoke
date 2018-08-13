@@ -36,7 +36,7 @@ String recordName_for_PDFReport
 //recordName_for_PDFReport='test_automation_record'
 
 //recordName_for_PDFReport=GlobalVariable.recordName1
-recordName_for_PDFReport='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+recordName_for_PDFReport='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
 
 /*if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	println('do not need to run generate PDF report test')
