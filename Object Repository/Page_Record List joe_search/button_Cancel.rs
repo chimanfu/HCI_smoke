@@ -4,10 +4,16 @@
    <name>button_Cancel</name>
    <tag></tag>
    <elementGuidId>871b88bf-660d-4a16-acc5-3f16d2c679ac</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//*[@id=&quot;save_search_form&quot;]/button[(text() = 'Cancel' or . = 'Cancel')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
@@ -28,17 +34,17 @@
       <value>savedSearchPanel.dialog('close');return false;</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>Cancel</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;save_search_form&quot;)/button[@class=&quot;center_it&quot;]</value>
+      <value>//*[@id=&quot;save_search_form&quot;]/button[(text() = 'Cancel' or . = 'Cancel')]</value>
    </webElementProperties>
 </WebElementEntity>

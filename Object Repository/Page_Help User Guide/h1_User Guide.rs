@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>a_Hazard PDF</name>
+   <name>h1_User Guide</name>
    <tag></tag>
-   <elementGuidId>6c2f5abd-7211-4c4b-901c-6307248d07ce</elementGuidId>
+   <elementGuidId>4c920a99-4e66-4362-aa0c-04849f6c47b4</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[(contains(text(), 'PDF') or contains(., 'PDF'))]</value>
+         <value>//h1[(contains(text(), 'User Guide') or contains(., 'User Guide'))]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,20 +17,20 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>a</value>
+      <value>h1</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>PDF</value>
+      <value>User Guide</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;AppGridContainer&quot;)/div[@class=&quot;row&quot;]/div[@class=&quot;col-md-12 col-sm-12 col-xs-12&quot;]/footer[@class=&quot;SystemFooter&quot;]/div[@class=&quot;system_footer&quot;]/ul[@class=&quot;actions&quot;]/li[3]/a[1]</value>
+      <value>/html[1]/body[1]/div[@class=&quot;page-title&quot;]/h1[1]</value>
    </webElementProperties>
 </WebElementEntity>

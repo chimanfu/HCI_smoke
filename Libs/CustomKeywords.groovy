@@ -200,8 +200,24 @@ def static "question.RandomEmail.getEmail"(
          , 	prefix)
 }
 
+def static "hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible"(
+    	boolean STOP_ON_FAILURE	) {
+    (new hci_smoke_test.common()).verifyAllLinksOnCurrentPageAccessible(
+        	STOP_ON_FAILURE)
+}
+
 def static "hci_smoke_test.common.checkLinksBrokenOnCurrentPage"() {
     (new hci_smoke_test.common()).checkLinksBrokenOnCurrentPage()
+}
+
+def static "hci_smoke_test.common.navigateAllLinks_ByXpath"(
+    	String xpath	) {
+    (new hci_smoke_test.common()).navigateAllLinks_ByXpath(
+        	xpath)
+}
+
+def static "hci_smoke_test.common.appendBrowserLogs"() {
+    (new hci_smoke_test.common()).appendBrowserLogs()
 }
 
 def static "hci_smoke_test.common.refreshBrowser"() {

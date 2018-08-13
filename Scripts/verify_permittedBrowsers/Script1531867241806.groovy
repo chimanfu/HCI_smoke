@@ -19,24 +19,38 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-//CustomKeywords.'helper.login.LoginHelper.login'()
+/*
+ * verify value of the permittedBrowsers parameter from Admin->Administrative Policies with the expected value in site profile
+ * 
+ * Steps:
+ * 
+ * goto Admin link from Home page
+ * select Parameters link
+ * select Administrative Policies link
+ * select permittedBrowsers parameter
+ * verify message
+ * verify actual value of permittedBrowsers with GlobalVariable.G_permitted_browser
+ */
+
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-
 WebUI.click(findTestObject('Page_Administer your installation/a_Parameters'))
 
-WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_Index'))
+WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_Administrative Policies'))
 WebUI.delay(1)
 WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/dd_The browsers that this system support'),15)
-WebUI.waitForElementClickable(findTestObject('Page_Parameters Index/a_permittedBrowsers'),10)
-WebUI.click(findTestObject('Page_Parameters Index/a_permittedBrowsers'))
-value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'), 'value')
-println('value of permittedBrowsers = '+value_permittedBrowsers)
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Configuration Administrative Policies/dt_permittedBrowsers'),10)
+WebUI.click(findTestObject('Object Repository/Page_Configuration Administrative Policies/dt_permittedBrowsers'))
+WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),5)
+WebUI.click(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'))
 
+println('check permittedBrowsers value from permittedBrowsers parameter')
+value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'), 'value')
+println('actual value of permittedBrowsers = '+value_permittedBrowsers)
 WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, false)
-println('matched')
-//*[@id="permittedBrowsers"]
-//*[@id="bugzilla-body"]/div[2]/table/tbody/tr/td[2]/div/table/tbody/tr[33]/td[1]/a
-//WebUI.click(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'))
+println('matched with expected permittedBrowsers value = '+GlobalVariable.G_permitted_browser)
+
+
 
 

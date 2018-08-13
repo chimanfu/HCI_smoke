@@ -21,6 +21,9 @@ import internal.GlobalVariable as GlobalVariable
 import com.mysql.jdbc.StringUtils;
 
 /*
+ * check value of daggr_server parameter from Admin->Parameters->DAggr Params
+ * 
+ * Steps:
  * 
  * goto Admin->Parameters->DAggr Params
  * check value of daggr_server from profile (G_dagger_server_url)
@@ -28,10 +31,11 @@ import com.mysql.jdbc.StringUtils;
  * 
  */
 
-//CustomKeywords.'helper.login.LoginHelper.login'()
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 //if (GlobalVariable.G_dagger_server_url.)
-if (!StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
+println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
+if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	println('do not need to run this test')
 	return
 }

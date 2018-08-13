@@ -47,7 +47,7 @@ public class LoginHelper {
 		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
 			//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 			println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
 			WebUI.waitForPageLoad(30)
 			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
@@ -67,6 +67,16 @@ public class LoginHelper {
 		Screen s = new Screen();
 		WebUI.openBrowser('')
 		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		
+		try{
+			WebUI.switchToWindowIndex(0)
+			WebUI.closeWindowIndex(1)
+			WebUI.delay(1)
+			WebUI.switchToWindowIndex(0)
+			WebUI.delay(1)
+		}catch (Exception e) {
+			WebUI.switchToWindowIndex(0)
+		} 
 		WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),15)
 		WebUI.click(findTestObject('Page_Login/input_login_btn'))
 		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)

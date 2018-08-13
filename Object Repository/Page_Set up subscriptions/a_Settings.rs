@@ -4,6 +4,12 @@
    <name>a_Settings</name>
    <tag></tag>
    <elementGuidId>6e4ad3fe-b027-44b6-b83f-89504217c62d</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@href = 'userprefs.cgi' and (text() = 'Settings' or . = 'Settings')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>

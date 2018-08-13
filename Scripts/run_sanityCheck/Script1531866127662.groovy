@@ -14,13 +14,17 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
-
+import java.util.concurrent.TimeUnit
 /*
+run sanity check from Admin->'Sanity Check' to capture any unexpected errors from the site
+
+Steps:
+
 click 'Admin' link
 select 'Sanity Check' link
 check acceptable errors in red (alert)
 	only check after seeing....OK, now running sanity checks.
-	compare it with the list of acceptable errors
+	compare it with the list of acceptable errors from Data Files->sanity_check_log
 	will fail test if see unexpected alert messages
 check important expected log messages such as...
 	OK, now running sanity checks.
@@ -70,14 +74,14 @@ WebUI.delay(10)
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 */
 
-
+CustomKeywords.'helper.login.LoginHelper.login'()
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
 log.logInfo('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
 
 //GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 // smoke testcase: run_sanityCheck
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-WebUI.waitForPageLoad(60)
+WebUI.waitForPageLoad(180)
 WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 //WebUI.waitForPageLoad(5)
@@ -115,7 +119,7 @@ WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sani
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Sanity Check/p_output_log_message.rs'))
 WebUI.delay(1)
-WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 160)
+WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 WebUI.delay(1)
 
@@ -123,25 +127,38 @@ WebUI.delay(1)
 //alertMessages=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_alert_messages'))
 //println(alertMessages)
 
+//alerts_Search_Xpath="//p[@class = 'alert' and not(contains(., 'attachment'))]"
+acceptedAlert1="attachment"
+acceptedAlert2="non-open status"
+acceptedAlert3="Invalid flag"
+acceptedAlert4="Records that have changes but no mail sent"
+acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
+acceptedAlert6="/usr/local/bin/tesseract --version failed"
+
+String alerts_Search_Xpath="//p[@class = 'alert' and not(contains(., '"+acceptedAlert1+"')) and not(contains(., '"+acceptedAlert2+"')) and not(contains(., '"+acceptedAlert3+"')) and not(contains(., '"+acceptedAlert4+"')) and not(contains(., '"+acceptedAlert5+"')) and not(contains(., '"+acceptedAlert6+"')) ]"
+println('alerts_Search_Xpath='+alerts_Search_Xpath)
 dataFile='sanity_check_log'
 columnName='accepted_failed_message'
 boolean found_expected_log_message=false
 log.logInfo('Get all found ALERT MESSAGES and compare with the expected ALERT MESSAGES from the sanity check log in columnName='+columnName)
 WebDriver driver = DriverFactory.getWebDriver()
-List<WebElement> elements = driver.findElements(By.xpath("//p[@class = 'alert']"));
+driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+
+List<WebElement> elements = driver.findElements(By.xpath(alerts_Search_Xpath));
 for (int i = 0; i < elements.size(); i++) {
 	found_expected_log_message=false
 	String found_ALERT_MESSAGE=elements.get(i).getText()
-	if (found_ALERT_MESSAGE.contains('attachment')){
+	
+	/*if (found_ALERT_MESSAGE.contains('attachment')){
 		continue
 	}
 	if (found_ALERT_MESSAGE.contains('Records that have changes but no mail sent for at least half an hour')){
 		continue
-	}
-	log.logInfo("found ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	}*/
+	log.logWarning("Found unexpected ALERT MESSAGE: " + found_ALERT_MESSAGE);
 	
 	////
-	for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
+	/*for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()
 		if (!StringUtils.isNullOrEmpty(expected_log_message)){
 			if (found_ALERT_MESSAGE.contains(expected_log_message)){
@@ -158,7 +175,7 @@ for (int i = 0; i < elements.size(); i++) {
 	////
 	if (!found_expected_log_message){
 		log.logWarning('This found ALERT MESSAGE could be an issue : '+found_ALERT_MESSAGE)
-	}
+	}*/
 	////
 	
 }

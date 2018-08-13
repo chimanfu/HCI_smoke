@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>h1_User Guide</name>
+   <name>a_PDF</name>
    <tag></tag>
-   <elementGuidId>4c920a99-4e66-4362-aa0c-04849f6c47b4</elementGuidId>
+   <elementGuidId>6c2f5abd-7211-4c4b-901c-6307248d07ce</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[(contains(text(), 'PDF') or contains(., 'PDF'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -11,20 +17,20 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>h1</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>User Guide</value>
+      <value>PDF</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>/html[1]/body[1]/div[@class=&quot;page-title&quot;]/h1[1]</value>
+      <value>id(&quot;AppGridContainer&quot;)//footer[@class=&quot;SystemFooter&quot;]/div[@class=&quot;system_footer&quot;]/ul[@class=&quot;actions&quot;]//a</value>
    </webElementProperties>
 </WebElementEntity>

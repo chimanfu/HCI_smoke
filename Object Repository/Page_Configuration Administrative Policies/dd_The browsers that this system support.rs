@@ -4,6 +4,12 @@
    <name>dd_The browsers that this system support</name>
    <tag></tag>
    <elementGuidId>41cf1e16-3601-4a79-a798-8aab13023842</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//dd[(contains(text(), 'The browsers that this system will support') or contains(., 'The browsers that this system will support'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -15,19 +21,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>The browsers that this system will support
-      
-          
-      
-        
-          
-          Reset
-        
-      
-    </value>
+      <value>The browsers that this system will support</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

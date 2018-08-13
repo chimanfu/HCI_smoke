@@ -7,20 +7,20 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>id(&quot;bugzilla-body&quot;)/div[2]//p[count(. | //p[(contains(text(), 'now running sanity checks') or contains(., 'now running sanity checks'))]) = count(//p[(contains(text(), 'now running sanity checks') or contains(., 'now running sanity checks'))])]</value>
+         <value>//*[@id=&quot;bugzilla-body&quot;]/div[2]/p[contains(text(), 'now running sanity checks')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>p</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
@@ -31,6 +31,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;bugzilla-body&quot;)/div[2]//p</value>
+      <value>//*[@id=&quot;bugzilla-body&quot;]/div[2]/p[contains(text(), 'now running sanity checks')]</value>
    </webElementProperties>
 </WebElementEntity>

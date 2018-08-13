@@ -28,8 +28,8 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.m
 
 
 
-RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test/20180809_093340/execution.properties")
+RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test/20180811_211753/execution.properties")
 
 TestCaseMain.beforeStart()
 
-TestCaseMain.startTestSuite('Test Suites/smoke_test', suiteProperties, [new TestCaseBinding('Test Cases/verify_generate_diff_report', 'Test Cases/verify_generate_diff_report',  null), new TestCaseBinding('Test Cases/run_sanityCheck', 'Test Cases/run_sanityCheck',  null)])
+TestCaseMain.startTestSuite('Test Suites/smoke_test', suiteProperties, [new TestCaseBinding('Test Cases/verify_bad_browser_blurb', 'Test Cases/verify_bad_browser_blurb',  null)])

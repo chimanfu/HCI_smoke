@@ -20,60 +20,28 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 /*
-// search by record ID
- 
-WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), '7626')
-
-WebUI.waitForPageLoad(5)
-
-WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
-
-WebUI.waitForPageLoad(15)
-
-WebUI.click(findTestObject('Page_Main Page/input'))
-
-WebUI.waitForElementVisible(findTestObject('Page_Hazard Record 7626/div_Hazard Record 7626 - INWOR'), 15)
-
-WebUI.click(findTestObject('Page_Hazard Record 7626/div_Record-summary'))
-
-WebUI.delay(1)
-
-WebUI.click(findTestObject('Page_Hazard Record 7626/button_Save Changes'))
-
-WebUI.waitForElementVisible(findTestObject('Page_Hazard Record 7626/div_Close alertRecord Saved'), 12)
-
-//WebUI.click(findTestObject('Page_Hazard Record 7626/div_Close alertRecord Saved'))
-WebUI.delay(1)
-
-WebUI.click(findTestObject('Page_Main Page/a_Home'))
-*/
-
-////////////////////
-
-
-/*
- WebUI.openBrowser('')
- 
- WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
- 
- WebUI.click(findTestObject('Page_Login/input_login_btn'))
- 
- WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
- */
-
-/*
- * search for keyword '10,11' with search option as 'all' in the simple search field'
- * is should show records 10 and 11 from the system
+ * search for keyword defined from search_term with search option as 'all' in the simple search field'
+ * 
+ * Steps:
+ * 
+ * enter search_term='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+ * select All option
+ * do a quick search
+ * verify list of search result with records found
+ * is should show records from the search_term
  * 
  */
-
-String search_term='10,11'
+CustomKeywords.'helper.login.LoginHelper.login'()
+String search_term='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
 WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
-WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), 'all', true)
+WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 WebUI.waitForPageLoad(5)
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),10)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Record List/li_Content_test_automation_record'),15)
 
@@ -82,9 +50,10 @@ WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation
 WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
 WebUI.delay(1)
 
-WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
 
-WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/div_Close alertRecord Saved'),12)
+//WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
+
+//WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/div_Close alertRecord Saved'),12)
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Main Page/a_Home'))
 

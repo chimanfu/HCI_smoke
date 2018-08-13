@@ -19,28 +19,65 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 /*
- * do a search of test_automation_record
- * mail search result to any team member
+ * verify mail is being sent for any search result to any team member
+ * 
+ * Steps:
+ * 
+ * type search_term='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+ * search for records
+ * click EmailSearchResults button
+ * enter sendToAdrress='joseph.fu@nasa.gov'
+ * click send button
+ * verify sent message confirmation
+ * check email in outlook with the following contents:
+ * 
+ * example:
+ * [SSMA] Link to SSMA search results
+ * 
+ * Joseph Fu shared the saved search Link to SSMA search results with you:
+ * View the search results here: 
+ * https://mas.nasa.gov/ssma/buglist.cgi?luid=8CC75BD4-9D0D-11E8-AF64-C1A86CDEDDFA
+ * 	
 */
-String search_term='10,11'
 
+CustomKeywords.'helper.login.LoginHelper.login'()
+String sendToAdrress='joseph.fu@nasa.gov'
+String search_term='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+WebUI.waitForPageLoad(5)
+WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
+WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+
+WebUI.delay(1)
+
+/*
+ * 
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
 WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)
-
+*/
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/a_test_automation_record'),10)
+
 
 WebUI.click(findTestObject('Object Repository/Page_Record List/label_EmailSearchResults'))
 
-WebUI.setText(findTestObject('Object Repository/Page_Record List/input_em_to'), 'joseph.fu@nasa.gov')
+WebUI.setText(findTestObject('Object Repository/Page_Record List/input_em_to'), sendToAdrress)
 
 WebUI.click(findTestObject('Object Repository/Page_Record List/button_Send'))
 
 //WebUI.delay(1)
 
-WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/a_My Records'),10)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_Email sent to user address'),10)
+emailSentMsg=WebUI.getText(findTestObject('Object Repository/Page_Record List/div_Email sent to user address'))
+if (emailSentMsg.contains(sendToAdrress)){
+	println('found sendToAdrress : '+sendToAdrress)
+}else{
+	println('not found sendToAdrress : '+sendToAdrress)
+	throw new AssertionError('ERROR: not found sendToAdrress : '+sendToAdrress)
+}
 
 //WebUI.click(findTestObject('Object Repository/Page_Record List/a_Home'))
 

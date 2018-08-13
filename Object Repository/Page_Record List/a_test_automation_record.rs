@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[contains(@href, 'show_bug.cgi?id=')]</value>
+         <value>id(&quot;yui-rec0&quot;)/td[@class=&quot;yui-dt0-col-short_desc yui-dt-col-short_desc&quot;]/div[@class=&quot;yui-dt-liner&quot;]/a[1][count(. | //a[contains(@href, 'show_bug.cgi?id=')]) = count(//a[contains(@href, 'show_bug.cgi?id=')])]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -34,7 +34,7 @@
       <value>test_automation_record</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>

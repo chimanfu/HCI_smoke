@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[contains(@href, 'query.cgi?bugidtype=include&amp;columnlist=classification') and (text() = 'Edit Search' or . = 'Edit Search')]</value>
+         <value>//a[contains(@href, 'query.cgi?') and (text() = 'Edit Search' or . = 'Edit Search')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -24,7 +24,7 @@
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>query.cgi?bugidtype=include&amp;columnlist=classification</value>
+      <value>query.cgi?</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

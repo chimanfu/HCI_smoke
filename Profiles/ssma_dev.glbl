@@ -96,7 +96,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'test_automation_record'</initValue>
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -131,7 +131,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>['Explorer', 'Chrome', 'Firefox', 'Safari']</initValue>
+      <initValue>['Explorer', 'Chrome', 'Firefox']</initValue>
       <name>allowedBrowsers</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

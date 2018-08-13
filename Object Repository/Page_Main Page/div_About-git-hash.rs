@@ -3,16 +3,7 @@
    <description></description>
    <name>div_About-git-hash</name>
    <tag></tag>
-   <elementGuidId>0d4a0343-da85-440e-b6ff-664498ea9fdd</elementGuidId>
-   <selectorCollection>
-      <entry>
-         <key>XPATH</key>
-      </entry>
-      <entry>
-         <key>BASIC</key>
-         <value>//div[(contains(text(), 'About ') or contains(., 'About '))]</value>
-      </entry>
-   </selectorCollection>
+   <elementGuidId>0b51ab8f-6d47-402d-b13b-a264bd64d02f</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -27,13 +18,13 @@
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>About </value>
+      <value>About</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;footer_gradient&quot;)//div[(contains(text(), 'About CP-Hazard rev ') or contains(., 'About CP-Hazard rev '))]</value>
+      <value>id(&quot;footer_gradient&quot;)//div</value>
    </webElementProperties>
 </WebElementEntity>

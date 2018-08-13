@@ -7,9 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//select[@id = 'quicksearch_fields' and @name = 'quicksearch_fields' and (contains(text(), 'Title
-             ') or contains(., 'Title
-             '))]</value>
+         <value>//select[@id = 'quicksearch_fields' and @name = 'quicksearch_fields']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -36,7 +34,7 @@
       <value>quicksearch_fields</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>

@@ -20,12 +20,16 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 /*
+ * verify saved search feature is working as expected
+ * 
+ * Steps:
+ * 
  * click on Saved Searches
- * select 'My Records'
- * enter search_term 10,11 into keyword search field
+ * select 'My Records' to verify it's pre-existed
+ * enter search_term into keyword search field
  * click Search button
  * click on 'Save Search'
- * type 'joe_search'
+ * type saveSearchName='joe_search'
  * click Save button
  * click on Saved Searches
  * select 'joe_search'
@@ -33,17 +37,10 @@ import internal.GlobalVariable as GlobalVariable
  * select 'Forget Search' link
  * verify notification_message that search search 'joe_search' is gone
  */
-String search_term='10,11'
+CustomKeywords.'helper.login.LoginHelper.login'()
+
+String search_term='10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
 String saveSearchName='joe_search'
-/*
-WebUI.openBrowser('')
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
-
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-*/
 
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
@@ -51,12 +48,9 @@ WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)
 
-//WebUI.click(findTestObject('Page_Record List/a_EditSearch'))
-
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
-
 
 WebUI.click(findTestObject('Page_Record List/label_SaveSearch'))
 
@@ -68,29 +62,37 @@ WebUI.click(findTestObject('Page_Search created/a_SavedSearches'))
 
 WebUI.click(findTestObject('Page_Search created/a_joe_search'))
 
-/*
+//////////////////////
+// verify joe_search is working
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),10)
+
+// verify edit search is working
 WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'))
-
 WebUI.click(findTestObject('Object Repository/Page_Search for records/input_Search'))
-
 WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'))
 
-
+// verify cancel save search is working
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/button_Cancel'),10)
 WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/button_Cancel'))
-
 WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_SavedSearches'))
-
 WebUI.click(findTestObject('Object Repository/Page_Record List joe_search/a_joe_search'))
-*/
+//////////////////////
 WebUI.delay(1)
 
+// verify delete save search is working
 WebUI.click(findTestObject('Page_Record List joe_search/a_ForgetSearch'))
 
 WebUI.delay(1)
 
-WebUI.click(findTestObject('Page_Search is gone/div_search_notification_message'))
+WebUI.verifyElementVisible(findTestObject('Page_Search is gone/div_search_notification_message'))
+
+println('verified visible of the search_notification_message "OK, the joe_search search is gone." ')
 
 WebUI.click(findTestObject('Object Repository/Page_Search is gone/a_SavedSearches'))
+
+WebUI.verifyElementNotPresent(findTestObject('Page_Search created/a_joe_search'),2)
+
+println('not found joe_seach from saved search, so it is deleted sucessfully')
 
 //WebUI.click(findTestObject('Object Repository/Page_Search is gone/a_Home'))
 

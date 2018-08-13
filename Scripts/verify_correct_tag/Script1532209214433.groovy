@@ -20,6 +20,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 /*
+ * check tag value at the bottom of the page
+ * May only necessary if we already know the expected tag value to compare with.
+ * May not need to run on dev sites if the tag value is still being changed.
+ * 
+ * Steps:
+ * 
  * check git hash at the bottom
  * check for this format:
  * 		About RHEO rev 9756b6b develop HEAD (21366)
@@ -29,7 +35,7 @@ import internal.GlobalVariable as GlobalVariable
  *
  */
 
-
+CustomKeywords.'helper.login.LoginHelper.login'()
  
  WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
  

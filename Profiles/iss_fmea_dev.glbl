@@ -91,12 +91,12 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description>CP-Hazard, CP-OMS</description>
-      <initValue>'CP-Hazard'</initValue>
+      <initValue>'ISS FMEA/CIL'</initValue>
       <name>G_MAKE_MAS_title</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'Test title'</initValue>
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

@@ -35,7 +35,15 @@ public class CustomBrowser {
 		WebUI.waitForPageLoad(GlobalVariable.G_timeout)
 		WebUI.maximizeWindow()
 		WebUI.switchToDefaultContent()
-		WebUI.switchToWindowIndex(0)
+		try{
+			WebUI.switchToWindowIndex(0)
+			WebUI.closeWindowIndex(1)
+			WebUI.delay(1)
+			WebUI.switchToWindowIndex(0)
+			WebUI.delay(1)
+		}catch (Exception e) {
+			WebUI.switchToWindowIndex(0)
+		}
 	}
 
 	@Keyword
@@ -82,8 +90,8 @@ public class CustomBrowser {
 			String todaysDate = today.format('MM_dd_yy');
 			String nowTime = today.format('hh_mm_ss');
 			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".PNG"
-			println('screen shot in '+screenshotPath)
 			WebUI.takeScreenshot(screenshotPath);
+			println('screen shot in '+screenshotPath)
 		}
 		catch (Exception e) {
 			e.printStackTrace()

@@ -40,28 +40,45 @@ import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 
 /*
- * click on New link
- * check Links Broken (http return code != 200) On Current Page of New Record Record
+ * verify all links in create New record page are accessible and each add new record link is loading without any errors.
+ * 
+ * Steps:
+ * 
+ * click on New link from the Home page
+ * On the Page of New Record, perform verifyAllLinksOnCurrentPageAccessible() to verify all links are not broken 
+ * 		will report any links that are not accessible.
+ * 		will fail the test if STOP_ON_FAILURE=true
  * dynamically get all the add new record links on the page (Page_Select Record Type)
  * 		get new record link name and url
  * 		navigate each link url to open new record page 
- * 		check for js error on new record page 
+ * 		check for js error on each new record page when page is being loaded
  */
-
-CustomKeywords.'helper.login.LoginHelper.login'()
 KeywordLogger log = new KeywordLogger()
+if (!(GlobalVariable.addNewRecord)) {
+	log.logInfo('The test will not run, as no need to add a new record for smoke test and GlobalVariable.addNewRecord is disabled')
+
+	return null
+} else {
+	log.logInfo('will verify create page load')
+}
+CustomKeywords.'helper.login.LoginHelper.login'()
+
 String found_new_record_link
 String url
 
 println('click New Record link')
 WebUI.click(findTestObject('Page_Main Page/a_New'))
-println('check Links Broken (http return code != 200) On Current Page of New Record Record')
-CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
+//println('check Links Broken (http return code != 200) On Current Page of New Record Record')
+//CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
+println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
+boolean STOP_ON_FAILURE=false
+CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
+
 WebDriver driver = DriverFactory.getWebDriver()
 println('get all new record links from the New Record Page')
 List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
 
-WebElement firstElement = elements.get(0);
+//WebElement firstElement = elements.get(0);
 
 int size=elements.size()
 urls = new String[size]
