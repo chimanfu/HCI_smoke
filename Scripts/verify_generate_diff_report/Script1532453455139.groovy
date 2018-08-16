@@ -49,7 +49,7 @@ if (recordName_forDiffReport.trim().equals("") || recordName_forDiffReport.trim(
 	recordName_forDiffReport='test_automation_record'
 }
 
-if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
+/*if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	println('do not need to run generate diff report test as no snapshot feature in record')
 	return
 }
@@ -68,6 +68,10 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('fiqs')){
 if ((GlobalVariable.G_MAKE_MAS_url).contains('evat')){
 	println('do not need to run generate diff report test as no snapshot feature in record')
 	return
+}*/
+if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+	println('do not need to run generate diff report test as no snapshot feature in record')
+	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -77,10 +81,10 @@ WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordName_for
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 WebUI.delay(2)
 try{
-	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),5)){
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),10)){
 		WebUI.click(findTestObject('Page_Record List/a_record_1'))
 	}
-	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_test_automation_record'),1)){
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_test_automation_record'),2)){
 		WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
 	}
 }catch (Exception e) {
@@ -97,7 +101,7 @@ WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record
 //WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
 
 //WebUI.delay(2)
-if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/a_Create Record Snapshot'), 1)){
+if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/a_Create Record Snapshot'), 2)){
 	println('found Snapshot link so it can do diff report')
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF') ,40)
 	WebUI.delay(5)

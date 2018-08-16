@@ -84,6 +84,15 @@ log.logInfo('You can also automate this check by running sanitycheck.pl from a c
 WebUI.waitForPageLoad(180)
 WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	try {
+	WebUI.delay(1)
+	WebUI.switchToWindowIndex(1)
+} catch (Exception e) {
+	e.printStackTrace()
+}
+	
+}
 //WebUI.waitForPageLoad(5)
 try {
 	// it may crash selenium by clciking on the Sanity Check link or it may wait for the page load forever.
@@ -112,9 +121,9 @@ catch (Exception e) {
 
 //WebUI.click(findTestObject('Object Repository/Page_Sanity Check/html_Sanity Check'))
 //WebUI.waitForPageLoad(5)
-WebUI.delay(10)
+WebUI.delay(5)
 log.logInfo('verify sanity check is working and without new issue.')
-WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 90)
+WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Sanity Check/p_output_log_message.rs'))
@@ -135,14 +144,14 @@ acceptedAlert4="Records that have changes but no mail sent"
 acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
 acceptedAlert6="/usr/local/bin/tesseract --version failed"
 
-String alerts_Search_Xpath="//p[@class = 'alert' and not(contains(., '"+acceptedAlert1+"')) and not(contains(., '"+acceptedAlert2+"')) and not(contains(., '"+acceptedAlert3+"')) and not(contains(., '"+acceptedAlert4+"')) and not(contains(., '"+acceptedAlert5+"')) and not(contains(., '"+acceptedAlert6+"')) ]"
+String alerts_Search_Xpath="//*[@id='bugzilla-body']/div[2]/p[@class = 'alert' and not(contains(., '"+acceptedAlert1+"')) and not(contains(., '"+acceptedAlert2+"')) and not(contains(., '"+acceptedAlert3+"')) and not(contains(., '"+acceptedAlert4+"')) and not(contains(., '"+acceptedAlert5+"')) and not(contains(., '"+acceptedAlert6+"')) ]"
 println('alerts_Search_Xpath='+alerts_Search_Xpath)
 dataFile='sanity_check_log'
 columnName='accepted_failed_message'
 boolean found_expected_log_message=false
 log.logInfo('Get all found ALERT MESSAGES and compare with the expected ALERT MESSAGES from the sanity check log in columnName='+columnName)
 WebDriver driver = DriverFactory.getWebDriver()
-driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+//driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 
 List<WebElement> elements = driver.findElements(By.xpath(alerts_Search_Xpath));
 for (int i = 0; i < elements.size(); i++) {
@@ -179,7 +188,16 @@ for (int i = 0; i < elements.size(); i++) {
 	////
 	
 }
-
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	
+	try {
+		WebUI.switchToWindowIndex(1)
+	WebUI.closeWindowIndex(1)
+	WebUI.switchToWindowIndex(0)
+	} catch (Exception e) {
+		e.printStackTrace()
+	}
+}
 return
 		
 // print out all log message

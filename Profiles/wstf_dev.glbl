@@ -46,7 +46,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/'</initValue>
+      <initValue>''</initValue>
       <name>G_dagger_server_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -56,7 +56,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari'</initValue>
+      <initValue>'Firefox/(?![123456789]\\.)|Trident/[5678]|Chrome'</initValue>
       <name>G_permitted_browser</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -131,7 +131,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>['Explorer', 'Chrome', 'Firefox', 'Safari']</initValue>
+      <initValue>['Explorer', 'Chrome', 'Firefox']</initValue>
       <name>allowedBrowsers</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

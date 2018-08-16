@@ -56,6 +56,17 @@ need a better way to capture git hash and tag on production sites
 sanity check only checks after 'OK, now running sanity checks'
 
 */
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	println('this is doctree')
+	return
+	
+}
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	println('this is doctree')
+	return
+	
+}
 KeywordLogger log = new KeywordLogger()
 
 Screen s = new Screen()

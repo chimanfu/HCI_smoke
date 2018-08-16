@@ -19,26 +19,27 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-WebUI.openBrowser('')
+CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev/')
+WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))
 
-WebUI.click(findTestObject('Page_Login/input_login_btn'))
+WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_TREE'))
 
-WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
 
-WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_New'))
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '5', true)
 
-WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_New blank record'))
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '2', true)
 
-WebUI.click(findTestObject('Page_Enter Record/a_AdAstraRocketCompany'))
+WebUI.click(findTestObject('Object Repository/Page_Select Program/img'))
 
-WebUI.setText(findTestObject('Object Repository/Page_Enter Record Ad Astra Rocket C/input_short_desc'), 'test')
+WebUI.click(findTestObject('Object Repository/Page_Select Program/a_NEW RECORD'))
 
-WebUI.selectOptionByValue(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'), 
-    'Safety Data Package', true)
+WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))
 
-WebUI.click(findTestObject('Object Repository/Page_Enter Record Ad Astra Rocket C/input_commit'))
+WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/div_SEARCH'))
 
-WebUI.closeBrowser()
+WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
+
+
 

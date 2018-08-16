@@ -38,9 +38,9 @@ public class CustomBrowser {
 		try{
 			WebUI.switchToWindowIndex(0)
 			WebUI.closeWindowIndex(1)
-			WebUI.delay(1)
+			//WebUI.delay(1)
 			WebUI.switchToWindowIndex(0)
-			WebUI.delay(1)
+			//WebUI.delay(1)
 		}catch (Exception e) {
 			WebUI.switchToWindowIndex(0)
 		}

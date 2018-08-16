@@ -18,6 +18,15 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import org.sikuli.script.Screen as Screen
+import org.sikuli.script.Pattern as Pattern
+import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import com.kms.katalon.core.webui.driver.DriverFactory
+
 
 /*
  * verify PDF is being generated correctly for a record
@@ -30,8 +39,96 @@ import internal.GlobalVariable as GlobalVariable
  * click 'Generate PDF' button
  * verify PDF is generated 
  */
-
+if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
+	println('do not need to run generate PDF report test as no PDF feature in record')
+	return
+}
 CustomKeywords.'helper.login.LoginHelper.login'()
+
+if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
+	
+	Screen s = new Screen()
+		//Pattern p= new Pattern()
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
+	//WebUI.verifyTextPresent('Preparing doctree', false)
+	
+	// check file download
+	s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', 20)
+	//s.click(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png')
+	WebUI.delay(2)
+	s.wait(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png', 20)
+	//WebUI.delay(2)
+	Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
+	r=s.exists(pImage,1);
+	s.click(r, 1)
+	
+	
+	//WebUI.delay(5)
+	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '5', true)
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'),10)
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
+	//WebUI.verifyTextPresent('Preparing doctree', false)
+	//WebUI.delay(5)
+	// check file download
+	s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', 20)
+	WebUI.delay(2)
+	s.wait(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png', 20)
+	pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
+	r=s.exists(pImage,1);
+	s.click(r, 1)
+	return
+}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'ALL')
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_Showing results for ALL'))
+	
+	WebDriver driver = DriverFactory.getWebDriver()
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),10)
+	println('click on the PDF icon elment of series of worksheets from the first record of all the records')
+	//WebUI.click(findTestObject('Object Repository/Page_ARC JET/img_AHF 307'))
+	List<WebElement> elements = driver.findElements(By.xpath("//img[@src = 'extensions/arcjet/web/css/img/pdf_multi.png' and @class = 'pdf']"));
+	WebElement firstElement = elements.get(0);
+	firstElement.click()
+	//WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),10)
+	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),60)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
+	
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(20)
+	
+	WebUI.delay(1)
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
+	println('click on the PDF icon elment of worksheet from the first record of all the records')
+	//WebUI.click(findTestObject('Object Repository/Page_ARC JET/img_TW-AHF-307-002'))
+	WebUI.delay(2)
+	elements = driver.findElements(By.xpath("//img[@src = 'extensions/arcjet/web/css/img/pdf.gif' and @class = 'pdf']"));
+	firstElement = elements.get(0);
+	try{
+		firstElement.click()
+		
+	}catch (Exception e) {
+		WebUI.delay(30)
+		firstElement.click()
+		e.printStackTrace()
+	}
+	
+	//WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),10)
+	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),20)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(200)
+	WebUI.delay(1)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
+	return
+
+}
+
 String recordName_for_PDFReport
 //recordName_for_PDFReport='test_automation_record'
 

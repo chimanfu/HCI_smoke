@@ -55,86 +55,98 @@ import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import org.openqa.selenium.Keys as Keys
+import org.sikuli.script.Key as Key
+import org.sikuli.script.Screen as Screen
+import org.sikuli.script.Pattern as Pattern
 
 class common {
 	@Keyword
+	def check_PDFFile_Downloaded(int seconds){
+		println('check_PDFFile_Downloaded ')
+		Screen s = new Screen()
+		s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', seconds)
+		WebUI.delay(3)
+		if (s.exists(GlobalVariable.G_image_path+'chrome_downloadedFile_showAll_cancel_button.png',5)!=null){
+			WebUI.delay(1)
+			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
+			//r=s.exists(pImage,1);
+			s.click(s.exists(pImage,1), 1)
+		}
+	}
+
+	@Keyword
 	def verifyAllLinksOnCurrentPageAccessible(boolean STOP_ON_FAILURE) {
 		KeywordLogger log = new KeywordLogger()
-	
+
 		println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with attribute @src')
 		WebDriver driver = DriverFactory.getWebDriver()
-		
+
 		int size
 		String url
 		String[] excluded_links
-		
+
 		List<WebElement> elements
-		
+
 		println('get all excluded_links with attribute src from the Page')
-		
+
 		elements = driver.findElements(By.xpath('//*[@src]'))
-		
+
 		size = elements.size()
-		
+
 		excluded_links = new String[size]
-		
+
 		for (int i = 0; i < size; i++) {
 			//found_new_record_link=elements.get(i).getText()
 			url = elements.get(i).getAttribute('src')
-		
+
 			(excluded_links[i]) = url
-		
-			log.logInfo('src: ' + url)
+
+			//log.logInfo('src: ' + url)
 		}
-		
+
 		List<WebElement> excluded_links_list = Arrays.asList(excluded_links)
-		
+
 		println('how many @src links=' + size)
-		
+
 		/*
-		elements = driver.findElements(By.xpath("//*[@href]"))
+		 elements = driver.findElements(By.xpath("//*[@href]"))
 		 //elements= driver.findElements(By.tagName("a"));
-		size=elements.size()
-		urls = new String[size]
-		for (int i = 0; i < size; i++) {
-			//found_new_record_link=elements.get(i).getText()
-			url = elements.get(i).getAttribute("href");
-			urls[i]=url
-			//log.logInfo("href: " + url);
-		
-		}
-		println('how many links='+size)
-		elements = driver.findElements(By.xpath("//*[@cite]"))
-		size=elements.size()
-		urls = new String[size]
-		for (int i = 0; i < size; i++) {
-			//found_new_record_link=elements.get(i).getText()
-			url = elements.get(i).getAttribute("cite");
-			urls[i]=url
-			log.logInfo("cite: " + url);
-		
-		}
-		println('how many links='+size)
-		elements = driver.findElements(By.xpath("//*[@data]"))
-		size=elements.size()
-		urls = new String[size]
-		for (int i = 0; i < size; i++) {
-			//found_new_record_link=elements.get(i).getText()
-			url = elements.get(i).getAttribute("data");
-			urls[i]=url
-			log.logInfo("data: " + url);
-		
-		}
-		println('how many links='+size)
-		*/
+		 size=elements.size()
+		 urls = new String[size]
+		 for (int i = 0; i < size; i++) {
+		 //found_new_record_link=elements.get(i).getText()
+		 url = elements.get(i).getAttribute("href");
+		 urls[i]=url
+		 //log.logInfo("href: " + url);
+		 }
+		 println('how many links='+size)
+		 elements = driver.findElements(By.xpath("//*[@cite]"))
+		 size=elements.size()
+		 urls = new String[size]
+		 for (int i = 0; i < size; i++) {
+		 //found_new_record_link=elements.get(i).getText()
+		 url = elements.get(i).getAttribute("cite");
+		 urls[i]=url
+		 log.logInfo("cite: " + url);
+		 }
+		 println('how many links='+size)
+		 elements = driver.findElements(By.xpath("//*[@data]"))
+		 size=elements.size()
+		 urls = new String[size]
+		 for (int i = 0; i < size; i++) {
+		 //found_new_record_link=elements.get(i).getText()
+		 url = elements.get(i).getAttribute("data");
+		 urls[i]=url
+		 log.logInfo("data: " + url);
+		 }
+		 println('how many links='+size)
+		 */
 		if (STOP_ON_FAILURE)
 			WebUI.verifyAllLinksOnCurrentPageAccessible(false, excluded_links_list, FailureHandling.STOP_ON_FAILURE)
 		else
 			WebUI.verifyAllLinksOnCurrentPageAccessible(false, excluded_links_list,FailureHandling.OPTIONAL)
-		
-		
 	}
-	
+
 
 	@Keyword
 	def checkLinksBrokenOnCurrentPage() {

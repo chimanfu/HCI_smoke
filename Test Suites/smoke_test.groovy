@@ -97,7 +97,7 @@ class NewTestListener {
 @SetUp(skipped = false) // Please change skipped to be false to activate this method.
 def setUp() {
 	// Put your code here.
-	cmd = "pkill -f Chrome"
+	String cmd = "pkill -f Chrome"
 	Runtime.getRuntime().exec(cmd)
 	cmd="killall -9 chromedriver"
 	Runtime.getRuntime().exec(cmd)
@@ -123,7 +123,7 @@ def tearDown() {
 /**
  * Run before each test case starts.
  */
-@SetupTestCase(skipped = false) // Please change skipped to be false to activate this method.
+@SetupTestCase(skipped = true) // Please change skipped to be false to activate this method.
 def setupTestCase() {
 	println('*** SetupTestCase started ***')
 	//println testCaseContext.getTestCaseId()
@@ -155,22 +155,28 @@ def setupTestCase() {
 		WebUI.acceptAlert()
 		println('accept alert='+alertText)
 	}
+	// check if the restore pages is showing (restore_pages_cancel_button.png)
+		if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+			WebUI.delay(1)
+			s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+		}
 	
 	if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),30,FailureHandling.OPTIONAL)){
 		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 		WebUI.waitForPageLoad(10)
-		WebUI.delay(2)
+		WebUI.delay(1)
 		App.focus('Chrome')
 		s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',35)
 		s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 		try {
 			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 		} catch (Exception e) {
 			e.printStackTrace()
 		}
 		
-		WebUI.delay(2)
-		if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',10)!=null){
+		WebUI.delay(1)
+		if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',12)!=null){
 			//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 			s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 		}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
@@ -181,7 +187,7 @@ def setupTestCase() {
 			}
 		}
 		
-		WebUI.delay(5)
+		WebUI.delay(4)
 		s.type(GlobalVariable.G_userPin+"\n")
 		//Runtime.getRuntime().exec("osascript Desktop/typeText.scpt")
 		//WebUI.clickImage(findTestObject('Object Repository/Page_Access Launchpad/smartcard_login_button'))
@@ -221,7 +227,7 @@ def setupTestCase() {
  * Run after each test case ends.
  */
 
-@TearDownTestCase(skipped = false) // Please change skipped to be false to activate this method.
+@TearDownTestCase(skipped = true) // Please change skipped to be false to activate this method.
 def tearDownTestCase() {
 	println('*** TearDownTestCase ***')
 	// Put your code here.
@@ -235,19 +241,37 @@ def tearDownTestCase() {
 	println('*** TearDownTestCase ***')
 }
 
-@TearDownIfError(skipped = false) // Please change skipped to be false to activate this method.
+@TearDownIfError(skipped = true) // Please change skipped to be false to activate this method.
 def tearDownIfError() {
 	// Put your code here.
 	println('*** tearDownIfError ***')
 	CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+	try{
+		WebUI.switchToDefaultContent()
+		WebUI.switchToWindowIndex(0)
+		WebUI.closeWindowIndex(1)
+		//WebUI.switchToWindowIndex(0)
+	}catch (Exception e) {
+		//WebUI.switchToWindowIndex(0)
+		println('cannot closeWindowIndex')
+	}
 	//CustomKeywords.'helper.browserhelper.CustomBrowser.testCaseStatus'()
 	println('*** tearDownIfError ***')
 }
-@TearDownIfFailed(skipped = false) // Please change skipped to be false to activate this method.
+@TearDownIfFailed(skipped = true) // Please change skipped to be false to activate this method.
 def tearDownIfFailed() {
 	// Put your code here.
 	println('*** tearDownIfFailed ***')
 	CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+	try{
+		WebUI.switchToDefaultContent()
+		WebUI.switchToWindowIndex(0)
+		WebUI.closeWindowIndex(1)
+		//WebUI.switchToWindowIndex(0)
+	}catch (Exception e) {
+		//WebUI.switchToWindowIndex(0)
+		println('cannot closeWindowIndex')
+	}
 	//CustomKeywords.'helper.browserhelper.CustomBrowser.testCaseStatus'()
 	println('*** tearDownIfFailed ***')
 }

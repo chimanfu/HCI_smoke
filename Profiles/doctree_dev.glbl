@@ -10,7 +10,7 @@
       <name>G_image_path</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
-      <description>PASS smoke test</description>
+      <description></description>
       <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/doctree_dev'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
@@ -131,7 +131,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>['Explorer', 'Chrome', 'Firefox', 'Safari']</initValue>
+      <initValue>['Explorer', 'Chrome', 'Firefox']</initValue>
       <name>allowedBrowsers</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

@@ -56,7 +56,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari'</initValue>
+      <initValue>'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome'</initValue>
       <name>G_permitted_browser</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -139,5 +139,4 @@
       <initValue>'joe_search'</initValue>
       <name>savedSearchName</name>
    </GlobalVariableEntity>
-
 </GlobalVariableEntities>

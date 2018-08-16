@@ -36,7 +36,7 @@ Steps:
 
 login to site and home page displays
 perform some basic checks on the menu toolbar and all links are not broken from the Main Page
-	perform verifyAllLinksOnCurrentPageAccessible and exclude links with attribute src
+	perform verifyAllLinksOnCurrentPageAccessible()
 	click on each tab on menu toolbar and page is loading correctly
 
 for example:
@@ -46,18 +46,13 @@ in cp_oms_dev:
 08-11-2018 04:53:00 PM - [FAILED] - Unable to verify all links on the page 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/index.cgi' are accessible (Root cause: Some of links on the current page are inaccessible)
 
 */
-KeywordLogger log = new KeywordLogger()
-
-Screen s = new Screen()
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)
 
-println('found Home link, should be already in Home page and login succeeded!')
+KeywordLogger log = new KeywordLogger()
 
-WebUI.waitForPageLoad(30)
-
+Screen s = new Screen()
 if (WebUI.verifyAlertPresent(1, FailureHandling.OPTIONAL)) {
     alertText = WebUI.getAlertText()
 
@@ -67,6 +62,9 @@ if (WebUI.verifyAlertPresent(1, FailureHandling.OPTIONAL)) {
 }
 
 WebUI.waitForPageLoad(4)
+WebUI.waitForJQueryLoad(20)
+//WebUI.verifyTextPresent('Home', false)
+
 
 println('perform some basic checks on the menu toolbar and items from the Main Page...')
 //println('check Links Broken (http return code != 200) On Current Page of New Record Record')
@@ -77,6 +75,67 @@ CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STO
 
 //return null
 
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	println('this is doctree')
+	WebUI.verifyTextPresent('SELECT FROM THE LIST OF PROGRAMS TO POPULATE THE TREE', false)
+	WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_TREE'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
+	
+	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '5', true)
+	
+	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '2', true)
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Program/img'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Select Program/a_NEW RECORD'))
+	
+	WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))
+	
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/div_SEARCH'))
+	
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
+	return
+}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+
+	int currentTab = WebUI.getWindowIndex()
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_logo'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'))
+	
+	/*WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_logo'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_Help'))
+	WebUI.switchToWindowIndex(currentTab+1)
+	WebUI.closeWindowIndex(currentTab + 1)
+	WebUI.switchToWindowIndex(currentTab)*/
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_Admin'))
+	
+	WebUI.switchToWindowIndex(currentTab+1)
+	WebUI.closeWindowIndex(currentTab + 1)
+	WebUI.switchToWindowIndex(currentTab)
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_About'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Charts'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Generate Chart/img'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_About'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Home'))
+	return
+}
+/////////////////
+WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)
+
+println('found Home link, should be already in Home page and login succeeded!')
+
+WebUI.waitForPageLoad(30)
 println('click on each tab on menu toolbar and page is loading correctly')
 WebUI.click(findTestObject('Page_Main Page/a_Home'))
 

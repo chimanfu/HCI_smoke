@@ -26,13 +26,13 @@ import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import java.util.List;
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.osgi.framework.AdminPermission
 import org.postgresql.translation.messages_bg
 import org.python.antlr.PythonParser.return_stmt_return
-import org.openqa.selenium.WebDriver
 import org.sikuli.script.Screen as Screen
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
@@ -54,20 +54,34 @@ import internal.GlobalVariable as GlobalVariable
  * 		check for js error on each new record page when page is being loaded
  */
 KeywordLogger log = new KeywordLogger()
-if (!(GlobalVariable.addNewRecord)) {
+
+/*if (!(GlobalVariable.addNewRecord)) {
 	log.logInfo('The test will not run, as no need to add a new record for smoke test and GlobalVariable.addNewRecord is disabled')
 
 	return null
 } else {
 	log.logInfo('will verify create page load')
-}
+}*/
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 String found_new_record_link
 String url
 
 println('click New Record link')
-WebUI.click(findTestObject('Page_Main Page/a_New'))
+if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
+	WebUI.click(findTestObject('Page_Document Tree/a_NEW RECORD'))
+	WebUI.click(findTestObject('Object Repository/Page_Select Program/a_All'))
+}
+else if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+	//WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_logo'))
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'))
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/button_Save'),5)
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_ARC JET/button_Save'))
+}
+else{
+	WebUI.click(findTestObject('Page_Main Page/a_New'))
+}
 //println('check Links Broken (http return code != 200) On Current Page of New Record Record')
 //CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
 println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
@@ -100,7 +114,7 @@ for (int i = 0; i < size; i++) {
 
 }
 return
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
 if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 	println 'this is cp_hazard'
 	WebUI.click(findTestObject('Page_Main Page/a_New'))

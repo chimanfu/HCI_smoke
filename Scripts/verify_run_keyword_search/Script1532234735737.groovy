@@ -32,7 +32,54 @@ import internal.GlobalVariable as GlobalVariable
  * 
  */
 CustomKeywords.'helper.login.LoginHelper.login'()
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	println('this is doctree')
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Document Tree/img_System Logo'),10)
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/img_System Logo'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
+	
+	WebUI.setText(findTestObject('Object Repository/Page_Document Tree/input_search'), 'DSG-PLAN-001')
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_SEARCH'))
+	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/div_1 result for DSG-PLAN-001'),10)
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_1 result for DSG-PLAN-001'))
+	
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/span_DSG-PLAN-001'))
+	
+	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/div_DSG Implementation Plan'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/span_DSG-PLAN-001'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_edit details'))
+	return
+}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 10)
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'ALL')
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_Showing results for ALL'))
+	
+	String recordName=GlobalVariable.recordName1
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), recordName)
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
+	
+	WebUI.click(findTestObject('Page_ARC JET/div_Showing results for RecordSeries'))
+	
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'))
+	
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/button_Save'),5)
+	return
+
+}
+/////////////////////////////////
+
 String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+
 WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
 WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 WebUI.waitForPageLoad(5)
@@ -40,14 +87,17 @@ WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),10)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),10)
 
 WebUI.waitForElementVisible(findTestObject('Page_Record List/li_Content_test_automation_record'),15)
 
-WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))
+if (WebUI.waitForElementVisible(findTestObject('Page_Record List/a_test_automation_record'),2)){
+	WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))
+	
+	WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
+}
 
-WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
 WebUI.delay(1)
 
 

@@ -35,6 +35,10 @@ import internal.GlobalVariable as GlobalVariable
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	WebUI.delay(1)
+	WebUI.switchToWindowIndex(1)
+}
 WebUI.click(findTestObject('Page_Administer your installation/a_Parameters'))
 
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_Administrative Policies'))
@@ -52,5 +56,9 @@ WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, f
 println('matched with expected permittedBrowsers value = '+GlobalVariable.G_permitted_browser)
 
 
-
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	WebUI.switchToWindowIndex(1)
+	WebUI.closeWindowIndex(1)
+	WebUI.switchToWindowIndex(0)
+}
 

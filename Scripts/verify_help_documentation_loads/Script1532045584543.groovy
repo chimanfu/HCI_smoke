@@ -41,9 +41,28 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
+int currentTab = WebUI.getWindowIndex()
+
+if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_logo'))
+	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_Help'))
+	WebUI.switchToWindowIndex(currentTab+1)
+	
+	println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
+	boolean STOP_ON_FAILURE=false
+	CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
+	
+	println('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
+	String xpath="//div[@class='toc']//a"
+	CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
+	
+	WebUI.closeWindowIndex(currentTab + 1)
+	WebUI.switchToWindowIndex(currentTab)
+	return
+}
 
 WebUI.click(findTestObject('Page_Main Page/a_Help'))
-int currentTab = WebUI.getWindowIndex()
+
 WebUI.delay(1)
 //GlobalVariable.G_MAKE_MAS_title
 try{
@@ -55,8 +74,8 @@ try{
 }
 
 WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),5)
-WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
+if (WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),5))
+	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
 // need dynamically check all links in Help Page (User Guide)
 
 println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')

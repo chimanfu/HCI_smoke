@@ -37,11 +37,15 @@ import internal.GlobalVariable as GlobalVariable
  * select 'Forget Search' link
  * verify notification_message that search search 'joe_search' is gone
  */
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	return
+}
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
 String saveSearchName='joe_search'
-
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'),10)
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
 WebUI.click(findTestObject('Page_Main Page/a_My Records'))

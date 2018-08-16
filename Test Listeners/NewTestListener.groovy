@@ -33,9 +33,13 @@ class NewTestListener {
 	 * @param testCaseContext related information of the executed test case.
 	 */
 	@BeforeTestCase
-	def sampleBeforeTestCase(TestCaseContext testCaseContext) {
+	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
 		println testCaseContext.getTestCaseVariables()
+		//String cmd = "pkill -f Chrome"
+		//Runtime.getRuntime().exec(cmd)
+		//String cmd="killall -9 chromedriver"
+		//Runtime.getRuntime().exec(cmd)
 		
 		
 		
@@ -46,9 +50,22 @@ class NewTestListener {
 	 * @param testCaseContext related information of the executed test case.
 	 */
 	@AfterTestCase
-	def sampleAfterTestCase(TestCaseContext testCaseContext) {
+	def testListenerAfterTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
 		println testCaseContext.getTestCaseStatus()
+		if (testCaseContext.getTestCaseStatus().equals('FAILED')){
+			try{
+				CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+				//WebUI.switchToDefaultContent()
+				WebUI.switchToWindowIndex(0)
+				WebUI.closeWindowIndex(1)
+				WebUI.switchToWindowIndex(0)
+			}catch (Exception e) {
+				WebUI.switchToWindowIndex(0)
+				println('cannot closeWindowIndex')
+			}
+		}
+
 	}
 
 	/**
@@ -58,6 +75,11 @@ class NewTestListener {
 	@BeforeTestSuite
 	def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
 		println testSuiteContext.getTestSuiteId()
+		String cmd = "pkill -f Chrome"
+		Runtime.getRuntime().exec(cmd)
+		cmd="killall -9 chromedriver"
+		Runtime.getRuntime().exec(cmd)
+		println('killed all processes of Chrome and chromedriver before running test')
 		
 	}
 

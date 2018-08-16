@@ -158,6 +158,14 @@ def static "reusableComponents.Verify_Text_In_WebElement.verifyTextInWebelement"
          , 	expText)
 }
 
+def static "helper.login.LoginHelper.loginVPN"() {
+    (new helper.login.LoginHelper()).loginVPN()
+}
+
+def static "helper.login.LoginHelper.checkHomePageExist"() {
+    (new helper.login.LoginHelper()).checkHomePageExist()
+}
+
 def static "helper.login.LoginHelper.login"() {
     (new helper.login.LoginHelper()).login()
 }
@@ -198,6 +206,12 @@ def static "question.RandomEmail.getEmail"(
     (new question.RandomEmail()).getEmail(
         	suffix
          , 	prefix)
+}
+
+def static "hci_smoke_test.common.check_PDFFile_Downloaded"(
+    	int seconds	) {
+    (new hci_smoke_test.common()).check_PDFFile_Downloaded(
+        	seconds)
 }
 
 def static "hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible"(
