@@ -56,10 +56,15 @@ class NewTestListener {
 		if (testCaseContext.getTestCaseStatus().equals('FAILED')){
 			try{
 				CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-				//WebUI.switchToDefaultContent()
+				WebUI.switchToDefaultContent()
 				WebUI.switchToWindowIndex(0)
-				WebUI.closeWindowIndex(1)
+				while (WebUI.getWindowIndex()>0){
+					WebUI.closeWindowIndex(WebUI.getWindowIndex(),FailureHandling.CONTINUE_ON_FAILURE)
+				}
+					
 				WebUI.switchToWindowIndex(0)
+				//WebUI.closeWindowIndex(1,FailureHandling.CONTINUE_ON_FAILURE)
+				//WebUI.switchToWindowIndex(0)
 			}catch (Exception e) {
 				WebUI.switchToWindowIndex(0)
 				println('cannot closeWindowIndex')

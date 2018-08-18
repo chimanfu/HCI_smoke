@@ -116,7 +116,7 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
         println('this is react_cp_hazard_dev')
 
         WebUI.click(findTestObject('Page_Select Record Type/a_Hazard'))
-
+		
         WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EGSHazards')) /*
 			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
 			WebUI.selectOptionByLabel(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),

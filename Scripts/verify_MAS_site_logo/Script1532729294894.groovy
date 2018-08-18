@@ -31,15 +31,47 @@ import org.sikuli.script.Screen;
  * 
  */
 
-CustomKeywords.'helper.login.LoginHelper.login'()
 
-Screen s = new Screen();
-//GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-
-if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
-	println('look for expected site logo from the Home page')
-	s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
-	println('found cp_hazard_logo')
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
+		CustomKeywords.'helper.login.LoginHelper.login'()
+		
+		Screen s = new Screen();
+		//GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
+		//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
+		
+		if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+			println('look for expected site logo from the Home page')
+			s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+			println('found cp_hazard_logo')
+		}
+/////////////////////////////////////////////////////////////////////////////
+	} catch (Exception e) {
+		// handle exception
+		e.printStackTrace()	
+		if (++retry_count == maxTries) throw e;
+		println('Retry:'+retry_count+' rerun failed case now...')
+	}
 }
 
+/* retry code here
+
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	println('Retry:'+retry_count+' rerun failed case now...')
+}
+}
+
+retry code here */
+		

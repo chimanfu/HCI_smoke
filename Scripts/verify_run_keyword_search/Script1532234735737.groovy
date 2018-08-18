@@ -31,6 +31,12 @@ import internal.GlobalVariable as GlobalVariable
  * is should show records from the search_term
  * 
  */
+
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	println('this is doctree')
@@ -84,26 +90,55 @@ WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),1
 WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 WebUI.waitForPageLoad(5)
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
-
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+try {
+	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)){
+		println('a_EditSearch is present')
+		//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
+	}
+} catch (Exception e) {
+	e.printStackTrace()
+	if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
+		String alertText=WebUI.getAlertText()
+		WebUI.acceptAlert()
+		println('accept alert='+alertText)
+	}
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+	WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+	WebUI.waitForPageLoad(5)
+	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
+	WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
+}
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),10)
 
 WebUI.waitForElementVisible(findTestObject('Page_Record List/li_Content_test_automation_record'),15)
 
 if (WebUI.waitForElementVisible(findTestObject('Page_Record List/a_test_automation_record'),2)){
-	WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))
-	
-	WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
+	WebUI.click(findTestObject('Object Repository/Page_Record List/a_test_automation_record'))	
 }
-
-WebUI.delay(1)
-
+try{
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/div_test_automation_record'),10)){
+		WebUI.click(findTestObject('Page_Record test_automation_record/div_test_automation_record'))
+	}	
+} catch (Exception e) {
+	e.printStackTrace()
+	WebUI.delay(1)
+}
 
 //WebUI.click(findTestObject('Page_Record test_automation_record/button_Save Changes'))
 
 //WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_record/div_Close alertRecord Saved'),12)
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Main Page/a_Home'))
+	/////////////////////////////////////////////////////////////////////////////
+	} catch (Exception e) {
+		// handle exception
+		e.printStackTrace()
+		if (++retry_count == maxTries) throw e;
+		println('Retry:'+retry_count+' rerun failed case now...')
+	}
+}
 

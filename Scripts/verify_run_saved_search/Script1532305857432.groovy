@@ -38,6 +38,13 @@ import internal.GlobalVariable as GlobalVariable
  * verify notification_message that search search 'joe_search' is gone
  */
 
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	return
 }
@@ -45,7 +52,11 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
 String saveSearchName='joe_search'
-WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'),10)
+WebUI.waitForElementPresent(findTestObject('Page_Main Page/input_quicksearch'),15)
+if (!WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'),10)){
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'),10)
+}
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
 WebUI.click(findTestObject('Page_Main Page/a_My Records'))
@@ -101,5 +112,12 @@ println('not found joe_seach from saved search, so it is deleted sucessfully')
 //WebUI.click(findTestObject('Object Repository/Page_Search is gone/a_Home'))
 
 
-
+/////////////////////////////////////////////////////////////////////////////
+} catch (Exception e) {
+	// handle exception
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	println('Retry:'+retry_count+' rerun failed case now...')
+}
+}
 

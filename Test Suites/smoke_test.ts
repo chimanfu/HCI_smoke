@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-15T22:54:57</lastRun>
+   <lastRun>2018-08-18T00:23:12</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -106,5 +106,17 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/run_sanityCheck</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>3878f30d-db59-4848-b5a1-0a3657506827</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_CpHazard_AdvancedSearch_Linking (DVO, DMM, LCC, OMRS)</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d86f6eb4-c53b-43bf-98ec-bbc7db33ba9c</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_dagger_linking_config</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

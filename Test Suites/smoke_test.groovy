@@ -135,7 +135,7 @@ def setupTestCase() {
 		println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
 		WebUI.waitForPageLoad(30)
 		if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
-			alertText=WebUI.getAlertText()
+			String alertText=WebUI.getAlertText()
 			WebUI.acceptAlert()
 			println('accept alert='+alertText)
 		}

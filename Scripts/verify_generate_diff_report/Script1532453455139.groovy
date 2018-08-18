@@ -40,9 +40,8 @@ import internal.GlobalVariable as GlobalVariable
  * 		click 'Generate PDF' to create a pdf file
  * 		check pdf file is generated correctly
  */
-//CustomKeywords.'helper.login.LoginHelper.login'()
+CustomKeywords.'helper.login.LoginHelper.login'()
 String recordName_forDiffReport
-//recordName_forDiffReport='test_automation_record'
 
 recordName_forDiffReport=GlobalVariable.recordName1
 if (recordName_forDiffReport.trim().equals("") || recordName_forDiffReport.trim().equals(null)){

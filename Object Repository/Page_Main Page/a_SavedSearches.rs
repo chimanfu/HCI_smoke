@@ -4,6 +4,12 @@
    <name>a_SavedSearches</name>
    <tag></tag>
    <elementGuidId>0fbaef92-57d3-4d2e-9a2b-09f30da1d490</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@id = 'links-saved_hyperlink' and (text() = 'Saved Searches' or . = 'Saved Searches')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -21,7 +27,7 @@
       <value>links-saved_hyperlink</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>href</name>
       <type>Main</type>
