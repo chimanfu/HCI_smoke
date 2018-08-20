@@ -13,9 +13,9 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/verify_MAS_site_logo/20180818_105511/execution.properties')
+RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/verify_CpHazard_AdvancedSearch_Linking (DVO, DMM, LCC, OMRS)/20180819_211056/execution.properties')
 
 TestCaseMain.beforeStart()
 
-        TestCaseMain.runTestCase('Test Cases/verify_MAS_site_logo', new TestCaseBinding('Test Cases/verify_MAS_site_logo',[:]), FailureHandling.STOP_ON_FAILURE , false)
+        TestCaseMain.runTestCase('Test Cases/verify_CpHazard_AdvancedSearch_Linking (DVO, DMM, LCC, OMRS)', new TestCaseBinding('Test Cases/verify_CpHazard_AdvancedSearch_Linking (DVO, DMM, LCC, OMRS)',[:]), FailureHandling.STOP_ON_FAILURE , false)
     

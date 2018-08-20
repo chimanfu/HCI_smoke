@@ -65,15 +65,15 @@ public class LoginHelper {
 		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 
-		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 			WebUI.waitForPageLoad(6)
 			WebUI.delay(1)
 
-			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
 			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 
-			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',3)!=null){
+			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
 				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 			}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
@@ -86,9 +86,9 @@ public class LoginHelper {
 			WebUI.delay(5)
 			s.type(GlobalVariable.G_userPin+"\n")
 
-			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),10)
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)
 			WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
-			WebUI.delay(0.5)
+			WebUI.delay(1)
 			s.type('\n')
 		}
 	}

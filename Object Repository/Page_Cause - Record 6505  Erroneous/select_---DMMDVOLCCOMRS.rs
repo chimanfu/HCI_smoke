@@ -3,13 +3,7 @@
    <description></description>
    <name>select_---DMMDVOLCCOMRS</name>
    <tag></tag>
-   <elementGuidId>b8e66569-9419-4a57-ad28-95e779eba8ce</elementGuidId>
-   <selectorCollection>
-      <entry>
-         <key>BASIC</key>
-         <value>id(&quot;cf_verification_traceability_1929070&quot;)[count(. | //select[@id = 'cf_verification_traceability_1929070' and @onmouseover = concat('populate_select(this.id, ' , &quot;'&quot; , 'cf_verification_traceability' , &quot;'&quot; , ', 0)')]) = count(//select[@id = 'cf_verification_traceability_1929070' and @onmouseover = concat('populate_select(this.id, ' , &quot;'&quot; , 'cf_verification_traceability' , &quot;'&quot; , ', 0)')])]</value>
-      </entry>
-   </selectorCollection>
+   <elementGuidId>a940c0cc-aa35-4fb8-acfd-b090e3af8845</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -35,10 +29,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>name</name>
       <type>Main</type>
-      <value>cf_verification_traceability</value>
+      <value>cf_verification_traceability_1929070</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -69,7 +63,7 @@
       <value>populate_select(this.id, 'cf_verification_traceability', 0)</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>onmouseover</name>
       <type>Main</type>
@@ -77,10 +71,14 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>---DMMDVOLCCOMRS</value>
+      <value>
+    
+    
+      
+  ---DMMDVOLCCOMRS</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

@@ -49,6 +49,7 @@ while(true) {
 			println('found cp_hazard_logo')
 		}
 /////////////////////////////////////////////////////////////////////////////
+		break
 	} catch (Exception e) {
 		// handle exception
 		e.printStackTrace()	
@@ -66,7 +67,7 @@ try {
 /////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////
-} catch (Exception e) {
+break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	println('Retry:'+retry_count+' rerun failed case now...')

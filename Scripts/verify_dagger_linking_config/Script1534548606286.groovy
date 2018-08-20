@@ -22,6 +22,7 @@ import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.Keys as Keys
 import com.mysql.jdbc.StringUtils;
 
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 //if (GlobalVariable.G_dagger_server_url.)
@@ -35,7 +36,11 @@ WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 // checking daggr linking parameters
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'),6)
+if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'),6)){
+	println('not found a_DAggr Linking Params, skip the test')
+	return
+}
+
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'))
 
 // check daggr_linking_user

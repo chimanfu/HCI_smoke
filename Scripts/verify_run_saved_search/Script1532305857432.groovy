@@ -113,8 +113,7 @@ println('not found joe_seach from saved search, so it is deleted sucessfully')
 
 
 /////////////////////////////////////////////////////////////////////////////
-} catch (Exception e) {
-	// handle exception
+break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	println('Retry:'+retry_count+' rerun failed case now...')

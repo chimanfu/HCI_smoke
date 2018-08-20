@@ -1,37 +1,22 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testobject.TestObject as TestObject
-
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-
-import internal.GlobalVariable as GlobalVariable
-
-import com.kms.katalon.core.annotation.BeforeTestCase
-import com.kms.katalon.core.annotation.BeforeTestSuite
 import com.kms.katalon.core.annotation.AfterTestCase
 import com.kms.katalon.core.annotation.AfterTestSuite
+import com.kms.katalon.core.annotation.BeforeTestCase
+import com.kms.katalon.core.annotation.BeforeTestSuite
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.chrome.ChromeOptions
-import com.kms.katalon.core.webui.driver.DriverFactory
-import com.kms.katalon.core.webui.driver.WebUIDriverType
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
+import org.sikuli.script.App;
+import internal.GlobalVariable as GlobalVariable
+
 class NewTestListener {
 	/**
 	 * Executes before every test case starts.
 	 * @param testCaseContext related information of the executed test case.
 	 */
+	
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
@@ -58,8 +43,11 @@ class NewTestListener {
 				CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 				WebUI.switchToDefaultContent()
 				WebUI.switchToWindowIndex(0)
+				int i=0
 				while (WebUI.getWindowIndex()>0){
 					WebUI.closeWindowIndex(WebUI.getWindowIndex(),FailureHandling.CONTINUE_ON_FAILURE)
+					i++
+					if (i>5) break
 				}
 					
 				WebUI.switchToWindowIndex(0)
@@ -85,6 +73,13 @@ class NewTestListener {
 		cmd="killall -9 chromedriver"
 		Runtime.getRuntime().exec(cmd)
 		println('killed all processes of Chrome and chromedriver before running test')
+		
+		Screen s = new Screen();
+		
+		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
+			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
+			println('found KatalonNetworkConnections_deny_button and taken care of it')
+		}
 		
 	}
 

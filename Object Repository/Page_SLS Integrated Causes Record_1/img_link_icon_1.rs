@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>(//img[@src = 'skins/standard/praca/img2/link.gif'])[1]</value>
+         <value>(//*[@id='cfgr_Verifications_dd_list']//img[@src = 'skins/standard/praca/img2/link.gif'])[2]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -38,6 +38,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>(//img[@src = 'skins/standard/praca/img2/link.gif'])[1]</value>
+      <value>(//*[@id='cfgr_Verifications_dd_list']//img[@src = 'skins/standard/praca/img2/link.gif'])[2]</value>
    </webElementProperties>
 </WebElementEntity>

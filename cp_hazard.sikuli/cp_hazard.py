@@ -9,8 +9,8 @@ restore_pages_cancel_button=Pattern("restore_pages_cancel_button.png").targetOff
 pdf_downloadedFile_icon="pdf_downloadedFile_icon.png"
 chrome_downloadedFile_showAll_cancel_button=Pattern("chrome_downloadedFile_showAll_cancel_button.png").targetOffset(48,2)
 
-
-click(chrome_downloadedFile_showAll_cancel_button)
+KatalonNetworkConnections_deny_button="KatalonNetworkConnections_deny_button.png"
+click(KatalonNetworkConnections_deny_button)
 exit()
 
 wait(pulseAppLauncher_start_button,20)

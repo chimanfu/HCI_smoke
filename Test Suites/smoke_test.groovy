@@ -128,6 +128,10 @@ def setupTestCase() {
 	println('*** SetupTestCase started ***')
 	//println testCaseContext.getTestCaseId()
 	Screen s = new Screen();
+	
+	if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
+		s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
+	}
 	if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
 	//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 		//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)

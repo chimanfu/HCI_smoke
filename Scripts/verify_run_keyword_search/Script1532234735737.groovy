@@ -134,11 +134,10 @@ try{
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Main Page/a_Home'))
 	/////////////////////////////////////////////////////////////////////////////
-	} catch (Exception e) {
-		// handle exception
-		e.printStackTrace()
-		if (++retry_count == maxTries) throw e;
-		println('Retry:'+retry_count+' rerun failed case now...')
-	}
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	println('Retry:'+retry_count+' rerun failed case now...')
+}
 }
 
