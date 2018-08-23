@@ -39,6 +39,14 @@ import com.kms.katalon.core.webui.driver.DriverFactory
  * click 'Generate PDF' button
  * verify PDF is generated 
  */
+
+
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
+
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
 	println('do not need to run generate PDF report test as no PDF feature in record')
 	return
@@ -166,3 +174,12 @@ WebUI.delay(5)
 WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
 WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)
 
+/////////////////////////////////////////////////////////////////////////////
+break
+} catch (Exception e) {
+// handle exception
+e.printStackTrace()
+if (++retry_count == maxTries) throw e;
+println('Retry:'+retry_count+' rerun failed case now...')
+}
+}

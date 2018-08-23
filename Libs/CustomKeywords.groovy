@@ -76,14 +76,6 @@ def static "question.VerifyAllElements.scrollAndVerfiyElement"(
         	tagName)
 }
 
-def static "question.UniqueScreenShot.takeScreenShot"(
-    	String path	
-     , 	String name	) {
-    (new question.UniqueScreenShot()).takeScreenShot(
-        	path
-         , 	name)
-}
-
 def static "reusableComponents.VerifyDataInWebTable.verify_expText_In_Colum_Table"(
     	TestObject tableObject	
      , 	String expText	
@@ -146,6 +138,14 @@ def static "reusableComponents.VerifyDataInWebTable.Peform_AnchorClick_Operation
          , 	clickOperationColNum)
 }
 
+def static "question.UniqueScreenShot.takeScreenShot"(
+    	String path	
+     , 	String name	) {
+    (new question.UniqueScreenShot()).takeScreenShot(
+        	path
+         , 	name)
+}
+
 def static "question.GetMetrics.getAlarmsCountfromGA"() {
     (new question.GetMetrics()).getAlarmsCountfromGA()
 }
@@ -206,6 +206,22 @@ def static "question.RandomEmail.getEmail"(
     (new question.RandomEmail()).getEmail(
         	suffix
          , 	prefix)
+}
+
+def static "hci_smoke_test.common.waifForElement"(
+    	String xpath	
+     , 	int inSeconds	) {
+    (new hci_smoke_test.common()).waifForElement(
+        	xpath
+         , 	inSeconds)
+}
+
+def static "hci_smoke_test.common.waifForElementPresent"(
+    	String xpath	
+     , 	int inSeconds	) {
+    (new hci_smoke_test.common()).waifForElementPresent(
+        	xpath
+         , 	inSeconds)
 }
 
 def static "hci_smoke_test.common.check_PDFFile_Downloaded"(

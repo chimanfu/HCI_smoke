@@ -22,10 +22,16 @@ import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.testcase.TestCase
 import internal.GlobalVariable
-
+import com.kms.katalon.core.context.TestCaseContext as testCaseContext
 import MobileBuiltInKeywords as Mobile
 import WSBuiltInKeywords as WS
 import WebUiBuiltInKeywords as WebUI
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class CustomBrowser {
 
@@ -82,21 +88,51 @@ public class CustomBrowser {
 	public void takingScreenshot(){
 		try {
 			//import com.kms.katalon.core.configuration.RunConfiguration
-
+			
 			String getReportFolder=RunConfiguration.getReportFolder()
-
+			
 			println('getReportFolder='+getReportFolder)
 			Date today = new Date()
 			String todaysDate = today.format('MM_dd_yy');
 			String nowTime = today.format('hh_mm_ss');
 			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".PNG"
-			WebUI.takeScreenshot(screenshotPath);
+			//WebUI.takeScreenshot(screenshotPath);
+			// This code will capture screenshot of current screen
+			BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+					
+			// This will store screenshot on Specific location
+			ImageIO.write(image, "png", new File(screenshotPath));
 			println('screen shot in '+screenshotPath)
 		}
 		catch (Exception e) {
 			e.printStackTrace()
 		}
 	}
+	@Keyword
+	public void takingScreenshotStatus(String testcaseName, String testStatus){
+		try {
+			//import com.kms.katalon.core.configuration.RunConfiguration
+
+			String getReportFolder=RunConfiguration.getReportFolder()
+			//String testcaseName=testCaseContext.getTestCaseId()
+			println('getReportFolder='+getReportFolder)
+			Date today = new Date()
+			String todaysDate = today.format('MM_dd_yy');
+			String nowTime = today.format('hh_mm_ss');
+			String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName+"-"+ todaysDate +"-" + nowTime +".PNG"
+			//WebUI.takeScreenshot(screenshotPath);
+			// This code will capture screenshot of current screen
+			BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+					
+			// This will store screenshot on Specific location
+			ImageIO.write(image, "png", new File(screenshotPath));
+			println('screen shot in '+screenshotPath)
+		}
+		catch (Exception e) {
+			e.printStackTrace()
+		}
+	}
+	
 	/*
 	 @Keyword
 	 public void testCaseStatus() {

@@ -43,6 +43,11 @@ import internal.GlobalVariable as GlobalVariable
  */
  
 
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
@@ -140,4 +145,12 @@ if (bad_browser_blurb_message.contains(string1)){
 }
 
 //WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'))
-
+/////////////////////////////////////////////////////////////////////////////
+break
+} catch (Exception e) {
+// handle exception
+e.printStackTrace()
+if (++retry_count == maxTries) throw e;
+println('Retry:'+retry_count+' rerun failed case now...')
+}
+}

@@ -19,6 +19,34 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+ 
+import javax.imageio.ImageIO;
+ 
+def CaptureScreenshot (){
+ 
+	try {
+		// This code will capture screenshot of current screen
+		BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+				
+		// This will store screenshot on Specific location
+		ImageIO.write(image, "png", new File("/Users/jcfu/CurrentScreenshot.png"));
+	 	
+	} catch (Exception e) {
+		e.printStackTrace()
+	}
+
+ 
+}
+
+//CaptureScreenshot()
+return
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))

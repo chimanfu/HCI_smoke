@@ -10,6 +10,7 @@ import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
 import org.sikuli.script.App;
 import internal.GlobalVariable as GlobalVariable
+import com.kms.katalon.core.configuration.RunConfiguration
 
 class NewTestListener {
 	/**
@@ -21,6 +22,7 @@ class NewTestListener {
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
 		println testCaseContext.getTestCaseVariables()
+		println 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		//String cmd = "pkill -f Chrome"
 		//Runtime.getRuntime().exec(cmd)
 		//String cmd="killall -9 chromedriver"
@@ -37,10 +39,14 @@ class NewTestListener {
 	@AfterTestCase
 	def testListenerAfterTestCase(TestCaseContext testCaseContext) {
 		println testCaseContext.getTestCaseId()
+		String testcaseName=testCaseContext.getTestCaseId()
+		testcaseName=testcaseName.substring(testcaseName.indexOf('/')+1)
+		println testcaseName
 		println testCaseContext.getTestCaseStatus()
+		CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshotStatus'(testcaseName,testCaseContext.getTestCaseStatus())
+		
 		if (testCaseContext.getTestCaseStatus().equals('FAILED')){
 			try{
-				CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 				WebUI.switchToDefaultContent()
 				WebUI.switchToWindowIndex(0)
 				int i=0

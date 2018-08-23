@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_eCoFR_cp-inventory_integration</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>dfaff83f-70ce-44df-a3b1-dc5d6a49b5d3</testCaseGuid>
+</TestCaseEntity>

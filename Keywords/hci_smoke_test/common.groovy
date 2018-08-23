@@ -58,8 +58,36 @@ import org.openqa.selenium.Keys as Keys
 import org.sikuli.script.Key as Key
 import org.sikuli.script.Screen as Screen
 import org.sikuli.script.Pattern as Pattern
-
+import com.thoughtworks.selenium.Selenium
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.WebDriver
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
+import static org.junit.Assert.*
 class common {
+	@Keyword
+	def waifForElement(String xpath, int inSeconds){
+		WebDriver driver = DriverFactory.getWebDriver()
+		WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
+		for (int second = 0;; second++) {
+			if (second >= inSeconds) fail("timeout");
+			try {
+				if (selenium.isElementPresent(xpath)&&selenium.isVisible(xpath)) break;
+			} catch (Exception e) {}
+			Thread.sleep(1000);
+		}
+	}
+	@Keyword
+	def waifForElementPresent(String xpath, int inSeconds){
+		WebDriver driver = DriverFactory.getWebDriver()
+		WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
+		for (int second = 0;; second++) {
+			if (second >= inSeconds) fail("timeout");
+			try {
+				if (selenium.isElementPresent(xpath)) break;
+			} catch (Exception e) {}
+			Thread.sleep(1000);
+		}
+	}
 	@Keyword
 	def check_PDFFile_Downloaded(int seconds){
 		println('check_PDFFile_Downloaded ')

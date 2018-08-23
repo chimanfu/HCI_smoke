@@ -33,4 +33,6 @@ public class UniqueScreenShot {
 		String fullPath = path + name + (int)(Math.random() * 10000) + ".jpg"
 		println WebUI.takeScreenshot(fullPath);
 	}
+	
+	
 }

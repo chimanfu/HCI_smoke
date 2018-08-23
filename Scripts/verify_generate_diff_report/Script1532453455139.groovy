@@ -40,6 +40,15 @@ import internal.GlobalVariable as GlobalVariable
  * 		click 'Generate PDF' to create a pdf file
  * 		check pdf file is generated correctly
  */
+
+
+
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 String recordName_forDiffReport
 
@@ -116,4 +125,12 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	println('Not found Snapshot link so it cannot do diff report')
 }
 //WebUI.click(findTestObject('Page_Record test_automation_record/a_Home'))
-
+/////////////////////////////////////////////////////////////////////////////
+break
+} catch (Exception e) {
+// handle exception
+e.printStackTrace()
+if (++retry_count == maxTries) throw e;
+println('Retry:'+retry_count+' rerun failed case now...')
+}
+}

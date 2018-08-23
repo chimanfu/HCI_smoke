@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-18T22:08:03</lastRun>
+   <lastRun>2018-08-21T21:11:33</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -111,12 +111,78 @@
       <guid>3878f30d-db59-4848-b5a1-0a3657506827</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_CpHazard_AdvancedSearch_Linking (DVO, DMM, LCC, OMRS)</testCaseId>
+      <testCaseId>Test Cases/verify_CpHazard_OMRS-Linking</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>d86f6eb4-c53b-43bf-98ec-bbc7db33ba9c</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_dagger_linking_config</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>28f30390-f3b9-4a7d-a40f-d12e9d533faa</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_advanced_search</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>002a9c6b-39e5-42aa-97e8-8c63bfbf75a8</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_CpHazard_AdvancedSearch</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>9646bc83-bfc7-4263-95a4-f5fb56627dd1</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_CpHazard_DMM-Linking</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>220d9b86-6e7a-4c68-96e4-97e4587b0f0e</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_CpHazard_DVO-Linking</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>23f403dd-c0cd-4308-a26b-5155e8b43dd5</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_CpHazard_LCC-Linking</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>4ba34161-35a8-49fe-a096-100ea19b6aad</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_eCoFR_cp-hazard_integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>5c3b44f3-51e9-4487-b095-bfe957eefcea</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_eCoFR_cp-inventory_integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>2d150c87-381a-483a-94ce-a0f4d2425903</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_eCoFR_CP-LCC_integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>edf20fe3-4ab3-40e2-b3f6-190e553f42cb</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_eCoFR_CP-OMRS_integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>a7cb0542-e3ac-4e60-8e4e-587ae3080e4b</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_ISS_Hazard_attachments_return</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>1dfa7469-56c3-4147-b670-60ab72023d31</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_ISS_OCAD_linked_controls_widget</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
