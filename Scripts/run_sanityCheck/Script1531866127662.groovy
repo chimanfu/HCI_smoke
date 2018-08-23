@@ -15,7 +15,10 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 import java.util.concurrent.TimeUnit
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+
 /*
+
 run sanity check from Admin->'Sanity Check' to capture any unexpected errors from the site
 
 Steps:
@@ -123,12 +126,18 @@ catch (Exception e) {
 //WebUI.waitForPageLoad(5)
 WebUI.delay(5)
 log.logInfo('verify sanity check is working and without new issue.')
-WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
+WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100,,FailureHandling.STOP_ON_FAILURE)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Sanity Check/p_output_log_message.rs'))
 WebUI.delay(1)
-WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 15)){
+	log.logError('found A system error has occurred')
+	throw new AssertionError('ERROR: found A system error has occurred ')
+	
+}
+
+WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200,FailureHandling.STOP_ON_FAILURE)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 WebUI.delay(1)
 
@@ -164,8 +173,8 @@ for (int i = 0; i < elements.size(); i++) {
 	if (found_ALERT_MESSAGE.contains('Records that have changes but no mail sent for at least half an hour')){
 		continue
 	}*/
-	log.logWarning("Found unexpected ALERT MESSAGE: " + found_ALERT_MESSAGE);
-	
+	log.logError("Found unexpected ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	throw new AssertionError('ERROR: found unexpected ALERT MESSAGE: ' + found_ALERT_MESSAGE);
 	////
 	/*for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()

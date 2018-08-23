@@ -76,6 +76,14 @@ def static "question.VerifyAllElements.scrollAndVerfiyElement"(
         	tagName)
 }
 
+def static "question.UniqueScreenShot.takeScreenShot"(
+    	String path	
+     , 	String name	) {
+    (new question.UniqueScreenShot()).takeScreenShot(
+        	path
+         , 	name)
+}
+
 def static "reusableComponents.VerifyDataInWebTable.verify_expText_In_Colum_Table"(
     	TestObject tableObject	
      , 	String expText	
@@ -138,14 +146,6 @@ def static "reusableComponents.VerifyDataInWebTable.Peform_AnchorClick_Operation
          , 	clickOperationColNum)
 }
 
-def static "question.UniqueScreenShot.takeScreenShot"(
-    	String path	
-     , 	String name	) {
-    (new question.UniqueScreenShot()).takeScreenShot(
-        	path
-         , 	name)
-}
-
 def static "question.GetMetrics.getAlarmsCountfromGA"() {
     (new question.GetMetrics()).getAlarmsCountfromGA()
 }
@@ -192,6 +192,14 @@ def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptio
     	TestObject objectto	) {
     (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
         	objectto)
+}
+
+def static "com.common.utils.ScreenShot.takeScreenShot"(
+    	String path	
+     , 	String name	) {
+    (new com.common.utils.ScreenShot()).takeScreenShot(
+        	path
+         , 	name)
 }
 
 def static "helper.navigate.NavigationHelper.navigateToMenuItem"(
@@ -392,6 +400,14 @@ def static "helper.browserhelper.CustomBrowser.closeBrowser"() {
 
 def static "helper.browserhelper.CustomBrowser.takingScreenshot"() {
     (new helper.browserhelper.CustomBrowser()).takingScreenshot()
+}
+
+def static "helper.browserhelper.CustomBrowser.takingScreenshotStatus"(
+    	String testcaseName	
+     , 	String testStatus	) {
+    (new helper.browserhelper.CustomBrowser()).takingScreenshotStatus(
+        	testcaseName
+         , 	testStatus)
 }
 
 def static "helper.grid.GridHelper.GetValueFromGrid"(
