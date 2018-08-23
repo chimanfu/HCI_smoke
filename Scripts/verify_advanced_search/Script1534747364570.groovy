@@ -55,23 +55,25 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
-	return
-}
+
+// do a advanced search on 
+//		select Search by change
+//		select option 'xml snapshot'
+//		add before date: '2018-08-20'
+//		click search button
+// verify the searchTitle_XML Snapshot in the search return list
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-println('advanced search on SLS Integrated Cause')
-WebUI.click(findTestObject('Page_Search for records/a_Advanced Search'))
+WebUI.click(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'))
 
-WebUI.click(findTestObject('Page_Search for records/select_product_SLS Integrated Cause'))
+WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
+
+WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
+
+WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-08-20')
 
 WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),10)
-WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
-
-WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'),10)
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'))
-WebUI.delay(8)
+// verify the searchTitle_XML Snapshot in the search return list
+WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),10)

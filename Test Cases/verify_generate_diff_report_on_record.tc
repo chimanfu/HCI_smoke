@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>New Test Case (1)</name>
+   <name>verify_generate_diff_report_on_record</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>f33180c0-3b14-4557-aa67-57caa393f8ab</testCaseGuid>
+   <testCaseGuid>9096bbcd-9121-476b-88c6-21513a22c5a5</testCaseGuid>
 </TestCaseEntity>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>div_Record creationAdditional</name>
+   <tag></tag>
+   <elementGuidId>74a8e3a6-ec50-4497-b4c9-0c7163c9a6d9</elementGuidId>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>div</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>id</name>
+      <type>Main</type>
+      <value>chfield</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>nasa-ms</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>[Record creation]Additional InformationAdmin (Email)Admin CombinedAdmin NotesAliasApplicable FlightsArchival DispositionArchival IDAuto RetireCause TitleCC list accessible?Combined Flight RuleCombined ProcedureCombined TrainingCP-Hazard Ops ControlDate and time this record was last clonedDate DistributedDate DueDate ReceivedDetailed RationaleDispositionEAR99 RecommendationElementEvaluation AgencyEvaluation CompletedEvaluation InstructionsEvaluatorEvaluator Flight RuleEvaluator ProcedureEvaluator TrainingEver confirmedExternal Evaluation CommentsExternal EvaluatorFlownFOD ISVR AssigneeFOD ISVR CommentsFOD ISVR Flight RuleFOD ISVR ProcedureFOD ISVR Revisit By DateFOD ISVR TrainingGeneric OCAD?Group LeadHardware ProviderHazard AuthorHazard Author Phone No.Hazard System LinkHC MarkHR Cause Control No.HR TitleIHS Hardware CategoryISS-Hazard Ops ControlKeywordsLinked CP-Hazard ControlsLinked ISS-Hazard ControlsModificationsModified Ops ControlParent Record IDPrimary Flight AssignmentProgramQA Contact (Email)Related FlightsResolutionRoot Record IDS&amp;MA ISVR AssigneeS&amp;MA ISVR CommentsS&amp;MA ISVR Flight RuleS&amp;MA ISVR ProcedureS&amp;MA ISVR Revisit By DateSee AlsoShort TitleStatusSystem (Org Code)Target BranchTitleVersionXML Snapshot</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;chfield&quot;)</value>
+   </webElementProperties>
+</WebElementEntity>

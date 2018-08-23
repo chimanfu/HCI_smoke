@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-21T21:11:33</lastRun>
+   <lastRun>2018-08-22T19:02:14</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -99,7 +99,7 @@
       <guid>f59afac7-4fc3-4595-b731-0cab00d02a0a</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_diff_report</testCaseId>
+      <testCaseId>Test Cases/verify_generate_diff_report_on_record</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
@@ -184,5 +184,11 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_ISS_OCAD_linked_controls_widget</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

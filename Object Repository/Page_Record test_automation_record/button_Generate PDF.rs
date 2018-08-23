@@ -4,6 +4,12 @@
    <name>button_Generate PDF</name>
    <tag></tag>
    <elementGuidId>3996211c-8de0-4847-aa08-f42898c3e5fc</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//button[@type = 'button' and (contains(text(), 'Generate ') or contains(., 'Generate '))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -29,10 +35,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Generate PDF</value>
+      <value>Generate </value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

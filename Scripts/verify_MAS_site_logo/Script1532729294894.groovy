@@ -20,7 +20,9 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
-
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
+import org.sikuli.script.Pattern as Pattern
 /*
  * verify the MAS site logo is correct (using OpenCV image recognition library)
  * use OpenCV to locate site log image and compare with the expected image
@@ -38,15 +40,23 @@ while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
 		CustomKeywords.'helper.login.LoginHelper.login'()
-		
+		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		WebUI.delay(2)
 		Screen s = new Screen();
 		//GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 		//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 		
 		if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 			println('look for expected site logo from the Home page')
-			s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+			
+			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'cp_hazard_logo.png').similar(0.65)
+			//s.click(s.exists(pImage,10), 1)
+			s.click(s.exists(pImage,10))
+			
 			println('found cp_hazard_logo')
+		}else{
+			println('TBD')
 		}
 /////////////////////////////////////////////////////////////////////////////
 		break

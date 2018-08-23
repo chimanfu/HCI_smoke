@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>input_Search</name>
+   <name>a_124155</name>
    <tag></tag>
-   <elementGuidId>a8dd2bda-4f16-4e78-85cf-67043107660f</elementGuidId>
+   <elementGuidId>3c0d153f-9367-4dbf-be2f-409e864c81fd</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -11,41 +11,27 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>input</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>type</name>
+      <name>href</name>
       <type>Main</type>
-      <value>submit</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>class</name>
-      <type>Main</type>
-      <value>center_it</value>
+      <value>https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/ocad_dev/show_bug.cgi?id=124155</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>id</name>
+      <name>text</name>
       <type>Main</type>
-      <value>Search</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>value</name>
-      <type>Main</type>
-      <value>Search</value>
+      <value>124155</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;queryform&quot;)/p[2]/input[@id=&quot;Search&quot;]</value>
+      <value>id(&quot;yui-rec0&quot;)/td[@class=&quot;yui-dt0-col-id yui-dt-col-id&quot;]/div[@class=&quot;yui-dt-liner&quot;]/a[1]</value>
    </webElementProperties>
 </WebElementEntity>
