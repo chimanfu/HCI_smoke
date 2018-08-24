@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_iss_hazard_VMDB_Integration</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>22ef38a3-71f3-455f-9dc9-1431cc5d2ad1</testCaseGuid>
+</TestCaseEntity>

@@ -94,13 +94,13 @@ public class LoginHelper {
 	}
 
 	@Keyword
-
 	public boolean checkHomePageExist(){
 		if ( WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
 			//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
 			//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 			WebUI.switchToWindowIndex(0)
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 			println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
 			WebUI.waitForPageLoad(30)
 			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
@@ -145,10 +145,10 @@ public class LoginHelper {
 			//WebUI.switchToWindowIndex(0)
 		}catch (Exception e) {
 			//WebUI.switchToWindowIndex(0)
-			println('cannot closeWindowIndex')
+			println('cannot switchToWindowIndex(0)')
 		}
 		if (checkHomePageExist()){
-			println('done checkHomePageExist')
+			println('done checkHomePageExist, already in Home page')
 			return null
 		}
 

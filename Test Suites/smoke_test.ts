@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-22T22:39:04</lastRun>
+   <lastRun>2018-08-23T20:59:47</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -190,5 +190,29 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>b8b4aea7-4b9a-40f4-a610-dbcc40dea41a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_fmea_linking_config</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>fad3e743-22b2-4ee1-bad7-f7d57270117d</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_fmea_VMDB_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d924b73c-a8ed-4ca4-9a6b-9c18abcb05b9</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_hazard_H2O_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>23412da0-1bcc-43d9-9cc7-d0d6d6ec0917</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_hazard_VMDB_Integration</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

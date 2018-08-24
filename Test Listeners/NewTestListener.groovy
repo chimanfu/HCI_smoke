@@ -45,7 +45,7 @@ class NewTestListener {
 		println testCaseContext.getTestCaseStatus()
 		CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshotStatus'(testcaseName,testCaseContext.getTestCaseStatus())
 		
-		if (testCaseContext.getTestCaseStatus().equals('FAILED')){
+		if (!testCaseContext.getTestCaseStatus().equals('PASSED')){
 			try{
 				WebUI.switchToDefaultContent()
 				WebUI.switchToWindowIndex(0)
@@ -56,14 +56,20 @@ class NewTestListener {
 					if (i>5) break
 				}
 					
-				WebUI.switchToWindowIndex(0)
+				//WebUI.switchToWindowIndex(0)
+				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 				//WebUI.closeWindowIndex(1,FailureHandling.CONTINUE_ON_FAILURE)
 				//WebUI.switchToWindowIndex(0)
 			}catch (Exception e) {
-				WebUI.switchToWindowIndex(0)
+				//WebUI.switchToWindowIndex(0)
+				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 				println('cannot closeWindowIndex')
 			}
+			//WebUI.switchToWindowIndex(0)
+			//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 		}
+		//WebUI.switchToWindowIndex(0)
+		//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 
 	}
 

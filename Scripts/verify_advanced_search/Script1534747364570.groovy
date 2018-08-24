@@ -69,11 +69,15 @@ WebUI.click(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Sea
 
 WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
 
-WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
+if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5)){
+	
+	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
 
-WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-08-20')
+	WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-08-20')
 
-WebUI.click(findTestObject('Page_Search for records/input_Search'))
+	WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
-// verify the searchTitle_XML Snapshot in the search return list
-WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),10)
+	// verify the searchTitle_XML Snapshot in the search return list
+	WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),10)
+
+}

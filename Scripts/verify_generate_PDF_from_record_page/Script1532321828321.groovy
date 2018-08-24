@@ -81,12 +81,14 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	//WebUI.verifyTextPresent('Preparing doctree', false)
 	//WebUI.delay(5)
 	// check file download
-	s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', 20)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(20)
+	
+	/*s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', 20)
 	WebUI.delay(2)
 	s.wait(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png', 20)
 	pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
 	r=s.exists(pImage,1);
-	s.click(r, 1)
+	s.click(r, 1)*/
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -171,8 +173,9 @@ if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_re
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 }
 WebUI.delay(5)
-WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
-WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)
+CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(20)
+/*WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)*/
 
 /////////////////////////////////////////////////////////////////////////////
 break

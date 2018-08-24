@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_iss_hazard_H2O_Integration</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>95c30c85-9f49-4eac-b69d-777f797089c3</testCaseGuid>
+</TestCaseEntity>

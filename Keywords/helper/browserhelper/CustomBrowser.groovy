@@ -116,10 +116,11 @@ public class CustomBrowser {
 			String getReportFolder=RunConfiguration.getReportFolder()
 			//String testcaseName=testCaseContext.getTestCaseId()
 			println('getReportFolder='+getReportFolder)
-			Date today = new Date()
-			String todaysDate = today.format('MM_dd_yy');
-			String nowTime = today.format('hh_mm_ss');
-			String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName+"-"+ todaysDate +"-" + nowTime +".PNG"
+			//Date today = new Date()
+			//String todaysDate = today.format('MM_dd_yy');
+			//String nowTime = today.format('hh_mm_ss');
+			//String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName+"-"+ todaysDate +"-" + nowTime +".PNG"
+			String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName
 			//WebUI.takeScreenshot(screenshotPath);
 			// This code will capture screenshot of current screen
 			BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));

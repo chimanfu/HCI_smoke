@@ -73,7 +73,7 @@ CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_fi
 selenium.click("//div[@id='digIt_title_find']//span")
 WebUI.delay(10)
 
-return
+
 // open the current window which will trigger the popup
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
