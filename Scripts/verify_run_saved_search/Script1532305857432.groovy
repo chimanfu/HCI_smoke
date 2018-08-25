@@ -38,6 +38,11 @@ import internal.GlobalVariable as GlobalVariable
  * verify notification_message that search search 'joe_search' is gone
  */
 
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	return
+}
+
 int retry_count = 0;
 int maxTries = 3;
 while(true) {
@@ -45,9 +50,6 @@ try {
 /////////////////////////////////////////////////////////////////////////////
 
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	return
-}
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
@@ -117,6 +119,8 @@ break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	println('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
 }
 }
 

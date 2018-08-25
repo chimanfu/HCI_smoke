@@ -20,14 +20,16 @@ class NewTestListener {
 	
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
-		println testCaseContext.getTestCaseId()
-		println testCaseContext.getTestCaseVariables()
-		println 'Execution Profile: '+RunConfiguration.getExecutionProfile()
+		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
+		WebUI.comment 'Testcase: '+testCaseContext.getTestCaseId()
+//		println testCaseContext.getTestCaseVariables()
+		
 		//String cmd = "pkill -f Chrome"
 		//Runtime.getRuntime().exec(cmd)
 		//String cmd="killall -9 chromedriver"
 		//Runtime.getRuntime().exec(cmd)
-		
+		//CustomKeywords.'helper.login.LoginHelper.login'()
+		WebUI.comment '---------------------------------------------------------------------------------------------------------------------------------'
 		
 		
 	}
@@ -38,11 +40,14 @@ class NewTestListener {
 	 */
 	@AfterTestCase
 	def testListenerAfterTestCase(TestCaseContext testCaseContext) {
-		println testCaseContext.getTestCaseId()
+		WebUI.comment '---------------------------------------------------------------------------------------------------------------------------------'
+		
+		//println testCaseContext.getTestCaseId()
 		String testcaseName=testCaseContext.getTestCaseId()
 		testcaseName=testcaseName.substring(testcaseName.indexOf('/')+1)
-		println testcaseName
-		println testCaseContext.getTestCaseStatus()
+		//println testcaseName
+		WebUI.comment 'Test Status: '+ testCaseContext.getTestCaseStatus()
+		
 		CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshotStatus'(testcaseName,testCaseContext.getTestCaseStatus())
 		
 		if (!testCaseContext.getTestCaseStatus().equals('PASSED')){
@@ -79,7 +84,7 @@ class NewTestListener {
 	 */
 	@BeforeTestSuite
 	def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
-		println testSuiteContext.getTestSuiteId()
+		WebUI.comment 'TestSuite Name: '+ testSuiteContext.getTestSuiteId()
 		String cmd = "pkill -f Chrome"
 		Runtime.getRuntime().exec(cmd)
 		cmd="killall -9 chromedriver"
@@ -92,6 +97,8 @@ class NewTestListener {
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')
 		}
+		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
+		//GlobalVariable.G_userPin='12345678'
 		
 	}
 
@@ -101,6 +108,6 @@ class NewTestListener {
 	 */
 	@AfterTestSuite
 	def sampleAfterTestSuite(TestSuiteContext testSuiteContext) {
-		println testSuiteContext.getTestSuiteId()
+		WebUI.comment 'TestSuite Name: '+ testSuiteContext.getTestSuiteId()
 	}
 }

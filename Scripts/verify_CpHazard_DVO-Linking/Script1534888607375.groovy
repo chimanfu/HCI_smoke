@@ -35,6 +35,7 @@ import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 

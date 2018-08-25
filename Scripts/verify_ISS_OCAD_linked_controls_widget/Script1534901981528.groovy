@@ -34,6 +34,7 @@ import internal.GlobalVariable as GlobalVariable
 // verify for record #123001 exists for OCAD 
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('ocad')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 

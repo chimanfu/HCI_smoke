@@ -4,6 +4,12 @@
    <name>label_Controls ID</name>
    <tag></tag>
    <elementGuidId>188f8154-79dd-4bce-92f0-7875210c27f0</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//label[@id = 'cfgr_Controls_group_linking_id_label' and (contains(text(), 'Controls ID:') or contains(., 'Controls ID:'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -22,11 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Controls ID:
-                    </value>
+      <value>Controls ID:</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

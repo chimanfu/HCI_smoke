@@ -26,6 +26,7 @@ import org.sikuli.script.Screen;
 
 println('Only for iss_fmea: select Attachments & References tab -> create link')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 searchTerm='link'

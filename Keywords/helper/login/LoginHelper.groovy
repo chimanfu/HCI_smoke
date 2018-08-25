@@ -95,46 +95,52 @@ public class LoginHelper {
 
 	@Keyword
 	public boolean checkHomePageExist(){
-		if ( WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
-			//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
-			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-			//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-			WebUI.switchToWindowIndex(0)
-			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-			println('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-			WebUI.waitForPageLoad(30)
-			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
-				String alertText=WebUI.getAlertText()
-				WebUI.acceptAlert()
-				println('accept alert='+alertText)
+		try{
+			if ( WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
+				//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
+				//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+				//WebUI.switchToWindowIndex(0)
+				WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+				WebUI.comment('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
+				WebUI.waitForPageLoad(30)
+				if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+					String alertText=WebUI.getAlertText()
+					WebUI.acceptAlert()
+					WebUI.comment('accept alert='+alertText)
+				}
+				WebUI.comment('*** Already in Home Page, do not need to login ***')
+				return true
+			}else if (GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Page_Document Tree/a_TREE'), 1, FailureHandling.OPTIONAL)){
+				WebUI.comment('found Tree link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
+				WebUI.switchToWindowIndex(0)
+				WebUI.waitForPageLoad(30)
+
+				if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+					String alertText=WebUI.getAlertText()
+					WebUI.acceptAlert()
+					WebUI.comment('accept alert='+alertText)
+				}
+				WebUI.comment('*** Already in Home Page, do not need to login ***')
+				return true
+			}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
+				WebUI.comment('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
+				WebUI.switchToWindowIndex(0)
+				WebUI.waitForPageLoad(30)
+				if (WebUI.waitForAlert(1,FailureHandling.OPTIONAL)){
+					String alertText=WebUI.getAlertText()
+					WebUI.acceptAlert()
+					WebUI.comment('accept alert='+alertText)
+				}
+				WebUI.comment('*** Already in Home Page, do not need to login ***')
+				return true
 			}
-			println('*** Already in Home Page, do not need to login ***')
-			return true
-		}else if (GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Page_Document Tree/a_TREE'), 1, FailureHandling.OPTIONAL)){
-			println('found Tree link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-			WebUI.switchToWindowIndex(0)
-			WebUI.waitForPageLoad(30)
-			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
-				String alertText=WebUI.getAlertText()
-				WebUI.acceptAlert()
-				println('accept alert='+alertText)
-			}
-			println('*** Already in Home Page, do not need to login ***')
-			return true
-		}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
-			println('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-			WebUI.switchToWindowIndex(0)
-			WebUI.waitForPageLoad(30)
-			if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
-				String alertText=WebUI.getAlertText()
-				WebUI.acceptAlert()
-				println('accept alert='+alertText)
-			}
-			println('*** Already in Home Page, do not need to login ***')
-			return true
+			WebUI.comment('*** need to login ***')
+			return false
+		}catch (Exception e) {
+			WebUI.comment('cannot checkHomePageExist')
+			return false
 		}
-		println('*** need to login ***')
-		return false
 	}
 	@Keyword
 	public void login(){
@@ -145,10 +151,10 @@ public class LoginHelper {
 			//WebUI.switchToWindowIndex(0)
 		}catch (Exception e) {
 			//WebUI.switchToWindowIndex(0)
-			println('cannot switchToWindowIndex(0)')
+			WebUI.comment('cannot switchToWindowIndex(0)')
 		}
 		if (checkHomePageExist()){
-			println('done checkHomePageExist, already in Home page')
+			WebUI.comment('done checkHomePageExist, already in Home page')
 			return null
 		}
 
@@ -156,15 +162,16 @@ public class LoginHelper {
 		Runtime.getRuntime().exec(cmd)
 		//cmd="killall -9 chromedriver"
 		//Runtime.getRuntime().exec(cmd)
-		println('killed all processes of Chrome before running test')
+		WebUI.comment('killed all processes of Chrome before running test')
 
 		Screen s = new Screen();
 		WebUI.openBrowser('')
+		WebUI.maximizeWindow()
 		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-
 		try{
 			//WebUI.delay(1)
 			WebUI.switchToWindowIndex(0)
+
 			WebUI.closeWindowIndex(1)
 			//WebUI.delay(1)
 			WebUI.switchToWindowIndex(0)
@@ -182,13 +189,13 @@ public class LoginHelper {
 			s.click(s.exists(pImage,1), 1)
 		}
 		if (checkHomePageExist()){
-			println('done checkHomePageExist')
+			WebUI.comment('done checkHomePageExist')
 			return null
 		}
-		println('checking input_login_btn')
+		WebUI.comment('checking input_login_btn')
 		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
-			println('clicked on input_login_btn')
+			WebUI.comment('clicked on input_login_btn')
 			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 		}
@@ -196,7 +203,7 @@ public class LoginHelper {
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 			WebUI.waitForPageLoad(6)
 			WebUI.delay(1)
-			println('found on input_SCLOGIN')
+			WebUI.comment('found on input_SCLOGIN')
 			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
 			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 
@@ -215,13 +222,13 @@ public class LoginHelper {
 		}
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
-			println('clicked on input_login_btn in 2nd attempt')
+			WebUI.comment('clicked on input_login_btn in 2nd attempt')
 		}
 		// check if alert is showing
-		if (WebUI.verifyAlertPresent(1,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
 			String alertText=WebUI.getAlertText()
 			WebUI.acceptAlert()
-			println('accept alert='+alertText)
+			WebUI.comment('accept alert='+alertText)
 		}
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
 		/*if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
@@ -236,12 +243,12 @@ public class LoginHelper {
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
 			if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
-				println('found cp_hazard_logo')
-				println('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+				WebUI.comment('found cp_hazard_logo')
+				WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
 			}
 
 			//WebUI.waitForPageLoad(30)
-			println('*** Done Login ***')
+			WebUI.comment('*** Done Login ***')
 		}
 	}
 

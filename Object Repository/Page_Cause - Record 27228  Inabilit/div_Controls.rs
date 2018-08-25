@@ -4,6 +4,12 @@
    <name>div_Controls</name>
    <tag></tag>
    <elementGuidId>e1348112-0dbe-4f8f-a46d-804e508dc4f1</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//div[@class = 'praca_tab_label' and (contains(text(), 'Controls') or contains(., 'Controls'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -14,7 +20,7 @@
       <value>div</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
@@ -22,11 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Controls
-                      </value>
+      <value>Controls</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

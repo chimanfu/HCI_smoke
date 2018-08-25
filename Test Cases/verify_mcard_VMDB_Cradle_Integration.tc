@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_mcard_VMDB_Cradle_Integration</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>a88307cd-b65a-403f-b87d-697eed10b09a</testCaseGuid>
+</TestCaseEntity>

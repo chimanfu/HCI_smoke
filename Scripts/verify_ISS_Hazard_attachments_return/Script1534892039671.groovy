@@ -27,8 +27,12 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
+import org.sikuli.script.Key;
+import org.sikuli.script.KeyModifier
+import org.sikuli.script.Screen;
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 

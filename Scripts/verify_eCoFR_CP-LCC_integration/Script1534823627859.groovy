@@ -30,15 +30,17 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
+
+if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	return
+}
+
 println('check cp-OMRS integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 println('Select OMRS from the Source Type list')
 println('Search for OMRS Number field with searchTerm: ')
 println('verify CP-OMRS search results')
-
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
-	return
-}
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 Screen s = new Screen()

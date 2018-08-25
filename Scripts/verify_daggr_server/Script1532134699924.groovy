@@ -31,7 +31,7 @@ import com.mysql.jdbc.StringUtils;
  * 
  */
 
-CustomKeywords.'helper.login.LoginHelper.login'()
+
 
 //if (GlobalVariable.G_dagger_server_url.)
 println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
@@ -39,6 +39,8 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	println('do not need to run this test')
 	return
 }
+CustomKeywords.'helper.login.LoginHelper.login'()
+
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))

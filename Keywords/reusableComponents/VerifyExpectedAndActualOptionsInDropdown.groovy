@@ -24,9 +24,8 @@ public class VerifyExpectedAndActualOptionsInDropdown {
 
 			Assert.assertEquals(expectedOptions.toArray(), actualOptions.toArray());
 		} catch (Exception e) {
-			
+
 			Assert.fail(e.getMessage());
 		}
 	}
-
 }

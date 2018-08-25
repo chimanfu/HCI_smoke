@@ -40,6 +40,10 @@ import com.kms.katalon.core.webui.driver.DriverFactory
  * verify PDF is generated 
  */
 
+if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
+	println('do not need to run generate PDF report test as no PDF feature in record')
+	return
+}
 
 int retry_count = 0;
 int maxTries = 3;
@@ -47,10 +51,7 @@ while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
 
-if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
-	println('do not need to run generate PDF report test as no PDF feature in record')
-	return
-}
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){

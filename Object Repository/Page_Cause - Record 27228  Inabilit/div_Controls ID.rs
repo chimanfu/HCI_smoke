@@ -4,6 +4,12 @@
    <name>div_Controls ID</name>
    <tag></tag>
    <elementGuidId>01dca83a-40e8-41c4-9917-03bfba3368e6</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//div[@title = 'click to collapse' and (contains(text(), 'Ctl-8') or contains(., 'Ctl-8'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -36,19 +42,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>
-
-                
-                    Controls ID:
-                    
-                
-                Ctl-8
-                          
-                
-            </value>
+      <value>Ctl-8</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

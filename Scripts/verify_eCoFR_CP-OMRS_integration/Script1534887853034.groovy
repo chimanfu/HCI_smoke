@@ -19,3 +19,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	return
+}

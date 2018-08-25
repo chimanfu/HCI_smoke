@@ -37,6 +37,7 @@ println('Search for Hazard Number field with searchTerm: ')
 println('verify CP-Hazard search results')
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 

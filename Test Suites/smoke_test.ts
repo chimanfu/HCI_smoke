@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-23T20:59:47</lastRun>
+   <lastRun>2018-08-24T23:37:37</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -214,5 +214,17 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_iss_hazard_VMDB_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>86ae789e-cf38-4983-ae2d-831d98644472</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_part_VMDB_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d4b3ac23-ed45-4e23-913c-bfd07416d892</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_mcard_VMDB_Cradle_Integration</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

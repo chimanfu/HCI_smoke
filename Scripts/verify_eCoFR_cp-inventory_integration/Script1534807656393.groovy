@@ -11,6 +11,7 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import internal.GlobalVariable as GlobalVariable
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	return
 }
 
