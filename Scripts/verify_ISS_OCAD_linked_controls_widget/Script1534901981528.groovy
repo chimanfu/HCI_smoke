@@ -35,6 +35,8 @@ import internal.GlobalVariable as GlobalVariable
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('ocad')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 

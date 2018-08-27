@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_CpHazard_AdvancedSearch</name>
+   <name>verify_cp_hazard_DMM-Linking</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>9c0cbb4b-5c54-47d4-9602-5bb950b32a17</testCaseGuid>
+   <testCaseGuid>cfd478db-a5b1-40e6-9bc3-2c568fb2bb68</testCaseGuid>
 </TestCaseEntity>

@@ -36,12 +36,28 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
+/*println('advanced search on SLS Integrated Cause')
+WebUI.click(findTestObject('Page_Search for records/a_Advanced Search'))
 
+WebUI.click(findTestObject('Page_Search for records/select_product_SLS Integrated Cause'))
+
+WebUI.click(findTestObject('Page_Search for records/input_Search'))
+
+
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),10)
+WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
+
+WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'),10)
+WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'))
+WebUI.delay(8)
+*/
 def waifForElement(String xpath, int inSeconds){
 	WebDriver driver = DriverFactory.getWebDriver()
 	WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
@@ -76,20 +92,20 @@ selenium.click(verifiedRecord)
 
 waifForElement("id=cf_verification_traceability_"+verification_id,60)
 WebUI.delay(1)
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/label_Verification Traceabilit'), 3)
+
 selenium.click("id=cf_verification_traceability_"+verification_id)
-selenium.select("id=cf_verification_traceability_"+verification_id, "label=DMM")
-waifForElement("id=cf_dmm_number_"+verification_id,10)
-selenium.click("id=cf_dmm_number_"+verification_id)
-selenium.waitForPageToLoad("30000")
-selenium.type("id=cf_dmm_number_"+verification_id, "Transmission")
-selenium.waitForPageToLoad("30000")
+selenium.select("id=cf_verification_traceability_"+verification_id, "label=LCC")
+waifForElement("id=cf_lcc_id_"+verification_id,10)
+selenium.click("id=cf_lcc_id_"+verification_id)
+selenium.type("id=cf_lcc_id_"+verification_id, "Transmission")
 WebUI.delay(2)
 s.type(Key.ENTER)
 selenium.waitForPageToLoad("30000")
 selenium.click("id=daggr_title_search")
 WebUI.delay(2)
-
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
 s.type('\n')

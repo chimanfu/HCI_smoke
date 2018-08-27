@@ -36,6 +36,8 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
@@ -90,18 +92,21 @@ selenium.click(verifiedRecord)
 
 waifForElement("id=cf_verification_traceability_"+verification_id,60)
 WebUI.delay(1)
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/label_Verification Traceabilit'), 3)
+
 selenium.click("id=cf_verification_traceability_"+verification_id)
-selenium.select("id=cf_verification_traceability_"+verification_id, "label=LCC")
-waifForElement("id=cf_lcc_id_"+verification_id,10)
-selenium.click("id=cf_lcc_id_"+verification_id)
-selenium.type("id=cf_lcc_id_"+verification_id, "Transmission")
+selenium.select("id=cf_verification_traceability_"+verification_id, "label=OMRS")
+waifForElement("id=cf_omrs_number_"+verification_id,10)
+selenium.click("id=cf_omrs_number_"+verification_id)
+selenium.type("id=cf_omrs_number_"+verification_id, "Transmission")
 WebUI.delay(2)
 s.type(Key.ENTER)
 selenium.waitForPageToLoad("30000")
-selenium.click("id=daggr_title_search")
+//selenium.click("id=daggr_title_search")
 WebUI.delay(2)
 
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
 s.type('\n')

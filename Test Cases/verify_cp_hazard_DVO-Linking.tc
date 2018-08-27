@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_CpHazard_LCC-Linking</name>
+   <name>verify_cp_hazard_DVO-Linking</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>24b1d27d-e8d7-433a-bf22-39ce35f2a30a</testCaseGuid>
+   <testCaseGuid>e185b731-2a60-4f8d-9a0c-f1d450101252</testCaseGuid>
 </TestCaseEntity>

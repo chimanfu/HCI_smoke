@@ -25,6 +25,8 @@ import org.sikuli.script.Screen;
 
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('mcard'))) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
@@ -61,6 +63,8 @@ WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC
 WebUI.delay(1)
 WebUI.setText(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/input_cf_dvo_number'), '')
 
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the reload page popup to reload page
 Screen s = new Screen()
 s.type("w", KeyModifier.CMD)

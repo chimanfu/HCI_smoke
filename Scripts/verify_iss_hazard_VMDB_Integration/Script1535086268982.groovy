@@ -25,6 +25,8 @@ import org.openqa.selenium.Keys as Keys
 println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

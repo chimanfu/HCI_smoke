@@ -26,6 +26,9 @@ import com.mysql.jdbc.StringUtils;
 println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
 if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	println('do not need to run this test')
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

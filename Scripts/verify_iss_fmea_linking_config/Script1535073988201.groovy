@@ -27,6 +27,8 @@ import org.sikuli.script.Screen;
 println('Only for iss_fmea: select Attachments & References tab -> create link')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 searchTerm='link'
@@ -57,7 +59,8 @@ WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY V
 WebUI.delay(1)
 WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'))
 
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the reload page popup to reload page
 Screen s = new Screen()
 s.type("w", KeyModifier.CMD)

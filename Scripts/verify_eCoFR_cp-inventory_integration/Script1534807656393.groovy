@@ -12,6 +12,8 @@ import internal.GlobalVariable as GlobalVariable
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
@@ -50,6 +52,8 @@ selenium.waitForPageToLoad("30000")
 selenium.click("//div[@id='digIt_title_find']//span")
 WebUI.delay(2)
 
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the popup
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)

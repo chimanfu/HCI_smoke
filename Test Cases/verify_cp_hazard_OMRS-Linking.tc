@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_CpHazard_OMRS-Linking</name>
+   <name>verify_cp_hazard_OMRS-Linking</name>
    <tag></tag>
    <comment></comment>
    <testCaseGuid>ed42a3fe-bd02-4983-9174-15a14a8a7907</testCaseGuid>

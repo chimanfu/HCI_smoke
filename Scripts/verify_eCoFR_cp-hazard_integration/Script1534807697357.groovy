@@ -38,6 +38,8 @@ println('verify CP-Hazard search results')
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
@@ -74,7 +76,8 @@ CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_fi
 selenium.click("//div[@id='digIt_title_find']//span")
 WebUI.delay(5)
 
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the popup
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)

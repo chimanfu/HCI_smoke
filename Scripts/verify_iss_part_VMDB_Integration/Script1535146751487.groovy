@@ -26,6 +26,8 @@ import org.sikuli.script.Screen;
 println('Only for iss_part: Basic FMEA tab -> VMDB Integration')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
@@ -55,6 +57,8 @@ WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Recor
 /*WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/div_View part in VMDB'),5)
 WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/div_View drawing in VMDB'),5)*/
 
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the reload page popup to reload page
 Screen s = new Screen()
 s.type("w", KeyModifier.CMD)

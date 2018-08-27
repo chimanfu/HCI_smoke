@@ -42,6 +42,8 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
 	println('do not need to run generate PDF report test as no PDF feature in record')
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 

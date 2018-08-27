@@ -41,7 +41,8 @@ import internal.GlobalVariable as GlobalVariable
 */
 
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

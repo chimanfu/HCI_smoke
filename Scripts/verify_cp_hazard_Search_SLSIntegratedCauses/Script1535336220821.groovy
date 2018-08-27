@@ -56,6 +56,9 @@ import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
+	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
@@ -63,15 +66,14 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('advanced search on SLS Integrated Cause')
 WebUI.click(findTestObject('Page_Search for records/a_Advanced Search'))
-
 WebUI.click(findTestObject('Page_Search for records/select_product_SLS Integrated Cause'))
-
 WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
-
+println 'from the search list, select the first record to open and verify'
 WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),10)
 WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
 
+println 'open the Verifications Tab'
 WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'),10)
 WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'))
-WebUI.delay(8)
+WebUI.delay(2)

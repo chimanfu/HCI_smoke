@@ -26,7 +26,7 @@ import org.openqa.selenium.WebDriver
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import com.thoughtworks.selenium.Selenium
-
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import com.thoughtworks.selenium.Selenium
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.WebDriver
@@ -34,28 +34,21 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.testobject.ConditionType
+import com.kms.katalon.core.testobject.ObjectRepository
+
+KeywordLogger log = new KeywordLogger()
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-/*println('advanced search on SLS Integrated Cause')
-WebUI.click(findTestObject('Page_Search for records/a_Advanced Search'))
 
-WebUI.click(findTestObject('Page_Search for records/select_product_SLS Integrated Cause'))
-
-WebUI.click(findTestObject('Page_Search for records/input_Search'))
-
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),10)
-WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
-
-WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'),10)
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'))
-WebUI.delay(8)
-*/
 def waifForElement(String xpath, int inSeconds){
 	WebDriver driver = DriverFactory.getWebDriver()
 	WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
@@ -66,46 +59,54 @@ def waifForElement(String xpath, int inSeconds){
 	}
 }
 
-/////////////////////////
-// get record 6505->Verifications->VERIF49
+
+
 String baseUrl = "https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group"
 //WebUI.navigateToUrl(baseUrl)
 //WebDriver driver = DriverFactory.getWebDriver()
 def driver = DriverFactory.getWebDriver()
 Screen s = new Screen()
 WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver,baseUrl)
-
-//*[@id="cfgr_Verifications_list_item_1929070"]
-
 String verification_id='1935140' //from VERIF49 on record 6505
 
+println 'directly goto record 6505->Verifications Tab'
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
 
+println 'select VERIF49'
 String verifiedRecord="//*[@id='cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title']/span"
 //String verifiedRecord="//span[@id='cf_omrs_daggr_1935140_link_image_on']/img"
 waifForElement(verifiedRecord,160)
 WebUI.delay(10)
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/span_VERIF49'), 3)
 selenium.click(verifiedRecord)
 
+println 'from Verification Traceability Type:, select DMM'
 waifForElement("id=cf_verification_traceability_"+verification_id,60)
 WebUI.delay(1)
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/label_Verification Traceabilit'), 3)
 selenium.click("id=cf_verification_traceability_"+verification_id)
-selenium.select("id=cf_verification_traceability_"+verification_id, "label=DVO")
-waifForElement("id=cf_dvo_number_"+verification_id,10)
-selenium.click("id=cf_dvo_number_"+verification_id)
-selenium.type("id=cf_dvo_number_"+verification_id, "Transmission")
+selenium.select("id=cf_verification_traceability_"+verification_id, "label=DMM")
+
+println 'enter Transmission as the DMM number to get the search results'
+waifForElement("id=cf_dmm_number_"+verification_id,10)
+selenium.click("id=cf_dmm_number_"+verification_id)
+selenium.waitForPageToLoad("30000")
+selenium.type("id=cf_dmm_number_"+verification_id, "Transmission")
+selenium.waitForPageToLoad("30000")
 WebUI.delay(2)
 s.type(Key.ENTER)
 selenium.waitForPageToLoad("30000")
 selenium.click("id=daggr_title_search")
 WebUI.delay(2)
-
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
+// take care the popup
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
 s.type('\n')
 return
+
 ///////////////////////////////////////////////////////
 /*selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
 for (int second = 0;; second++) {

@@ -46,6 +46,8 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 
 }else{
 	println('Not found select_option xml snapshot so it does not support creating snapshot, so it cannot do diff report')
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 

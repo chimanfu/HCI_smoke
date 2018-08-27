@@ -13,9 +13,9 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/verify_generate_PDF_from_record_page/20180825_112211/execution.properties')
+RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/verify_CpHazard_DMM-Linking/20180826_201302/execution.properties')
 
 TestCaseMain.beforeStart()
 
-        TestCaseMain.runTestCase('Test Cases/verify_generate_PDF_from_record_page', new TestCaseBinding('Test Cases/verify_generate_PDF_from_record_page',[:]), FailureHandling.STOP_ON_FAILURE , false)
+        TestCaseMain.runTestCase('Test Cases/verify_CpHazard_DMM-Linking', new TestCaseBinding('Test Cases/verify_CpHazard_DMM-Linking',[:]), FailureHandling.STOP_ON_FAILURE , false)
     

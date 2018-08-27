@@ -22,6 +22,8 @@ import internal.GlobalVariable as GlobalVariable
 //H2O Integration - e.g. record 27228 Ctl-8
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
+	WebUI.comment("Skip this testcase")
+	GlobalVariable.userPin2='SKIP'
 	return
 }
 

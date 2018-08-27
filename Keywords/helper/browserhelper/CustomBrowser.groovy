@@ -96,12 +96,17 @@ public class CustomBrowser {
 			String todaysDate = today.format('MM_dd_yy');
 			String nowTime = today.format('hh_mm_ss');
 			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".png"
-			//WebUI.takeScreenshot(screenshotPath);
-			// This code will capture screenshot of current screen
-			BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-					
-			// This will store screenshot on Specific location
-			ImageIO.write(image, "png", new File(screenshotPath));
+			
+			try{
+				WebUI.takeScreenshot(screenshotPath);
+			}
+			catch (Exception e) {
+				// This code will capture screenshot of current screen
+				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+						
+				// This will store screenshot on Specific location
+				ImageIO.write(image, "png", new File(screenshotPath));
+			}
 			println('screen shot in '+screenshotPath)
 		}
 		catch (Exception e) {
