@@ -55,6 +55,11 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
+
+'do a advanced search on SLS Integrated Cause'
+'from the search list of records, select the first record to open and verify'
+'open the Verifications Tab'
+
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")

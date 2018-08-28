@@ -33,7 +33,7 @@ import org.openqa.selenium.Keys as Keys
 println('check cp-hazard integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 println('Select Hazard from the Source Type list')
-println('Search for Hazard Number field with searchTerm: ')
+println('Search for Hazard Number field with searchTerm: open work')
 println('verify CP-Hazard search results')
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {

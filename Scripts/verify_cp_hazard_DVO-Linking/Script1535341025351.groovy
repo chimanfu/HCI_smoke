@@ -34,6 +34,15 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
+
+println 'only run on cp_hazard'
+println 'directly goto existing record 6505->Verifications Tab'
+println 'select VERIF49'
+println 'from Verification Traceability Type:, select DVO'
+println 'enter Transmission as the DVO number to searh, get the search results'
+println 'verify search result of linking works'
+println 'takingScreenshot and exit the current state and reload page after popup'
+
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")

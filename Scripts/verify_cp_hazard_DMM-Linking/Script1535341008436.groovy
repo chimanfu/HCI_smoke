@@ -38,6 +38,14 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.testobject.ConditionType
 import com.kms.katalon.core.testobject.ObjectRepository
 
+println 'only run on cp_hazard'
+println 'directly goto existing record 6505->Verifications Tab'
+println 'select VERIF49'
+println 'from Verification Traceability Type:, select DMM'
+println 'enter Transmission as the DMM number to searh, get the search results'
+println 'verify search result of linking works'
+println 'takingScreenshot and exit the current state and reload page after popup'
+
 KeywordLogger log = new KeywordLogger()
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
@@ -48,7 +56,6 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-
 def waifForElement(String xpath, int inSeconds){
 	WebDriver driver = DriverFactory.getWebDriver()
 	WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
@@ -58,8 +65,6 @@ def waifForElement(String xpath, int inSeconds){
 		Thread.sleep(1000);
 	}
 }
-
-
 
 String baseUrl = "https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group"
 //WebUI.navigateToUrl(baseUrl)
@@ -97,8 +102,13 @@ selenium.waitForPageToLoad("30000")
 WebUI.delay(2)
 s.type(Key.ENTER)
 selenium.waitForPageToLoad("30000")
+
+println 'verify search result of linking works'
+waifForElement("id=daggr_title_search")
 selenium.click("id=daggr_title_search")
 WebUI.delay(2)
+
+println 'takingScreenshot and exit the current state and reload page after popup'
 CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 GlobalVariable.userPin2='ScreenshotTaken'
 // take care the popup

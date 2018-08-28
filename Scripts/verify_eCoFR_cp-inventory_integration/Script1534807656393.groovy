@@ -10,6 +10,12 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 
 import internal.GlobalVariable as GlobalVariable
 
+println('check cp-inventory integration in eCoFR')
+println('directly go to record 76 and open Products Tab')
+println('check cp-inventory integration on record 76->Products Tab->Mapped Product: Search for Record ID field with searchTerm: '+searchTerm)
+println('check cp-inventory integration on record 76->Products Tab->Compliance Products: Search for Record ID field with searchTerm: '+searchTerm)
+
+
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")

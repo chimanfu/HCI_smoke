@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-26T22:13:33</lastRun>
+   <lastRun>2018-08-26T23:38:40</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -226,5 +226,17 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_mcard_VMDB_Cradle_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>34b56fe4-239e-4e36-9036-738b2672df3f</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_linking_config_on-record</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

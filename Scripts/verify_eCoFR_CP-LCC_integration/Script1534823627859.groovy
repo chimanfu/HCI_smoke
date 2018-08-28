@@ -31,6 +31,12 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
+println('check cp-LCC integration in eCoFR')
+println('directly go to record 126 and open Authoritative Sources Tab')
+println('Select LCC from the Source Type list')
+println('Search for LCC Number field with searchTerm: ')
+println('verify CP-LCC search results')
+
 if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
@@ -38,11 +44,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	return
 }
 
-println('check cp-LCC integration in eCoFR')
-println('directly go to record 126 and open Authoritative Sources Tab')
-println('Select LCC from the Source Type list')
-println('Search for LCC Number field with searchTerm: ')
-println('verify CP-LCC search results')
+
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 Screen s = new Screen()
