@@ -1,32 +1,13 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import internal.GlobalVariable as GlobalVariable
-import java.util.List as List
+
+import org.stringtemplate.v4.compiler.CodeGenerator.region_return
+
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
-import org.openqa.selenium.Keys as Keys
-import org.openqa.selenium.By as By
-import org.openqa.selenium.WebDriver as WebDriver
-import org.openqa.selenium.WebElement as WebElement
-import org.sikuli.script.Key as Key
-import org.sikuli.script.Screen as Screen
-import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import internal.GlobalVariable as GlobalVariable
 
 /*
  
@@ -37,7 +18,7 @@ Steps:
 login to site and home page displays
 perform some basic checks on the menu toolbar and all links are not broken from the Main Page
 	perform verifyAllLinksOnCurrentPageAccessible()
-	click on each tab on menu toolbar and page is loading correctly
+	click on each tab on menu toolbar and verify page is loaded correctly
 
 for example:
 in cp_oms_dev:
@@ -47,24 +28,13 @@ in cp_oms_dev:
 
 */
 
-CustomKeywords.'helper.login.LoginHelper.login'()
 
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 KeywordLogger log = new KeywordLogger()
 
-Screen s = new Screen()
-if (WebUI.verifyAlertPresent(1, FailureHandling.OPTIONAL)) {
-    alertText = WebUI.getAlertText()
-
-    WebUI.acceptAlert()
-
-    println('accept alert=' + alertText)
-}
-
 WebUI.waitForPageLoad(4)
 WebUI.waitForJQueryLoad(20)
-//WebUI.verifyTextPresent('Home', false)
-
 
 println('perform some basic checks on the menu toolbar and items from the Main Page...')
 //println('check Links Broken (http return code != 200) On Current Page of New Record Record')
@@ -73,10 +43,9 @@ println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with sr
 boolean STOP_ON_FAILURE=false
 CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
-//return null
 
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
-	println('this is doctree')
+	println('this is doctree, different setting in Home page')
 	WebUI.verifyTextPresent('SELECT FROM THE LIST OF PROGRAMS TO POPULATE THE TREE', false)
 	WebUI.click(findTestObject('Page_Document Tree/img_System Logo'))
 	
@@ -99,7 +68,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-
+	println('this is etasksheet, different setting in Home page')
 	int currentTab = WebUI.getWindowIndex()
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_logo'))
 	
@@ -119,6 +88,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.closeWindowIndex(currentTab + 1)
 	WebUI.switchToWindowIndex(currentTab)
 	
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/a_About'),10)
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_About'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Charts'))
@@ -130,11 +100,9 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Home'))
 	return
 }
-/////////////////
+
 WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)
-
 println('found Home link, should be already in Home page and login succeeded!')
-
 WebUI.waitForPageLoad(30)
 println('click on each tab on menu toolbar and page is loading correctly')
 WebUI.click(findTestObject('Page_Main Page/a_Home'))

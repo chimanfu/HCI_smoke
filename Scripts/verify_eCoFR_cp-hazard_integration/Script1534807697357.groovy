@@ -55,7 +55,7 @@ selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?i
 
 
 println('Select Hazard from the Source Type list')
-CustomKeywords.'hci_smoke_test.common.waifForElement'("id=cf_source_type_NEW_ROW_1",5)
+CustomKeywords.'hci_smoke_test.common.waifForElement'("id=cf_source_type_NEW_ROW_1",25)
 selenium.click("id=cf_source_type_NEW_ROW_1")
 selenium.select("id=cf_source_type_NEW_ROW_1", "label=Hazard")
 

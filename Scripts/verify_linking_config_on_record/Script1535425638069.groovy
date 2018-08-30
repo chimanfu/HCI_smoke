@@ -1,3 +1,5 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.apache.commons.lang3.StringUtils
 import com.mysql.jdbc.StringUtils as myStringUtils
@@ -9,22 +11,32 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
+import org.sikuli.script.KeyModifier as KeyModifier
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	verify linking configuration is functioning by looking into one record and creating a link record in the Linked Records setting 
+//  from one of the Tabs
+//
+// 
+// 'directly goto the record id defined from the site profile'
+// 'dynamically get all Tabs from the Record Page'
+// '	click on each tab to look for Linked Records setting'
+// '	create link by entering search content: system'
+// '	select one record from the search list and link it'
+// '	check the record is linked successfully'
+// 'exit and reload the page without saving the change from the record'
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-println 'directly goto the record id from site profile'
-println('get all Tabs from the Record Page')
-println 'click on each tab to look for Linked Records setting'
-println 'create link by entering search content '
-println 'select one record from the search list and link it'
-println 'check the record is linked successfully'
-
+/*'only run on sites that aleady have dagger_server defined, except gmip'
 println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
-if (myStringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
+if (myStringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url) && !GlobalVariable.G_MAKE_MAS_url.contains('gmip')){
 	println('do not need to run this test')
 	WebUI.comment 'Skip this testcase as no dagger server defined for this site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
-}
+}*/
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -91,7 +103,15 @@ for (int i = 0; i < size; i++) {
 
 }
 
+CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+GlobalVariable.userPin2='ScreenshotTaken'
+// open the current window which will trigger the popup
+Screen s = new Screen()
+s.type("w", KeyModifier.CMD)
+WebUI.delay(1)
+s.type('\n')
 return
+
 
 
 

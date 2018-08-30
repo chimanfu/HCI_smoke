@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_create_page_loads</name>
+   <name>verify_iss_ocad_linked_controls_widget</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>52ef3473-5769-4247-b523-aaadac727a6d</testCaseGuid>
+   <testCaseGuid>cc6c818d-29bf-4dde-984f-a6a992e47945</testCaseGuid>
 </TestCaseEntity>

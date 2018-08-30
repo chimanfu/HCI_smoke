@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_ISS_OCAD_linked_controls_widget</name>
+   <name>verify_all_new_record_pages_loading</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>cc6c818d-29bf-4dde-984f-a6a992e47945</testCaseGuid>
+   <testCaseGuid>52ef3473-5769-4247-b523-aaadac727a6d</testCaseGuid>
 </TestCaseEntity>

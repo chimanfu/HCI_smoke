@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -27,17 +28,24 @@ import org.sikuli.script.Screen;
 println('Only for iss_fmea: select Attachments & References tab -> create link')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+
 searchTerm='link'
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly goto record 2769 -> Attachments & References Tab')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Attachments%20%26%20References')
 WebUI.maximizeWindow()
-WebUI.scrollToElement(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'), 18)
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'), 25)
+WebUI.scrollToElement(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'), 25)
 
 println('get the create link field and get ready to search content')
 WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'))
@@ -48,13 +56,15 @@ WebUI.setText(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY
 WebUI.delay(2)
 println('get the first record')
 WebUI.sendKeys(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input'), Keys.chord(Keys.ENTER))
-
+WebUI.delay(5)
 println('verify first record exist')
-WebUI.waitForElementClickable(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_record_1'),5)
+if (!WebUI.waitForElementClickable(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_record_1'),12))
+	WebUI.sendKeys(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input'), Keys.chord(Keys.ENTER))
 
 WebUI.delay(1)
 
 println('try out the trash link icon on/off')
+WebUI.waitForElementClickable(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'),12)
 WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'))
 WebUI.delay(1)
 WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'))
@@ -67,3 +77,13 @@ s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
 s.type('\n')
 return
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

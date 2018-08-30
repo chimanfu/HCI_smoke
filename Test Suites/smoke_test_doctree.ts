@@ -4,7 +4,7 @@
    <name>smoke_test_doctree</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-26T23:38:27</lastRun>
+   <lastRun>2018-08-27T23:23:21</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -21,7 +21,7 @@
       <guid>f3de3a1c-d5f5-474c-b94c-18e5b5344093</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_create_page_loads</testCaseId>
+      <testCaseId>Test Cases/verify_all_new_record_pages_loading</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>83a69ca8-6ac8-4035-87be-d191bd0f1873</guid>

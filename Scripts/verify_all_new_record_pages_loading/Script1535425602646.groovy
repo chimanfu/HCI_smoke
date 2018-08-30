@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -39,35 +40,29 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 
-/*
- * verify all links in create New record page are accessible and each add new record link is loading without any errors.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* verify all links in create New record page are accessible and each add new record link is loading without any errors.
  * 
  * Steps:
  * 
  * click on New link from the Home page
- * On the Page of New Record, perform verifyAllLinksOnCurrentPageAccessible() to verify all links are not broken 
+ * dynamically get all the add new record links on the page (Page_Enter Record)
+ * 		On the Page of New Record, perform verifyLinksAccessible() to verify all create record links are not broken 
  * 		will report any links that are not accessible.
- * 		will fail the test if STOP_ON_FAILURE=true
- * dynamically get all the add new record links on the page (Page_Select Record Type)
+ * 		will fail the test if FailureHandling.STOP_ON_FAILURE
+ *
  * 		get new record link name and url
  * 		navigate each link url to open new record page 
  * 		check for js error on each new record page when page is being loaded
- */
-KeywordLogger log = new KeywordLogger()
+ *///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*if (!(GlobalVariable.addNewRecord)) {
-	log.logInfo('The test will not run, as no need to add a new record for smoke test and GlobalVariable.addNewRecord is disabled')
-
-	return null
-} else {
-	log.logInfo('will verify create page load')
-}*/
 CustomKeywords.'helper.login.LoginHelper.login'()
 
+KeywordLogger log = new KeywordLogger()
 String found_new_record_link
 String url
 
-println('click New Record link')
+println('click New Record link from Home page')
 if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	WebUI.click(findTestObject('Page_Document Tree/a_NEW RECORD'))
 	WebUI.click(findTestObject('Object Repository/Page_Select Program/a_All'))
@@ -84,16 +79,14 @@ else{
 }
 //println('check Links Broken (http return code != 200) On Current Page of New Record Record')
 //CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
-println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
-boolean STOP_ON_FAILURE=false
-CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
+//println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
+//boolean STOP_ON_FAILURE=false
+//CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
 WebDriver driver = DriverFactory.getWebDriver()
 println('get all new record links from the New Record Page')
 List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
-
 //WebElement firstElement = elements.get(0);
-
 int size=elements.size()
 urls = new String[size]
 for (int i = 0; i < size; i++) {
@@ -103,8 +96,14 @@ for (int i = 0; i < size; i++) {
 	urls[i]=url
 	log.logInfo("found_new_record_link: " + found_new_record_link);
 	log.logInfo("with URL: " + url);
-
 }
+
+println 'use verifyLinksAccessible() to verify all new record links are Accessible'
+List<String> list_urls= Arrays.asList(urls);
+WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
+
+println 'navigate each link url to open new record page'
+println 'check for js error on each new record page when page is being loaded'
 for (int i = 0; i < size; i++) {
 	println('navigate to new record link: '+urls[i])
 	WebUI.navigateToUrl(urls[i])
@@ -114,6 +113,9 @@ for (int i = 0; i < size; i++) {
 
 }
 return
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 	println 'this is cp_hazard'

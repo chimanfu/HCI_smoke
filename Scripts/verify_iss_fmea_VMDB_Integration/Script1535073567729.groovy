@@ -33,7 +33,7 @@ println('directly goto record 2769')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Basic%20FMEA')
 
 println('from the Basic FMEA Tab')
-WebUI.verifyElementPresent(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Basic FMEA'),15)
+WebUI.verifyElementPresent(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Basic FMEA'),25)
 WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Basic FMEA'))
 
 

@@ -47,12 +47,12 @@ selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug
 selenium.click("id=attachment_table_display_0_info")
 
 // check pdf attachment
-CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("//span[@id='s135826']/span",5)
-CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("css=div.attach_left.application_pdf",5)
+CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("//span[@id='s135826']/span",25)
+CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("css=div.attach_left.application_pdf",15)
 
 // check doc attachment
-CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("//span[@id='s135515']/span",5)
-CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("css=div.attach_left.application_vnd_openxmlformats-officedocument_wordprocessingml_document",5)
+CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("//span[@id='s135515']/span",15)
+CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("css=div.attach_left.application_vnd_openxmlformats-officedocument_wordprocessingml_document",15)
 
 // check powerpoint attachment
 CustomKeywords.'hci_smoke_test.common.waifForElementPresent'("//span[@id='s53312']/span",15)

@@ -34,6 +34,8 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=8265')
 
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/div_Basic Information'),25)
+
 WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/div_Basic Information'))
 
 WebUI.maximizeWindow()
@@ -46,6 +48,7 @@ WebUI.setText(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA C
 WebUI.sendKeys(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/input_cf_rh_part_number_0'), Keys.chord(
         Keys.ENTER))
 
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/div_VMDB search results'),15)
 WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/div_VMDB search results'))
 
 

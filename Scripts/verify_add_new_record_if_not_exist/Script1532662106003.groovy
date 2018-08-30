@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -57,16 +58,7 @@ sanity check only checks after 'OK, now running sanity checks'
 
 */
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
-	println('this is doctree')
-	return
-	
-}
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	println('this is doctree')
-	return
-	
-}
+
 KeywordLogger log = new KeywordLogger()
 
 Screen s = new Screen()
@@ -75,11 +67,20 @@ search_term = 'test_automation_record'
 
 String url = GlobalVariable.G_MAKE_MAS_url
 
+if (url.contains('doctree')) {
+	println('this is doctree')
+	return
+	
+}
+if (url.contains('etasksheet')) {
+	println('this is doctree')
+	return
+	
+}
 if (url.contains('MAKE-MAS')) {
-    println('The URL is a test OR dev instance')
+    println('The URL contains MAKE-MAS, so it is a test OR dev instance')
 } else {
-    log.logWarning('The URL is NOT a test instance, so should not create new record on production site')
-
+    log.logWarning('The URL does not contain MAKE-MAS, so it is NOT a test instance, so should not create new record on production site')
     return null
 }
 
@@ -90,7 +91,6 @@ if (!(GlobalVariable.addNewRecord)) {
 } else {
     log.logInfo('if the record is not already exists, will add a new record with name=' + search_term)
 }
-
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 

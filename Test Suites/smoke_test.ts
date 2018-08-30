@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-26T23:38:40</lastRun>
+   <lastRun>2018-08-29T22:25:29</lastRun>
    <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -16,18 +16,6 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/login_basic_checks</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>43538696-da1a-4895-a64e-9248a2d03fe9</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_permittedBrowsers</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>14753340-2871-4427-a248-22fb9c42b281</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_bad_browser_blurb</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
@@ -42,12 +30,6 @@
       <testCaseId>Test Cases/verify_help_documentation_loads</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>86e702fa-dbe8-4676-a77a-bd9eafc40984</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_daggr_server</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>7de3bedb-ab49-416e-84bb-eaaeebdee1fc</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -60,10 +42,16 @@
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>b03962a4-345a-4b44-8bdf-9dc8abf8aa43</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_create_page_loads</testCaseId>
+      <testCaseId>Test Cases/verify_all_new_record_pages_loading</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>a6cbfc62-8fa0-4791-a95e-46d1357be38f</guid>
@@ -84,10 +72,16 @@
       <testCaseId>Test Cases/verify_run_saved_search</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
+      <guid>28f30390-f3b9-4a7d-a40f-d12e9d533faa</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
+      <testCaseId>Test Cases/verify_advanced_search</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>34b56fe4-239e-4e36-9036-738b2672df3f</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_linking_config_on_record</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>a4b6976b-3d35-429d-a19d-32930484f08a</guid>
@@ -96,10 +90,46 @@
       <testCaseId>Test Cases/verify_mail_search_result_to_team_member</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>f59afac7-4fc3-4595-b731-0cab00d02a0a</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_generate_diff_report_on_record</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>43538696-da1a-4895-a64e-9248a2d03fe9</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_permittedBrowsers</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>14753340-2871-4427-a248-22fb9c42b281</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_bad_browser_blurb</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>86e702fa-dbe8-4676-a77a-bd9eafc40984</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_daggr_server</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d86f6eb4-c53b-43bf-98ec-bbc7db33ba9c</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_dagger_linking_config</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
@@ -112,18 +142,6 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_cp_hazard_OMRS-Linking</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>d86f6eb4-c53b-43bf-98ec-bbc7db33ba9c</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_dagger_linking_config</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>28f30390-f3b9-4a7d-a40f-d12e9d533faa</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_advanced_search</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>002a9c6b-39e5-42aa-97e8-8c63bfbf75a8</guid>
@@ -174,24 +192,6 @@
       <testCaseId>Test Cases/verify_eCoFR_CP-OMRS_integration</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>a7cb0542-e3ac-4e60-8e4e-587ae3080e4b</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_ISS_Hazard_attachments_return</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>1dfa7469-56c3-4147-b670-60ab72023d31</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_ISS_OCAD_linked_controls_widget</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>b8b4aea7-4b9a-40f4-a610-dbcc40dea41a</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -216,6 +216,18 @@
       <testCaseId>Test Cases/verify_iss_hazard_VMDB_Integration</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>07a6dac5-095c-4089-929c-84d1ec04d9b6</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_hazard_attachments_return</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d3cba69e-c6db-473c-9566-d42883547ffe</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_iss_ocad_linked_controls_widget</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>86ae789e-cf38-4983-ae2d-831d98644472</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -226,17 +238,5 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_mcard_VMDB_Cradle_Integration</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>34b56fe4-239e-4e36-9036-738b2672df3f</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_linking_config_on-record</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

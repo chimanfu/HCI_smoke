@@ -144,7 +144,7 @@ public class LoginHelper {
 	}
 	@Keyword
 	public void login(){
-		try{
+		/*try{
 			//WebUI.switchToDefaultContent()
 			WebUI.switchToWindowIndex(0)
 			//WebUI.closeWindowIndex(1)
@@ -153,6 +153,7 @@ public class LoginHelper {
 			//WebUI.switchToWindowIndex(0)
 			WebUI.comment('cannot switchToWindowIndex(0)')
 		}
+		*/		
 		if (checkHomePageExist()){
 			WebUI.comment('done checkHomePageExist, already in Home page')
 			return null
@@ -165,20 +166,22 @@ public class LoginHelper {
 		WebUI.comment('killed all processes of Chrome before running test')
 
 		Screen s = new Screen();
-		WebUI.openBrowser('')
-		WebUI.maximizeWindow()
-		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		
 		try{
-			//WebUI.delay(1)
-			WebUI.switchToWindowIndex(0)
-
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 			WebUI.closeWindowIndex(1)
-			//WebUI.delay(1)
 			WebUI.switchToWindowIndex(0)
+			
+			//WebUI.switchToWindowIndex(0)
+			
+			//WebUI.delay(1)
+			//WebUI.switchToWindowIndex(0)
 			//WebUI.delay(1)
 		}catch (Exception e) {
 			WebUI.switchToWindowIndex(0)
 		}
+		WebUI.maximizeWindow()
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
 		if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
 			WebUI.delay(1)

@@ -36,7 +36,7 @@ println('directly goto record 256 -> Verification tab from search: Monitored Con
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/mcard_dev/show_bug.cgi?id=256#tv=Verification')
 
 println 'select Verification Tab'
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/div_Verification'),10)
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/div_Verification'),25)
 WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/div_Verification'))
 
 println 'wait for SLS Cradle Linkable Field'

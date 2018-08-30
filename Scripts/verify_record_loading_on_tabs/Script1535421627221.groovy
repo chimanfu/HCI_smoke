@@ -1,3 +1,5 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.apache.commons.lang3.StringUtils
 import com.mysql.jdbc.StringUtils as myStringUtils

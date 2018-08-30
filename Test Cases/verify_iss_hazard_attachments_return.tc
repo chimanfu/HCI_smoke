@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_linking_config_on-record</name>
+   <name>verify_iss_hazard_attachments_return</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>9adbd43a-2ff0-4553-89f9-499179c38b49</testCaseGuid>
+   <testCaseGuid>31171167-a580-4cac-a4b3-b8628b768baf</testCaseGuid>
 </TestCaseEntity>

@@ -96,7 +96,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'4639'</initValue>
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

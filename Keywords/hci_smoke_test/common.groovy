@@ -92,12 +92,13 @@ class common {
 	def check_PDFFile_Downloaded(int seconds){
 		println('check_PDFFile_Downloaded ')
 		Screen s = new Screen()
-		s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', seconds)
+		Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png').similar(0.66)
+		s.wait(pdf_icon, seconds)
+		//s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', seconds)
 		WebUI.delay(3)
 		if (s.exists(GlobalVariable.G_image_path+'chrome_downloadedFile_showAll_cancel_button.png',5)!=null){
 			WebUI.delay(1)
 			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
-			//r=s.exists(pImage,1);
 			s.click(s.exists(pImage,1), 1)
 		}
 	}

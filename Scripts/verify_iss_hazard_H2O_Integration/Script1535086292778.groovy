@@ -32,12 +32,14 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=27228#tv=tabControls&gv=group')
 
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls'),35)
+
 WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls'))
 
 // click on the control ID: ctl-8
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/span_3c Crew to ensure hooks c'),18)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/span_3c Crew to ensure hooks c'),22)
 WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/span_3c Crew to ensure hooks c'))
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls ID'),12)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls ID'),15)
 
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/a_OCAD 123001'),10)

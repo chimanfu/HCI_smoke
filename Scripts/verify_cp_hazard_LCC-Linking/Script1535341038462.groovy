@@ -111,8 +111,17 @@ selenium.type("id=cf_lcc_id_"+verification_id, "Transmission")
 WebUI.delay(2)
 s.type(Key.ENTER)
 selenium.waitForPageToLoad("30000")
+waifForElement("id=daggr_title_search",25)
 selenium.click("id=daggr_title_search")
 WebUI.delay(2)
+// create link on first record and verify
+WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/div_search results title'))
+WebUI.waitForElementClickable(findTestObject('Page_Cause - Record 6505  Erroneous/img_create_recordLink'),10)
+WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/img_create_recordLink'))
+waifForElement('id=img_cf_lcc_id_'+verification_id, 25)
+
+WebUI.delay(2)
+
 CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 GlobalVariable.userPin2='ScreenshotTaken'
 s.type("w", KeyModifier.CMD)

@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import java.util.List;
@@ -36,49 +37,26 @@ check important expected log messages such as...
 *
 */
 
-KeywordLogger log = new KeywordLogger()
-
-/*
-log.logError("")
-log.logFailed("")
-log.logInfo("")
-log.logNotRun("")
-log.logPassed("")
-log.logWarning("")
-*/
-
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-
+KeywordLogger log = new KeywordLogger()
 String logMessage=''
-def checkLogMessage(String checklogMessage,String logMessage){
-	//checklogMessage='Checking for attachment indexer.'
-	if (logMessage.contains(checklogMessage)){
-		println('found log message : '+checklogMessage)
-	}else{
-		println('not found log message : '+checklogMessage)
-		throw new AssertionError('ERROR: not found log message : '+checklogMessage)
-	}
-}
 Screen s = new Screen()
 
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
 log.logInfo('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
 
-//GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
-// smoke testcase: run_sanityCheck
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
 WebUI.waitForPageLoad(180)
 WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	try {
-	WebUI.delay(1)
-	WebUI.switchToWindowIndex(1)
-} catch (Exception e) {
-	e.printStackTrace()
-}
-	
+		WebUI.delay(1)
+		WebUI.switchToWindowIndex(1)
+	} catch (Exception e) {
+		e.printStackTrace()
+	}	
 }
 //WebUI.waitForPageLoad(5)
 try {
@@ -97,9 +75,6 @@ try {
     s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
     WebUI.delay(1) 
     //s.click(GlobalVariable.G_image_path+'sanityCheck_link.png')
-     
-     
-    
 }
 catch (Exception e) {
     println('Unable to find sanity check link: ' + e.getMessage()) 
@@ -125,15 +100,15 @@ WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check com
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 WebUI.delay(1)
 
-
 //alertMessages=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_alert_messages'))
 //println(alertMessages)
-
 //alerts_Search_Xpath="//p[@class = 'alert' and not(contains(., 'attachment'))]"
+
+'acceptable alert errors below, construct alerts_Search_Xpath to ignore the following alert messages'
 acceptedAlert1="attachment"
 acceptedAlert2="non-open status"
 acceptedAlert3="Invalid flag"
-acceptedAlert4="Records that have changes but no mail sent"
+acceptedAlert4=" that have changes but no mail sent for at least half an hour"
 acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
 acceptedAlert6="/usr/local/bin/tesseract --version failed"
 
@@ -192,7 +167,8 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	}
 }
 return
-		
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////		
 // print out all log message
 logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))
 //println(logMessage)
@@ -234,6 +210,14 @@ if (logMessage.contains(checklogMessage)){
 }
 */
 //WebUI.click(findTestObject('Page_Sanity Check/p_Sanity check completed'))
-
 //WebUI.click(findTestObject('Page_Sanity Check/p_alert_messages'))
 
+def checkLogMessage(String checklogMessage,String logMessage){
+	//checklogMessage='Checking for attachment indexer.'
+	if (logMessage.contains(checklogMessage)){
+		println('found log message : '+checklogMessage)
+	}else{
+		println('not found log message : '+checklogMessage)
+		throw new AssertionError('ERROR: not found log message : '+checklogMessage)
+	}
+}

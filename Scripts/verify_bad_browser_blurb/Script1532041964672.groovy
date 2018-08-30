@@ -1,26 +1,9 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 
-import org.openqa.selenium.safari.SafariDriver
-import org.stringtemplate.v4.compiler.CodeGenerator.region_return
-
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
 import internal.GlobalVariable as GlobalVariable
 
 /*
@@ -43,6 +26,7 @@ import internal.GlobalVariable as GlobalVariable
  */
  
 
+
 int retry_count = 0;
 int maxTries = 3;
 while(true) {
@@ -50,11 +34,13 @@ while(true) {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 
+WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'),25)
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.delay(1)
 	WebUI.switchToWindowIndex(1)
 }
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'),10)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 
 WebUI.click(findTestObject('Page_Configuration Required Setting/a_NASA Params'))
@@ -67,31 +53,32 @@ bad_browser_blurb_message=WebUI.getText(findTestObject('Object Repository/Page_C
 
 string1='Your browser is not supported by this system.'
 if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+	KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
 }else{
-	println('Try again, NOT found string: '+string1)
+	KeywordUtil.logInfo('Try again, NOT found string: '+string1)
 	string1='This application does not support your browser'
 	if (bad_browser_blurb_message.contains(string1)){
-		println('bad_browser_blurb_message is OK, found string: '+string1)
+		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
 	}else{
+		KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found string: '+string1)
 		throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 	}
 }
 
 string1='Please use one of the following'
 if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+	KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
 }else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
+	KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found string: '+string1)
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
 for (String supportedBrowserName : GlobalVariable.allowedBrowsers) {
-	println('expected supported browser - '+supportedBrowserName)
+	KeywordUtil.logInfo('expected supported browser - '+supportedBrowserName)
 	if (bad_browser_blurb_message.contains(supportedBrowserName)){
-		println('bad_browser_blurb_message is OK, found supportedBrowserName: '+supportedBrowserName)
+		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found supportedBrowserName: '+supportedBrowserName)
 	}else{
-		println('bad_browser_blurb_message is wrong, NOT found supportedBrowserName: '+supportedBrowserName)
+		KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found supportedBrowserName: '+supportedBrowserName)
 		throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 	}
 	
@@ -103,6 +90,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 }
 return
 
+////////////////////////////////////////////////////////////////////////////////////////////////
 string1='Internet Explorer'
 if (bad_browser_blurb_message.contains(string1)){
 	println('bad_browser_blurb_message is OK, found string: '+string1)

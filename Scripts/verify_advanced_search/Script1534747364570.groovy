@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -56,20 +57,29 @@ import static org.junit.Assert.*
 import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 
+// verify to be able to use advanced search to get a list of records that have snapshots taken already
+//
 // do a advanced search on 
 //		select Search by change
-//		select option 'xml snapshot'
-//		add before date: '2018-08-20'
-//		click search button
+//		select option 'xml snapshot' if exists, otherwise exit the test
+//			add before date: '2018-08-20'
+//			click search button
 // verify the searchTitle_XML Snapshot in the search return list
 
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	println 'do not need to run this test'
+	return
+}
 CustomKeywords.'helper.login.LoginHelper.login'()
 
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'),10)
 WebUI.click(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'))
 
+WebUI.waitForElementClickable(findTestObject('Page_Search for records/div_Search by change'),10)
 WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
 
 if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5)){
+	WebUI.comment("found option 'xml snapshot' from the Search by change field")
 	
 	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
 
@@ -80,4 +90,6 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 	// verify the searchTitle_XML Snapshot in the search return list
 	WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),10)
 
+} else{
+	WebUI.comment("not found option 'xml snapshot' from the Search by change field")
 }

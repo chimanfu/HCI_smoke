@@ -75,7 +75,7 @@ WebUI.click(findTestObject('Page_Search for records/select_product_SLS Integrate
 WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
 println 'from the search list, select the first record to open and verify'
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),10)
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/a_record_1'),25)
 WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
 
 println 'open the Verifications Tab'

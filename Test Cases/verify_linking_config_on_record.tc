@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>verify_ISS_Hazard_attachments_return</name>
+   <name>verify_linking_config_on_record</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>31171167-a580-4cac-a4b3-b8628b768baf</testCaseGuid>
+   <testCaseGuid>9adbd43a-2ff0-4553-89f9-499179c38b49</testCaseGuid>
 </TestCaseEntity>

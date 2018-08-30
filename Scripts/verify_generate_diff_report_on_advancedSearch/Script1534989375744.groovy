@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -19,12 +20,28 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-// do a advanced search on 
-//		select Search by change
-//		select option 'xml snapshot'
-//		add before date: '2018-08-20'
-//		click search button
-// verify the searchTitle_XML Snapshot in the search return list
+/*
+ * verify diff report will be generated if the snapshot feature exists by doing a advanced search 
+ * on 'Search by change' on option 'xml snapshot' before date: '2018-08-20'
+ * 
+ * do a advanced search on 
+ *		select Search by change
+ *		select option 'xml snapshot'
+ *		if option not found for select_option xml snapshot so it does not support creating snapshot, so it cannot do diff report
+ *		if option found, add before date: '2018-08-20'
+ *		click search button
+ * verify the searchTitle_XML Snapshot in the search return list
+ * if more than 1 record found, then select the first record first		
+ * 		click on PDF link
+ * 		PDF dialog popup with 'Show changes relative to the version:'
+ * 		select a version from the snapshots
+ * 		click 'Generate PDF' to create a pdf file
+ * 		check pdf file is generated correctly
+ */
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	println 'do not need to run this test'
+	return
+}
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -75,7 +92,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.delay(1)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(25)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(60)
 	WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),25)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),25)
 }else{
