@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>div_Group Linking (Child) (1)</name>
+   <name>div_CHLD-7 GROUP-2_CHLD-3</name>
    <tag></tag>
-   <elementGuidId>3be86a9a-a603-4de3-9ef8-f2a023737d29</elementGuidId>
+   <elementGuidId>ade24254-b7e7-4e9b-ac6a-f002bd63e4f4</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -18,20 +18,20 @@
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
-      <value>tablabel</value>
+      <value>groupTitleLabel_rowTitle hasKnurling</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Group Linking (Child)</value>
+      <value>CHLD-7: GROUP-2_CHLD-3</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;tab15_&quot;)/div[@class=&quot;labelAndIcon&quot;]/div[@class=&quot;tablabel&quot;]</value>
+      <value>id(&quot;collapsedSpan_90&quot;)/div[2]/div[@class=&quot;groupTitleLabel_rowTitle hasKnurling&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

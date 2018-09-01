@@ -100,7 +100,7 @@ public class LoginHelper {
 				//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 				//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
 				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-				//WebUI.switchToWindowIndex(0)
+				WebUI.switchToWindowIndex(0)
 				WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 				WebUI.comment('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
 				WebUI.waitForPageLoad(30)
@@ -122,6 +122,7 @@ public class LoginHelper {
 					WebUI.comment('accept alert='+alertText)
 				}
 				WebUI.comment('*** Already in Home Page, do not need to login ***')
+				WebUI.switchToWindowIndex(0)
 				return true
 			}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
 				WebUI.comment('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
@@ -133,6 +134,7 @@ public class LoginHelper {
 					WebUI.comment('accept alert='+alertText)
 				}
 				WebUI.comment('*** Already in Home Page, do not need to login ***')
+				WebUI.switchToWindowIndex(0)
 				return true
 			}
 			WebUI.comment('*** need to login ***')

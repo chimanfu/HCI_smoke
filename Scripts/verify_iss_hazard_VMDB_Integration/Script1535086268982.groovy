@@ -30,9 +30,13 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
+String recordID='8265'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID
+WebUI.navigateToUrl(siteURL)
 
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=8265')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=8265')
 
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/div_Basic Information'),25)
 

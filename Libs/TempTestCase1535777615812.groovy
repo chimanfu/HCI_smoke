@@ -13,7 +13,7 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_1/20180830_235856/execution.properties')
+RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_1/20180831_215335/execution.properties')
 
 TestCaseMain.beforeStart()
 

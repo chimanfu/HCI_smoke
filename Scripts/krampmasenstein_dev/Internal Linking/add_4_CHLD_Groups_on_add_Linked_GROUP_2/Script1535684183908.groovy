@@ -35,76 +35,76 @@ WebUI.navigateToUrl(test_automation_record_G2G_linking)
 
 //add_4_CHLD_Groups_on_add_Linked_GROUP_2()
 
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-5'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-5'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_5'), 'GROUP-2_CHLD-1')
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_5'), 'GROUP-2_CHLD-1')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_parent_text_NEW_ROW_7'), 'GROUP_PRNT-2')
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_7'), 'GROUP_PRNT-2')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Done'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
 
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-6'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-6'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_6'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_6'),
 	'GROUP-2_CHLD-2')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_parent_text_NEW_ROW_8'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_8'),
 	'GROUP_PRNT-2')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Done'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
 
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-7'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-7'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_7'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_7'),
 	'GROUP-2_CHLD-3')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_parent_text_NEW_ROW_9'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_9'),
 	'GROUP_PRNT-2')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Done'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
 
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-8'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-8'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_8'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_8'),
 	'GROUP-2_CHLD-4')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_parent_text_NEW_ROW_10'),
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_10'),
 	'GROUP_PRNT-2')
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Done'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
 
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))

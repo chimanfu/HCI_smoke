@@ -68,51 +68,51 @@ return
 def delete_2_G2G_Parent_Groups(){
 	// delete 2 G2G Parent Groups 'GROUP_PRNT-1', 'GROUP_PRNT-2'
 	
-	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Parent)'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Parent)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_PRNT-1  GROUP_PRNT-1'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 	
 	WebUI.delay(3)
 	WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information')
 	
-	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Parent)'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Parent)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
 	
-	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_PRNT-2  GROUP_PRNT-2'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'),20)
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_PRNT-2  GROUP_PRNT-2'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 	WebUI.delay(3)
 }
 
 def select_Tab_Basic_Information(){
 	// goto Tab: Basic Information
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'),25)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'))
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Basic Information'))
 }
 def select_test_suite(String testSuiteName){
 	// select test suite: Groups/
-	WebUI.scrollToElement(findTestObject('Page_--- 7081 test_automation_recor/select_Test Suite'), 15)
-	WebUI.selectOptionByValue(findTestObject('Page_--- 7081 test_automation_recor/select_Test Suite'), testSuiteName, true)
+	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/select_Test Suite'), 15)
+	WebUI.selectOptionByValue(findTestObject('Page_G2G_linking_record/select_Test Suite'), testSuiteName, true)
 }
 
 def select_Tab_Groups(){
 // goto Tab Groups
 	WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
 	WebUI.delay(2)
-	WebUI.waitForElementVisible(findTestObject('Page_--- 7081 test_automation_recor/div_Groups'),10)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Groups'),10)
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Groups'))
+	WebUI.waitForElementVisible(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Groups'))
 }
 
 

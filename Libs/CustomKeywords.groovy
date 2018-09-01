@@ -5,9 +5,9 @@
 
 import java.lang.String
 
-import java.util.List
-
 import com.kms.katalon.core.testobject.TestObject
+
+import java.util.List
 
 import org.openqa.selenium.WebElement
 
@@ -18,6 +18,44 @@ def static "question.CustomDatabase.executeQuery"(
     (new question.CustomDatabase()).executeQuery(
         	connectionUrl
          , 	query)
+}
+
+def static "kramp.Internal_Linking.waitTestObject"(
+    	String testobject	) {
+    (new kramp.Internal_Linking()).waitTestObject(
+        	testobject)
+}
+
+def static "kramp.Internal_Linking.reuse_linked_parent_save_changes"(
+    	String linked_parent	) {
+    (new kramp.Internal_Linking()).reuse_linked_parent_save_changes(
+        	linked_parent)
+}
+
+def static "kramp.Internal_Linking.select_TAB_Group_Linking_Child"() {
+    (new kramp.Internal_Linking()).select_TAB_Group_Linking_Child()
+}
+
+def static "kramp.Internal_Linking.delete_group_save_changes"() {
+    (new kramp.Internal_Linking()).delete_group_save_changes()
+}
+
+def static "kramp.Internal_Linking.refreshBrowser"() {
+    (new kramp.Internal_Linking()).refreshBrowser()
+}
+
+def static "kramp.Internal_Linking.clickElement"(
+    	TestObject to	) {
+    (new kramp.Internal_Linking()).clickElement(
+        	to)
+}
+
+def static "kramp.Internal_Linking.getHtmlTableRows"(
+    	TestObject table	
+     , 	String outerTagName	) {
+    (new kramp.Internal_Linking()).getHtmlTableRows(
+        	table
+         , 	outerTagName)
 }
 
 def static "com.common.utils.SetDesiredCapability.chrome"(

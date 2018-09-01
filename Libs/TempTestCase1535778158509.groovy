@@ -13,9 +13,9 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_1/20180830_235559/execution.properties')
+RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_2/20180831_220238/execution.properties')
 
 TestCaseMain.beforeStart()
 
-        TestCaseMain.runTestCase('Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_1', new TestCaseBinding('Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_1',[:]), FailureHandling.STOP_ON_FAILURE , false)
+        TestCaseMain.runTestCase('Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_2', new TestCaseBinding('Test Cases/krampmasenstein_dev/Internal Linking/add_4_CHLD_Groups_on_reuse_Linked_GROUP_2',[:]), FailureHandling.STOP_ON_FAILURE , false)
     

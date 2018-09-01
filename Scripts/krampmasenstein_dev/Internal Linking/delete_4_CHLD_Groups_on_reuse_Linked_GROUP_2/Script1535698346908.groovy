@@ -21,63 +21,19 @@ import internal.GlobalVariable as GlobalVariable
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.switchToWindowIndex(0)
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-2_CHLD-1'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
-//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
-String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-2_CHLD-2'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-2_CHLD-3'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'), 
-    20)
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_CHLD-1 GROUP-2_CHLD-1'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-
-WebUI.delay(5)
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'), 
-    15)
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_CHLD-1 GROUP-2_CHLD-2'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-
-WebUI.delay(5)
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'), 
-    15)
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_CHLD-1 GROUP-2_CHLD-3'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-
-WebUI.delay(5)
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'), 
-    15)
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_CHLD-1 GROUP-2_CHLD-4'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/span_(Delete)'))
-
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-
-WebUI.delay(5)
-
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'), 
-    15)
-
-
-
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-2_CHLD-4'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 

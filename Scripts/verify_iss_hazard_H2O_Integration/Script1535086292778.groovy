@@ -29,8 +29,12 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=27228#tv=tabControls&gv=group')
+String recordID='27228'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabControls&gv=group'
+WebUI.navigateToUrl(siteURL)
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=27228#tv=tabControls&gv=group')
 
 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls'),35)
 

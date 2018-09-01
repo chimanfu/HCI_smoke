@@ -43,7 +43,14 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 def driver = DriverFactory.getWebDriver()
 String baseUrl = "https://www.katalon.com/"
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
-selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=147#tv=tabBasic_Information&gv=group")
+
+String recordID='147'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabBasic_Information&gv=group'
+selenium.open(siteURL)
+//selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=147#tv=tabBasic_Information&gv=group")
+
 selenium.click("id=attachment_table_display_0_info")
 
 // check pdf attachment

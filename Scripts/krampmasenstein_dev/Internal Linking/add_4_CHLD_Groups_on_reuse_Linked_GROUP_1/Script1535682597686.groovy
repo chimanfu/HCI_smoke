@@ -19,110 +19,29 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.switchToWindowIndex(0)
-//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
-String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-
 //add_4_CHLD_Groups_on_reuse_Linked_GROUP_1()
 
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 // add child group GROUP-1_CHLD-1 and link to reuse linked parent GROUP_PRNT-1
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_1'), 'GROUP-1_CHLD-1')
-// reuse linked parent: GROUP_PRNT-1
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Reuse Linked Parent'))
-// filter selection to only GROUP_PRNT-1
-WebUI.setText(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_groupLinkFilter'), 'GROUP_PRNT-1\n')
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'),10)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'))
-// save the change
-WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/button_Link selected Parent Linking Group'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-WebUI.delay(5)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'),15)
-
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_1'), 'GROUP-1_CHLD-1')
+CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-1')
 
 // add child group GROUP-1_CHLD-2 and link to reuse linked parent GROUP_PRNT-1
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-2'))
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_2'), 'GROUP-1_CHLD-2')
-// reuse linked parent: GROUP_PRNT-1
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Reuse Linked Parent'))
-// filter selection to only GROUP_PRNT-1
-WebUI.setText(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_groupLinkFilter'), 'GROUP_PRNT-1\n')
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'),10)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'))
-// save the change
-WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/button_Link selected Parent Linking Group'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-WebUI.delay(5)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'),15)
-
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-2'))
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_2'), 'GROUP-1_CHLD-2')
+CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-1')
 
 // add child group GROUP-1_CHLD-3 and link to reuse linked parent GROUP_PRNT-1
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-3'))
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_3'), 'GROUP-1_CHLD-3')
-// reuse linked parent: GROUP_PRNT-1
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Reuse Linked Parent'))
-// filter selection to only GROUP_PRNT-1
-WebUI.setText(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_groupLinkFilter'), 'GROUP_PRNT-1\n')
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'),10)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'))
-// save the change
-WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/button_Link selected Parent Linking Group'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-WebUI.delay(5)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'),15)
-
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-3'))
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_3'), 'GROUP-1_CHLD-3')
+CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-1')
 
 // add child group GROUP-1_CHLD-4 and link to reuse linked parent GROUP_PRNT-1
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Group Linking (Child)'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Add CHLD-4'))
-WebUI.setText(findTestObject('Page_--- 7081 test_automation_recor/input_cf_g2g_child_text_NEW_ROW_4'), 'GROUP-1_CHLD-4')
-// reuse linked parent: GROUP_PRNT-1
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/a_Reuse Linked Parent'))
-// filter selection to only GROUP_PRNT-1
-WebUI.setText(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_groupLinkFilter'), 'GROUP_PRNT-1\n')
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'),10)
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/input_saveVersion'))
-// save the change
-WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/button_Link selected Parent Linking Group'))
-WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/button_Save Changes'))
-WebUI.delay(5)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Close alertRecord Saved'),15)
-
-
-
-def waitTestObject(String testobject){
-	try{
-		WebUI.waitForAngularLoad(10)
-		WebUI.waitForJQueryLoad(10)
-		WebUI.waitForElementPresent(findTestObject(testobject),5)
-		WebUI.waitForElementVisible(findTestObject(testobject),5)
-		WebUI.waitForElementClickable(findTestObject(testobject),5)	
-	}
-	catch(Exception e)
-	{
-		WebUI.waitForAngularLoad(10)
-		WebUI.waitForJQueryLoad(10)
-		WebUI.waitForElementPresent(findTestObject(testobject),5)
-		WebUI.waitForElementVisible(findTestObject(testobject),5)
-		WebUI.waitForElementClickable(findTestObject(testobject),5)	
-	}
-	
-}
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-4'))
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_4'), 'GROUP-1_CHLD-4')
+CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-1')

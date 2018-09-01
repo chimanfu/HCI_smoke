@@ -68,21 +68,21 @@ return
 
 def select_Tab_Basic_Information(){
 	// goto Tab: Basic Information
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'),25)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'))
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Basic Information'))
 }
 def select_test_suite(String testSuiteName){
 	// select test suite: Groups/
-	WebUI.scrollToElement(findTestObject('Page_--- 7081 test_automation_recor/select_Test Suite'), 15)
-	WebUI.selectOptionByValue(findTestObject('Page_--- 7081 test_automation_recor/select_Test Suite'), testSuiteName, true)
+	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/select_Test Suite'), 15)
+	WebUI.selectOptionByValue(findTestObject('Page_G2G_linking_record/select_Test Suite'), testSuiteName, true)
 }
 def select_Tab_Groups(){
 // goto Tab Groups
 	WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
 	WebUI.delay(2)
-	WebUI.waitForElementVisible(findTestObject('Page_--- 7081 test_automation_recor/div_Groups'),10)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Groups'),10)
-	WebUI.click(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Groups'))
+	WebUI.waitForElementVisible(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Groups'))
 }
 def delete_3_groups(){
 	// delete the 3 (STATIC) groups from Non-Sortable Field Group 
@@ -92,9 +92,9 @@ def delete_3_groups(){
 	
 	WebUI.click(findTestObject('Page_Administer your installation/a_Home'))
 	selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Groups")
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'),25)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
 	WebUI.delay(1)
-	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Non-Sortable Field Group'),15)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Non-Sortable Field Group'),15)
 	selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='Free Text Field:'])[2]/following::div[8]")
 	CustomKeywords.'hci_smoke_test.common.waifForElement'("xpath=(.//*[normalize-space(text()) and normalize-space(.)='STATIC-1'])[1]/following::span[3]",5)
 	selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='STATIC-1'])[1]/following::span[3]")
@@ -106,36 +106,36 @@ def delete_3_groups(){
 	selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='STATIC-3'])[1]/following::span[3]")
 	//WebUI.delay(2)
 	//WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/button_Save Changes'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 	WebUI.delay(3)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_Basic Information'),25)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
 	
-	//WebUI.scrollToElement(findTestObject('Object Repository/Page_--- 7081 test_automation_recor/div_Non-Sortable Field Group'),15)
-	/*//WebUI.scrollToElement(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-1 Group1'),15)
+	//WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/div_Non-Sortable Field Group'),15)
+	/*//WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/div_STATIC-1 Group1'),15)
 	WebUI.delay(5)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-1 Group1'),15)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_STATIC-1 Group1'),15)
 	WebUI.delay(5)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-1 Group1'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_STATIC-1 Group1'))
 	WebUI.delay(5)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'),5)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/span_(Delete)'),5)
 	WebUI.delay(10)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
 	WebUI.delay(5)
-	WebUI.scrollToElement(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-2 Group2'),15)
+	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/div_STATIC-2 Group2'),15)
 	WebUI.delay(5)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-2 Group2'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_STATIC-2 Group2'))
 	WebUI.delay(10)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'),5)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/span_(Delete)'),5)
 	WebUI.delay(5)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
 	WebUI.delay(5)
-	WebUI.scrollToElement(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-3 Group3'),15)
+	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/div_STATIC-3 Group3'),15)
 	WebUI.delay(5)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/div_STATIC-3 Group3'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_STATIC-3 Group3'))
 	WebUI.delay(10)
-	WebUI.waitForElementClickable(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'),5)
+	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/span_(Delete)'),5)
 	WebUI.delay(5)
-	WebUI.click(findTestObject('Page_--- 7081 test_automation_recor/span_(Delete)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
 	*/
 }
 
