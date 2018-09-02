@@ -49,53 +49,34 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.switchToWindowIndex(0)
-url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
-
-// directly navigate to the record: test_automation_record_G2G_linking 
-test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
+//WebUI.switchToWindowIndex(0)
+//url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
+//
+//// directly navigate to the record: test_automation_record_G2G_linking 
+//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
+//WebUI.navigateToUrl(test_automation_record_G2G_linking)
 
 
 // add 2 parent groups for group to group linking from krampmasenstein_dev -> Test Suite -> Internal Linking
-select_Tab_Basic_Information()
-select_test_suite('Internal Linking')
-add_2_G2G_Parent_Groups()
+//select_Tab_Basic_Information()
+//select_test_suite('Internal Linking')
+//add_2_G2G_Parent_Groups()
 
+
+//CustomKeywords.'kramp.Internal_Linking.select_TAB_Basic_Information'()
+//CustomKeywords.'kramp.Internal_Linking.select_test_suite'('Internal Linking')
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_1'), 'GROUP_PRNT-1')
+//CustomKeywords.'kramp.Internal_Linking.save_changes'()
+
+WebUI.click(findTestObject('Page_G2G_linking_record/button_Add PRNT-2'))
+WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_2'), 'GROUP_PRNT-2')
+CustomKeywords.'kramp.Internal_Linking.save_changes'()
 
 return
 
-
-def delete_2_G2G_Parent_Groups(){
-	// delete 2 G2G Parent Groups 'GROUP_PRNT-1', 'GROUP_PRNT-2'
-	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
-	
-	WebUI.delay(3)
-	WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information')
-	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
-	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'),20)
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'))
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
-	
-	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
-	WebUI.delay(3)
-}
-def add_2_G2G_Parent_Groups(){
+/*def add_2_G2G_Parent_Groups(){
 	// add 2 G2G Parent Groups 'GROUP_PRNT-1', 'GROUP_PRNT-2'
 	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
 	
@@ -133,7 +114,7 @@ def select_Tab_Groups(){
 	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Groups'),10)
 	WebUI.click(findTestObject('Page_G2G_linking_record/div_Groups'))
 }
-
+*/
 
 
 

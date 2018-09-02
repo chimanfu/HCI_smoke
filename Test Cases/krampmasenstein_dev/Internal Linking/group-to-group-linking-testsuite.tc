@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>group-to-group-linking-testsuite</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>a9ab30bb-af8e-4d9f-abe4-8541f21b0cdc</testCaseGuid>
+   <variable>
+      <defaultValue>'group-to-group-test'</defaultValue>
+      <description></description>
+      <id>e19f0390-e0cb-4e32-aa3e-4d56ed280fdb</id>
+      <masked>false</masked>
+      <name>testsuiteName</name>
+   </variable>
+</TestCaseEntity>

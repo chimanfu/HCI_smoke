@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>div_PRNT-1(Delete)(Restore)</name>
+   <name>div_PRNT-4  GROUP_PRNT-4</name>
    <tag></tag>
-   <elementGuidId>8c891a3b-b98b-4070-8580-6f730a3694c0</elementGuidId>
+   <elementGuidId>306c59c5-b2e6-4aa5-9845-8efa39f9fc24</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -18,34 +18,20 @@
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
-      <value>clickable groupTitle</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>id</name>
-      <type>Main</type>
-      <value>expandedInDiv_cfgr_g2g_parent_112</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>title</name>
-      <type>Main</type>
-      <value>click to collapse</value>
+      <value>groupTitleLabel_rowTitle</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>PRNT-1(Delete)(Restore)</value>
+      <value>PRNT-4:  GROUP_PRNT-4</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;expandedInDiv_cfgr_g2g_parent_112&quot;)</value>
+      <value>id(&quot;collapsedSpan_129&quot;)/div[1]/div[@class=&quot;groupTitleLabel_rowTitle&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

@@ -44,6 +44,38 @@ import com.kms.katalon.core.webui.exception.WebElementNotFoundException
 
 class Internal_Linking {
 	@Keyword
+	def select_TAB_Group_Linking_Parent() {
+		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
+		WebUI.navigateToUrl(test_automation_record_G2G_linking)
+		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)		
+		WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
+	}
+	@Keyword
+	def select_TAB_Basic_Information(){
+		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
+		WebUI.navigateToUrl(test_automation_record_G2G_linking)
+		// goto Tab: Basic Information
+		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
+		WebUI.click(findTestObject('Page_G2G_linking_record/div_Basic Information'))
+	}
+	@Keyword
+	def select_test_suite(String testSuiteName){
+		// select test suite: Groups/
+		WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/select_Test Suite'), 15)
+		WebUI.selectOptionByValue(findTestObject('Page_G2G_linking_record/select_Test Suite'), testSuiteName, true)
+	}
+	
+	@Keyword
+	def select_TAB_Groups(){
+	// goto Tab Groups
+		WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
+		WebUI.delay(2)
+		WebUI.waitForElementVisible(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Groups'),10)
+		WebUI.click(findTestObject('Page_G2G_linking_record/div_Groups'))
+	}
+	
+	@Keyword
 	def waitTestObject(String testobject){
 		try{
 			WebUI.waitForAngularLoad(10)
@@ -52,15 +84,13 @@ class Internal_Linking {
 			WebUI.waitForElementVisible(findTestObject(testobject),10)
 			WebUI.waitForElementClickable(findTestObject(testobject),5)
 		}
-		catch(Exception e)
-		{
+		catch(Exception e) {
 			WebUI.waitForAngularLoad(10)
 			WebUI.waitForJQueryLoad(10)
 			WebUI.waitForElementPresent(findTestObject(testobject),5)
 			WebUI.waitForElementVisible(findTestObject(testobject),5)
 			WebUI.waitForElementClickable(findTestObject(testobject),5)
 		}
-		
 	}
 	@Keyword
 	def reuse_linked_parent_save_changes(String linked_parent){
@@ -73,10 +103,11 @@ class Internal_Linking {
 		WebUI.click(findTestObject('Page_G2G_linking_record/input_saveVersion'))
 		// save the change
 		WebUI.click(findTestObject('Page_G2G_linking_record/button_Link selected Parent Linking Group'))
-		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
-		WebUI.delay(5)
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
-		}
+//		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+//		WebUI.delay(5)
+//		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
+		save_changes()
+	}
 	@Keyword
 	def select_TAB_Group_Linking_Child() {
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
@@ -88,50 +119,21 @@ class Internal_Linking {
 	@Keyword
 	def delete_group_save_changes(){
 		WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
+		save_changes()
+//		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+//		WebUI.delay(5)
+//		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
+	}
+	@Keyword
+	def done_save_changes(){
+		WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
+		save_changes()
+	}
+	
+	@Keyword
+	def save_changes(){
 		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
 		WebUI.delay(5)
 		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
-	}
-
-	/**
-	 * Refresh browser
-	 */
-	@Keyword
-	def refreshBrowser() {
-		KeywordUtil.logInfo("Refreshing")
-		WebDriver webDriver = DriverFactory.getWebDriver()
-		webDriver.navigate().refresh()
-		KeywordUtil.markPassed("Refresh successfully")
-	}
-
-	/**
-	 * Click element
-	 * @param to Katalon test object
-	 */
-	@Keyword
-	def clickElement(TestObject to) {
-		try {
-			WebElement element = WebUiBuiltInKeywords.findWebElement(to);
-			KeywordUtil.logInfo("Clicking element")
-			element.click()
-			KeywordUtil.markPassed("Element has been clicked")
-		} catch (WebElementNotFoundException e) {
-			KeywordUtil.markFailed("Element not found")
-		} catch (Exception e) {
-			KeywordUtil.markFailed("Fail to click on element")
-		}
-	}
-
-	/**
-	 * Get all rows of HTML table
-	 * @param table Katalon test object represent for HTML table
-	 * @param outerTagName outer tag name of TR tag, usually is TBODY
-	 * @return All rows inside HTML table
-	 */
-	@Keyword
-	def List<WebElement> getHtmlTableRows(TestObject table, String outerTagName) {
-		WebElement mailList = WebUiBuiltInKeywords.findWebElement(table)
-		List<WebElement> selectedRows = mailList.findElements(By.xpath("./" + outerTagName + "/tr"))
-		return selectedRows
 	}
 }

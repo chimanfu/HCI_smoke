@@ -4,8 +4,8 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-31T12:18:05</lastRun>
-   <mailRecipient>joseph.fu@nasa.gov;</mailRecipient>
+   <lastRun>2018-09-01T11:37:49</lastRun>
+   <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>

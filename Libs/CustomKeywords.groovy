@@ -5,9 +5,9 @@
 
 import java.lang.String
 
-import com.kms.katalon.core.testobject.TestObject
-
 import java.util.List
+
+import com.kms.katalon.core.testobject.TestObject
 
 import org.openqa.selenium.WebElement
 
@@ -18,6 +18,24 @@ def static "question.CustomDatabase.executeQuery"(
     (new question.CustomDatabase()).executeQuery(
         	connectionUrl
          , 	query)
+}
+
+def static "kramp.Internal_Linking.select_TAB_Group_Linking_Parent"() {
+    (new kramp.Internal_Linking()).select_TAB_Group_Linking_Parent()
+}
+
+def static "kramp.Internal_Linking.select_TAB_Basic_Information"() {
+    (new kramp.Internal_Linking()).select_TAB_Basic_Information()
+}
+
+def static "kramp.Internal_Linking.select_test_suite"(
+    	String testSuiteName	) {
+    (new kramp.Internal_Linking()).select_test_suite(
+        	testSuiteName)
+}
+
+def static "kramp.Internal_Linking.select_TAB_Groups"() {
+    (new kramp.Internal_Linking()).select_TAB_Groups()
 }
 
 def static "kramp.Internal_Linking.waitTestObject"(
@@ -40,22 +58,12 @@ def static "kramp.Internal_Linking.delete_group_save_changes"() {
     (new kramp.Internal_Linking()).delete_group_save_changes()
 }
 
-def static "kramp.Internal_Linking.refreshBrowser"() {
-    (new kramp.Internal_Linking()).refreshBrowser()
+def static "kramp.Internal_Linking.done_save_changes"() {
+    (new kramp.Internal_Linking()).done_save_changes()
 }
 
-def static "kramp.Internal_Linking.clickElement"(
-    	TestObject to	) {
-    (new kramp.Internal_Linking()).clickElement(
-        	to)
-}
-
-def static "kramp.Internal_Linking.getHtmlTableRows"(
-    	TestObject table	
-     , 	String outerTagName	) {
-    (new kramp.Internal_Linking()).getHtmlTableRows(
-        	table
-         , 	outerTagName)
+def static "kramp.Internal_Linking.save_changes"() {
+    (new kramp.Internal_Linking()).save_changes()
 }
 
 def static "com.common.utils.SetDesiredCapability.chrome"(

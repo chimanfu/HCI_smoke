@@ -26,9 +26,9 @@ String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-M
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
 
 
-//add_4_CHLD_Groups_on_add_Linked_GROUP_1()
+// add_4_CHLD Groups  GROUP_PRNT-1
 
-// add_4_CHLD Groups on GROUP_PRNT-1
+
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
 WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)

@@ -65,16 +65,30 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 //CustomKeywords.'kramp.Internal_Linking.select_TAB_Basic_Information'()
 //CustomKeywords.'kramp.Internal_Linking.select_test_suite'('Internal Linking')
 
+
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-3  GROUP_PRNT-3'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'))
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-4  GROUP_PRNT-4'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-5  GROUP_PRNT-5'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-6  GROUP_PRNT-6'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-7  GROUP_PRNT-7'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
+
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-8  GROUP_PRNT-8'))
+CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 return
 
 

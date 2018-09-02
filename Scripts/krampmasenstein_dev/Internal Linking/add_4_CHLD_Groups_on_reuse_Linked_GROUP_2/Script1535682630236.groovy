@@ -23,25 +23,25 @@ import internal.GlobalVariable as GlobalVariable
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-// add child group GROUP-1_CHLD-1 and link to reuse linked parent GROUP_PRNT-1
+// add child group GROUP-2_CHLD-1 and link to reuse linked parent GROUP_PRNT-2
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-5'))
 WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_5'), 'GROUP-2_CHLD-1')
 CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-2')
 
-// add child group GROUP-1_CHLD-2 and link to reuse linked parent GROUP_PRNT-1
+// add child group GROUP-2_CHLD-2 and link to reuse linked parent GROUP_PRNT-2
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-6'))
 WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_6'), 'GROUP-2_CHLD-2')
 CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-2')
 
-// add child group GROUP-1_CHLD-3 and link to reuse linked parent GROUP_PRNT-1
+// add child group GROUP-2_CHLD-3 and link to reuse linked parent GROUP_PRNT-2
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-7'))
 WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_7'), 'GROUP-2_CHLD-3')
 CustomKeywords.'kramp.Internal_Linking.reuse_linked_parent_save_changes'('GROUP_PRNT-2')
 
-// add child group GROUP-1_CHLD-4 and link to reuse linked parent GROUP_PRNT-1
+// add child group GROUP-2_CHLD-4 and link to reuse linked parent GROUP_PRNT-2
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-8'))
 WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_8'), 'GROUP-2_CHLD-4')

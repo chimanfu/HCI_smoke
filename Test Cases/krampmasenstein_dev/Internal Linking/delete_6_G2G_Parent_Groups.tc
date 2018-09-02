@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>testcase:
+
+Groups — To-Group Links
+
+https://hci-confluence-old.arc.nasa.gov/pages/viewpage.action?pageId=5931481
+
+DESCRIPTION: This feature allows hyperlinking between field groups. An individual record may contain many field groups; in specific cases, hyperlinking within the record gives the analyst an easier way to navigate through the tabs. Even more importantly, certain pieces of information are specifically conceptually relevant to each other.
+
+GOAL: The goal of this test is to verify that the linking functionality is working properly, to include: adding/deleting links, auto-numbering of the groups to be linked, doing a filter of the possible linked information, verifying that links take you to the right group on the page.</description>
+   <name>delete_6_G2G_Parent_Groups</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>a7be7747-3a89-4047-85c0-90aaad3c5b9e</testCaseGuid>
+</TestCaseEntity>

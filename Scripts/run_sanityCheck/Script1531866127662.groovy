@@ -17,7 +17,7 @@ import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 import java.util.concurrent.TimeUnit
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
-
+import org.openqa.selenium.interactions.Actions
 /*
 
 run sanity check from Admin->'Sanity Check' to capture any unexpected errors from the site
@@ -86,17 +86,20 @@ catch (Exception e) {
 WebUI.delay(5)
 log.logInfo('verify sanity check is working and without new issue.')
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100,,FailureHandling.STOP_ON_FAILURE)
+WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_now running sanity checks'), 10)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
 //WebUI.delay(1)
 //WebUI.click(findTestObject('Page_Sanity Check/p_output_log_message.rs'))
 WebUI.delay(1)
 if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 15)){
+	WebUI.scrollToElement(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 15)
 	log.logError('found A system error has occurred')
 	throw new AssertionError('ERROR: found A system error has occurred ')
 	
 }
 
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200,FailureHandling.STOP_ON_FAILURE)
+WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200,FailureHandling.STOP_ON_FAILURE)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
 WebUI.delay(1)
 
@@ -111,8 +114,16 @@ acceptedAlert3="Invalid flag"
 acceptedAlert4=" that have changes but no mail sent for at least half an hour"
 acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
 acceptedAlert6="/usr/local/bin/tesseract --version failed"
+acceptedAlert7="Bad profile email address"
 
-String alerts_Search_Xpath="//*[@id='bugzilla-body']/div[2]/p[@class = 'alert' and not(contains(., '"+acceptedAlert1+"')) and not(contains(., '"+acceptedAlert2+"')) and not(contains(., '"+acceptedAlert3+"')) and not(contains(., '"+acceptedAlert4+"')) and not(contains(., '"+acceptedAlert5+"')) and not(contains(., '"+acceptedAlert6+"')) ]"
+String alerts_Search_Xpath="//*[@id='bugzilla-body']/div[2]/p[@class = 'alert' and not(contains(., '"+
+acceptedAlert1+"')) and not(contains(., '"+
+acceptedAlert2+"')) and not(contains(., '"+
+acceptedAlert3+"')) and not(contains(., '"+
+acceptedAlert4+"')) and not(contains(., '"+
+acceptedAlert5+"')) and not(contains(., '"+
+acceptedAlert6+"')) and not(contains(., '"+
+acceptedAlert7+"')) ]"
 println('alerts_Search_Xpath='+alerts_Search_Xpath)
 dataFile='sanity_check_log'
 columnName='accepted_failed_message'
@@ -133,6 +144,10 @@ for (int i = 0; i < elements.size(); i++) {
 		continue
 	}*/
 	log.logError("Found unexpected ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	// scroll to the unexpected ALERT MESSAGE
+	Actions actions = new Actions(driver);
+	actions.moveToElement(elements.get(i));
+	actions.perform();
 	throw new AssertionError('ERROR: found unexpected ALERT MESSAGE: ' + found_ALERT_MESSAGE);
 	////
 	/*for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){

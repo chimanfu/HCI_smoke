@@ -48,7 +48,7 @@ WebUI.click(findTestObject('Page_Configuration Required Setting/a_NASA Params'))
 //WebUI.click(findTestObject('Object Repository/Page_Parameters Index/a_bad_browser_blurb'))
 
 WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/dt_bad_browser_blurb'))
-
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Configuration NASA Params/dd_The message that users will'),15)
 bad_browser_blurb_message=WebUI.getText(findTestObject('Object Repository/Page_Configuration NASA Params/dd_The message that users will'))
 
 string1='Your browser is not supported by this system.'

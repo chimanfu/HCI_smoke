@@ -43,7 +43,7 @@ if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configur
 	println('not found a_DAggr Linking Params, skip the test')
 	return
 }
-
+WebUI.scrollToElement(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'),10)
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'))
 
 // check daggr_linking_user
