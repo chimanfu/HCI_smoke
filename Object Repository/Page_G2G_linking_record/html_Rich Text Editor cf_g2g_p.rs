@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//html[@dir = 'ltr' and @lang = 'en' and @ref_element = 'Object Repository/Page_--- 7081 test_automation_recor/iframe_RTF_G2G_Parent_Large_Text']</value>
+         <value>//html[@dir = 'ltr' and @lang = 'en']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -55,6 +55,6 @@ img,input,textarea{cursor:default}.cke_editable{cursor:text}.cke_editable img,.c
       <matchCondition>equals</matchCondition>
       <name>ref_element</name>
       <type>Main</type>
-      <value>Object Repository/Page_--- 7081 test_automation_recor/iframe_RTF_G2G_Parent_Large_Text</value>
+      <value>Object Repository/Page_G2G_linking_record/iframe_RTF_G2G_Parent_Large_Text</value>
    </webElementProperties>
 </WebElementEntity>

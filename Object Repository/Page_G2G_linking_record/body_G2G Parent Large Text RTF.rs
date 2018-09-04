@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//body[@contenteditable = 'true' and @class = 'cke_editable cke_editable_themed cke_contents_ltr cke_show_borders' and @spellcheck = 'true' and @ref_element = 'Object Repository/Page_--- 7081 test_automation_recor/iframe_cke_wysiwyg_frame cke_r']</value>
+         <value>//body[@contenteditable = 'true' and @class = 'cke_editable cke_editable_themed cke_contents_ltr cke_show_borders' and @spellcheck = 'true']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -59,6 +59,6 @@
       <matchCondition>equals</matchCondition>
       <name>ref_element</name>
       <type>Main</type>
-      <value>Object Repository/Page_--- 7081 test_automation_recor/iframe_RTF_G2G_Parent_Large_Text</value>
+      <value>Object Repository/Page_G2G_linking_record/iframe_RTF_G2G_Parent_Large_Text</value>
    </webElementProperties>
 </WebElementEntity>

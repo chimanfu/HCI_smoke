@@ -26,28 +26,30 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
  * 
  * verify group to group linking features from test suite 'Internal Linking' in krampmasenstein_dev
  * verify add groups, delete groups, link groups, unlink groups among parent and child groups
- * fill in ALL fields contents and link records_on a parent group (try out all fields automation)
+ * fill in ALL fields contents and link records on a parent group (try out all fields automation)
  * 
+ * testcases: setup test on krampmasenstein_dev
  * create a record (or reuse record 7081) in krampmasenstein_dev
  * select testsuite 'Internal_Linking' from TAB 'Basic Information' of the record to be tested on
  * 
- * testsuite: add parent and child groups by using ‘reuse linked parent’ and ‘add linked parent’
+ * testcases: add parent and child groups by using ‘reuse linked parent’ and ‘add linked parent’
  * add 2 parent groups (GROUP_PRNT-1, GROUP_PRNT-2)
  * add 4 child groups GROUP-1_CHLD-[1,2,3,4] and reuse linked to parent group GROUP_PRNT-1
  * add 4 child groups GROUP-2_CHLD-[1,2,3,4] and reuse linked to parent group GROUP_PRNT-2
  * add 6 parent groups GROUP_PRNT-[3,4,5,6,7,8] from child groups GROUP-1_CHLD-[1,2,3] and GROUP-2_CHLD-[1,2,3]
  * 
- * fill in ALL fields contents and link_records_on a parent_group (try out all fields automation)
+ * testcases: fill in all fields contents in groups
+ * fill in ALL fields contents and link records on a parent group (try out all fields automation)
  * 
- * testsuite: access group links between parent and child groups
+ * testcases: access group links between parent and child groups
  * access child_group_links GROUP-1_CHLD-[1,2,3,4] from parent group GROUP_PRNT-1
  * access_parent_group_link_from child groups GROUP-2_CHLD-[1,2,3,4]
  * 
- * testsuite: unlink child and parent groups
+ * testcases: unlink child and parent groups
  * unlink 4 child groups from parent group
  * unlink 4 parent groups from child groups
  * 
- * testsuite: delete child and parent groups
+ * testcases: delete child and parent groups
  * delete 4 child groups GROUP-1_CHLD-[1,2,3,4] and reuse linked to GROUP_PRNT-1
  * delete 4 child groups GROUP-2_CHLD-[1,2,3,4] and reuse linked to GROUP_PRNT-2
  * delete 2 Parent_Groups (GROUP_PRNT-1, GROUP_PRNT-2)
