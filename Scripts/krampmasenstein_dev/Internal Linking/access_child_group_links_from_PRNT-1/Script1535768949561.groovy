@@ -28,17 +28,17 @@ def select_PRNT_1_GROUP_PRNT_1(){
 	//WebUI.refresh()
 	String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
 	WebUI.navigateToUrl(test_automation_record_G2G_linking)
-	WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Parent)')
+	//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Parent)')
 	
 	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
-	//WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
+	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
 	// pull down Parent Linking Group: PRNT-1  GROUP_PRNT-1
 	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'),10)
 	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
 	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/label_G2G Parent Field Link Field'),20)
 	}
 CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.switchToWindowIndex(0)
+//WebUI.switchToWindowIndex(0)
 
 select_PRNT_1_GROUP_PRNT_1()
 WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/span_CHLD-1 GROUP-1_CHLD-1'),10)

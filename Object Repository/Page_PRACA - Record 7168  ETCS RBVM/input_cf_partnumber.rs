@@ -4,6 +4,12 @@
    <name>input_cf_partnumber</name>
    <tag></tag>
    <elementGuidId>e48a22e6-5824-4296-929f-ae114547fa11</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//input[@id = 'cf_partnumber' and @name = 'cf_partnumber']</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>

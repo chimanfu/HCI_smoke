@@ -18,6 +18,6 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
+CustomKeywords.'helper.login.LoginHelper.login'()
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Basic_Information'()
 CustomKeywords.'kramp.Internal_Linking.select_test_suite'('Internal Linking')

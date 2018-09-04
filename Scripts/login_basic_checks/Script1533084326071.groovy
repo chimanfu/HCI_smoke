@@ -88,13 +88,13 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.closeWindowIndex(currentTab + 1)
 	WebUI.switchToWindowIndex(currentTab)
 	
-	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/a_About'),10)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/a_About'),15)
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_About'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Charts'))
 	
-	WebUI.click(findTestObject('Object Repository/Page_Generate Chart/img'))
-	
+	WebUI.click(findTestObject('Page_Generate Chart/img_System Logo'))
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/a_About'),15)
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_About'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_About eTask Worksheet Database/a_Home'))

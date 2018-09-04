@@ -44,7 +44,7 @@ println 'enter Transmission as the DVO number to searh, get the search results'
 println 'verify search result of linking works'
 println 'takingScreenshot and exit the current state and reload page after popup'
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
@@ -90,9 +90,14 @@ WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver,baseUrl)
 //*[@id="cfgr_Verifications_list_item_1929070"]
 
 String verification_id='1935140' //from VERIF49 on record 6505
-
+String recordID='6505'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabVerifications&gv=group'
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
-selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
+selenium.open(siteURL)
+//selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
 
 String verifiedRecord="//*[@id='cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title']/span"
 //String verifiedRecord="//span[@id='cf_omrs_daggr_1935140_link_image_on']/img"

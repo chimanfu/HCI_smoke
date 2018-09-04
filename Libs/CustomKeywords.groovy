@@ -62,6 +62,18 @@ def static "kramp.Internal_Linking.done_save_changes"() {
     (new kramp.Internal_Linking()).done_save_changes()
 }
 
+def static "kramp.Internal_Linking.unlink_parent_group_save_changes"() {
+    (new kramp.Internal_Linking()).unlink_parent_group_save_changes()
+}
+
+def static "kramp.Internal_Linking.toggle_linkedPaperClip"() {
+    (new kramp.Internal_Linking()).toggle_linkedPaperClip()
+}
+
+def static "kramp.Internal_Linking.unlink_child_group_save_changes"() {
+    (new kramp.Internal_Linking()).unlink_child_group_save_changes()
+}
+
 def static "kramp.Internal_Linking.save_changes"() {
     (new kramp.Internal_Linking()).save_changes()
 }

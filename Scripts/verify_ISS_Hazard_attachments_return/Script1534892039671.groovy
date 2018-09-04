@@ -31,7 +31,7 @@ import org.sikuli.script.Key;
 import org.sikuli.script.KeyModifier
 import org.sikuli.script.Screen;
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'

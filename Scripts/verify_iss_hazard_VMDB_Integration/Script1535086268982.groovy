@@ -23,7 +23,7 @@ import org.openqa.selenium.Keys as Keys
 // ? found connection reset in VMDB Linkable Field of Part Number: 100 ?
 
 println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
