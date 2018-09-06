@@ -45,22 +45,56 @@ println('takingScreenshot and exit the current state and reload page after popup
 
 KeywordLogger log = new KeywordLogger()
 
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) || GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) ) {
     WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
-
     WebUI.comment('Skip this testcase')
-
     GlobalVariable.userPin2 = 'SKIP'
-
     return null
 }
 
 CustomKeywords.'helper.login.LoginHelper.login'()
+if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+	selection='DMM'
+	//selection='DVO'
+	//selection='LCC'
+	//selection='OMRS'
+	String recordID='6505'
+	String siteURL=GlobalVariable.G_MAKE_MAS_url
+	baseUrl=siteURL
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabVerifications&gv=group'
+	
+	// goto recordID='6505' and Verifications TAB
+	WebUI.navigateToUrl(siteURL)
+	WebUI.click(findTestObject('Page_Record_6505_cp_hazard/div_Verifications'))
+	
+	
+	// select the first entry of VERIF from the list
+	WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/span_VERIF_first_item_1'),20)
+	WebUI.click(findTestObject('Page_Record_6505_cp_hazard/span_VERIF_first_item_1'))
+	
+	
+	// select Verification Traceability Type
+	WebUI.scrollToElement(findTestObject('Page_Record_6505_cp_hazard/label_Verification Traceability Type'),20)
+	WebUI.selectOptionByValue(findTestObject('Page_Record_6505_cp_hazard/select_Verification Traceability Type'), selection, true)
+	
+	// enter search term and then create link on the first match
+	if (!WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),2)){
+		// only if it is not already linked
+		WebUI.setText(findTestObject('Page_Record_6505_cp_hazard/input_cf_number_field'), 'Transmission')
+		WebUI.delay(2)
+		WebUI.sendKeys(findTestObject('Page_Record_6505_cp_hazard/input_cf_number_field'), Keys.chord(Keys.ENTER))
+		WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'),40)
+		WebUI.click(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'))
+		WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),10)
+	}
+	
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+	
+}
+String baseUrl
 
-String baseUrl = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group'
-
-//WebUI.navigateToUrl(baseUrl)
-//WebDriver driver = DriverFactory.getWebDriver()
 def driver = DriverFactory.getWebDriver()
 
 Screen s = new Screen()
@@ -71,7 +105,6 @@ String verification_id = '1935140' //from VERIF49 on record 6505
 
 println('directly goto record 6505->Verifications Tab')
 
-
 String recordID='6505'
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 baseUrl=siteURL
@@ -80,19 +113,15 @@ siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabVerifications&gv=group'
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 selenium.open(siteURL)
 
-//selenium.open('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group')
-
 println('select VERIF49')
 
 String verifiedRecord = "//*[@id=\'cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title\']/span"
 
-//verifiedRecord="//span[@id='cf_omrs_daggr_"+verification_id+"_link_image_on']/img"
-//verifiedRecord = "//*[@id='collapsedSpan_"+verification_id+"']"
 waifForElement(verifiedRecord, 160)
 
 WebUI.delay(10)
 
-WebUI.scrollToElement(findTestObject('Page_Cause 6505 Erroneous Transmiss/span_VERIF49'), 3)
+WebUI.scrollToElement(findTestObject('Page_Record_6505 Erroneous Transmiss/span_VERIF49'), 3)
 
 selenium.click(verifiedRecord)
 
@@ -102,7 +131,7 @@ waifForElement('id=cf_verification_traceability_' + verification_id, 60)
 
 WebUI.delay(1)
 
-WebUI.scrollToElement(findTestObject('Page_Cause 6505 Erroneous Transmiss/label_Verification Traceabilit'), 3)
+WebUI.scrollToElement(findTestObject('Page_Record_6505 Erroneous Transmiss/label_Verification Traceabilit'), 3)
 
 selenium.click('id=cf_verification_traceability_' + verification_id)
 
@@ -135,73 +164,29 @@ selenium.click('id=daggr_title_search')
 WebUI.delay(2)
 
 // create link on first record
-WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/div_search results title'))
-WebUI.waitForElementClickable(findTestObject('Page_Cause - Record 6505  Erroneous/img_create_recordLink'),10)
-WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/img_create_recordLink'))
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/div_search results title'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/img_create_recordLink'),10)
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_create_recordLink'))
 
 waifForElement('id=img_cf_dmm_number_'+verification_id, 25)
 
 WebUI.delay(2)
-
-println('takingScreenshot and exit the current state and reload page after popup')
-
-CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-
-GlobalVariable.userPin2 = 'ScreenshotTaken'
-
-// take care the popup
-s.type('w', KeyModifier.CMD)
-
-WebUI.delay(1)
-
-s.type('\n')
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 
 return null
 
 ///////////////////////////////////////////////////////
-/*selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
-for (int second = 0;; second++) {
-	if (second >= 60) fail("timeout");
-	try { if (selenium.isElementPresent("xpath=(.//*[normalize-space(text()) and normalize-space(.)='Method of Closure:'])[1]/following::img[3]")) break; } catch (Exception e) {}
-	Thread.sleep(3000);
-}
-Thread.sleep(5000)
-selenium.click("xpath=(.//*[normalize-space(text()) and normalize-space(.)='Method of Closure:'])[1]/following::img[3]")
 
-selenium.click("id=cf_verification_traceability_1929134")
-selenium.select("id=cf_verification_traceability_1929134", "label=DMM")
-for (int second = 0;; second++) {
-	if (second >= 60) fail("timeout");
-	try { if (selenium.isElementPresent("id=cf_dmm_number_1929134")) break; } catch (Exception e) {}
-	Thread.sleep(1000);
-}
-
-for (int second = 0;; second++) {
-	if (second >= 60) fail("timeout");
-	try { if (selenium.isVisible("id=cf_dmm_number_1929134")) break; } catch (Exception e) {}
-	Thread.sleep(1000);
-}
-
-selenium.clickAt("id=cf_dmm_number_1929134", "")
-selenium.waitForPageToLoad("30000")
-selenium.type("id=cf_dmm_number_1929134", "Transmission")
-selenium.waitForPageToLoad("30000")
-WebUI.delay(2)
-s.type(Key.ENTER)
-//selenium.clickAt("id=cf_dmm_number_1929134", "")
-selenium.waitForPageToLoad("30000")
-
-return*/
 // get record 6505
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/img_link_icon_1'), 25)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'), 25)
 
-WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/img_link_icon_1'), 25)
+WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'), 25)
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/img_link_icon_1'))
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'))
 
-WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/label_Verification Traceability Type'), 
+WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'), 
     5)
 
 selenium.click('id=cf_verification_traceability_1929070')
@@ -210,7 +195,7 @@ selenium.select('id=cf_verification_traceability_1929070', 'label=DMM')
 
 selenium.click('id=cf_verification_traceability_1929070')
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/span_CP-DMM Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-DMM Linkable Fields'), 10)
 
 WebUI.delay(2)
 
@@ -230,7 +215,7 @@ selenium.select('id=cf_verification_traceability_1929070', 'label=LCC')
 
 selenium.click('id=cf_verification_traceability_1929070')
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/span_CP-LMS Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-LMS Linkable Fields'), 10)
 
 WebUI.delay(2)
 
@@ -250,7 +235,7 @@ selenium.select('id=cf_verification_traceability_1929070', 'label=OMRS')
 
 selenium.click('id=cf_verification_traceability_1929070')
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/span_CP-OMS Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-OMS Linkable Fields'), 10)
 
 WebUI.delay(2)
 
@@ -270,7 +255,7 @@ selenium.select('id=cf_verification_traceability_1929070', 'label=DVO')
 
 selenium.click('id=cf_verification_traceability_1929070')
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/span_Cradle Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_Cradle Linkable Fields'), 10)
 
 WebUI.delay(1)
 
@@ -286,7 +271,7 @@ return null
 //Screen s = new Screen()
 println('check DMM linking')
 
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/label_Verification Traceability Type'))
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
 
 WebUI.delay(1)
 
@@ -300,19 +285,19 @@ WebUI.delay(1)
 
 s.type(Key.SPACE)
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/label_CP-DMM Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-DMM Linkable Fields'), 10)
 
-//WebUI.selectOptionByValue(findTestObject('Page_SLS Integrated Causes Record_1/select_---DMMDVOLCCOMRS'), 'DVO', true)
+//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'DVO', true)
 s.type(Key.TAB)
 
 s.type('Transmission\n')
 
 WebUI.delay(1)
 
-//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/span_CP-DMM search results'))
+//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-DMM search results'))
 println('check DVO linking')
 
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/label_Verification Traceability Type'))
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
 
 WebUI.delay(1)
 
@@ -326,13 +311,13 @@ WebUI.delay(1)
 
 s.type(Key.SPACE)
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/label_Cradle Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Cradle Linkable Fields'), 10)
 
-//WebUI.selectOptionByValue(findTestObject('Page_SLS Integrated Causes Record_1/select_---DMMDVOLCCOMRS'), 'LCC', true)
-//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/button_Linked'))
+//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'LCC', true)
+//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/button_Linked'))
 println('check LCC linking')
 
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/label_Verification Traceability Type'))
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
 
 WebUI.delay(1)
 
@@ -346,7 +331,7 @@ WebUI.delay(1)
 
 s.type(Key.SPACE)
 
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/label_CP-LMS Linkable Fields'), 10)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-LMS Linkable Fields'), 10)
 
 s.type(Key.TAB)
 
@@ -354,10 +339,10 @@ s.type('Transmission\n')
 
 WebUI.delay(1)
 
-//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/span_CP-LMS search results'))
+//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-LMS search results'))
 println('check OMRS linking')
 
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/label_Verification Traceability Type'))
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
 
 WebUI.delay(1)
 
@@ -371,8 +356,8 @@ WebUI.delay(1)
 
 s.type(Key.SPACE)
 
-//WebUI.selectOptionByValue(findTestObject('Page_SLS Integrated Causes Record_1/select_---DMMDVOLCCOMRS'), 'OMRS', true)
-WebUI.waitForElementVisible(findTestObject('Page_SLS Integrated Causes Record_1/label_CP-OMS Linkable Fields'), 10)
+//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'OMRS', true)
+WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-OMS Linkable Fields'), 10)
 
 s.type(Key.TAB)
 
@@ -380,7 +365,7 @@ s.type('Transmission\n')
 
 WebUI.delay(1)
 
-//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause 6505 Erroneous Transmiss/span_CP-OMS search results'))
+//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-OMS search results'))
 s.type('w', KeyModifier.CMD)
 
 WebUI.delay(1)
@@ -391,16 +376,16 @@ WebUI.openBrowser('')
 
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group')
 
-WebUI.setText(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/input_cf_dmm_number_1935140'), 'Transmission')
+WebUI.setText(findTestObject('Page_Record_6505_cp_hazard/input_cf_dmm_number_1935140'), 'Transmission')
 
-WebUI.sendKeys(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/input_cf_dmm_number_1935140'), Keys.chord(
+WebUI.sendKeys(findTestObject('Page_Record_6505_cp_hazard/input_cf_dmm_number_1935140'), Keys.chord(
         Keys.ENTER))
 
-WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/div_search results title'))
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/div_search results title'))
 
-WebUI.click(findTestObject('Page_Cause - Record 6505  Erroneous/img_create_recordLink'))
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_create_recordLink'))
 
-WebUI.click(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/img_img_cf_dmm_number_1935140'))
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_img_cf_dmm_number_1935140'))
 
 WebUI.closeBrowser()
 

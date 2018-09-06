@@ -78,7 +78,8 @@ vpn_url=<span class="str">"https://ames-vpn.arc.nasa.gov/dana/home/index.cgi"</s
 pulseAppLauncher_start_button=<img src="pulseAppLauncher_start_button.png" />
 pulseAppLauncher_allow_button=<img src="pulseAppLauncher_allow_button.png" />
 restore_pages_cancel_button=Pattern(<img src="restore_pages_cancel_button.png" />).targetOffset(<span class="dig">145</span>,-<span class="dig">6</span>)
-pdf_downloadedFile_icon=<img src="pdf_downloadedFile_icon.png" />
+pdf_downloadedFile_icon=Pattern(<img src="pdf_downloadedFile_icon.png" />).similar(<span class="dig">0.66</span>)
+default_downloadedFile_icon=<img src="default_downloadedFile_icon.png" />
 chrome_downloadedFile_showAll_cancel_button=Pattern(<img src="chrome_downloadedFile_showAll_cancel_button.png" />).targetOffset(<span class="dig">48</span>,<span class="dig">2</span>)
 
 KatalonNetworkConnections_deny_button=<img src="KatalonNetworkConnections_deny_button.png" />
@@ -90,6 +91,8 @@ exit()
 <span class="skw">type</span>(<span class="str">"\n"</span>)
 <span class="cmt">#doubleClick(pulseAppLauncher_allow_button)</span>
 
+
+//div[@<span class="kw">class</span> = <span class="str">'digItFieldContainer'</span>]/<span class="skw">input</span>[<span class="dig">1</span>]
 </pre>
 </body>
 </html>

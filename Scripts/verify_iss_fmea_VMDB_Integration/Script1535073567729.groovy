@@ -33,26 +33,26 @@ println('directly goto record 2769')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Basic%20FMEA')
 
 println('from the Basic FMEA Tab')
-WebUI.verifyElementPresent(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Basic FMEA'),25)
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Basic FMEA'))
+WebUI.verifyElementPresent(findTestObject('Page_Record_2769_FMEA/div_Basic FMEA'),25)
+WebUI.click(findTestObject('Page_Record_2769_FMEA/div_Basic FMEA'))
 
 
 WebUI.maximizeWindow()
-WebUI.scrollToElement(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/span_VMDB Linkable Fields'), 3)
+WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/span_VMDB Linkable Fields'), 3)
 
 println('verify VMDB Linkable Fields')
-WebUI.verifyElementPresent(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/span_VMDB Linkable Fields'),10)
+WebUI.verifyElementPresent(findTestObject('Page_Record_2769_FMEA/span_VMDB Linkable Fields'),10)
 WebUI.delay(1)
 
 println('click on ORU Part Number field to open up search')
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input_cf_oruassemblynum'))
+WebUI.click(findTestObject('Page_Record_2769_FMEA/input_cf_oruassemblynum'))
 WebUI.delay(2)
-WebUI.sendKeys(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input_cf_oruassemblynum'), Keys.chord(Keys.ENTER))
+WebUI.sendKeys(findTestObject('Page_Record_2769_FMEA/input_cf_oruassemblynum'), Keys.chord(Keys.ENTER))
 println('check Current Dataset search result')
-WebUI.verifyElementPresent(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/span_Current Dataset search result'),5)
+WebUI.verifyElementPresent(findTestObject('Page_Record_2769_FMEA/span_Current Dataset search result'),5)
 
 println('verify not seeing ERROR: sqlQuery:SQLParser.parse: malformed sql')
-WebUI.verifyElementNotVisible(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/em_sqlQuerySQLParser.parse ERROR'))
+WebUI.verifyElementNotVisible(findTestObject('Page_Record_2769_FMEA/em_sqlQuerySQLParser.parse ERROR'))
 
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 

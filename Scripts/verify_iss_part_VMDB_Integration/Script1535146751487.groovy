@@ -26,7 +26,6 @@ import org.sikuli.script.Screen;
 println('Only for iss_part: Basic FMEA tab -> VMDB Integration')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -36,33 +35,26 @@ println('directly go to record 7168 which has VMDB integration')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_part_dev/show_bug.cgi?id=7168')
 
 println 'verify VMDB Linkable Fields'
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/span_VMDB Linkable Fields'),10)
-WebUI.click(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/span_VMDB Linkable Fields'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_7168_PRACA/span_VMDB Linkable Fields'),10)
+WebUI.click(findTestObject('Page_Record_7168_PRACA/span_VMDB Linkable Fields'))
 
 println 'do a quick search on the part number 1F28980'
-WebUI.click(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/input_cf_partnumber'))
+WebUI.click(findTestObject('Page_Record_7168_PRACA/input_cf_partnumber'))
 WebUI.delay(2)
-WebUI.sendKeys(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/input_cf_partnumber'), Keys.chord(Keys.ENTER))
+WebUI.sendKeys(findTestObject('Page_Record_7168_PRACA/input_cf_partnumber'), Keys.chord(Keys.ENTER))
 
 
 println('search list displayed and click on the create link button')
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/img_create_23971972'),10)
-WebUI.click(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/img_create_23971972'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_7168_PRACA/img_create_23971972'),10)
+WebUI.click(findTestObject('Page_Record_7168_PRACA/img_create_23971972'))
 
 
 println("verify create link is working and showing linking status")
-WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/img_img_cf_partnumber'),5)
+WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/img_img_cf_partnumber'),5)
 
 
-/*WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/div_View part in VMDB'),5)
-WebUI.waitForElementPresent(findTestObject('Object Repository/Page_PRACA - Record 7168  ETCS RBVM/div_View drawing in VMDB'),5)*/
+/*WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/div_View part in VMDB'),5)
+WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/div_View drawing in VMDB'),5)*/
 
-CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the reload page popup to reload page
-Screen s = new Screen()
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 

@@ -468,6 +468,10 @@ def static "helper.browserhelper.CustomBrowser.takingScreenshotStatus"(
          , 	testStatus)
 }
 
+def static "helper.browserhelper.CustomBrowser.not_save_exit"() {
+    (new helper.browserhelper.CustomBrowser()).not_save_exit()
+}
+
 def static "helper.grid.GridHelper.GetValueFromGrid"(
     	TestObject baseTestObject	
      , 	int rowIndex	

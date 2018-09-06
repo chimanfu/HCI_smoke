@@ -141,7 +141,7 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
 
         WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))
 
-        WebUI.selectOptionByValue(findTestObject('Page_Enter Record 20g Centrifuge/select_options'), 'AF - Aviation Systems Division', 
+        WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_options'), 'AF - Aviation Systems Division', 
             true)
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
         println('this is iss_hazard')

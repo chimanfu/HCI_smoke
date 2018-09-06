@@ -47,20 +47,20 @@ WebUI.scrollToElement(findTestObject('Object Repository/Page_Configuration Requi
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'))
 
 // check daggr_linking_user
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration DAggr Linking Pa/dd_The DAggr user who will be'),5)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration DAggr Linking Params/dd_The DAggr user who will be'),5)
 expected_value_daggr_linking_user='mas_vmdb'
 println('check daggr_linking_user value from daggr_linking_user parameter')
-value_daggr_linking_user=WebUI.getAttribute(findTestObject('Page_Configuration DAggr Linking Pa/input_daggr_linking_user'), 'value')
+value_daggr_linking_user=WebUI.getAttribute(findTestObject('Page_Configuration DAggr Linking Params/input_daggr_linking_user'), 'value')
 println('actual value of permittedBrowsers = '+value_daggr_linking_user)
 WebUI.verifyMatch(value_daggr_linking_user, expected_value_daggr_linking_user, false)
 println('matched with expected permittedBrowsers value = '+expected_value_daggr_linking_user)
 
 // check daggr_linking_enabled
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration DAggr Linking Pa/dt_daggr_linking_enabled'),1)
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration DAggr Linking Pa/input_daggr_linking_enabled'),1)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration DAggr Linking Params/dt_daggr_linking_enabled'),1)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration DAggr Linking Params/input_daggr_linking_enabled'),1)
 
 // check daggr_create_update_link_disabled
-WebUI.waitForElementVisible(findTestObject('Page_Configuration DAggr Linking Pa/input_daggr_create_update_link_disabled'),1)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration DAggr Linking Params/input_daggr_create_update_link_disabled'),1)
 
 
 

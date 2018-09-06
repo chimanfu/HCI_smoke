@@ -31,26 +31,47 @@ import org.sikuli.script.Key;
 import org.sikuli.script.KeyModifier
 import org.sikuli.script.Screen;
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
-
+if ( GlobalVariable.G_MAKE_MAS_url.contains('react_iss_hazard')){
+	WebUI.comment 'Skip this testcase as react_iss_hazard may not work on attachments'
+	throw new AssertionError('react_iss_hazard may not work on adding attachments. Please check it')
+	return
+}
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-def driver = DriverFactory.getWebDriver()
-String baseUrl = "https://www.katalon.com/"
-selenium = new WebDriverBackedSelenium(driver, baseUrl)
-
-String recordID='147'
+//String recordID='147'
+String recordID='43778'
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabBasic_Information&gv=group'
-selenium.open(siteURL)
-//selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=147#tv=tabBasic_Information&gv=group")
 
+WebUI.navigateToUrl(siteURL)
+
+WebUI.scrollToElement(findTestObject('Page_Record_43778_iss_hazard/div_Attachments'),10)
+
+WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_ppt_icon_attachment'))
+CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+
+WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_doc_icon_attachment'))
+CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+
+WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_pdf_icon_attachment'))
+CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(100)
+
+WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_xls_icon_attachment'))
+CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+
+return
+
+////////////////////////////
+def driver = DriverFactory.getWebDriver()
+String baseUrl = "https://www.katalon.com/"
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+selenium.open(siteURL)
 selenium.click("id=attachment_table_display_0_info")
 
 // check pdf attachment

@@ -25,7 +25,6 @@ import org.sikuli.script.Screen;
 
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('mcard'))) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -36,40 +35,42 @@ println('directly goto record 256 -> Verification tab from search: Monitored Con
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/mcard_dev/show_bug.cgi?id=256#tv=Verification')
 
 println 'select Verification Tab'
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/div_Verification'),25)
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/div_Verification'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_256_mcard/div_Verification'),25)
+WebUI.click(findTestObject('Page_Record_256_mcard/div_Verification'))
 
 println 'wait for SLS Cradle Linkable Field'
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/span_SLS Cradle Linkable Field'),10)
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/span_SLS Cradle Linkable Field'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_256_mcard/span_SLS Cradle Linkable Field'),10)
+WebUI.click(findTestObject('Page_Record_256_mcard/span_SLS Cradle Linkable Field'))
 
 println 'enter dvo_number 100 from search field of Applicable DVO'
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/label_Applicable DVO'))
-WebUI.setText(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/input_cf_dvo_number'), '100')
+WebUI.click(findTestObject('Page_Record_256_mcard/label_Applicable DVO'))
+WebUI.setText(findTestObject('Page_Record_256_mcard/input_cf_dvo_number'), '100')
 WebUI.delay(2)
-WebUI.sendKeys(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/input_cf_dvo_number'), Keys.chord(Keys.ENTER))
+WebUI.sendKeys(findTestObject('Page_Record_256_mcard/input_cf_dvo_number'), Keys.chord(Keys.ENTER))
 
 println 'verify SLS Cradle search results'
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/span_SLS Cradle search results'),10)
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/span_SLS Cradle search results'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_256_mcard/span_SLS Cradle search results'),10)
+WebUI.click(findTestObject('Page_Record_256_mcard/span_SLS Cradle search results'))
 
 'click on create link button'
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/button_Create Link'))
+WebUI.click(findTestObject('Page_Record_256_mcard/button_Create Link'))
 
 'verify the record is linked and can be edited'
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/button_Linked'))
+WebUI.click(findTestObject('Page_Record_256_mcard/button_Linked'))
 WebUI.delay(1)
-WebUI.click(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/a_Edit'))
+WebUI.click(findTestObject('Page_Record_256_mcard/a_Edit'))
 WebUI.delay(1)
-WebUI.setText(findTestObject('Object Repository/Page_Monitored Condition 256 CAPUC/input_cf_dvo_number'), '')
+WebUI.setText(findTestObject('Page_Record_256_mcard/input_cf_dvo_number'), '')
 
-CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+
+/*CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 GlobalVariable.userPin2='ScreenshotTaken'
 // open the current window which will trigger the reload page popup to reload page
 Screen s = new Screen()
 s.type("w", KeyModifier.CMD)
 WebUI.delay(1)
 s.type('\n')
-return
+return*/
 
 

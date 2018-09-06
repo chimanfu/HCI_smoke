@@ -35,7 +35,6 @@ import internal.GlobalVariable as GlobalVariable
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('ocad')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -46,17 +45,17 @@ WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/ocad_dev/show_bug
 
 // login to ocad and access record 123001
 // check Linked ISS Hazard Controls
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_General 123001 MCH Inability t/div_Linked ISS Hazard Controls'),25)
-WebUI.click(findTestObject('Object Repository/Page_General 123001 MCH Inability t/div_Linked ISS Hazard Controls'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_123001_General/div_Linked ISS Hazard Controls'),25)
+WebUI.click(findTestObject('Page_Record_123001_General/div_Linked ISS Hazard Controls'))
 
 
 // check ISS Hazard Controls: 1
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_General 123001 MCH Inability t/span_ISS Hazard Controls 1'),25)
-WebUI.click(findTestObject('Object Repository/Page_General 123001 MCH Inability t/span_ISS Hazard Controls 1'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_123001_General/span_ISS Hazard Controls 1'),25)
+WebUI.click(findTestObject('Page_Record_123001_General/span_ISS Hazard Controls 1'))
 
 
 // select on CTRL ID: Ctl-8 from ocad
-WebUI.click(findTestObject('Object Repository/Page_General 123001 MCH Inability t/a_Ctl-8'))
+WebUI.click(findTestObject('Page_Record_123001_General/a_Ctl-8'))
 
 // open a new tab on record 27228 from iss_hazard
 WebUI.delay(3)
@@ -67,14 +66,14 @@ if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),5,F
 	WebUI.click(findTestObject('Page_Login/input_login_btn'))
 }
 // select OCAD #123001
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause 27228 Inability to gain/a_OCAD 123001'),40)
-WebUI.click(findTestObject('Object Repository/Page_Cause 27228 Inability to gain/a_OCAD 123001'))
+WebUI.waitForElementVisible(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD 123001'),40)
+WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD 123001'))
 
 // open a new tab on record 123001 from ocad
 WebUI.delay(3)
 WebUI.switchToWindowIndex(2)
 // wait for record exists for OCAD #123001
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_General 123001 MCH Inability t/strong_Record 123001 - APPROVE'),30)
+WebUI.waitForElementVisible(findTestObject('Page_Record_123001_General/strong_Record 123001 - APPROVE'),30)
 
 
 WebUI.switchToWindowIndex(0)

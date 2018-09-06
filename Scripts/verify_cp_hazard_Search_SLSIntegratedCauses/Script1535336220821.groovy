@@ -60,9 +60,8 @@ import static org.apache.commons.lang3.StringUtils.join
 'from the search list of records, select the first record to open and verify'
 'open the Verifications Tab'
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -79,6 +78,6 @@ WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List
 WebUI.click(findTestObject('Object Repository/Page_Record List/a_record_1'))
 
 println 'open the Verifications Tab'
-WebUI.waitForElementClickable(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'),10)
-WebUI.click(findTestObject('Page_SLS Integrated Causes Record_1/div_Verifications'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/div_Verifications'),10)
+WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/div_Verifications'))
 WebUI.delay(2)

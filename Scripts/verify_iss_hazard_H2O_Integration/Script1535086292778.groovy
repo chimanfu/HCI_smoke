@@ -20,9 +20,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 //H2O Integration - e.g. record 27228 Ctl-8
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))|| GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -34,16 +33,41 @@ String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabControls&gv=group'
 WebUI.navigateToUrl(siteURL)
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_dev/show_bug.cgi?id=27228#tv=tabControls&gv=group')
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls'),35)
+if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+	// react code
+	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_react_iss_hazard/div_Controls'),35)
+	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/div_Controls'))
+	
+	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_react_iss_hazard/div_Ctl-8'),22)
+	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/div_Ctl-8'))
+	
+	//WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/span_Ctl-8'))
+	//WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/div_Ctl-8'))
+	
+	WebUI.scrollToElement(findTestObject('Page_Record_27228_react_iss_hazard/span_Ctl-8'),10)
+	
+	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD 123001'))
+}else{
+	// old code
+	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_iss_hazard/div_Controls'),35)
+	
+	WebUI.click(findTestObject('Page_Record_27228_iss_hazard/div_Controls'))
+	
+	// click on the control ID: ctl-8
+	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_iss_hazard/span_Ctl-8'),22)
+	WebUI.click(findTestObject('Page_Record_27228_iss_hazard/span_Ctl-8'))
+	
+	WebUI.scrollToElement(findTestObject('Page_Record_27228_iss_hazard/div_Controls ID'),15)
+	
+	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_iss_hazard/a_OCAD 123001'),10)
+	
+	WebUI.click(findTestObject('Page_Record_27228_iss_hazard/a_OCAD 123001'))
 
-WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls'))
-
-// click on the control ID: ctl-8
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/span_3c Crew to ensure hooks c'),22)
-WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/span_3c Crew to ensure hooks c'))
-
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/div_Controls ID'),15)
-
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Cause - Record 27228  Inabilit/a_OCAD 123001'),10)
+}
+// take care the new windows for OCAD login
+WebUI.delay(2)
+WebUI.switchToWindowIndex(1)
+WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8)
+WebUI.switchToWindowIndex(0)
+WebUI.closeWindowIndex(1)

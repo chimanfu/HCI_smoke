@@ -104,6 +104,22 @@ class common {
 	}
 
 	@Keyword
+	def check_defaultFile_Downloaded(int seconds){
+		println('check_PDFFile_Downloaded ')
+		Screen s = new Screen()
+		Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'default_downloadedFile_icon.png').similar(0.66)
+		s.wait(pdf_icon, seconds)
+		//s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', seconds)
+		WebUI.delay(3)
+		if (s.exists(GlobalVariable.G_image_path+'chrome_downloadedFile_showAll_cancel_button.png',5)!=null){
+			WebUI.delay(1)
+			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
+			s.click(s.exists(pImage,1), 1)
+		}
+	}
+	
+	
+	@Keyword
 	def verifyAllLinksOnCurrentPageAccessible(boolean STOP_ON_FAILURE) {
 		KeywordLogger log = new KeywordLogger()
 

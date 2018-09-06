@@ -121,7 +121,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	//WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),10)
 	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),20)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(200)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(220)
 	WebUI.delay(1)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
 	return
@@ -162,7 +162,7 @@ if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_re
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 }
 WebUI.delay(5)
-CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(50)
+CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(150)
 /*WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
 WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)*/
 

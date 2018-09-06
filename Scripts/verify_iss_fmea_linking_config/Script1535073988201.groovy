@@ -44,39 +44,34 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 println('directly goto record 2769 -> Attachments & References Tab')
 WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Attachments%20%26%20References')
 WebUI.maximizeWindow()
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'), 25)
-WebUI.scrollToElement(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'), 25)
+WebUI.waitForElementClickable(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
+WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
 
 println('get the create link field and get ready to search content')
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/label_Create link'))
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_Search content...'))
+WebUI.click(findTestObject('Page_Record_2769_FMEA/label_Create link'))
+WebUI.click(findTestObject('Page_Record_2769_FMEA/div_Search content...'))
 
 println('enter the search term: '+searchTerm)
-WebUI.setText(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input'), searchTerm)
+WebUI.setText(findTestObject('Page_Record_2769_FMEA/input'), searchTerm)
 WebUI.delay(2)
 println('get the first record')
-WebUI.sendKeys(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input'), Keys.chord(Keys.ENTER))
+WebUI.sendKeys(findTestObject('Page_Record_2769_FMEA/input'), Keys.chord(Keys.ENTER))
 WebUI.delay(5)
 println('verify first record exist')
-if (!WebUI.waitForElementClickable(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_record_1'),12))
-	WebUI.sendKeys(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/input'), Keys.chord(Keys.ENTER))
+if (!WebUI.waitForElementClickable(findTestObject('Page_Record_2769_FMEA/div_record_1'),12))
+	WebUI.sendKeys(findTestObject('Page_Record_2769_FMEA/input'), Keys.chord(Keys.ENTER))
 
 WebUI.delay(1)
 
 println('try out the trash link icon on/off')
-WebUI.waitForElementClickable(findTestObject('Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'),12)
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_2769_FMEA/div_trash'),12)
+WebUI.click(findTestObject('Page_Record_2769_FMEA/div_trash'))
 WebUI.delay(1)
-WebUI.click(findTestObject('Object Repository/Page_FMEA 2769 MANIFOLD ASSEMBLY VE/div_trash'))
+WebUI.click(findTestObject('Page_Record_2769_FMEA/div_trash'))
 
-CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the reload page popup to reload page
-Screen s = new Screen()
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+
+
 /////////////////////////////////////////////////////////////////////////////
 break} catch (Exception e) {
 	e.printStackTrace()

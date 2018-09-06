@@ -4,7 +4,9 @@ import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-
+import org.sikuli.script.Key as Key
+import org.sikuli.script.Screen as Screen
+import org.sikuli.script.KeyModifier as KeyModifier
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.checkpoint.Checkpoint
 import com.kms.katalon.core.checkpoint.CheckpointFactory
@@ -88,22 +90,22 @@ public class CustomBrowser {
 	public void takingScreenshot(){
 		try {
 			//import com.kms.katalon.core.configuration.RunConfiguration
-			
+
 			String getReportFolder=RunConfiguration.getReportFolder()
-			
+
 			println('getReportFolder='+getReportFolder)
 			Date today = new Date()
 			String todaysDate = today.format('MM_dd_yy');
 			String nowTime = today.format('hh_mm_ss');
 			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".png"
-			
+
 			try{
 				WebUI.takeScreenshot(screenshotPath);
 			}
 			catch (Exception e) {
 				// This code will capture screenshot of current screen
 				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-						
+
 				// This will store screenshot on Specific location
 				ImageIO.write(image, "png", new File(screenshotPath));
 			}
@@ -132,9 +134,9 @@ public class CustomBrowser {
 			catch (Exception e) {
 				// capture screenshot of current screen
 				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-						
+
 				// store screenshot on Specific location
-				ImageIO.write(image, "png", new File(screenshotPath));				
+				ImageIO.write(image, "png", new File(screenshotPath));
 			}
 			println('screen shot in '+screenshotPath)
 		}
@@ -142,14 +144,19 @@ public class CustomBrowser {
 			e.printStackTrace()
 		}
 	}
-	
-	/*
-	 @Keyword
-	 public void testCaseStatus() {
-	 String tc_id=TestCaseContext
-	 println 'testcase ID = '+TestCase.
-	 println 'testcase name = '+TestCase.getName()
-	 println 'testcase variables = '+TestCase.getVariables()
-	 }
-	 */
+
+
+	@Keyword
+	public void not_save_exit() {
+		println('takingScreenshot and exit the current state and reload page after popup')
+		Screen s = new Screen()
+		takingScreenshot()
+		GlobalVariable.userPin2 = 'ScreenshotTaken'
+		// take care the popup and un-save it
+		s.type('w', KeyModifier.CMD)
+		WebUI.delay(1)
+		s.type('\n')
+
+	}
+
 }
