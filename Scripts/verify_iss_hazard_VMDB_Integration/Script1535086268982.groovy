@@ -1,24 +1,11 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import internal.GlobalVariable as GlobalVariable
+
 import org.openqa.selenium.Keys as Keys
+
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import internal.GlobalVariable as GlobalVariable
 
 // ? found connection reset in VMDB Linkable Field of Part Number: 100 ?
 
@@ -49,9 +36,7 @@ if ( GlobalVariable.G_MAKE_MAS_url.contains('react')){
 	WebUI.sendKeys(findTestObject('Page_Record_8265_react_iss_hazard/input_cf_rh_part_number_NEW_RO'), Keys.chord(
 			Keys.ENTER))
 	
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/errorMsg_sqlQuerySQLParser'),5)){
-		throw new AssertionError('ERROR: found error message -> sqlQuery:SQLParser.parse: malformed sql')
-	}
+	
 }else{
 	// old code
 	WebUI.waitForElementVisible(findTestObject('Page_Record_8265_iss_hazard/div_Basic Information'),25)
@@ -69,9 +54,20 @@ if ( GlobalVariable.G_MAKE_MAS_url.contains('react')){
 	
 	WebUI.waitForElementVisible(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'),15)
 	WebUI.click(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'))
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_iss_hazard/span_Connection reset'),5)){
-		throw new AssertionError('ERROR: found Connection reset from search result')
-	}
+
+}
+// check VMDB errors
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/errorMsg_sqlQuerySQLParser'),2)){
+	KeywordUtil.markFailedAndStop("ERROR: found error message -> sqlQuery:SQLParser.parse: malformed sql")
+	throw new AssertionError('ERROR: found error message -> sqlQuery:SQLParser.parse: malformed sql')
+}
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_iss_hazard/span_Connection reset'),1)){
+	KeywordUtil.markFailedAndStop("ERROR: found Connection reset from search result")
+	throw new AssertionError('ERROR: found Connection reset from search result')
+}
+if (WebUI.waitForElementVisible(findTestObject('Page_Record_2769_FMEA/div_error_DAGGR_server_not_configured'),1)){
+	KeywordUtil.markFailedAndStop("ERROR: DAGGR_server_not_configured")
+	throw new AssertionError('ERROR: DAGGR_server_not_configured')
 }
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()

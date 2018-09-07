@@ -61,7 +61,6 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
 // select testsuite 'Internal_Linking' from TAB 'Basic Information' of the record to be tested on
 WebUI.callTestCase(findTestCase(testsuitePath+'select_testsuite_Internal_Linking'),[('group-to-group-test') : testsuiteName])
 
-return
 
 /* 
  testsuite: add parent and child groups and reuse links with groups

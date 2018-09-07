@@ -46,7 +46,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
 	//WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/div_Ctl-8'))
 	
 	WebUI.scrollToElement(findTestObject('Page_Record_27228_react_iss_hazard/span_Ctl-8'),10)
-	
+	CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD 123001'))
 }else{
 	// old code
@@ -61,7 +61,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
 	WebUI.scrollToElement(findTestObject('Page_Record_27228_iss_hazard/div_Controls ID'),15)
 	
 	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_iss_hazard/a_OCAD 123001'),10)
-	
+	CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 	WebUI.click(findTestObject('Page_Record_27228_iss_hazard/a_OCAD 123001'))
 
 }

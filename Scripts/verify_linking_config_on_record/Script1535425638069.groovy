@@ -103,15 +103,7 @@ for (int i = 0; i < size; i++) {
 
 }
 
-CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the popup
-Screen s = new Screen()
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return
-
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 
 
 

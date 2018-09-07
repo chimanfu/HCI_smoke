@@ -9,6 +9,38 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 
 import internal.GlobalVariable as GlobalVariable
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
+import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testcase.TestCase as TestCase
+import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
+import com.kms.katalon.core.testdata.TestData as TestData
+import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
+import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import internal.GlobalVariable as GlobalVariable
+import static org.junit.Assert.*
+
+import org.sikuli.script.Key;
+import org.sikuli.script.KeyModifier
+import org.sikuli.script.Screen;
+
+import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
+
+import internal.GlobalVariable as GlobalVariable
+import org.openqa.selenium.Keys as Keys
 
 println('check cp-OMRS integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
@@ -53,17 +85,16 @@ selenium.typeKeys("id=cf_omrs_alias_NEW_ROW_1", searchTerm)
 selenium.waitForPageToLoad("30000")
 WebUI.delay(2)
 s.type(Key.ENTER)
-selenium.waitForPageToLoad("30000")
+selenium.waitForPageToLoad("60000")
 
 println('verify CP-OMRS search results')
 CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_find']//span",60)
 selenium.click("//div[@id='digIt_title_find']//span")
-WebUI.delay(10)
-
+WebUI.delay(5)
+// check the create link
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'),40)
 CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the popup
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),10)
+
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()

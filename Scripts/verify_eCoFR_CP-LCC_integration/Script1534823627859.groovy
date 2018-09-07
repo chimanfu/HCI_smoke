@@ -72,17 +72,16 @@ selenium.typeKeys("id=cf_lcc_alias_NEW_ROW_1", searchTerm)
 selenium.waitForPageToLoad("30000")
 WebUI.delay(2)
 s.type(Key.ENTER)
-selenium.waitForPageToLoad("30000")
+selenium.waitForPageToLoad("60000")
 
 println('verify CP-LCC search results')
-CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_find']//span",60)
+CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_find']//span",70)
 selenium.click("//div[@id='digIt_title_find']//span")
-WebUI.delay(10)
-
+WebUI.delay(5)
+// check the create link
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'),40)
 CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the popup
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return
+WebUI.click(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'))
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),10)
+
+CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
