@@ -22,17 +22,17 @@ import internal.GlobalVariable as GlobalVariable
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-1_CHLD-1'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-1 GROUP-1_CHLD-1'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-1_CHLD-2'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-1 GROUP-1_CHLD-2'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-1_CHLD-3'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-1 GROUP-1_CHLD-3'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_CHLD-1 GROUP-1_CHLD-4'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-1 GROUP-1_CHLD-4'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()

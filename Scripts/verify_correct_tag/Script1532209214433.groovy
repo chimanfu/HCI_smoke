@@ -37,8 +37,8 @@ import internal.GlobalVariable as GlobalVariable
  */
 
 CustomKeywords.'helper.login.LoginHelper.login'()
- 
- WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
+WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),20)
+// WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
  
  footer_message=WebUI.getText(findTestObject('Page_Main Page/div_About-git-hash'))
  

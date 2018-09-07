@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//p[@class = 'alert']</value>
+         <value>/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[@class = 'alert']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//p[@class = 'alert']</value>
+      <value>/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[@class = 'alert']</value>
    </webElementProperties>
 </WebElementEntity>

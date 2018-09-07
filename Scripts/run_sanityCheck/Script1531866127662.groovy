@@ -58,50 +58,42 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 		e.printStackTrace()
 	}	
 }
-//WebUI.waitForPageLoad(5)
 try {
 	// it may crash selenium by clciking on the Sanity Check link or it may wait for the page load forever.
 	// will workaround it by clicking on the anityCheck_link.png with opencv image recognation feature
-	/*
+	
 	WebUI.delay(1)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'), 60)
 	WebUI.delay(1)
     WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'))
-	*/
 	
-    s.wait(GlobalVariable.G_image_path + 'sanityCheck_link.png', 20)
+    /*s.wait(GlobalVariable.G_image_path + 'sanityCheck_link.png', 20)
     s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
     WebUI.delay(1)
     s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
-    WebUI.delay(1) 
-    //s.click(GlobalVariable.G_image_path+'sanityCheck_link.png')
+    WebUI.delay(1)*/ 
 }
 catch (Exception e) {
     println('Unable to find sanity check link: ' + e.getMessage()) 
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 } 
 
-//WebUI.click(findTestObject('Object Repository/Page_Sanity Check/html_Sanity Check'))
-//WebUI.waitForPageLoad(5)
-WebUI.delay(5)
+WebUI.delay(3)
 log.logInfo('verify sanity check is working and without new issue.')
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100,,FailureHandling.STOP_ON_FAILURE)
 WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_now running sanity checks'), 10)
-//WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_now running sanity checks'), 100)
+
 //WebUI.delay(1)
-//WebUI.click(findTestObject('Page_Sanity Check/p_output_log_message.rs'))
-WebUI.delay(1)
-if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 15)){
-	WebUI.scrollToElement(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 15)
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 12)){
+	WebUI.scrollToElement(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 5)
 	log.logError('found A system error has occurred')
-	throw new AssertionError('ERROR: found A system error has occurred ')
-	
+	throw new AssertionError('ERROR: found A system error has occurred ')	
 }
 
 WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200,FailureHandling.STOP_ON_FAILURE)
 WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200,FailureHandling.STOP_ON_FAILURE)
 //WebUI.waitForElementClickable(findTestObject('Page_Sanity Check/p_Sanity check completed'), 200)
-WebUI.delay(1)
+//WebUI.delay(1)
 
 //alertMessages=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_alert_messages'))
 //println(alertMessages)
@@ -116,7 +108,7 @@ acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
 acceptedAlert6="/usr/local/bin/tesseract --version failed"
 acceptedAlert7="Bad profile email address"
 
-String alerts_Search_Xpath="//*[@id='bugzilla-body']/div[2]/p[@class = 'alert' and not(contains(., '"+
+String alerts_Search_Xpath="/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[@class = 'alert' and not(contains(., '"+
 acceptedAlert1+"')) and not(contains(., '"+
 acceptedAlert2+"')) and not(contains(., '"+
 acceptedAlert3+"')) and not(contains(., '"+
@@ -128,14 +120,43 @@ println('alerts_Search_Xpath='+alerts_Search_Xpath)
 dataFile='sanity_check_log'
 columnName='accepted_failed_message'
 boolean found_expected_log_message=false
+boolean found_unexpected_log_message=false
 log.logInfo('Get all found ALERT MESSAGES and compare with the expected ALERT MESSAGES from the sanity check log in columnName='+columnName)
 WebDriver driver = DriverFactory.getWebDriver()
 //driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-
+//String found_ALERT_MESSAGE
 List<WebElement> elements = driver.findElements(By.xpath(alerts_Search_Xpath));
-for (int i = 0; i < elements.size(); i++) {
-	found_expected_log_message=false
-	String found_ALERT_MESSAGE=elements.get(i).getText()
+int alert_size=elements.size()
+if (alert_size>0) {
+	found_unexpected_log_message=true
+	log.logError("Found unexpected ALERT MESSAGE: ")
+	for (int i = 0; i < alert_size; i++) {
+		log.logError(elements.get(i).getText());
+	}
+}
+if (found_unexpected_log_message){
+	Actions actions = new Actions(driver);
+	actions.moveToElement(elements.get(alert_size-1));
+	actions.perform();
+	throw new AssertionError('ERROR: found more than one unexpected ALERT MESSAGE. ' );
+}else{
+	log.logPassed('PASS: Not found unexpected ALERT MESSAGE. ' );
+}
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	try {
+		WebUI.switchToWindowIndex(1)
+		WebUI.closeWindowIndex(1)
+		WebUI.switchToWindowIndex(0)
+	} catch (Exception e) {
+		e.printStackTrace()
+	}
+}
+
+return
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//for (int i = 0; i < elements.size(); i++) {
+	//found_unexpected_log_message=true
+	//found_ALERT_MESSAGE=elements.get(i).getText()
 	
 	/*if (found_ALERT_MESSAGE.contains('attachment')){
 		continue
@@ -143,12 +164,14 @@ for (int i = 0; i < elements.size(); i++) {
 	if (found_ALERT_MESSAGE.contains('Records that have changes but no mail sent for at least half an hour')){
 		continue
 	}*/
-	log.logError("Found unexpected ALERT MESSAGE: " + found_ALERT_MESSAGE);
+	//log.logError(elements.get(i).getText());
 	// scroll to the unexpected ALERT MESSAGE
-	Actions actions = new Actions(driver);
+	
+	/*Actions actions = new Actions(driver);
 	actions.moveToElement(elements.get(i));
 	actions.perform();
-	throw new AssertionError('ERROR: found unexpected ALERT MESSAGE: ' + found_ALERT_MESSAGE);
+	throw new AssertionError('ERROR: found unexpected ALERT MESSAGE: ' + found_ALERT_MESSAGE);*/
+	
 	////
 	/*for (row = 1; row <= findTestData(dataFile).getRowNumbers(); row++){
 		String expected_log_message=(findTestData(dataFile).getValue(columnName, row)).trim()
@@ -168,21 +191,7 @@ for (int i = 0; i < elements.size(); i++) {
 	if (!found_expected_log_message){
 		log.logWarning('This found ALERT MESSAGE could be an issue : '+found_ALERT_MESSAGE)
 	}*/
-	////
-	
-}
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	
-	try {
-		WebUI.switchToWindowIndex(1)
-	WebUI.closeWindowIndex(1)
-	WebUI.switchToWindowIndex(0)
-	} catch (Exception e) {
-		e.printStackTrace()
-	}
-}
-return
-
+//}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////		
 // print out all log message
 logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))

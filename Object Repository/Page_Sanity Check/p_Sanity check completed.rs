@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//*[@id='bugzilla-body']/div[2]/p[contains(text(), 'Sanity check completed')]</value>
+         <value>/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[contains(text(), 'Sanity check completed')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -31,6 +31,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//*[@id='bugzilla-body']/div[2]/p[contains(text(), 'Sanity check completed')]</value>
+      <value>/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[contains(text(), 'Sanity check completed')]</value>
    </webElementProperties>
 </WebElementEntity>

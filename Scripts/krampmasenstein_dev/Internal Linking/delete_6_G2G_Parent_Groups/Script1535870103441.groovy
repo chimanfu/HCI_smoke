@@ -67,27 +67,27 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-3  GROUP_PRNT-3'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-3  GROUP_PRNT-3'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-4  GROUP_PRNT-4'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-4  GROUP_PRNT-4'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-5  GROUP_PRNT-5'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-5  GROUP_PRNT-5'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-6  GROUP_PRNT-6'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-6  GROUP_PRNT-6'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-7  GROUP_PRNT-7'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-7  GROUP_PRNT-7'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-8  GROUP_PRNT-8'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-8  GROUP_PRNT-8'))
 CustomKeywords.'kramp.Internal_Linking.delete_group_save_changes'()
 return
 
@@ -95,42 +95,42 @@ return
 /*def delete_2_G2G_Parent_Groups(){
 	// delete 2 G2G Parent Groups 'GROUP_PRNT-1', 'GROUP_PRNT-2'
 	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)'))
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 	
 	WebUI.delay(3)
 	WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information')
 	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
 	
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'),20)
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_PRNT-2  GROUP_PRNT-2'),20)
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_PRNT-2  GROUP_PRNT-2'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-2  GROUP_PRNT-2'))
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)'))
 	
-	WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+	WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 	WebUI.delay(3)
 }
 
 def select_Tab_Basic_Information(){
 	// goto Tab: Basic Information
-	WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
-	WebUI.click(findTestObject('Page_G2G_linking_record/div_Basic Information'))
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Basic Information'),25)
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_Basic Information'))
 }
 def select_test_suite(String testSuiteName){
 	// select test suite: Groups/
-	WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/select_Test Suite'), 15)
-	WebUI.selectOptionByValue(findTestObject('Page_G2G_linking_record/select_Test Suite'), testSuiteName, true)
+	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/select_Test Suite'), 15)
+	WebUI.selectOptionByValue(findTestObject('Page_record_G2G_linking/select_Test Suite'), testSuiteName, true)
 }
 */
 

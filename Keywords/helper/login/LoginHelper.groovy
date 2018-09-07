@@ -27,6 +27,7 @@ import internal.GlobalVariable
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;
 import org.sikuli.script.Pattern as Pattern
+import com.kms.katalon.core.webui.driver.DriverFactory
 /**
  * Open browser
  * Open Bugzila --> Get from Global variable
@@ -172,14 +173,17 @@ public class LoginHelper {
 		try{
 			WebUI.openBrowser('')
 			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-			WebUI.closeWindowIndex(1)
+			//WebUI.closeWindowIndex(1)
 			WebUI.switchToWindowIndex(0)
-			
-			//WebUI.switchToWindowIndex(0)
-			
-			//WebUI.delay(1)
-			//WebUI.switchToWindowIndex(0)
-			//WebUI.delay(1)
+			WebUI.switchToDefaultContent()
+			def driver = DriverFactory.getWebDriver()
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+			println("No. of tabs: " + tabs.size());
+			int tabs_number=tabs.size()
+			while (tabs_number>1){
+				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+				tabs_number--
+			}
 		}catch (Exception e) {
 			WebUI.switchToWindowIndex(0)
 		}

@@ -114,9 +114,8 @@ for (int i = 0; i < size; i++) {
 }
 return
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 	println 'this is cp_hazard'
 	WebUI.click(findTestObject('Page_Main Page/a_New'))
@@ -289,7 +288,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_TPSADP'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record TPS ADP/a_New'))
+	WebUI.click(findTestObject('null'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
 	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_UTPWindTunnel'))
@@ -332,4 +331,4 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
 
 	}
 
-}
+}*/

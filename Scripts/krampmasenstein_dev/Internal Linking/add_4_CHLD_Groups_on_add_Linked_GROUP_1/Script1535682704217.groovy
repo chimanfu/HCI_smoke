@@ -31,66 +31,66 @@ WebUI.navigateToUrl(test_automation_record_G2G_linking)
 
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_1'), 'GROUP-1_CHLD-1')
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_child_text_NEW_ROW_1'), 'GROUP-1_CHLD-1')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_record_G2G_linking/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_3'), 'GROUP_PRNT-1')
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_3'), 'GROUP_PRNT-1')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Done'))
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-2'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Add CHLD-2'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_2'),
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_child_text_NEW_ROW_2'),
 'GROUP-1_CHLD-2')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_record_G2G_linking/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_4'),
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_4'),
 'GROUP_PRNT-1')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Done'))
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
 
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-3'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Add CHLD-3'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_3'),
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_child_text_NEW_ROW_3'),
 'GROUP-1_CHLD-3')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
+WebUI.click(findTestObject('Page_record_G2G_linking/a_Add Linked Parent'))
 
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_5'),
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_5'),
 'GROUP_PRNT-1')
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Done'))
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 
 // GROUP-1_CHLD-4 on GROUP_PRNT-1
 WebUI.navigateToUrl(test_automation_record_G2G_linking)
-WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),20)
-WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
+WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),20)
+WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
 
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Add CHLD-4'))
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_child_text_NEW_ROW_4'),
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Add CHLD-4'))
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_child_text_NEW_ROW_4'),
 'GROUP-1_CHLD-4')
-WebUI.click(findTestObject('Page_G2G_linking_record/a_Add Linked Parent'))
-WebUI.setText(findTestObject('Page_G2G_linking_record/input_cf_g2g_parent_text_NEW_ROW_6'),
+WebUI.click(findTestObject('Page_record_G2G_linking/a_Add Linked Parent'))
+WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_6'),
 'GROUP_PRNT-1')
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
-WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Done'))
+WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))

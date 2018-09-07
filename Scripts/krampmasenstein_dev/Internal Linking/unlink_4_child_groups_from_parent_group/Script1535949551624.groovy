@@ -22,27 +22,27 @@ import internal.GlobalVariable as GlobalVariable
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Object Repository/Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 CustomKeywords.'kramp.Internal_Linking.unlink_child_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Object Repository/Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 CustomKeywords.'kramp.Internal_Linking.unlink_child_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Object Repository/Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 CustomKeywords.'kramp.Internal_Linking.unlink_child_group_save_changes'()
 
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
-WebUI.click(findTestObject('Object Repository/Page_G2G_linking_record/div_PRNT-1  GROUP_PRNT-1'))
+WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 CustomKeywords.'kramp.Internal_Linking.unlink_child_group_save_changes'()
 return
 
 // unlink
-WebUI.click(findTestObject('Page_G2G_linking_record/span_flLink_linkedPaperClip'))
+WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))
 
 // link
-WebUI.click(findTestObject('Page_G2G_linking_record/span_flLink_unLinkedPaperClip'))
+WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_unLinkedPaperClip'))
 
 
 

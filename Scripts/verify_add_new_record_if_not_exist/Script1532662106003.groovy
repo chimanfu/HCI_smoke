@@ -119,8 +119,8 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
         WebUI.click(findTestObject('Page_Select Record Type/a_Hazard'))
 		
         WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EGSHazards')) /*
-			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
-			WebUI.selectOptionByLabel(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),
+			WebUI.waitForElementVisible(findTestObject('null'),5)
+			WebUI.selectOptionByLabel(findTestObject('null'),
 				'.*Ha.*',true)
 			
 			WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_Create New Record'),5)
@@ -129,8 +129,8 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
 			WebUI.sendKeys(Keys.TAB)
 			WebUI.sendKeys(Keys.ArrowDown+Keys.Enter)
 			
-			WebUI.waitForElementVisible(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),5)
-			WebUI.selectOptionByIndex(findTestObject('Page_Enter Record Ad Astra Rocket C/select_from_list'),
+			WebUI.waitForElementVisible(findTestObject('null'),5)
+			WebUI.selectOptionByIndex(findTestObject('null'),
 				2)*/
         //WebUI.delay(1)
         //String url = elements.get(0).getAttribute("href");

@@ -296,6 +296,12 @@ def static "hci_smoke_test.common.check_PDFFile_Downloaded"(
         	seconds)
 }
 
+def static "hci_smoke_test.common.check_defaultFile_Downloaded"(
+    	int seconds	) {
+    (new hci_smoke_test.common()).check_defaultFile_Downloaded(
+        	seconds)
+}
+
 def static "hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible"(
     	boolean STOP_ON_FAILURE	) {
     (new hci_smoke_test.common()).verifyAllLinksOnCurrentPageAccessible(

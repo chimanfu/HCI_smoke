@@ -39,7 +39,8 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
  * add 6 parent groups GROUP_PRNT-[3,4,5,6,7,8] from child groups GROUP-1_CHLD-[1,2,3] and GROUP-2_CHLD-[1,2,3]
  * 
  * testcases: fill in all fields contents in groups
- * fill in ALL fields contents and link records on a parent group (try out all fields automation)
+ * fill in ALL fields contents and link records on a parent group 
+ * fill in ALL fields contents and link records on a child group 
  * 
  * testcases: access group links between parent and child groups
  * access child_group_links GROUP-1_CHLD-[1,2,3,4] from parent group GROUP_PRNT-1
@@ -60,7 +61,7 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
 // select testsuite 'Internal_Linking' from TAB 'Basic Information' of the record to be tested on
 WebUI.callTestCase(findTestCase(testsuitePath+'select_testsuite_Internal_Linking'),[('group-to-group-test') : testsuiteName])
 
-
+return
 
 /* 
  testsuite: add parent and child groups and reuse links with groups
@@ -84,8 +85,9 @@ WebUI.callTestCase(findTestCase(testsuitePath+'add_6_G2G_Parent_Groups_from_chil
 WebUI.callTestCase(findTestCase(testsuitePath+'access_child_group_links_from_PRNT-1'),[('group-to-group-test') : testsuiteName])
 WebUI.callTestCase(findTestCase(testsuitePath+'access_parent_group_link_from_CHLD-groups'),[('group-to-group-test') : testsuiteName])
 
-// fill in ALL fields contents and link_records_on a parent_group (try out all fields automation)
+// fill in ALL fields contents and link_records_on a parent and child group (try out all fields automation)
 WebUI.callTestCase(findTestCase(testsuitePath+'add_ALL_fields_contents_link_records_on_parent_group'),[('group-to-group-test') : testsuiteName])
+WebUI.callTestCase(findTestCase(testsuitePath+'add_ALL_fields_contents_link_records_on_child_group'),[('group-to-group-test') : testsuiteName])
 
 /* 
  testsuite: unlink child and parent groups

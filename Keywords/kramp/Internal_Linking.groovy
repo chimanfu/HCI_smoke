@@ -47,22 +47,22 @@ class Internal_Linking {
 	def select_TAB_Group_Linking_Parent() {
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
 		WebUI.navigateToUrl(test_automation_record_G2G_linking)
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'),20)
-		WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Parent)'))
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
 	}
 	@Keyword
 	def select_TAB_Basic_Information(){
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
 		WebUI.navigateToUrl(test_automation_record_G2G_linking)
 		// goto Tab: Basic Information
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Basic Information'),25)
-		WebUI.click(findTestObject('Page_G2G_linking_record/div_Basic Information'))
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Basic Information'),25)
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_Basic Information'))
 	}
 	@Keyword
 	def select_test_suite(String testSuiteName){
 		// select test suite: Groups/
-		WebUI.scrollToElement(findTestObject('Page_G2G_linking_record/select_Test Suite'), 15)
-		WebUI.selectOptionByValue(findTestObject('Page_G2G_linking_record/select_Test Suite'), testSuiteName, true)
+		WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/select_Test Suite'), 15)
+		WebUI.selectOptionByValue(findTestObject('Page_record_G2G_linking/select_Test Suite'), testSuiteName, true)
 	}
 
 	@Keyword
@@ -70,9 +70,9 @@ class Internal_Linking {
 		// goto Tab Groups
 		WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
 		WebUI.delay(2)
-		WebUI.waitForElementVisible(findTestObject('Page_G2G_linking_record/div_Groups'),10)
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Groups'),10)
-		WebUI.click(findTestObject('Page_G2G_linking_record/div_Groups'))
+		WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Groups'),10)
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Groups'),10)
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_Groups'))
 	}
 
 	@Keyword
@@ -95,17 +95,17 @@ class Internal_Linking {
 	@Keyword
 	def reuse_linked_parent_save_changes(String linked_parent){
 		// reuse linked parent: linked_parent
-		WebUI.click(findTestObject('Page_G2G_linking_record/a_Reuse Linked Parent'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/a_Reuse Linked Parent'))
 		// filter selection to only linked_parent
-		WebUI.setText(findTestObject('Page_G2G_linking_record/input_groupLinkFilter'), linked_parent+'\n')
+		WebUI.setText(findTestObject('Page_record_G2G_linking/input_groupLinkFilter'), linked_parent+'\n')
 		WebUI.delay(1)
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/input_saveVersion'),10)
-		WebUI.click(findTestObject('Page_G2G_linking_record/input_saveVersion'))
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/input_saveVersion'),10)
+		WebUI.click(findTestObject('Page_record_G2G_linking/input_saveVersion'))
 		// save the change
-		WebUI.click(findTestObject('Page_G2G_linking_record/button_Link selected Parent Linking Group'))
-		//		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/button_Link selected Parent Linking Group'))
+		//		WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 		//		WebUI.delay(5)
-		//		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
+		//		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Close alertRecord Saved'),15)
 		save_changes()
 	}
 	@Keyword
@@ -113,47 +113,47 @@ class Internal_Linking {
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
 		WebUI.navigateToUrl(test_automation_record_G2G_linking)
 		//WebUI.navigateToUrl(test_automation_record_G2G_linking+'#tv=Group%20Linking%20(Child)')
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'),15)
-		WebUI.click(findTestObject('Page_G2G_linking_record/div_Group Linking (Child)'))
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),15)
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
 	}
 	@Keyword
 	def delete_group_save_changes(){
-		WebUI.click(findTestObject('Page_G2G_linking_record/span_(Delete)'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)'))
 		save_changes()
-		//		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+		//		WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 		//		WebUI.delay(5)
-		//		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
+		//		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Close alertRecord Saved'),15)
 	}
 	@Keyword
 	def done_save_changes(){
-		WebUI.click(findTestObject('Page_G2G_linking_record/button_Done'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/button_Done'))
 		save_changes()
 	}
 	@Keyword
 	def unlink_parent_group_save_changes(){
-		WebUI.click(findTestObject('Page_G2G_linking_record/div_dataCardHeaderClip linked'))	
-		//WebUI.click(findTestObject('Page_G2G_linking_record/div_dataCardHeaderClip unlinked'))		
-		//WebUI.click(findTestObject('Page_G2G_linking_record/div_dataCardHeaderClip linked'))	
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))	
+		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip unlinked'))		
+		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))	
 		save_changes()
 	}
 	@Keyword
 	def toggle_linkedPaperClip(){
 		// unlink
-		WebUI.click(findTestObject('Page_G2G_linking_record/span_flLink_linkedPaperClip'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))
 		
 		// link
-		WebUI.click(findTestObject('Page_G2G_linking_record/span_flLink_unLinkedPaperClip'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_unLinkedPaperClip'))
 	}
 	@Keyword
 	def unlink_child_group_save_changes(){
-		WebUI.click(findTestObject('Page_G2G_linking_record/span_flLink_linkedPaperClip'))	
-		WebUI.click(findTestObject('Page_G2G_linking_record/span_(UNSAVED)'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))	
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_(UNSAVED)'))
 		save_changes()
 	}
 	@Keyword
 	def save_changes(){
-		WebUI.click(findTestObject('Page_G2G_linking_record/button_Save Changes'))
+		WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 		WebUI.delay(5)
-		WebUI.waitForElementClickable(findTestObject('Page_G2G_linking_record/div_Close alertRecord Saved'),15)
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Close alertRecord Saved'),15)
 	}
 }
