@@ -1,79 +1,40 @@
 package hci_smoke_test
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.annotation.Keyword
-import com.kms.katalon.core.checkpoint.Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords
-import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.testcase.TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory
-import com.kms.katalon.core.testdata.TestData
-import com.kms.katalon.core.testdata.TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository
-import com.kms.katalon.core.testobject.TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
-import internal.GlobalVariable
-import MobileBuiltInKeywords as Mobile
-import WSBuiltInKeywords as WS
-import WebUiBuiltInKeywords as WebUI
-import org.openqa.selenium.WebElement
-import org.openqa.selenium.WebDriver
+import static org.junit.Assert.*
+import org.apache.http.HttpResponse
+import org.apache.http.client.HttpClient
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.impl.client.HttpClientBuilder
 import org.openqa.selenium.By
-import com.kms.katalon.core.mobile.keyword.internal.MobileDriverFactory
-import com.kms.katalon.core.webui.driver.DriverFactory
-import com.kms.katalon.core.testobject.RequestObject
-import com.kms.katalon.core.testobject.ResponseObject
-import com.kms.katalon.core.testobject.ConditionType
-import com.kms.katalon.core.testobject.TestObjectProperty
-import com.kms.katalon.core.mobile.helper.MobileElementCommonHelper
-import com.kms.katalon.core.util.KeywordUtil
-import com.kms.katalon.core.webui.exception.WebElementNotFoundException
-import java.util.List;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import org.openqa.selenium.JavascriptExecutor
-import com.kms.katalon.core.webui.common.WebUiCommonHelper
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 import org.openqa.selenium.logging.LogEntries as LogEntries
 import org.openqa.selenium.logging.LogEntry as LogEntry
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import org.openqa.selenium.Keys as Keys
-import org.sikuli.script.Key as Key
-import org.sikuli.script.Screen as Screen
 import org.sikuli.script.Pattern as Pattern
-import com.thoughtworks.selenium.Selenium
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.WebDriver
+import org.sikuli.script.Region
+import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.annotation.Keyword
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.testobject.TestObject
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.exception.WebElementNotFoundException
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
-import static org.junit.Assert.*
+import internal.GlobalVariable
 class common {
 	@Keyword
 	def waifForElement(String xpath, int inSeconds){
 		WebDriver driver = DriverFactory.getWebDriver()
 		WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
 		for (int second = 0;; second++) {
-			if (second >= inSeconds) fail("timeout");
+			if (second >= inSeconds) fail("timeout")
 			try {
-				if (selenium.isElementPresent(xpath)&&selenium.isVisible(xpath)) break;
+				if (selenium.isElementPresent(xpath)&&selenium.isVisible(xpath)) break
 			} catch (Exception e) {}
-			Thread.sleep(1000);
+			Thread.sleep(1000)
 		}
 	}
 	@Keyword
@@ -81,26 +42,60 @@ class common {
 		WebDriver driver = DriverFactory.getWebDriver()
 		WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, "https://mas-dev.nas.nasa.gov")
 		for (int second = 0;; second++) {
-			if (second >= inSeconds) fail("timeout");
+			if (second >= inSeconds) fail("timeout")
 			try {
-				if (selenium.isElementPresent(xpath)) break;
+				if (selenium.isElementPresent(xpath)) break
 			} catch (Exception e) {}
-			Thread.sleep(1000);
+			Thread.sleep(1000)
 		}
 	}
 	@Keyword
 	def check_PDFFile_Downloaded(int seconds){
-		println('check_PDFFile_Downloaded ')
-		Screen s = new Screen()
-		Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png').similar(0.66)
-		s.wait(pdf_icon, seconds)
-		//s.wait(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png', seconds)
-		WebUI.delay(3)
-		if (s.exists(GlobalVariable.G_image_path+'chrome_downloadedFile_showAll_cancel_button.png',5)!=null){
-			WebUI.delay(1)
+		
+		try{
+			if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),5)){
+				WebUI.scrollToElement(findTestObject('Page_Record test_automation_record/a_PDF'),5)
+				//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+			}
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+			println('check_PDFFile_Downloaded ')
+			Screen s = new Screen()
+			Region leftbottom=new Screen(0).setRect(0,987,431,214)
+			Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png').similar(0.66)
+			if (leftbottom.exists(pdf_icon, seconds)==null){
+				KeywordUtil.markFailedAndStop('cannot find pdf_downloadedFile_icon.png, check_PDFFile_Downloaded failed')
+			}
+			
+			//leftbottom.wait(pdf_icon, seconds)
+			WebUI.delay(3)
+			Region rightbottom=new Screen(0).setRect(1617,987,303,214)
 			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
-			s.click(s.exists(pImage,1), 1)
+			
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+			if (rightbottom.exists(pImage,5)!=null){
+				(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+				WebUI.delay(1)
+				//Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
+				rightbottom.click(rightbottom.exists(pImage,1), 1)
+			}
+		} catch (Exception e) {
+			KeywordUtil.markFailedAndStop('found error in check_PDFFile_Downloaded(), marked it failed')
 		}
+
+	}
+	@Keyword
+	def testfail(){
+		try{
+			//throw new AssertionError('ERROR: ')
+			Screen s = new Screen()
+			Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'default_downloadedFile_icon.png').similar(0.66)
+			s.wait(pdf_icon, 1)
+		} catch (Exception e) {
+			KeywordUtil.markFailedAndStop('check_PDFFile_Downloaded failed')
+			//throw new AssertionError('ERROR: ')
+		}
+
+
 	}
 
 	@Keyword
@@ -117,8 +112,8 @@ class common {
 			s.click(s.exists(pImage,1), 1)
 		}
 	}
-	
-	
+
+
 	@Keyword
 	def verifyAllLinksOnCurrentPageAccessible(boolean STOP_ON_FAILURE) {
 		KeywordLogger log = new KeywordLogger()
@@ -198,7 +193,7 @@ class common {
 
 		KeywordLogger log = new KeywordLogger()
 		//private WebDriver driver;
-		int invalidLinksCount;
+		int invalidLinksCount
 
 		//WebUI.openBrowser('http://google.com')
 		//driver = new FirefoxDriver();
@@ -206,36 +201,36 @@ class common {
 		//driver.get("http://google.com");
 
 		try {
-			invalidLinksCount = 0;
+			invalidLinksCount = 0
 			List<WebElement> anchorTagsList = driver.findElements(By
-					.tagName("a"));
+					.tagName("a"))
 			log.logInfo("Total no. of links are "
-					+ anchorTagsList.size());
+					+ anchorTagsList.size())
 			for (WebElement anchorTagElement : anchorTagsList) {
 				if (anchorTagElement != null) {
-					String url = anchorTagElement.getAttribute("href");
-					log.logInfo("Found URL = "+url);
+					String url = anchorTagElement.getAttribute("href")
+					log.logInfo("Found URL = "+url)
 					//if (url != null && !url.contains("javascript")&& !url.contains("cgi")&& !url.contains("pdf")&& !url.contains("mailto:")) {
 					if (url.contains(".html") && !url.contains("javascript") && !url.contains("cgi") && !url.contains("pdf") && !url.contains("mailto:")) {
 
 						//verifyURLStatus(url);
 						//log.logInfo("Found valid URL = "+url);
-						HttpClient client = HttpClientBuilder.create().build();
-						HttpGet request = new HttpGet(url);
+						HttpClient client = HttpClientBuilder.create().build()
+						HttpGet request = new HttpGet(url)
 						try {
-							HttpResponse response = client.execute(request);
+							HttpResponse response = client.execute(request)
 							// verifying response code and The HttpStatus should be 200 if not,
 							// increment invalid link count
 							////We can also check for 404 status code like response.getStatusLine().getStatusCode() == 404
 							int code=response.getStatusLine().getStatusCode()
 							if (code != 200){
-								log.logError("Response code="+code+", Broken URL = "+url);
-								invalidLinksCount++;
+								log.logError("Response code="+code+", Broken URL = "+url)
+								invalidLinksCount++
 							}else{
-								log.logInfo("Response code="+code+", Good URL = "+url);
+								log.logInfo("Response code="+code+", Good URL = "+url)
 							}
 						} catch (Exception e) {
-							e.printStackTrace();
+							e.printStackTrace()
 						}
 
 					} else {
@@ -246,7 +241,7 @@ class common {
 			}
 
 			log.logError("Total no. of invalid links are "
-					+ invalidLinksCount);
+					+ invalidLinksCount)
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -272,17 +267,17 @@ class common {
 		String found_new_record_link
 		WebDriver driver = DriverFactory.getWebDriver()
 		println('get all Displayed Name and URL to be verified from the current Page with xpath='+xpath)
-		List<WebElement> elements = driver.findElements(By.xpath(xpath));
+		List<WebElement> elements = driver.findElements(By.xpath(xpath))
 		//WebElement firstElement = elements.get(0);
 		int size=elements.size()
 		urls = new String[size]
 		println('get Displayed Name and URL to be verified')
 		for (int i = 0; i < size; i++) {
 			found_new_record_link=elements.get(i).getText()
-			url = elements.get(i).getAttribute("href");
+			url = elements.get(i).getAttribute("href")
 			urls[i]=url
-			log.logInfo("Displayed Name: " + found_new_record_link);
-			log.logInfo("URL: " + url);
+			log.logInfo("Displayed Name: " + found_new_record_link)
+			log.logInfo("URL: " + url)
 
 		}
 		for (int i = 0; i < size; i++) {
@@ -333,7 +328,7 @@ class common {
 	@Keyword
 	def clickElement(TestObject to) {
 		try {
-			WebElement element = WebUiBuiltInKeywords.findWebElement(to);
+			WebElement element = WebUiBuiltInKeywords.findWebElement(to)
 			KeywordUtil.logInfo("Clicking element")
 			element.click()
 			KeywordUtil.markPassed("Element has been clicked")

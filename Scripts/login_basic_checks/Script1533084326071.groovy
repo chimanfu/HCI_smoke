@@ -28,6 +28,11 @@ in cp_oms_dev:
 
 */
 
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -169,3 +174,15 @@ WebUI.click(findTestObject('Page_Administer your installation/a_Home'))
 println('perform some basic checks on the menu items done!')
 
 return null
+
+
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

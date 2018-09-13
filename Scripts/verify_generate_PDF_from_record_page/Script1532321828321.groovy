@@ -161,7 +161,7 @@ WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
 if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)){
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 }
-WebUI.delay(5)
+WebUI.delay(1)
 CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(150)
 /*WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
 WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)*/

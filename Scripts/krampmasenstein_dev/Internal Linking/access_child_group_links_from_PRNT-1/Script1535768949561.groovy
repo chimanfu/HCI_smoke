@@ -19,12 +19,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
+//url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
 //WebUI.refresh()
 // directly navigate to the record: test_automation_record_G2G_linking
-test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
 
-def select_PRNT_1_GROUP_PRNT_1(){
+/*def CustomKeywords.'kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1'(){
 	//WebUI.refresh()
 	String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
 	WebUI.navigateToUrl(test_automation_record_G2G_linking)
@@ -36,32 +36,34 @@ def select_PRNT_1_GROUP_PRNT_1(){
 	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'),10)
 	WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
 	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/label_G2G Parent Field Link Field'),20)
-	}
+	}*/
 CustomKeywords.'helper.login.LoginHelper.login'()
-//WebUI.switchToWindowIndex(0)
-
-select_PRNT_1_GROUP_PRNT_1()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+CustomKeywords.'kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1'()
 WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_CHLD-1 GROUP-1_CHLD-1'),10)
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/span_CHLD-1 GROUP-1_CHLD-1'),10)
 WebUI.delay(1)
 WebUI.click(findTestObject('Page_record_G2G_linking/span_CHLD-1 GROUP-1_CHLD-1'))
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Child Linking Group'),15)
 
-select_PRNT_1_GROUP_PRNT_1()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+CustomKeywords.'kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1'()
 WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_CHLD-2 GROUP-1_CHLD-2'),10)
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/span_CHLD-2 GROUP-1_CHLD-2'),10)
 WebUI.delay(1)
 WebUI.click(findTestObject('Page_record_G2G_linking/span_CHLD-2 GROUP-1_CHLD-2'))
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Child Linking Group'),15)
 
-select_PRNT_1_GROUP_PRNT_1()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+CustomKeywords.'kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1'()
 WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_CHLD-3 GROUP-1_CHLD-3'),10)
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/span_CHLD-3 GROUP-1_CHLD-3'),10)
 WebUI.delay(1)
 WebUI.click(findTestObject('Page_record_G2G_linking/span_CHLD-3 GROUP-1_CHLD-3'))
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Child Linking Group'),15)
 
-select_PRNT_1_GROUP_PRNT_1()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
+CustomKeywords.'kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1'()
 WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_CHLD-4 GROUP-1_CHLD-4'),10)
 WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/span_CHLD-4 GROUP-1_CHLD-4'),10)
 WebUI.delay(1)

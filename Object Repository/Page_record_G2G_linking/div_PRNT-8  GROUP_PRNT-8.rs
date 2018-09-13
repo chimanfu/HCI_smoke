@@ -4,6 +4,12 @@
    <name>div_PRNT-8  GROUP_PRNT-8</name>
    <tag></tag>
    <elementGuidId>a58669ce-3d71-4d7a-ad15-1d05c9c52805</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//div[@class = 'groupTitleLabel_rowTitle' and (contains(text(), 'PRNT-8:  GROUP_PRNT-8') or contains(., 'PRNT-8:  GROUP_PRNT-8'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -14,7 +20,7 @@
       <value>div</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
@@ -22,10 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>PRNT-8:  GROUP_PRNT-8</value>
+      <value>GROUP_PRNT-8</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

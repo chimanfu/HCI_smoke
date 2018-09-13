@@ -28,6 +28,9 @@ import static org.junit.Assert.*
 import java.util.regex.Pattern as Pattern
 import static org.apache.commons.lang3.StringUtils.join
 
+WebUI.comment('this is a invalid testcase. Do not run this testcase')
+return
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 WebUI.switchToWindowIndex(0)
 String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'

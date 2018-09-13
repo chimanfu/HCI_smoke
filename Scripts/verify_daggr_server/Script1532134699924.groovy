@@ -43,6 +43,14 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
@@ -64,4 +72,13 @@ WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false
 
 //WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/a_Home'))
 
-
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

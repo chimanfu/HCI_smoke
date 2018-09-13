@@ -65,6 +65,12 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -81,3 +87,14 @@ println 'open the Verifications Tab'
 WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/div_Verifications'),10)
 WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/div_Verifications'))
 WebUI.delay(2)
+
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

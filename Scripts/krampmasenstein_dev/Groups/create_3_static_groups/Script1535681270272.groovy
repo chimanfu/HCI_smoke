@@ -49,52 +49,15 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.switchToWindowIndex(0)
-url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
 
-// directly navigate to the record: test_automation_record_G2G_linking 
-test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
-WebUI.navigateToUrl(test_automation_record_G2G_linking)
-
-// create 3 static groups from krampmasenstein_dev -> Test Suite -> Groups
-select_Tab_Basic_Information()
-select_test_suite('Groups')
-select_Tab_Groups()
-create_3_groups()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Basic_Information'()
+CustomKeywords.'kramp.Groups.select_TAB_Groups'()
+CustomKeywords.'kramp.Groups.create_3_static_groups'()
+CustomKeywords.'kramp.Internal_Linking.save_changes'()
 
 return
 
 
-def select_Tab_Basic_Information(){
-	// goto Tab: Basic Information
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Basic Information'),25)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Basic Information'))
-}
-def select_test_suite(String testSuiteName){
-	// select test suite: Groups/
-	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/select_Test Suite'), 15)
-	WebUI.selectOptionByValue(findTestObject('Page_record_G2G_linking/select_Test Suite'), testSuiteName, true)
-}
-def select_Tab_Groups(){
-// goto Tab Groups
-	WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
-	WebUI.delay(2)
-	WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Groups'),10)
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Groups'),10)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Groups'))
-}
-def create_3_groups(){
-	// create 3 (STATIC) groups from Non-Sortable Field Group 
-	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/div_Non-Sortable Field Group'),15)
-	WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_groups_static_text_NEW_ROW_1'), 'Group1')
-	WebUI.click(findTestObject('Page_record_G2G_linking/button_Add STATIC-2'))
-	WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_groups_static_text_NEW_ROW_2'), 'Group2')
-	WebUI.click(findTestObject('Page_record_G2G_linking/button_Add STATIC-3'))
-	WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_groups_static_text_NEW_ROW_3'), 'Group3')
-	WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
-	WebUI.delay(3)
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Basic Information'),25)
-}
 
 
 

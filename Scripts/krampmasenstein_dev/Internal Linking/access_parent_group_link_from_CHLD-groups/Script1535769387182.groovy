@@ -19,47 +19,44 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
+//url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
 
 //WebUI.refresh()
 // directly navigate to the record: test_automation_record_G2G_linking
-test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
 
 //WebUI.refresh()
 //WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
 // pull down Parent Linking Group: PRNT-1  GROUP_PRNT-1
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.switchToWindowIndex(0)
-
-
-select_Tab_Group_Linking_Child()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-5 GROUP-2_CHLD-1'))
-verify_goto_Parent_Linking_Group()
+CustomKeywords.'kramp.Internal_Linking.verify_goto_Parent_Linking_Group'()
 
-select_Tab_Group_Linking_Child()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-6 GROUP-2_CHLD-2'))
-verify_goto_Parent_Linking_Group()
+CustomKeywords.'kramp.Internal_Linking.verify_goto_Parent_Linking_Group'()
 
-select_Tab_Group_Linking_Child()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-7 GROUP-2_CHLD-3'))
-verify_goto_Parent_Linking_Group()
+CustomKeywords.'kramp.Internal_Linking.verify_goto_Parent_Linking_Group'()
 
-select_Tab_Group_Linking_Child()
+CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Child'()
 WebUI.click(findTestObject('Page_record_G2G_linking/div_CHLD-8 GROUP-2_CHLD-4'))
-verify_goto_Parent_Linking_Group()
+CustomKeywords.'kramp.Internal_Linking.verify_goto_Parent_Linking_Group'()
 
-def verify_goto_Parent_Linking_Group(){
-	WebUI.delay(1)
-	WebUI.click(findTestObject('Page_record_G2G_linking/span_PRNT-2'))
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Parent Linking Group'),10)
-	
-}
-def select_Tab_Group_Linking_Child() {
-    String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
-    WebUI.navigateToUrl(test_automation_record_G2G_linking)
-    WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Child)')
-    WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),15)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
-}
+//def verify_goto_Parent_Linking_Group(){
+//	WebUI.delay(1)
+//	WebUI.click(findTestObject('Page_record_G2G_linking/span_PRNT-2'))
+//	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Parent Linking Group'),10)
+//	
+//}
+//def select_Tab_Group_Linking_Child() {
+//    String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+//    WebUI.navigateToUrl(test_automation_record_G2G_linking)
+//    WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Child)')
+//    WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'),15)
+//	WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Child)'))
+//}
 

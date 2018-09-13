@@ -38,7 +38,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
 }
 if ( GlobalVariable.G_MAKE_MAS_url.contains('react_iss_hazard')){
 	WebUI.comment 'Skip this testcase as react_iss_hazard may not work on attachments'
-	throw new AssertionError('react_iss_hazard may not work on adding attachments. Please check it')
+	throw new AssertionError("react_iss_hazard may not work on adding attachments. Please check it by attaching a file in a record. Found issue....You made an invalid entry.   A value must be set for the 'Attachment Type' field. ")
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

@@ -31,6 +31,6 @@ public class ScreenShot {
 	@Keyword
 	public void takeScreenShot(String path, String name){
 		String fullPath = path + name + (int)(Math.random() * 10000) + ".jpg"
-		println WebUI.takeScreenshot(fullPath);
+		println WebUI.takeScreenshot(fullPath)
 	}
 }

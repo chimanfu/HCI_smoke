@@ -103,13 +103,14 @@ public class CustomBrowser {
 				WebUI.takeScreenshot(screenshotPath);
 			}
 			catch (Exception e) {
+				WebUI.comment('use Robot to capture screenshot of current screen')
 				// This code will capture screenshot of current screen
 				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 
 				// This will store screenshot on Specific location
 				ImageIO.write(image, "png", new File(screenshotPath));
 			}
-			println('screen shot in '+screenshotPath)
+			WebUI.comment('screenshot in '+screenshotPath)
 		}
 		catch (Exception e) {
 			e.printStackTrace()
@@ -132,13 +133,14 @@ public class CustomBrowser {
 				WebUI.takeScreenshot(screenshotPath);
 			}
 			catch (Exception e) {
+				WebUI.comment('use Robot to capture screenshot of current screen')
 				// capture screenshot of current screen
 				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 
 				// store screenshot on Specific location
 				ImageIO.write(image, "png", new File(screenshotPath));
 			}
-			println('screen shot in '+screenshotPath)
+			WebUI.comment('screenshot in '+screenshotPath)
 		}
 		catch (Exception e) {
 			e.printStackTrace()

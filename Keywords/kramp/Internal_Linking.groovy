@@ -44,6 +44,27 @@ import com.kms.katalon.core.webui.exception.WebElementNotFoundException
 
 class Internal_Linking {
 	@Keyword
+	def select_PRNT_1_GROUP_PRNT_1(){
+	//WebUI.refresh()
+	//String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+	//WebUI.navigateToUrl(test_automation_record_G2G_linking)
+	//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Parent)')
+	
+	//WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
+	//WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
+	// pull down Parent Linking Group: PRNT-1  GROUP_PRNT-1
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'),10)
+	WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
+	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/label_G2G Parent Field Link Field'),20)
+	}
+	@Keyword
+	def verify_goto_Parent_Linking_Group(){
+	//WebUI.delay(1)
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_PRNT-2'),5)
+	WebUI.click(findTestObject('Page_record_G2G_linking/span_PRNT-2'))
+	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Parent Linking Group'),10)	
+}
+	@Keyword
 	def select_TAB_Group_Linking_Parent() {
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
 		WebUI.navigateToUrl(test_automation_record_G2G_linking)
@@ -131,29 +152,32 @@ class Internal_Linking {
 	}
 	@Keyword
 	def unlink_parent_group_save_changes(){
-		WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))	
-		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip unlinked'))		
-		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))	
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))
+		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip unlinked'))
+		//WebUI.click(findTestObject('Page_record_G2G_linking/div_dataCardHeaderClip linked'))
 		save_changes()
 	}
 	@Keyword
 	def toggle_linkedPaperClip(){
 		// unlink
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))
-		
+
 		// link
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_unLinkedPaperClip'))
 	}
 	@Keyword
 	def unlink_child_group_save_changes(){
-		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))	
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_flLink_linkedPaperClip'))
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_(UNSAVED)'))
 		save_changes()
 	}
 	@Keyword
 	def save_changes(){
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/button_Save Changes'),5)
+		(new helper.browserhelper.CustomBrowser()).takingScreenshot()
 		WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
 		WebUI.delay(5)
-		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Close alertRecord Saved'),15)
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Close alertRecord Saved'),20)
+		WebUI.delay(2)
 	}
 }

@@ -1,23 +1,18 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import java.util.List;
-import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.osgi.framework.AdminPermission
-import org.postgresql.translation.messages_bg
-import org.python.antlr.PythonParser.return_stmt_return
-import org.openqa.selenium.WebDriver
+import org.openqa.selenium.interactions.Actions
 import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
-import java.util.concurrent.TimeUnit
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import org.openqa.selenium.interactions.Actions
 /*
 
 run sanity check from Admin->'Sanity Check' to capture any unexpected errors from the site
@@ -130,15 +125,18 @@ int alert_size=elements.size()
 if (alert_size>0) {
 	found_unexpected_log_message=true
 	log.logError("Found unexpected ALERT MESSAGE: ")
+	//KeywordUtil.markFailed("Found unexpected ALERT MESSAGE: ")
 	for (int i = 0; i < alert_size; i++) {
 		log.logError(elements.get(i).getText());
+		//KeywordUtil.markFailed(elements.get(i).getText())
 	}
 }
 if (found_unexpected_log_message){
 	Actions actions = new Actions(driver);
 	actions.moveToElement(elements.get(alert_size-1));
 	actions.perform();
-	throw new AssertionError('ERROR: found more than one unexpected ALERT MESSAGE. ' );
+	throw new AssertionError('ERROR: found more than one unexpected ALERT MESSAGE, such as... '+elements.get(alert_size-1).getText() );
+	//KeywordUtil.markFailedAndStop('ERROR: found more than one unexpected ALERT MESSAGE. ' )
 }else{
 	log.logPassed('PASS: Not found unexpected ALERT MESSAGE. ' );
 }

@@ -1,33 +1,14 @@
 package helper.login
 
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-
+import org.sikuli.script.Pattern as Pattern
+import org.sikuli.script.Region
+import org.sikuli.script.Screen
 import com.kms.katalon.core.annotation.Keyword
-import com.kms.katalon.core.checkpoint.Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords
 import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.testcase.TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory
-import com.kms.katalon.core.testdata.TestData
-import com.kms.katalon.core.testdata.TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository
-import com.kms.katalon.core.testobject.TestObject
-//import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords
-//import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
+import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
-
-//import MobileBuiltInKeywords as Mobile
-//import WSBuiltInKeywords as WS
-//import WebUiBuiltInKeywords as WebUI
-import org.sikuli.script.Key;
-import org.sikuli.script.Screen;
-import org.sikuli.script.Pattern as Pattern
-import com.kms.katalon.core.webui.driver.DriverFactory
 /**
  * Open browser
  * Open Bugzila --> Get from Global variable
@@ -47,25 +28,47 @@ public class LoginHelper {
 
 	@Keyword
 	public void loginVPN(){
+		try{
 
-
-		Screen s = new Screen();
+		Screen s = new Screen()
+		Region righttop=new Screen(0).setRect(805,0,635,235)
+		WebUI.comment 'will disconnect VPN first if it already connected'
+		if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
+			righttop.click(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png')
+			righttop.wait(GlobalVariable.G_image_path+'vpn_selection.png',5)
+			righttop.click(GlobalVariable.G_image_path+'vpn_selection.png')
+			righttop.wait(GlobalVariable.G_image_path+'disconnect.png',5)
+			righttop.click(GlobalVariable.G_image_path+'disconnect.png')	
+		}
 		WebUI.openBrowser('')
 		WebUI.navigateToUrl('http://vpn.nasa.gov/')
-
 		try{
 			WebUI.switchToWindowIndex(0)
-			WebUI.closeWindowIndex(1)
-			WebUI.delay(1)
-			WebUI.switchToWindowIndex(0)
-			WebUI.delay(1)
+			WebUI.switchToDefaultContent()
+			def driver = DriverFactory.getWebDriver()
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+			println("No. of tabs: " + tabs.size())
+			int tabs_number=tabs.size()
+			while (tabs_number>1){
+				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+				tabs_number--
+			}
 		}catch (Exception e) {
 			WebUI.switchToWindowIndex(0)
 		}
+		/*try{
+		 WebUI.switchToWindowIndex(0)
+		 WebUI.closeWindowIndex(1)
+		 WebUI.delay(1)
+		 WebUI.switchToWindowIndex(0)
+		 WebUI.delay(1)
+		 }catch (Exception e) {
+		 WebUI.switchToWindowIndex(0)
+		 }*/
 
 		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-
+		WebUI.comment 'Access Launchpad login'
 		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 			WebUI.waitForPageLoad(6)
@@ -84,14 +87,23 @@ public class LoginHelper {
 					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 				}
 			}
-			WebUI.delay(5)
-			s.type(GlobalVariable.G_userPin+"\n")
-
+//			WebUI.delay(4)
+//			s.type(GlobalVariable.G_userPin+"\n")
+			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+				WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				s.type(GlobalVariable.G_userPin+"\n")
+			}else{
+				WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				s.type(GlobalVariable.G_userPin+"\n")
+			}
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)
 			WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
 			WebUI.delay(1)
 			s.type('\n')
 		}
+		}catch (Exception e) {
+		WebUI.comment('something wrong when trying to do VPN login')
+	}
 	}
 
 	@Keyword
@@ -148,15 +160,15 @@ public class LoginHelper {
 	@Keyword
 	public void login(){
 		/*try{
-			//WebUI.switchToDefaultContent()
-			WebUI.switchToWindowIndex(0)
-			//WebUI.closeWindowIndex(1)
-			//WebUI.switchToWindowIndex(0)
-		}catch (Exception e) {
-			//WebUI.switchToWindowIndex(0)
-			WebUI.comment('cannot switchToWindowIndex(0)')
-		}
-		*/		
+		 //WebUI.switchToDefaultContent()
+		 WebUI.switchToWindowIndex(0)
+		 //WebUI.closeWindowIndex(1)
+		 //WebUI.switchToWindowIndex(0)
+		 }catch (Exception e) {
+		 //WebUI.switchToWindowIndex(0)
+		 WebUI.comment('cannot switchToWindowIndex(0)')
+		 }
+		 */		
 		if (checkHomePageExist()){
 			WebUI.comment('done checkHomePageExist, already in Home page')
 			return null
@@ -164,30 +176,37 @@ public class LoginHelper {
 
 		String cmd = "pkill -f Chrome"
 		Runtime.getRuntime().exec(cmd)
-		//cmd="killall -9 chromedriver"
-		//Runtime.getRuntime().exec(cmd)
 		WebUI.comment('killed all processes of Chrome before running test')
 
-		Screen s = new Screen();
-		
+		////////////////// new //////////////////
+		//cmd="killall -9 chromedriver"
+		//Runtime.getRuntime().exec(cmd)
+		//WebUI.comment('killed all processes of chromedriver before running test')
+		//WebUI.delay(1)
+		////////////////// new //////////////////
+		Screen s = new Screen()
+
 		try{
 			WebUI.openBrowser('')
 			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			WebUI.delay(2)
+			WebUI.maximizeWindow()
 			//WebUI.closeWindowIndex(1)
 			WebUI.switchToWindowIndex(0)
 			WebUI.switchToDefaultContent()
 			def driver = DriverFactory.getWebDriver()
-			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-			println("No. of tabs: " + tabs.size());
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+			println("No. of tabs: " + tabs.size())
 			int tabs_number=tabs.size()
 			while (tabs_number>1){
 				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
 				tabs_number--
 			}
 		}catch (Exception e) {
-			WebUI.switchToWindowIndex(0)
+			//WebUI.switchToWindowIndex(0)
+			WebUI.delay(2)
 		}
-		WebUI.maximizeWindow()
+		//WebUI.maximizeWindow()
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
 		if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
 			WebUI.delay(1)
@@ -226,8 +245,16 @@ public class LoginHelper {
 					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 				}
 			}
-			WebUI.delay(5)
-			s.type(GlobalVariable.G_userPin+"\n")
+			//WebUI.delay(5)
+			
+			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+				WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				s.type(GlobalVariable.G_userPin+"\n")
+			}else{
+				WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				s.type(GlobalVariable.G_userPin+"\n")
+			}
+			
 		}
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))

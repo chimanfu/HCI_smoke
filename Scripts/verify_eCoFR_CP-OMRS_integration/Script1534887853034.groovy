@@ -56,10 +56,14 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 }
 
 
-
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-Screen s = new Screen()
+//Screen s = new Screen()
 def driver = DriverFactory.getWebDriver()
 String baseUrl = "https://www.katalon.com/"
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
@@ -84,17 +88,30 @@ WebUI.delay(1)
 selenium.typeKeys("id=cf_omrs_alias_NEW_ROW_1", searchTerm)
 selenium.waitForPageToLoad("30000")
 WebUI.delay(2)
-s.type(Key.ENTER)
-selenium.waitForPageToLoad("60000")
+//s.type(Key.ENTER)
+selenium.typeKeys("id=cf_omrs_alias_NEW_ROW_1", Key.ENTER)
+selenium.waitForPageToLoad("80000")
 
 println('verify CP-OMRS search results')
-CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_find']//span",60)
+CustomKeywords.'hci_smoke_test.common.waifForElement'("//div[@id='digIt_title_find']//span",80)
 selenium.click("//div[@id='digIt_title_find']//span")
 WebUI.delay(5)
 // check the create link
-WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'),40)
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'),80)
 CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
 WebUI.click(findTestObject('Page_Record_6505_cp_hazard/button_Create Link'))
-WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),10)
+WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/button_Linked'),20)
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+
+
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

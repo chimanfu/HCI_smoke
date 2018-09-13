@@ -18,4 +18,20 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
+CustomKeywords.'hci_smoke_test.common.testfail'()
 
+
+/////////////////////////////////////////////////////////////////////////////
+break
+} catch (Exception e) {
+// handle exception
+e.printStackTrace()
+if (++retry_count == maxTries) throw e;
+println('Retry:'+retry_count+' rerun failed case now...')
+}
+}

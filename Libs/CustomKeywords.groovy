@@ -20,6 +20,14 @@ def static "question.CustomDatabase.executeQuery"(
          , 	query)
 }
 
+def static "kramp.Internal_Linking.select_PRNT_1_GROUP_PRNT_1"() {
+    (new kramp.Internal_Linking()).select_PRNT_1_GROUP_PRNT_1()
+}
+
+def static "kramp.Internal_Linking.verify_goto_Parent_Linking_Group"() {
+    (new kramp.Internal_Linking()).verify_goto_Parent_Linking_Group()
+}
+
 def static "kramp.Internal_Linking.select_TAB_Group_Linking_Parent"() {
     (new kramp.Internal_Linking()).select_TAB_Group_Linking_Parent()
 }
@@ -246,6 +254,18 @@ def static "helper.login.LoginHelper.logoutFromApplication"() {
     (new helper.login.LoginHelper()).logoutFromApplication()
 }
 
+def static "kramp.Groups.select_TAB_Groups"() {
+    (new kramp.Groups()).select_TAB_Groups()
+}
+
+def static "kramp.Groups.create_3_static_groups"() {
+    (new kramp.Groups()).create_3_static_groups()
+}
+
+def static "kramp.Groups.delete_3_static_groups"() {
+    (new kramp.Groups()).delete_3_static_groups()
+}
+
 def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
     	TestObject objectto	) {
     (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
@@ -294,6 +314,10 @@ def static "hci_smoke_test.common.check_PDFFile_Downloaded"(
     	int seconds	) {
     (new hci_smoke_test.common()).check_PDFFile_Downloaded(
         	seconds)
+}
+
+def static "hci_smoke_test.common.testfail"() {
+    (new hci_smoke_test.common()).testfail()
 }
 
 def static "hci_smoke_test.common.check_defaultFile_Downloaded"(

@@ -1,39 +1,14 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import org.openqa.selenium.Keys as Keys
-import internal.GlobalVariable as GlobalVariable
-import org.sikuli.script.Key as Key
-import org.sikuli.script.Screen as Screen
-import org.sikuli.script.KeyModifier as KeyModifier
-import org.openqa.selenium.WebDriver as WebDriver
-import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
-import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium as WebDriverBackedSelenium
-import com.thoughtworks.selenium.Selenium as Selenium
-import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
-import org.openqa.selenium.firefox.FirefoxDriver as FirefoxDriver
 import static org.junit.Assert.*
-import java.util.regex.Pattern as Pattern
-import static org.apache.commons.lang3.StringUtils.join
-import com.kms.katalon.core.util.KeywordUtil as KeywordUtil
-import com.kms.katalon.core.testobject.ConditionType as ConditionType
+import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver as WebDriver
+import org.sikuli.script.Key as Key
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium as WebDriverBackedSelenium
+import internal.GlobalVariable as GlobalVariable
 
 println('only run on cp_hazard')
 println('directly goto existing record 6505 and open Verifications Tab')
@@ -51,6 +26,12 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) ) {
     GlobalVariable.userPin2 = 'SKIP'
     return null
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
@@ -97,7 +78,7 @@ String baseUrl
 
 def driver = DriverFactory.getWebDriver()
 
-Screen s = new Screen()
+//Screen s = new Screen()
 
 WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
@@ -116,7 +97,7 @@ selenium.open(siteURL)
 println('select VERIF49')
 
 String verifiedRecord = "//*[@id=\'cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title\']/span"
-
+verifiedRecord="//*[@id='collapsedSpan_"+verification_id+"' or @id='cfgr_Verifications_row_"+verification_id+"_collapsed']"
 waifForElement(verifiedRecord, 160)
 
 WebUI.delay(10)
@@ -150,14 +131,14 @@ selenium.type('id=cf_dmm_number_' + verification_id, 'Transmission')
 selenium.waitForPageToLoad('30000')
 
 WebUI.delay(2)
+selenium.typeKeys("id=cf_dmm_number_"+verification_id, Key.ENTER)
+//s.type(Key.ENTER)
 
-s.type(Key.ENTER)
-
-selenium.waitForPageToLoad('30000')
+selenium.waitForPageToLoad('60000')
 
 println('verify search result of linking works')
 
-waifForElement('id=daggr_title_search', 25)
+waifForElement('id=daggr_title_search', 35)
 
 selenium.click('id=daggr_title_search')
 
@@ -176,220 +157,16 @@ CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 return null
 
 ///////////////////////////////////////////////////////
-
-// get record 6505
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'), 25)
-
-WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'), 25)
-
-WebUI.delay(2)
-
-WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/img_link_icon_1'))
-
-WebUI.waitForElementClickable(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'), 
-    5)
-
-selenium.click('id=cf_verification_traceability_1929070')
-
-selenium.select('id=cf_verification_traceability_1929070', 'label=DMM')
-
-selenium.click('id=cf_verification_traceability_1929070')
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-DMM Linkable Fields'), 10)
-
-WebUI.delay(2)
-
-s.type(Key.TAB)
-
-WebUI.delay(2)
-
-s.type('Transmission')
-
-WebUI.delay(2)
-
-s.type(Key.ENTER)
-
-WebUI.delay(8)
-
-selenium.select('id=cf_verification_traceability_1929070', 'label=LCC')
-
-selenium.click('id=cf_verification_traceability_1929070')
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-LMS Linkable Fields'), 10)
-
-WebUI.delay(2)
-
-s.type(Key.TAB)
-
-WebUI.delay(2)
-
-s.type('Transmission')
-
-WebUI.delay(2)
-
-s.type(Key.ENTER)
-
-WebUI.delay(8)
-
-selenium.select('id=cf_verification_traceability_1929070', 'label=OMRS')
-
-selenium.click('id=cf_verification_traceability_1929070')
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_CP-OMS Linkable Fields'), 10)
-
-WebUI.delay(2)
-
-s.type(Key.TAB)
-
-WebUI.delay(2)
-
-s.type('Transmission')
-
-WebUI.delay(2)
-
-s.type(Key.ENTER)
-
-WebUI.delay(8)
-
-selenium.select('id=cf_verification_traceability_1929070', 'label=DVO')
-
-selenium.click('id=cf_verification_traceability_1929070')
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/span_Cradle Linkable Fields'), 10)
-
-WebUI.delay(1)
-
-s.type('w', KeyModifier.CMD)
-
-WebUI.delay(1)
-
-s.type('\n')
-
-return null
-
-///////////////////////
-//Screen s = new Screen()
-println('check DMM linking')
-
-WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.delay(1)
-
-s.type(Key.UP)
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-DMM Linkable Fields'), 10)
-
-//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'DVO', true)
-s.type(Key.TAB)
-
-s.type('Transmission\n')
-
-WebUI.delay(1)
-
-//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-DMM search results'))
-println('check DVO linking')
-
-WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.delay(1)
-
-s.type(Key.DOWN)
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Cradle Linkable Fields'), 10)
-
-//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'LCC', true)
-//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/button_Linked'))
-println('check LCC linking')
-
-WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.delay(1)
-
-s.type(Key.DOWN)
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-LMS Linkable Fields'), 10)
-
-s.type(Key.TAB)
-
-s.type('Transmission\n')
-
-WebUI.delay(1)
-
-//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-LMS search results'))
-println('check OMRS linking')
-
-WebUI.click(findTestObject('Page_Record_1_SLS Integrated_Causes/label_Verification Traceability Type'))
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-WebUI.delay(1)
-
-s.type(Key.DOWN)
-
-WebUI.delay(1)
-
-s.type(Key.SPACE)
-
-//WebUI.selectOptionByValue(findTestObject('Page_Record_1_SLS Integrated_Causes/select_---DMMDVOLCCOMRS'), 'OMRS', true)
-WebUI.waitForElementVisible(findTestObject('Page_Record_1_SLS Integrated_Causes/label_CP-OMS Linkable Fields'), 10)
-
-s.type(Key.TAB)
-
-s.type('Transmission\n')
-
-WebUI.delay(1)
-
-//WebUI.waitForElementVisible(findTestObject('Page_Record_6505 Erroneous Transmiss/span_CP-OMS search results'))
-s.type('w', KeyModifier.CMD)
-
-WebUI.delay(1)
-
-s.type('\n')
-
-WebUI.openBrowser('')
-
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group')
-
-WebUI.setText(findTestObject('Page_Record_6505_cp_hazard/input_cf_dmm_number_1935140'), 'Transmission')
-
-WebUI.sendKeys(findTestObject('Page_Record_6505_cp_hazard/input_cf_dmm_number_1935140'), Keys.chord(
-        Keys.ENTER))
-
-WebUI.click(findTestObject('Page_Record_6505_cp_hazard/div_search results title'))
-
-WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_create_recordLink'))
-
-WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_img_cf_dmm_number_1935140'))
-
-WebUI.closeBrowser()
-
-
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}
 
 def waifForElement(String xpath, int inSeconds) {
     WebDriver driver = DriverFactory.getWebDriver()

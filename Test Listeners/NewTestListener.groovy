@@ -63,8 +63,9 @@ class NewTestListener {
 		}
 		//println testCaseContext.getTestCaseId()
 		String testcaseName=testCaseContext.getTestCaseId()
-		testcaseName=testcaseName.substring(testcaseName.indexOf('/')+1)
-		//println testcaseName
+		testcaseName=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
+		
+		println 'testcaseName: '+testcaseName
 		//String yourValue = WebUI.callTestCase(findTestCase(testCaseContext.getTestCaseId(),[key1:value1]))
 		//WebUI.comment 'yourValue: '+yourValue
 		WebUI.comment 'Test Status: '+ testCaseContext.getTestCaseStatus()
@@ -133,7 +134,7 @@ class NewTestListener {
 		}
 		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
 		//GlobalVariable.G_userPin='12345678'
-		
+		CustomKeywords.'helper.login.LoginHelper.loginVPN'()
 		
 	}
 

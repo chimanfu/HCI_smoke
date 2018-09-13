@@ -26,7 +26,7 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
  * 
  * verify group to group linking features from test suite 'Internal Linking' in krampmasenstein_dev
  * verify add groups, delete groups, link groups, unlink groups among parent and child groups
- * fill in ALL fields contents and link records on a parent group (try out all fields automation)
+ * fill in ALL fields contents and link records on a parent and child group (try out all fields for automation)
  * 
  * testcases: setup test on krampmasenstein_dev
  * create a record (or reuse record 7081) in krampmasenstein_dev
@@ -41,6 +41,9 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
  * testcases: fill in all fields contents in groups
  * fill in ALL fields contents and link records on a parent group 
  * fill in ALL fields contents and link records on a child group 
+ * 
+ * testcase: check filter on reuse linked parent dialog
+ * check filter for matched and unmatched search terms on child_group
  * 
  * testcases: access group links between parent and child groups
  * access child_group_links GROUP-1_CHLD-[1,2,3,4] from parent group GROUP_PRNT-1
@@ -61,9 +64,13 @@ String testsuitePath='krampmasenstein_dev/Internal Linking/'
 // select testsuite 'Internal_Linking' from TAB 'Basic Information' of the record to be tested on
 WebUI.callTestCase(findTestCase(testsuitePath+'select_testsuite_Internal_Linking'),[('group-to-group-test') : testsuiteName])
 
+//// testing here ////
 
+return
+
+//// testing here ////
 /* 
- testsuite: add parent and child groups and reuse links with groups
+ testsuite: add parent and child groups by using ‘reuse linked parent’ and ‘add linked parent’
  
  add 2 Parent_Groups (GROUP_PRNT-1, GROUP_PRNT-2)
  add 4 child groups GROUP-1_CHLD-[1,2,3,4] and reuse linked to GROUP_PRNT-1
@@ -87,6 +94,14 @@ WebUI.callTestCase(findTestCase(testsuitePath+'access_parent_group_link_from_CHL
 // fill in ALL fields contents and link_records_on a parent and child group (try out all fields automation)
 WebUI.callTestCase(findTestCase(testsuitePath+'add_ALL_fields_contents_link_records_on_parent_group'),[('group-to-group-test') : testsuiteName])
 WebUI.callTestCase(findTestCase(testsuitePath+'add_ALL_fields_contents_link_records_on_child_group'),[('group-to-group-test') : testsuiteName])
+
+/*
+ testcase: check filter on reuse linked parent dialog
+ 
+ check filter for matched and unmatched search terms on child_group
+ */
+WebUI.callTestCase(findTestCase(testsuitePath+'check_filter_on_child_group'),[('group-to-group-test') : testsuiteName])
+
 
 /* 
  testsuite: unlink child and parent groups

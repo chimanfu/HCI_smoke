@@ -44,6 +44,11 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	return
 }
 
+int retry_count = 0;
+int maxTries = 3;
+while(true) {
+	try {
+/////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 
@@ -89,13 +94,25 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.delay(5)
 	WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
 	WebUI.delay(1)
+	//WebUI.scrollToElement(findTestObject('Page_Record test_automation_record/a_Home'),10)
+	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)
 	WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
 	WebUI.delay(1)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(60)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(90)
 	WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),25)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),25)
 }else{
 	println('Not found Snapshot link so it cannot do diff report')
+}
+
+/////////////////////////////////////////////////////////////////////////////
+break
+} catch (Exception e) {
+// handle exception
+e.printStackTrace()
+if (++retry_count == maxTries) throw e;
+println('Retry:'+retry_count+' rerun failed case now...')
+}
 }

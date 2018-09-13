@@ -19,8 +19,10 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+WebUI.comment('this is a invalid testcase. Do not run this testcase')
+return
 CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.switchToWindowIndex(0)
+//WebUI.switchToWindowIndex(0)
 //test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
 String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
 WebUI.navigateToUrl(test_automation_record_G2G_linking)

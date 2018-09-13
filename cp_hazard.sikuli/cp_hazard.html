@@ -79,20 +79,29 @@ pulseAppLauncher_start_button=<img src="pulseAppLauncher_start_button.png" />
 pulseAppLauncher_allow_button=<img src="pulseAppLauncher_allow_button.png" />
 restore_pages_cancel_button=Pattern(<img src="restore_pages_cancel_button.png" />).targetOffset(<span class="dig">145</span>,-<span class="dig">6</span>)
 pdf_downloadedFile_icon=Pattern(<img src="pdf_downloadedFile_icon.png" />).similar(<span class="dig">0.66</span>)
+Region(<span class="dig">1</span>,<span class="dig">770</span>,<span class="dig">167</span>,<span class="dig">129</span>)
+Region(<span class="dig">3</span>,<span class="dig">726</span>,<span class="dig">353</span>,<span class="dig">172</span>)
+Region(<span class="dig">1159</span>,<span class="dig">754</span>,<span class="dig">281</span>,<span class="dig">147</span>)
+Region(<span class="dig">805</span>,<span class="dig">0</span>,<span class="dig">635</span>,<span class="dig">235</span>)
 default_downloadedFile_icon=<img src="default_downloadedFile_icon.png" />
 chrome_downloadedFile_showAll_cancel_button=Pattern(<img src="chrome_downloadedFile_showAll_cancel_button.png" />).targetOffset(<span class="dig">48</span>,<span class="dig">2</span>)
 
 KatalonNetworkConnections_deny_button=<img src="KatalonNetworkConnections_deny_button.png" />
-<span class="skw">click</span>(KatalonNetworkConnections_deny_button)
+pin_field=<img src="pin_field.png" />
+new_pin_field=<img src="new_pin_field.png" />
+pin_field_activID=<img src="pin_field_activID.png" />
+disconnect=<img src="disconnect.png" />
+
+securePulseVPN_connected_icon=<img src="securePulseVPN_connected_icon.png" />
+vpn_selection=<img src="vpn_selection.png" />
+
+<span class="skw">wait</span>(<span class="dig">10</span>)
+<span class="cmt">#type('abc\n\n')</span>
+run(<span class="str">'caffeinate -u -t 2&amp;'</span>)
+<span class="kw">if</span> exists(pin_field,<span class="dig">20</span>):
+    <span class="skw">click</span>(pin_field)
+    <span class="skw">type</span>(<span class="str">'10051965\n'</span>)
 exit()
-
-<span class="skw">wait</span>(pulseAppLauncher_start_button,<span class="dig">20</span>)
-<span class="skw">doubleClick</span>(pulseAppLauncher_start_button)
-<span class="skw">type</span>(<span class="str">"\n"</span>)
-<span class="cmt">#doubleClick(pulseAppLauncher_allow_button)</span>
-
-
-//div[@<span class="kw">class</span> = <span class="str">'digItFieldContainer'</span>]/<span class="skw">input</span>[<span class="dig">1</span>]
 </pre>
 </body>
 </html>

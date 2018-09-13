@@ -49,22 +49,7 @@ import java.util.regex.Pattern
 import static org.apache.commons.lang3.StringUtils.join
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-//WebUI.switchToWindowIndex(0)
-//url = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev'
-//
-//// directly navigate to the record: test_automation_record_G2G_linking 
-//test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Basic%20Information'
-//WebUI.navigateToUrl(test_automation_record_G2G_linking)
 
-
-// add 2 parent groups for group to group linking from krampmasenstein_dev -> Test Suite -> Internal Linking
-//select_Tab_Basic_Information()
-//select_test_suite('Internal Linking')
-//add_2_G2G_Parent_Groups()
-
-
-//CustomKeywords.'kramp.Internal_Linking.select_TAB_Basic_Information'()
-//CustomKeywords.'kramp.Internal_Linking.select_test_suite'('Internal Linking')
 CustomKeywords.'kramp.Internal_Linking.select_TAB_Group_Linking_Parent'()
 
 WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_1'), 'GROUP_PRNT-1')
@@ -76,45 +61,7 @@ CustomKeywords.'kramp.Internal_Linking.save_changes'()
 
 return
 
-/*def add_2_G2G_Parent_Groups(){
-	// add 2 G2G Parent Groups 'GROUP_PRNT-1', 'GROUP_PRNT-2'
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
-	
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
-	
-	WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_1'), 'GROUP_PRNT-1')
-	
-	//WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
-	
-	WebUI.click(findTestObject('Page_record_G2G_linking/button_Add PRNT-2'))
-	
-	WebUI.setText(findTestObject('Page_record_G2G_linking/input_cf_g2g_parent_text_NEW_ROW_2'), 'GROUP_PRNT-2')
-	
-	WebUI.click(findTestObject('Page_record_G2G_linking/button_Save Changes'))
-	
-	WebUI.delay(4)
-}
-def select_Tab_Basic_Information(){
-	// goto Tab: Basic Information
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Basic Information'),25)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Basic Information'))
-}
-def select_test_suite(String testSuiteName){
-	// select test suite: Groups/
-	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/select_Test Suite'), 15)
-	WebUI.selectOptionByValue(findTestObject('Page_record_G2G_linking/select_Test Suite'), testSuiteName, true)
-}
 
-
-def select_Tab_Groups(){
-// goto Tab Groups
-	WebUI.scrollToElement(findTestObject('Page_Administer your installation/a_Home'),10)
-	WebUI.delay(2)
-	WebUI.waitForElementVisible(findTestObject('Page_record_G2G_linking/div_Groups'),10)
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Groups'),10)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_Groups'))
-}
-*/
 
 
 
