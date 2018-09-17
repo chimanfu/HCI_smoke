@@ -96,7 +96,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'test_automation_record'</initValue>
+      <initValue>'7633'</initValue>
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

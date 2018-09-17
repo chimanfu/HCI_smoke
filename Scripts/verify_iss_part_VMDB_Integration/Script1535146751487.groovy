@@ -29,6 +29,12 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part')) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly go to record 7168 which has VMDB integration')
@@ -57,4 +63,13 @@ WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/img_img_cf_pa
 WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/div_View drawing in VMDB'),5)*/
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
-
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

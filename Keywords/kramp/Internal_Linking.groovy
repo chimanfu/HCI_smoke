@@ -45,25 +45,25 @@ import com.kms.katalon.core.webui.exception.WebElementNotFoundException
 class Internal_Linking {
 	@Keyword
 	def select_PRNT_1_GROUP_PRNT_1(){
-	//WebUI.refresh()
-	//String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
-	//WebUI.navigateToUrl(test_automation_record_G2G_linking)
-	//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Parent)')
-	
-	//WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
-	//WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
-	// pull down Parent Linking Group: PRNT-1  GROUP_PRNT-1
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'),10)
-	WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
-	WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/label_G2G Parent Field Link Field'),20)
+		//WebUI.refresh()
+		//String test_automation_record_G2G_linking = 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081'
+		//WebUI.navigateToUrl(test_automation_record_G2G_linking)
+		//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7081#tv=Group%20Linking%20(Parent)')
+
+		//WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'),20)
+		//WebUI.click(findTestObject('Page_record_G2G_linking/div_Group Linking (Parent)'))
+		// pull down Parent Linking Group: PRNT-1  GROUP_PRNT-1
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'),10)
+		WebUI.click(findTestObject('Page_record_G2G_linking/div_PRNT-1  GROUP_PRNT-1'))
+		WebUI.scrollToElement(findTestObject('Page_record_G2G_linking/label_G2G Parent Field Link Field'),20)
 	}
 	@Keyword
 	def verify_goto_Parent_Linking_Group(){
-	//WebUI.delay(1)
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_PRNT-2'),5)
-	WebUI.click(findTestObject('Page_record_G2G_linking/span_PRNT-2'))
-	WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Parent Linking Group'),10)	
-}
+		//WebUI.delay(1)
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/span_PRNT-2'),5)
+		WebUI.click(findTestObject('Page_record_G2G_linking/span_PRNT-2'))
+		WebUI.waitForElementClickable(findTestObject('Page_record_G2G_linking/div_Parent Linking Group'),10)
+	}
 	@Keyword
 	def select_TAB_Group_Linking_Parent() {
 		String test_automation_record_G2G_linking = GlobalVariable.G_MAKE_MAS_url+'/show_bug.cgi?id='+GlobalVariable.recordName1
@@ -106,6 +106,7 @@ class Internal_Linking {
 			WebUI.waitForElementClickable(findTestObject(testobject),5)
 		}
 		catch(Exception e) {
+			KeywordUtil.markWarning(e.message)
 			WebUI.waitForAngularLoad(10)
 			WebUI.waitForJQueryLoad(10)
 			WebUI.waitForElementPresent(findTestObject(testobject),5)

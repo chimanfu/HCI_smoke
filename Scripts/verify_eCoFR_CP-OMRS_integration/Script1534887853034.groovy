@@ -1,5 +1,5 @@
 import static org.junit.Assert.*
-
+import org.openqa.selenium.WebDriver as WebDriver
 import org.sikuli.script.Key;
 import org.sikuli.script.KeyModifier
 import org.sikuli.script.Screen;
@@ -64,10 +64,12 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
-def driver = DriverFactory.getWebDriver()
-String baseUrl = "https://www.katalon.com/"
-selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
+String baseUrl = "https://www.katalon.com/"
+
+WebDriver driver = DriverFactory.getWebDriver()
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+//def driver = DriverFactory.getWebDriver()
 println('check cp-OMRS integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=126#tv=Authoritative%20Sources")

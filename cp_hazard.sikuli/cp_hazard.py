@@ -11,6 +11,7 @@ Region(1,770,167,129)
 Region(3,726,353,172)
 Region(1159,754,281,147)
 Region(805,0,635,235)
+Region(809,0,631,297)
 default_downloadedFile_icon="default_downloadedFile_icon.png"
 chrome_downloadedFile_showAll_cancel_button=Pattern("chrome_downloadedFile_showAll_cancel_button.png").targetOffset(48,2)
 
@@ -22,7 +23,7 @@ disconnect="disconnect.png"
 
 securePulseVPN_connected_icon="securePulseVPN_connected_icon.png"
 vpn_selection="vpn_selection.png"
-
+continue_the_session="continue_the_session.png"
 wait(10)
 #type('abc\n\n')
 run('caffeinate -u -t 2&')

@@ -4,13 +4,19 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-09-11T21:30:40</lastRun>
+   <lastRun>2018-09-16T21:35:17</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>true</rerunFailedTestCasesOnly>
    <testSuiteGuid>3c5a669d-c1fb-41c1-bbfe-b97c9fe78638</testSuiteGuid>
+   <testCaseLink>
+      <guid>7afd3060-2e92-4ce8-8c98-795715a214db</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_disallow_record_modification_checked</testCaseId>
+   </testCaseLink>
    <testCaseLink>
       <guid>f19d1a53-82f2-41a5-b55c-2639235e175b</guid>
       <isReuseDriver>false</isReuseDriver>

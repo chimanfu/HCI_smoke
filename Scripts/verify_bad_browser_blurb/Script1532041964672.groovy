@@ -139,6 +139,6 @@ break
 // handle exception
 e.printStackTrace()
 if (++retry_count == maxTries) throw e;
-println('Retry:'+retry_count+' rerun failed case now...')
+WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 }
 }

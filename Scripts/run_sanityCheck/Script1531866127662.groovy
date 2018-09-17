@@ -99,9 +99,11 @@ acceptedAlert1="attachment"
 acceptedAlert2="non-open status"
 acceptedAlert3="Invalid flag"
 acceptedAlert4=" that have changes but no mail sent for at least half an hour"
-acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/tika-app-1.7.jar"
+acceptedAlert5="Dfile.encoding=UTF-8 -jar /usr/share/java/"
 acceptedAlert6="/usr/local/bin/tesseract --version failed"
 acceptedAlert7="Bad profile email address"
+acceptedAlert8="Bad value"
+acceptedAlert9="Builtin field cc is not set"
 
 String alerts_Search_Xpath="/html/body[@id='bugzilla_body_tag']/div[@id='bugzilla-body']//p[@class = 'alert' and not(contains(., '"+
 acceptedAlert1+"')) and not(contains(., '"+
@@ -110,7 +112,9 @@ acceptedAlert3+"')) and not(contains(., '"+
 acceptedAlert4+"')) and not(contains(., '"+
 acceptedAlert5+"')) and not(contains(., '"+
 acceptedAlert6+"')) and not(contains(., '"+
-acceptedAlert7+"')) ]"
+acceptedAlert7+"')) and not(contains(., '"+
+acceptedAlert8+"')) and not(contains(., '"+
+acceptedAlert9+"')) ]"
 println('alerts_Search_Xpath='+alerts_Search_Xpath)
 dataFile='sanity_check_log'
 columnName='accepted_failed_message'

@@ -56,7 +56,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'Firefox/(?![123456789]\\.)|MSIE 9|Trident/[567]|Chrome|Safari'</initValue>
+      <initValue>'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari'</initValue>
       <name>G_permitted_browser</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_disallow_record_modification_checked</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>45b1ad51-701e-48ff-9336-a40bef4d32d9</testCaseGuid>
+</TestCaseEntity>

@@ -14,12 +14,14 @@ import org.sikuli.script.Pattern as Pattern
 import org.sikuli.script.Region
 import org.sikuli.script.Screen as Screen
 import com.kms.katalon.core.annotation.Keyword
+import com.kms.katalon.core.exception.StepErrorException
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.exception.WebElementNotFoundException
+import com.kms.katalon.core.exception.StepErrorException
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
@@ -33,7 +35,9 @@ class common {
 			if (second >= inSeconds) fail("timeout")
 			try {
 				if (selenium.isElementPresent(xpath)&&selenium.isVisible(xpath)) break
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				KeywordUtil.markWarning(e.message)
+			}
 			Thread.sleep(1000)
 		}
 	}
@@ -45,42 +49,51 @@ class common {
 			if (second >= inSeconds) fail("timeout")
 			try {
 				if (selenium.isElementPresent(xpath)) break
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				KeywordUtil.markWarning(e.message)
+			}
 			Thread.sleep(1000)
 		}
 	}
 	@Keyword
 	def check_PDFFile_Downloaded(int seconds){
-		
+
 		try{
 			if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),5)){
 				WebUI.scrollToElement(findTestObject('Page_Record test_automation_record/a_PDF'),5)
 				//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
 			}
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
 			println('check_PDFFile_Downloaded ')
 			Screen s = new Screen()
-			Region leftbottom=new Screen(0).setRect(0,987,431,214)
+			Region leftbottom=new Screen(0).setRect(0,582,570,319)
+
 			Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'pdf_downloadedFile_icon.png').similar(0.66)
 			if (leftbottom.exists(pdf_icon, seconds)==null){
-				KeywordUtil.markFailedAndStop('cannot find pdf_downloadedFile_icon.png, check_PDFFile_Downloaded failed')
+				//KeywordUtil.markFailedAndStop('cannot find pdf_downloadedFile_icon.png, check_PDFFile_Downloaded failed')
+				throw new StepErrorException('cannot find pdf_downloadedFile_icon.png, check_PDFFile_Downloaded failed')
 			}
-			
+
 			//leftbottom.wait(pdf_icon, seconds)
-			WebUI.delay(3)
-			Region rightbottom=new Screen(0).setRect(1617,987,303,214)
+			WebUI.delay(1)
+			//Region rightbottom=s
 			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
-			
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot()
-			if (rightbottom.exists(pImage,5)!=null){
-				(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
+			if (s.exists(pImage,5)!=null){
+				//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
 				WebUI.delay(1)
 				//Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'chrome_downloadedFile_showAll_cancel_button.png').targetOffset(48,2)
-				rightbottom.click(rightbottom.exists(pImage,1), 1)
+				s.click(s.exists(pImage,1), 1)
 			}
+			KeywordUtil.markPassed('PASS: Found PDF file, the test passed')
 		} catch (Exception e) {
-			KeywordUtil.markFailedAndStop('found error in check_PDFFile_Downloaded(), marked it failed')
+			//e.printStackTrace()
+			//KeywordUtil.markWarning(e.message)
+			throw new StepErrorException('found error in check_PDFFile_Downloaded(), marked it failed\n'+e.message)
+			
 		}
+
 
 	}
 	@Keyword
@@ -91,7 +104,7 @@ class common {
 			Pattern pdf_icon = new Pattern(GlobalVariable.G_image_path + 'default_downloadedFile_icon.png').similar(0.66)
 			s.wait(pdf_icon, 1)
 		} catch (Exception e) {
-			KeywordUtil.markFailedAndStop('check_PDFFile_Downloaded failed')
+			KeywordUtil.markFailedAndStop('check_PDFFile_Downloaded failed\n'+e.message)
 			//throw new AssertionError('ERROR: ')
 		}
 
@@ -245,6 +258,8 @@ class common {
 
 		} catch (Exception e) {
 			//e.printStackTrace();
+			KeywordUtil.markWarning(e.message)
+
 			//System.out.println(e.getMessage());
 		}
 

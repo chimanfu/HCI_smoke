@@ -224,6 +224,10 @@ def static "reusableComponents.Verify_Text_In_WebElement.verifyTextInWebelement"
          , 	expText)
 }
 
+def static "helper.login.LoginHelper.loginMailCatcher"() {
+    (new helper.login.LoginHelper()).loginMailCatcher()
+}
+
 def static "helper.login.LoginHelper.loginVPN"() {
     (new helper.login.LoginHelper()).loginVPN()
 }
@@ -388,6 +392,26 @@ def static "reusableComponents.HighlightElement.run"(
     	TestObject objectto	) {
     (new reusableComponents.HighlightElement()).run(
         	objectto)
+}
+
+def static "kramp.Notifications.compare_dateTime_mailTriggered_mailRecevied"(
+    	String triggered_notification_dateTime	
+     , 	String received_mail_dateTime	) {
+    (new kramp.Notifications()).compare_dateTime_mailTriggered_mailRecevied(
+        	triggered_notification_dateTime
+         , 	received_mail_dateTime)
+}
+
+def static "kramp.Notifications.search_notifications_mailcatcher"(
+    	String mail_From_expected	
+     , 	String mail_To_expected	
+     , 	String mail_Subject_expected	
+     , 	String mail_Triggered_time	) {
+    (new kramp.Notifications()).search_notifications_mailcatcher(
+        	mail_From_expected
+         , 	mail_To_expected
+         , 	mail_Subject_expected
+         , 	mail_Triggered_time)
 }
 
 def static "reusableComponents.webTable.Edit_Delete_Update_Anchor_actions"(

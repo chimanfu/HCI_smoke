@@ -37,8 +37,8 @@ public class NavigationHelper {
 	// For creating test object one can use TestObject class
 
 	private TestObject getMenuTestObject(String menuName){
-		TestObject menuItem = new TestObject(menuName);
-		menuItem.addProperty("xpath", ConditionType.EQUALS, getMenuItemXpath(menuName), true);
+		TestObject menuItem = new TestObject(menuName)
+		menuItem.addProperty("xpath", ConditionType.EQUALS, getMenuItemXpath(menuName), true)
 		System.out.println("Xpath : " + getMenuItemXpath(menuName))
 		return menuItem
 	}

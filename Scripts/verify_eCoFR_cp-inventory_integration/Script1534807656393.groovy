@@ -6,6 +6,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 import internal.GlobalVariable as GlobalVariable
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import org.openqa.selenium.WebDriver as WebDriver
+
 searchTerm="criterion"
 println('check cp-inventory integration in eCoFR')
 println('directly go to record 76 and open Products Tab')
@@ -19,6 +21,8 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+
+
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -26,10 +30,12 @@ try {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
-def driver = DriverFactory.getWebDriver()
+
 String baseUrl = "https://www.katalon.com/"
+WebDriver driver = DriverFactory.getWebDriver()
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
+//def driver = DriverFactory.getWebDriver()
 println('directly go to record 76 and open Products Tab')
 selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=76#tv=Products")
 

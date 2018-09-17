@@ -9,6 +9,7 @@ import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -104,6 +105,7 @@ class NewTestListener {
 				//WebUI.switchToWindowIndex(0)
 				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 				println('cannot closeWindowIndex')
+				KeywordUtil.markWarning(e.message)
 			}
 			//WebUI.switchToWindowIndex(0)
 			//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -134,7 +136,7 @@ class NewTestListener {
 		}
 		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
 		//GlobalVariable.G_userPin='12345678'
-		CustomKeywords.'helper.login.LoginHelper.loginVPN'()
+		//CustomKeywords.'helper.login.LoginHelper.loginVPN'()
 		
 	}
 

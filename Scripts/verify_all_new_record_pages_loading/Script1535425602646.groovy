@@ -55,12 +55,22 @@ import internal.GlobalVariable as GlobalVariable
  * 		navigate each link url to open new record page 
  * 		check for js error on each new record page when page is being loaded
  *///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-CustomKeywords.'helper.login.LoginHelper.login'()
-
 KeywordLogger log = new KeywordLogger()
 String found_new_record_link
 String url
+int size
+List<WebElement> elements
+WebDriver driver
+
+List<String> list_urls
+
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('click New Record link from Home page')
 if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
@@ -83,11 +93,11 @@ else{
 //boolean STOP_ON_FAILURE=false
 //CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
-WebDriver driver = DriverFactory.getWebDriver()
+driver = DriverFactory.getWebDriver()
 println('get all new record links from the New Record Page')
-List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
+elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
 //WebElement firstElement = elements.get(0);
-int size=elements.size()
+size=elements.size()
 urls = new String[size]
 for (int i = 0; i < size; i++) {
 	println('get new record link name and url')
@@ -99,7 +109,7 @@ for (int i = 0; i < size; i++) {
 }
 
 println 'use verifyLinksAccessible() to verify all new record links are Accessible'
-List<String> list_urls= Arrays.asList(urls);
+list_urls= Arrays.asList(urls);
 WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
 
 println 'navigate each link url to open new record page'
@@ -113,7 +123,16 @@ for (int i = 0; i < size; i++) {
 
 }
 return
-
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	 cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /*
 if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){

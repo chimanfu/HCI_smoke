@@ -1,39 +1,17 @@
 package helper.browserhelper
 
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import org.sikuli.script.Key as Key
-import org.sikuli.script.Screen as Screen
+import java.awt.Rectangle
+import java.awt.Robot
+import java.awt.Toolkit
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 import org.sikuli.script.KeyModifier as KeyModifier
+import org.sikuli.script.Screen as Screen
 import com.kms.katalon.core.annotation.Keyword
-import com.kms.katalon.core.checkpoint.Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords
-import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.testcase.TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory
-import com.kms.katalon.core.testdata.TestData
-import com.kms.katalon.core.testdata.TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository
-import com.kms.katalon.core.testobject.TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
 import com.kms.katalon.core.configuration.RunConfiguration
-import com.kms.katalon.core.context.TestCaseContext
-import com.kms.katalon.core.testcase.TestCase
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
-import com.kms.katalon.core.context.TestCaseContext as testCaseContext
-import MobileBuiltInKeywords as Mobile
-import WSBuiltInKeywords as WS
-import WebUiBuiltInKeywords as WebUI
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 
 public class CustomBrowser {
 
@@ -50,6 +28,7 @@ public class CustomBrowser {
 			WebUI.switchToWindowIndex(0)
 			//WebUI.delay(1)
 		}catch (Exception e) {
+			KeywordUtil.markWarning(e.message)
 			WebUI.switchToWindowIndex(0)
 		}
 	}
@@ -95,20 +74,21 @@ public class CustomBrowser {
 
 			println('getReportFolder='+getReportFolder)
 			Date today = new Date()
-			String todaysDate = today.format('MM_dd_yy');
-			String nowTime = today.format('hh_mm_ss');
+			String todaysDate = today.format('MM_dd_yy')
+			String nowTime = today.format('hh_mm_ss')
 			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".png"
 
 			try{
-				WebUI.takeScreenshot(screenshotPath);
+				WebUI.takeScreenshot(screenshotPath)
 			}
 			catch (Exception e) {
 				WebUI.comment('use Robot to capture screenshot of current screen')
+				KeywordUtil.markWarning(e.message)
 				// This code will capture screenshot of current screen
-				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()))
 
 				// This will store screenshot on Specific location
-				ImageIO.write(image, "png", new File(screenshotPath));
+				ImageIO.write(image, "png", new File(screenshotPath))
 			}
 			WebUI.comment('screenshot in '+screenshotPath)
 		}
@@ -130,15 +110,16 @@ public class CustomBrowser {
 			//String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName+"-"+ todaysDate +"-" + nowTime +".PNG"
 			String screenshotPath=getReportFolder+"/"+testStatus+"-"+testcaseName+".png"
 			try{
-				WebUI.takeScreenshot(screenshotPath);
+				WebUI.takeScreenshot(screenshotPath)
 			}
 			catch (Exception e) {
 				WebUI.comment('use Robot to capture screenshot of current screen')
+				KeywordUtil.markWarning(e.message)
 				// capture screenshot of current screen
-				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+				BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()))
 
 				// store screenshot on Specific location
-				ImageIO.write(image, "png", new File(screenshotPath));
+				ImageIO.write(image, "png", new File(screenshotPath))
 			}
 			WebUI.comment('screenshot in '+screenshotPath)
 		}

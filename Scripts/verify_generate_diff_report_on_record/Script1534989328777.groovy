@@ -1,5 +1,7 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('dex')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -120,6 +122,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
 	WebUI.delay(1)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)
+	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/select_diff_report_version'),10)
 	WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
 	WebUI.delay(1)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
@@ -137,6 +140,6 @@ break
 // handle exception
 e.printStackTrace()
 if (++retry_count == maxTries) throw e;
-println('Retry:'+retry_count+' rerun failed case now...')
+WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 }
 }

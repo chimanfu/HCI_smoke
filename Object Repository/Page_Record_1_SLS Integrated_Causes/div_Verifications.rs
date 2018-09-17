@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//div[@class = 'labelAndIcon' and (contains(text(), 'Verifications') or contains(., 'Verifications'))]</value>
+         <value>//div[@class = 'labelAndIcon' or @class = 'praca_tab_label' and (contains(text(), 'Verifications') )]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -38,6 +38,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//div[@class = 'labelAndIcon' and (contains(text(), 'Verifications') or contains(., 'Verifications'))]</value>
+      <value>//div[@class = 'labelAndIcon' or @class = 'praca_tab_label' and (contains(text(), 'Verifications') )]</value>
    </webElementProperties>
 </WebElementEntity>

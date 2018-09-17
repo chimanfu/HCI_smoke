@@ -1,33 +1,14 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement;
+import org.sikuli.script.Screen as Screen
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-import org.sikuli.script.Screen as Screen
-import org.sikuli.script.Pattern as Pattern
-import org.openqa.selenium.Keys as Keys
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import com.kms.katalon.core.webui.driver.DriverFactory
 
 
 /*
@@ -155,17 +136,18 @@ println('if more than 1 record found, then select the first record first')
 if (WebUI.waitForElementVisible(findTestObject('Page_Record List/a_record_1'),10)){
 	WebUI.click(findTestObject('Page_Record List/a_record_1'))
 }
-WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),15)
-WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
-
-if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)){
-	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
+if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),15)){
+	WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
+	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10))
+		WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
+	WebUI.delay(1)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(150)
+}else{
+	WebUI.comment('not found PDF link, so the site may not support PDF generation')
 }
-WebUI.delay(1)
-CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(150)
 /*WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
 WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),10)*/
-
+KeywordUtil.markPassed('PASS: Found PDF file, the test passed')
 
 /////////////////////////////////////////////////////////////////////////////
 break
@@ -173,6 +155,6 @@ break
 // handle exception
 e.printStackTrace()
 if (++retry_count == maxTries) throw e;
-println('Retry:'+retry_count+' rerun failed case now...')
+WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 }
 }

@@ -17,6 +17,12 @@ println('get all Tabs from the Record Page')
 println 'click on each tab'
 println 'verify no js error and each tab is loaded properly '
 
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println 'directly goto the record id from site profile'
@@ -60,5 +66,15 @@ for (int i = 0; i < size; i++) {
 return
 
 
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}
 
 

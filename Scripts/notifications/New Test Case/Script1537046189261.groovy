@@ -13,22 +13,13 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+WebUI.openBrowser('')
 
-current_login_user_email=WebUI.getText(findTestObject('Page_Edit user Joseph Fu joseph.fun/current_login_user_email')).trim()
+WebUI.openBrowser('')
 
-WebUI.comment('current_login_user_email='+current_login_user_email)
+WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/krampmasenstein_dev/show_bug.cgi?id=7080#tv=Fields')
 
-WebUI.click(findTestObject('Object Repository/Page_Edit user Joseph Fu joseph.fun/a_Admin'))
+WebUI.setText(findTestObject('Object Repository/Page_Black 7080 test_automation_rec/input_Free Text Field_cf_text'), 'hello 212345')
 
-WebUI.click(findTestObject('Object Repository/Page_Administer your installation (/a_Users'))
+WebUI.closeBrowser()
 
-WebUI.setText(findTestObject('Object Repository/Page_Search users/input_matching_matchstr'), current_login_user_email+'\n')
-
-WebUI.click(findTestObject('Object Repository/Page_Select user/a_user_email_selection'))
-
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Edit user Joseph Fu joseph.fun/fieldTitle_disallow_record_modification'),10)
-
-
-WebUI.verifyElementChecked(findTestObject('Object Repository/Page_Edit user Joseph Fu joseph.fun/input_checkbox_disallow_record_modification'),10)
-
-WebUI.comment('disallow_record_modification already checked')

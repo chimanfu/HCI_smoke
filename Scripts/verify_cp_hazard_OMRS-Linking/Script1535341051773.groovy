@@ -48,6 +48,10 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) ) {
 	GlobalVariable.userPin2 = 'SKIP'
 	return null
 }
+WebDriver driver
+//def driver = DriverFactory.getWebDriver()
+//Screen s = new Screen()
+WebDriverBackedSelenium selenium
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -61,8 +65,8 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
 	//selection='DVO'
 	//selection='LCC'
 	selection='OMRS'
-	String recordID='6505'
-	String siteURL=GlobalVariable.G_MAKE_MAS_url
+	 recordID='6505'
+	 siteURL=GlobalVariable.G_MAKE_MAS_url
 	baseUrl=siteURL
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 	siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabVerifications&gv=group'
@@ -100,18 +104,18 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
 
 /////////////////////////
 // get record 6505->Verifications->VERIF49
-String baseUrl = "https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group"
+ baseUrl = "https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group"
 //WebUI.navigateToUrl(baseUrl)
-//WebDriver driver = DriverFactory.getWebDriver()
-def driver = DriverFactory.getWebDriver()
-Screen s = new Screen()
-WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(driver,baseUrl)
+ driver = DriverFactory.getWebDriver()
+//def driver = DriverFactory.getWebDriver()
+//Screen s = new Screen()
+ selenium = new WebDriverBackedSelenium(driver,baseUrl)
 
 //*[@id="cfgr_Verifications_list_item_1929070"]
 
-String verification_id='1935140' //from VERIF49 on record 6505
-String recordID='6505'
-String siteURL=GlobalVariable.G_MAKE_MAS_url
+ verification_id='1935140' //from VERIF49 on record 6505
+ recordID='6505'
+ siteURL=GlobalVariable.G_MAKE_MAS_url
 baseUrl=siteURL
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabVerifications&gv=group'
@@ -120,9 +124,9 @@ selenium.open(siteURL)
 
 //selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=6505#tv=tabVerifications&gv=group")
 
-String verifiedRecord="//*[@id='cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title']/span"
+ verifiedRecord="//*[@id='cfgr_Verifications_row_"+verification_id+"_collapsed_display_area_content_title']/span"
 verifiedRecord="//*[@id='collapsedSpan_"+verification_id+"' or @id='cfgr_Verifications_row_"+verification_id+"_collapsed']"
-//String verifiedRecord="//span[@id='cf_omrs_daggr_1935140_link_image_on']/img"
+// verifiedRecord="//span[@id='cf_omrs_daggr_1935140_link_image_on']/img"
 waifForElement(verifiedRecord,160)
 WebUI.delay(10)
 selenium.click(verifiedRecord)
@@ -138,7 +142,7 @@ selenium.click("id=cf_omrs_number_"+verification_id)
 selenium.type("id=cf_omrs_number_"+verification_id, "Transmission")
 WebUI.delay(2)
 //s.type(Key.ENTER)
-selenium.typeKeys("id=cf_omrs_number_"+verification_id, Key.ENTER)
+selenium.typeKeys("id=cf_omrs_number_"+verification_id, Keys.chord(Keys.ENTER))
 selenium.waitForPageToLoad("60000")
 waifForElement('id=daggr_title_search', 35)
 selenium.click("id=daggr_title_search")
@@ -158,7 +162,7 @@ break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
-	String cmd = "pkill -f Chrome"
+	 cmd = "pkill -f Chrome"
 	Runtime.getRuntime().exec(cmd)
 	
 }

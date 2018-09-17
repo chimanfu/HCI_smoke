@@ -79,7 +79,8 @@ println('size='+size)
 for (int i = 0; i < size; i++) {
 	KeywordUtil.logInfo("Record Tab Name: " + elements.get(i).getText());
 	elements.get(i).click()
-	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_Linked records'),5)){
+	WebUI.delay(1)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/input_create_link_search'),5)){
 		WebUI.click(findTestObject('Page_Record_contents/label_Create link'))
 		
 		WebUI.click(findTestObject('Page_Record_contents/div_Search content...'))
@@ -88,7 +89,7 @@ for (int i = 0; i < size; i++) {
 		
 		WebUI.sendKeys(findTestObject('Page_Record_contents/input_create_link_search'), Keys.chord(Keys.ENTER))
 		
-		WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_Record_selected'),20)
+		WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_Record_selected'),30)
 		
 		WebUI.click(findTestObject('Page_Record_contents/div_Record_selected'))
 		

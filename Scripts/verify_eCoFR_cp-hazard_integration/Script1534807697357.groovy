@@ -30,6 +30,7 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver as WebDriver
 println('check cp-hazard integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 println('Select Hazard from the Source Type list')
@@ -50,7 +51,8 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
-def driver = DriverFactory.getWebDriver()
+WebDriver driver = DriverFactory.getWebDriver()
+//def driver = DriverFactory.getWebDriver()
 String baseUrl = "https://www.katalon.com/"
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 

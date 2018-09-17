@@ -41,6 +41,13 @@ import internal.GlobalVariable as GlobalVariable
  * 	
 */
 
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
+
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
@@ -63,7 +70,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
 	//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/a_test_automation_record'),10)
 }
 WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/label_EmailSearchResults'),20)
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record List/label_EmailSearchResults'),40)
 WebUI.click(findTestObject('Object Repository/Page_Record List/label_EmailSearchResults'))
 
 WebUI.setText(findTestObject('Object Repository/Page_Record List/input_em_to'), sendToAdrress)
@@ -71,11 +78,22 @@ WebUI.click(findTestObject('Object Repository/Page_Record List/button_Send'))
 
 //WebUI.delay(1)
 
-WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_Email sent to user address'),20)
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_Email sent to user address'),40)
 emailSentMsg=WebUI.getText(findTestObject('Object Repository/Page_Record List/div_Email sent to user address'))
 if (emailSentMsg.contains(sendToAdrress)){
 	println('mail sent successfully, found sendToAdrress : '+sendToAdrress)
 }else{
 	println('mail not sent, as not found sendToAdrress : '+sendToAdrress)
 	throw new AssertionError('ERROR: mail not sent, as not found sendToAdrress : '+sendToAdrress)
+}
+
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
 }

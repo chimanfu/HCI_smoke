@@ -30,6 +30,7 @@ import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
 
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver as WebDriver
 
 println('check cp-LCC integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
@@ -44,6 +45,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	return
 }
 
+
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -52,10 +54,12 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
-def driver = DriverFactory.getWebDriver()
-String baseUrl = "https://www.katalon.com/"
-selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
+String baseUrl = "https://www.katalon.com/"
+
+WebDriver driver = DriverFactory.getWebDriver()
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+//def driver = DriverFactory.getWebDriver()
 println('check cp-LCC integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=126#tv=Authoritative%20Sources")

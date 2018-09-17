@@ -25,6 +25,11 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -71,3 +76,13 @@ WebUI.switchToWindowIndex(1)
 WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8)
 WebUI.switchToWindowIndex(0)
 WebUI.closeWindowIndex(1)
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}

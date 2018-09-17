@@ -36,14 +36,13 @@ public class Groups {
 		WebUI.click(findTestObject('Page_record_G2G_linking/div_STATIC-1 Group1'))
 
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)2'))
-		
+
 		WebUI.click(findTestObject('Page_record_G2G_linking/div_STATIC-2 Group2'))
-		
+
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)3'))
-		
+
 		WebUI.click(findTestObject('Page_record_G2G_linking/div_STATIC-3 Group3'))
-		
+
 		WebUI.click(findTestObject('Page_record_G2G_linking/span_(Delete)4'))
-		
 	}
 }

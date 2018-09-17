@@ -1,11 +1,13 @@
 package helper.login
 
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import org.openqa.selenium.WebDriver
 import org.sikuli.script.Pattern as Pattern
 import org.sikuli.script.Region
 import org.sikuli.script.Screen
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
@@ -24,86 +26,177 @@ import internal.GlobalVariable
  * */
 
 public class LoginHelper {
+	@Keyword
+	public void loginMailCatcher(){
+		try{
 
+			String mailcatcher_url='https://dig-it-dev.nas.nasa.gov/mailcatcher/'
+
+			try{
+				WebUI.navigateToUrl(mailcatcher_url)
+				WebUI.maximizeWindow()
+				WebUI.switchToWindowIndex(0)
+				WebUI.switchToDefaultContent()
+				WebUI.waitForPageLoad(60)
+				if ( WebUI.waitForElementClickable(findTestObject('Page_MailCatcher/a_MailCatcher_heading'), 5)) {
+					WebUI.comment 'already in MailCatcher'
+					WebUI.delay(5)
+					return
+				}
+			}catch (Exception e) {
+				//WebUI.switchToWindowIndex(0)
+				KeywordUtil.markWarning(e.message)
+			}
+			try{
+				//String cmd = "pkill -f Chrome"
+				//Runtime.getRuntime().exec(cmd)
+				//WebUI.comment('killed all processes of Chrome before running test')
+				//WebUI.delay(2)
+				//WebUI.openBrowser('')
+				WebUI.navigateToUrl(mailcatcher_url)
+				WebUI.maximizeWindow()
+				//WebUI.delay(2)
+				WebUI.switchToWindowIndex(0)
+				WebUI.switchToDefaultContent()
+				WebDriver driver = DriverFactory.getWebDriver()
+				ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+				println("No. of tabs: " + tabs.size())
+				int tabs_number=tabs.size()
+				while (tabs_number>1){
+					WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+					tabs_number--
+				}
+			}catch (Exception e) {
+				KeywordUtil.markWarning(e.message)
+				WebUI.delay(2)
+				WebUI.switchToWindowIndex(0)
+			}
+			Screen s = new Screen()
+			WebUI.comment 'Access Launchpad login'
+			if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
+				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+				WebUI.waitForPageLoad(6)
+				WebUI.delay(1)
+
+				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
+				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+
+				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
+				}
+
+				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}else{
+					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}
+
+			}
+			WebUI.waitForElementNotClickable(findTestObject('Page_MailCatcher/a_MailCatcher_heading'),15)
+			WebUI.comment('successfully logint to mailcatcher')
+		}catch (Exception e) {
+			WebUI.comment('something wrong when trying to login to mailcatcher')
+			KeywordUtil.markWarning(e.message)
+		}
+	}
 
 	@Keyword
 	public void loginVPN(){
 		try{
 
-		Screen s = new Screen()
-		Region righttop=new Screen(0).setRect(805,0,635,235)
-		WebUI.comment 'will disconnect VPN first if it already connected'
-		if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
-			righttop.click(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png')
-			righttop.wait(GlobalVariable.G_image_path+'vpn_selection.png',5)
-			righttop.click(GlobalVariable.G_image_path+'vpn_selection.png')
-			righttop.wait(GlobalVariable.G_image_path+'disconnect.png',5)
-			righttop.click(GlobalVariable.G_image_path+'disconnect.png')	
-		}
-		WebUI.openBrowser('')
-		WebUI.navigateToUrl('http://vpn.nasa.gov/')
-		try{
-			WebUI.switchToWindowIndex(0)
-			WebUI.switchToDefaultContent()
-			def driver = DriverFactory.getWebDriver()
-			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-			println("No. of tabs: " + tabs.size())
-			int tabs_number=tabs.size()
-			while (tabs_number>1){
-				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
-				tabs_number--
+			Screen s = new Screen()
+			Region righttop=new Screen(0).setRect(805,0,635,235)
+			WebUI.comment 'will disconnect VPN first if it already connected'
+			if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
+				righttop.click(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png')
+				righttop.wait(GlobalVariable.G_image_path+'vpn_selection.png',5)
+				righttop.click(GlobalVariable.G_image_path+'vpn_selection.png')
+				righttop.wait(GlobalVariable.G_image_path+'disconnect.png',5)
+				righttop.click(GlobalVariable.G_image_path+'disconnect.png')
 			}
-		}catch (Exception e) {
-			WebUI.switchToWindowIndex(0)
-		}
-		/*try{
-		 WebUI.switchToWindowIndex(0)
-		 WebUI.closeWindowIndex(1)
-		 WebUI.delay(1)
-		 WebUI.switchToWindowIndex(0)
-		 WebUI.delay(1)
-		 }catch (Exception e) {
-		 WebUI.switchToWindowIndex(0)
-		 }*/
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl('http://vpn.nasa.gov/')
+			try{
+				WebUI.switchToWindowIndex(0)
+				WebUI.switchToDefaultContent()
+				WebDriver driver = DriverFactory.getWebDriver()
+				ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+				println("No. of tabs: " + tabs.size())
+				int tabs_number=tabs.size()
+				while (tabs_number>1){
+					WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+					tabs_number--
+				}
+			}catch (Exception e) {
+				KeywordUtil.markWarning(e.message)
+				WebUI.switchToWindowIndex(0)
+			}
+			/*try{
+			 WebUI.switchToWindowIndex(0)
+			 WebUI.closeWindowIndex(1)
+			 WebUI.delay(1)
+			 WebUI.switchToWindowIndex(0)
+			 WebUI.delay(1)
+			 }catch (Exception e) {
+			 WebUI.switchToWindowIndex(0)
+			 }*/
 
-		//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
-		//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-		WebUI.comment 'Access Launchpad login'
-		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
+			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-			WebUI.waitForPageLoad(6)
-			WebUI.delay(1)
+			WebUI.comment 'Access Launchpad login'
+			if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
+				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+				WebUI.waitForPageLoad(6)
+				WebUI.delay(1)
 
-			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
-			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-
-			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-			}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
 				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+
 				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
+				}
+				//			WebUI.delay(4)
+				//			s.type(GlobalVariable.G_userPin+"\n")
+				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}else{
+					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}
+
+				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)){
+					WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
+					WebUI.delay(1)
+					s.type('\n')
+				}else{
+					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'),5)){
+						WebUI.click(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'))
+					}
+					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)){
+						WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
+						WebUI.delay(1)
+						s.type('\n')
+					}
 				}
 			}
-//			WebUI.delay(4)
-//			s.type(GlobalVariable.G_userPin+"\n")
-			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-				WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-				s.type(GlobalVariable.G_userPin+"\n")
-			}else{
-				WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-				s.type(GlobalVariable.G_userPin+"\n")
-			}
-			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)
-			WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
-			WebUI.delay(1)
-			s.type('\n')
-		}
 		}catch (Exception e) {
-		WebUI.comment('something wrong when trying to do VPN login')
-	}
+			WebUI.comment('something wrong when trying to do VPN login')
+			KeywordUtil.markWarning(e.message)
+		}
 	}
 
 	@Keyword
@@ -153,7 +246,7 @@ public class LoginHelper {
 			WebUI.comment('*** need to login ***')
 			return false
 		}catch (Exception e) {
-			WebUI.comment('cannot checkHomePageExist')
+			WebUI.comment('cannot checkHomePageExist\n'+e.message)
 			return false
 		}
 	}
@@ -194,7 +287,7 @@ public class LoginHelper {
 			//WebUI.closeWindowIndex(1)
 			WebUI.switchToWindowIndex(0)
 			WebUI.switchToDefaultContent()
-			def driver = DriverFactory.getWebDriver()
+			WebDriver driver = DriverFactory.getWebDriver()
 			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
 			println("No. of tabs: " + tabs.size())
 			int tabs_number=tabs.size()
@@ -205,6 +298,7 @@ public class LoginHelper {
 		}catch (Exception e) {
 			//WebUI.switchToWindowIndex(0)
 			WebUI.delay(2)
+			KeywordUtil.markWarning(e.message)
 		}
 		//WebUI.maximizeWindow()
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
@@ -246,7 +340,7 @@ public class LoginHelper {
 				}
 			}
 			//WebUI.delay(5)
-			
+
 			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
 				WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
 				s.type(GlobalVariable.G_userPin+"\n")
@@ -254,7 +348,7 @@ public class LoginHelper {
 				WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 				s.type(GlobalVariable.G_userPin+"\n")
 			}
-			
+
 		}
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))

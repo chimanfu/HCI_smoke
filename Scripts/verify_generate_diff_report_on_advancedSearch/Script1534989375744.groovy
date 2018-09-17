@@ -1,5 +1,8 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('dex')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -39,10 +42,8 @@ import internal.GlobalVariable as GlobalVariable
  * 		click 'Generate PDF' to create a pdf file
  * 		check pdf file is generated correctly
  */
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	println 'do not need to run this test'
-	return
-}
+
+
 
 int retry_count = 0;
 int maxTries = 3;
@@ -113,6 +114,6 @@ break
 // handle exception
 e.printStackTrace()
 if (++retry_count == maxTries) throw e;
-println('Retry:'+retry_count+' rerun failed case now...')
+WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 }
 }

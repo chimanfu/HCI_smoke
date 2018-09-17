@@ -28,6 +28,11 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('mcard'))) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+int retry_count = 0;
+int maxTries = 3;
+while(true){
+try {
+/////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
@@ -64,13 +69,14 @@ WebUI.setText(findTestObject('Page_Record_256_mcard/input_cf_dvo_number'), '')
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 
-/*CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-GlobalVariable.userPin2='ScreenshotTaken'
-// open the current window which will trigger the reload page popup to reload page
-Screen s = new Screen()
-s.type("w", KeyModifier.CMD)
-WebUI.delay(1)
-s.type('\n')
-return*/
-
+/////////////////////////////////////////////////////////////////////////////
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	String cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
+}
+}
 
