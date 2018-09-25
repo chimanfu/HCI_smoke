@@ -66,17 +66,19 @@ public class CustomBrowser {
 	 }*/
 
 	@Keyword
-	public void takingScreenshot(){
+	public void takingScreenshot(String screenshotname){
 		try {
 			//import com.kms.katalon.core.configuration.RunConfiguration
-
+			if (screenshotname.equals(null) ||screenshotname.equals('')){
+				screenshotname='screenshot'
+			}
 			String getReportFolder=RunConfiguration.getReportFolder()
 
 			println('getReportFolder='+getReportFolder)
 			Date today = new Date()
 			String todaysDate = today.format('MM_dd_yy')
 			String nowTime = today.format('hh_mm_ss')
-			String screenshotPath=getReportFolder+"/screenshot_"+ todaysDate +"-" + nowTime +".png"
+			String screenshotPath=getReportFolder+"/"+screenshotname+"_"+ todaysDate +"-" + nowTime +".png"
 
 			try{
 				WebUI.takeScreenshot(screenshotPath)

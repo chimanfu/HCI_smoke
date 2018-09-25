@@ -43,7 +43,7 @@ println 'enter Transmission as the OMRS number to searh, get the search results'
 println 'verify search result of linking works'
 println 'takingScreenshot and exit the current state and reload page after popup'
 
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) ) {
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) &&  !(GlobalVariable.G_MAKE_MAS_url.contains('cxhazard'))) {
 	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
 	GlobalVariable.userPin2 = 'SKIP'
 	return null
@@ -109,7 +109,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
  driver = DriverFactory.getWebDriver()
 //def driver = DriverFactory.getWebDriver()
 //Screen s = new Screen()
- selenium = new WebDriverBackedSelenium(driver,baseUrl)
+// selenium = new WebDriverBackedSelenium(driver,baseUrl)
 
 //*[@id="cfgr_Verifications_list_item_1929070"]
 
@@ -137,6 +137,9 @@ WebUI.scrollToElement(findTestObject('Page_Record_6505 Erroneous Transmiss/label
 
 selenium.click("id=cf_verification_traceability_"+verification_id)
 selenium.select("id=cf_verification_traceability_"+verification_id, "label=OMRS")
+if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/div_The linked fields note'),5)){
+	WebUI.comment 'already have a OMRS linked record'
+}else{
 waifForElement("id=cf_omrs_number_"+verification_id,10)
 selenium.click("id=cf_omrs_number_"+verification_id)
 selenium.type("id=cf_omrs_number_"+verification_id, "Transmission")
@@ -153,7 +156,7 @@ WebUI.waitForElementClickable(findTestObject('Page_Record_6505_cp_hazard/img_cre
 WebUI.click(findTestObject('Page_Record_6505_cp_hazard/img_create_recordLink'))
 waifForElement('id=img_cf_omrs_number_'+verification_id, 25)
 WebUI.delay(2)
-
+}
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 return
 ///////////////////////////////////////////////////////

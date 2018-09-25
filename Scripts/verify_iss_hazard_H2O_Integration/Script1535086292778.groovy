@@ -20,10 +20,11 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 //H2O Integration - e.g. record 27228 Ctl-8
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
-	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	GlobalVariable.userPin2='SKIP'
-	return
+
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))) {
+	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
+	GlobalVariable.userPin2 = 'SKIP'
+	return null
 }
 int retry_count = 0;
 int maxTries = 3;

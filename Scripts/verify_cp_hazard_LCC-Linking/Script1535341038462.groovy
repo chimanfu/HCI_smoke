@@ -43,7 +43,7 @@ println 'enter Transmission as the LCC number to searh, get the search results'
 println 'verify search result of linking works'
 println 'takingScreenshot and exit the current state and reload page after popup'
 
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) ) {
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) &&  !(GlobalVariable.G_MAKE_MAS_url.contains('cxhazard'))) {
 	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
 	GlobalVariable.userPin2 = 'SKIP'
 	return null

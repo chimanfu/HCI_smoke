@@ -59,12 +59,12 @@ import static org.apache.commons.lang3.StringUtils.join
 'do a advanced search on SLS Integrated Cause'
 'from the search list of records, select the first record to open and verify'
 'open the Verifications Tab'
-
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) {
-	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	GlobalVariable.userPin2='SKIP'
-	return
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) &&  !(GlobalVariable.G_MAKE_MAS_url.contains('cxhazard'))) {
+	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
+	GlobalVariable.userPin2 = 'SKIP'
+	return null
 }
+
 int retry_count = 0;
 int maxTries = 3;
 while(true){

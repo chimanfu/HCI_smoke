@@ -26,7 +26,8 @@ import org.sikuli.script.Screen;
 
 
 println('Only for iss_fmea: select Attachments & References tab -> create link')
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')) {
+
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')  &&  !GlobalVariable.G_MAKE_MAS_url.contains('fmea.iss')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	GlobalVariable.userPin2='SKIP'
 	return
@@ -42,8 +43,20 @@ searchTerm='link'
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly goto record 2769 -> Attachments & References Tab')
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Attachments%20%26%20References')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Attachments%20%26%20References')
+
+String recordID='2769'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Attachments%20%26%20References'
+WebUI.navigateToUrl(siteURL)
 WebUI.maximizeWindow()
+
+if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/div_The linked fields note'),5)){
+	WebUI.comment 'already have a VMDB linked record'
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+}
 WebUI.waitForElementClickable(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
 WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
 

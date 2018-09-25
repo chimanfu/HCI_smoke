@@ -1,3 +1,11 @@
+performance_TAB=Pattern("performance_TAB.png").similar(0.75)
+Summary_TAB=Pattern("Summary_TAB.png").similar(0.75)
+clear_button="clear_button.png"
+stop_button="stop_button.png"
+WhatsNew_TAB="WhatsNew_TAB.png"
+close_button="close_button.png"
+click(find(WhatsNew_TAB).right().find(close_button))
+exit()
 smartcard_login_button="smartcard_login_button.png"
 acceptCert_ok_button="acceptCert_ok_button.png"
 cp_hazard_logo="cp_hazard_logo.png"

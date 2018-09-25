@@ -1,22 +1,8 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import org.openqa.selenium.By
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
+import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
@@ -38,8 +24,8 @@ import internal.GlobalVariable as GlobalVariable
  */
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
-	println('do not need to run this test')
-	WebUI.comment("Skip this testcase")
+	WebUI.comment('do not need to run this test')
+	//WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -51,11 +37,11 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/a_Help'))
 	WebUI.switchToWindowIndex(currentTab+1)
 	
-	println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
+	WebUI.comment('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
 	boolean STOP_ON_FAILURE=false
 	CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 	
-	println('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
+	WebUI.comment('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
 	String xpath="//div[@class='toc']//a"
 	CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
 	
@@ -69,11 +55,12 @@ WebUI.click(findTestObject('Page_Main Page/a_Help'))
 WebUI.delay(1)
 //GlobalVariable.G_MAKE_MAS_title
 try{
-	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
-}catch (Exception e) {
-	println('cannot switch window ' + e.getMessage())
-	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 	WebUI.switchToWindowIndex(currentTab+1)
+	
+}catch (Exception e) {
+	WebUI.comment('cannot switch window ' + e.getMessage())
+	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
 }
 
 WebUI.delay(1)
@@ -81,36 +68,49 @@ if (WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User G
 	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
 // need dynamically check all links in Help Page (User Guide)
 
-println('perform verifyAllLinksOnCurrentPageAccessible and exclude links with src')
-boolean STOP_ON_FAILURE=false
-CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
+driver = DriverFactory.getWebDriver()
+WebUI.comment('get all help links from the Help Doc Page')
+elements = driver.findElements(By.xpath("//div[@class='toc']//a"));
+//WebElement firstElement = elements.get(0);
+size=elements.size()
+WebUI.comment 'found '+size+' links from the Help Doc Page'
+urls = new String[size]
+for (int i = 0; i < size; i++) {
+	//WebUI.comment('get new record link name and url')
+	found_link=elements.get(i).getText()
+	url = elements.get(i).getAttribute("href");
+	urls[i]=url
+	WebUI.comment ("found help link name: " + found_link+ "with URL: " + url);
+	
+}
 
+WebUI.comment 'use verifyLinksAccessible() to verify all links from the Help Doc Page'
+list_urls= Arrays.asList(urls);
+WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
 
-//println('check Links are accessible and without Broken links (http return code != 200) On Current Page of Help Page (User Guide)')
-//CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
-
-println('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
+WebUI.comment('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
 String xpath="//div[@class='toc']//a"
 CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
 
 try {
-	WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' User Guide')
+	WebUI.closeWindowIndex(currentTab + 1)
+	
 }
 catch (Exception e) {
-	println('cannot close window ' + e.getMessage())
-
+	WebUI.comment('cannot close window ' + e.getMessage())
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
-	WebUI.closeWindowIndex(currentTab + 1)
+	WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' User Guide')
+	//WebUI.closeWindowIndex(currentTab + 1)
 }
 
 try {
-	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' Main Page')
+	WebUI.switchToWindowIndex(currentTab)
 }
 catch (Exception e) {
-	println('cannot switch window ' + e.getMessage())
-
+	WebUI.comment('cannot switch window ' + e.getMessage())
+	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' Main Page')
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
-	WebUI.switchToWindowIndex(currentTab)
+	
 }
 
 
@@ -120,7 +120,7 @@ return
 //WebUI.waitForPageLoad(5)
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
-	println 'this is cp_hazard'
+	WebUI.comment 'this is cp_hazard'
 	
 	WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),25)
 	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
@@ -156,7 +156,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 	WebUI.click(findTestObject('Page_Help User Guide/h3_Preferences and Privileges'))
 }
 else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
-	println 'this is cp_oms'
+	WebUI.comment 'this is cp_oms'
 	
 	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h1_CP-OMS User Guide'))
 	
@@ -195,8 +195,7 @@ try {
     WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' User Guide')
 }
 catch (Exception e) {
-    println('cannot close window ' + e.getMessage())
-
+    WebUI.comment('cannot close window ' + e.getMessage())
     //throw new AssertionError('ERROR: Unable to verify alert present: ', e)
     WebUI.closeWindowIndex(currentTab + 1)
 } 
@@ -205,16 +204,8 @@ try {
     WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' Main Page')
 }
 catch (Exception e) {
-    println('cannot switch window ' + e.getMessage())
-
+    WebUI.comment('cannot switch window ' + e.getMessage())
     //throw new AssertionError('ERROR: Unable to verify alert present: ', e)	
     WebUI.switchToWindowIndex(currentTab)
 }
-//WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' Main Page')
-//WebUI.click(findTestObject('Page_Main Page/a_Home'))
-
-
-
-
-
 

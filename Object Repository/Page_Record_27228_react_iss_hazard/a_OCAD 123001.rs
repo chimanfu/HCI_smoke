@@ -4,6 +4,12 @@
    <name>a_OCAD 123001</name>
    <tag></tag>
    <elementGuidId>ed6a9400-ec9b-4001-84d1-6e11b963eddc</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[@href = 'show_bug.cgi?id=123001' and (text() = 'OCAD #123001' or . = 'OCAD #123001')]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -22,10 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/ocad_dev/show_bug.cgi?id=123001</value>
+      <value>show_bug.cgi?id=123001</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

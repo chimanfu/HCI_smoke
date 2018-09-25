@@ -4,7 +4,7 @@ pin_field="pin_field.png"
 new_PIN_field="new_pin_field.png"
 wait(1)
 run('caffeinate -u -t 2&')
-if exists(new_PIN_field,20):
+if exists(new_PIN_field,30):
     click(new_PIN_field)
     type('10051965\n')
 elif exists(pin_field,1):

@@ -4,17 +4,23 @@
    <name>img_create_23971972</name>
    <tag></tag>
    <elementGuidId>43f4c2f0-9882-4543-bd69-091952c465f8</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>(//img[@class = 'link_btn' and @src = 'skins/standard/praca/img2/create_link.gif'])[1]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>img</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>id</name>
       <type>Main</type>
@@ -28,7 +34,7 @@
       <value>link_btn</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>src</name>
       <type>Main</type>
@@ -42,10 +48,10 @@
       <value>Daggr._setBusy(this);Daggr._fetchAllInfo('https://iss-www-d.jsc.nasa.gov/vmdbagnt/plsql/vmdb_fmea_part_interface.goToSpider?p_pid_uid=23971972', '23971972', 'VMDB_PART')</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;create_23971972&quot;)</value>
+      <value>(//img[@class = 'link_btn' and @src = 'skins/standard/praca/img2/create_link.gif'])[1]</value>
    </webElementProperties>
 </WebElementEntity>

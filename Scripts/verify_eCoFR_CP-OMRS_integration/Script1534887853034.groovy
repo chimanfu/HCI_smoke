@@ -54,7 +54,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	GlobalVariable.userPin2='SKIP'
 	return
 }
-
+if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
 
 int retry_count = 0;
 int maxTries = 3;

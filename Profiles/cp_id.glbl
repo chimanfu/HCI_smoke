@@ -11,7 +11,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description>PASS smoke test</description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_id_dev'</initValue>
+      <initValue>'https://mas.nasa.gov/cpid/'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -56,7 +56,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'Firefox/(?![123456789]\\.)|MSIE 9|Trident/[567]|Chrome'</initValue>
+      <initValue>'Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari'</initValue>
       <name>G_permitted_browser</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -96,7 +96,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'961'</initValue>
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

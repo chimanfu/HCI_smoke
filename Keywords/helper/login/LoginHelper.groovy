@@ -177,8 +177,9 @@ public class LoginHelper {
 					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 					s.type(GlobalVariable.G_userPin+"\n")
 				}
-
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)){
+				WebUI.delay(5)
+				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7)){
+					WebUI.delay(1)
 					WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
 					WebUI.delay(1)
 					s.type('\n')
@@ -186,7 +187,8 @@ public class LoginHelper {
 					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'),5)){
 						WebUI.click(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'))
 					}
-					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),15)){
+					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),20)){
+						WebUI.delay(1)
 						WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
 						WebUI.delay(1)
 						s.type('\n')
@@ -322,44 +324,62 @@ public class LoginHelper {
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 		}
 		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15,FailureHandling.OPTIONAL)){
-			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-			WebUI.waitForPageLoad(6)
-			WebUI.delay(1)
-			WebUI.comment('found on input_SCLOGIN')
-			s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
-			s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-
-			if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',3)!=null){
-				//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-				s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-			}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+			try{
+				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+				WebUI.waitForPageLoad(6)
+				WebUI.delay(1)
+				WebUI.comment('found on input_SCLOGIN')
+				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
 				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+
 				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
 					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
 				}
+				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}else{
+					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+					WebUI.delay(2)
+					s.type(GlobalVariable.G_userPin+"\n")
+				}
+			}catch (Exception e) {
+				KeywordUtil.markFailedAndStop(e.message)
 			}
-			//WebUI.delay(5)
-
-			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-				WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-				s.type(GlobalVariable.G_userPin+"\n")
-			}else{
-				WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-				s.type(GlobalVariable.G_userPin+"\n")
-			}
-
 		}
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
 			WebUI.comment('clicked on input_login_btn in 2nd attempt')
 		}
 		// check if alert is showing
-		if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
-			String alertText=WebUI.getAlertText()
-			WebUI.acceptAlert()
-			WebUI.comment('accept alert='+alertText)
+		try{
+			if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+				String alertText=WebUI.getAlertText()
+				WebUI.acceptAlert()
+				WebUI.comment('accept alert='+alertText)
+			}
+		}catch (Exception e) {
+			//WebUI.switchToWindowIndex(0)
+			WebUI.delay(2)
+			KeywordUtil.markWarning(e.message)
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			WebUI.delay(2)
+			WebUI.maximizeWindow()
+			if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+				String alertText=WebUI.getAlertText()
+				WebUI.acceptAlert()
+				WebUI.comment('accept alert='+alertText)
+			}
 		}
+
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
 		/*if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
 		 WebUI.delay(1)

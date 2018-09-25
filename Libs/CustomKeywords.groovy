@@ -510,8 +510,10 @@ def static "helper.browserhelper.CustomBrowser.closeBrowser"() {
     (new helper.browserhelper.CustomBrowser()).closeBrowser()
 }
 
-def static "helper.browserhelper.CustomBrowser.takingScreenshot"() {
-    (new helper.browserhelper.CustomBrowser()).takingScreenshot()
+def static "helper.browserhelper.CustomBrowser.takingScreenshot"(
+    	String screenshotname	) {
+    (new helper.browserhelper.CustomBrowser()).takingScreenshot(
+        	screenshotname)
 }
 
 def static "helper.browserhelper.CustomBrowser.takingScreenshotStatus"(

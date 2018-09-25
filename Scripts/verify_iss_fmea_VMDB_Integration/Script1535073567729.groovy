@@ -8,16 +8,20 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')  &&  !GlobalVariable.G_MAKE_MAS_url.contains('fmea.iss')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly goto record 2769')
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Basic%20FMEA')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_fmea_dev/show_bug.cgi?id=2769#tv=Basic%20FMEA')
+String recordID='2769'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Basic%20FMEA'
+WebUI.navigateToUrl(siteURL)
 
 println('from the Basic FMEA Tab')
 WebUI.verifyElementPresent(findTestObject('Page_Record_2769_FMEA/div_Basic FMEA'),25)
@@ -25,6 +29,11 @@ WebUI.click(findTestObject('Page_Record_2769_FMEA/div_Basic FMEA'))
 
 
 WebUI.maximizeWindow()
+if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/div_The linked fields note'),5)){
+	WebUI.comment 'already have a VMDB linked record'
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+}
 WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/span_VMDB Linkable Fields'), 3)
 
 println('verify VMDB Linkable Fields')

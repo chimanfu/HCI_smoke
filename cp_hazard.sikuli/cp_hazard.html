@@ -70,6 +70,14 @@
 <h2>cp_hazard.sikuli</h2> <a href="cp_hazard.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
+performance_TAB=Pattern(<img src="performance_TAB.png" />).similar(<span class="dig">0.75</span>)
+Summary_TAB=Pattern(<img src="Summary_TAB.png" />).similar(<span class="dig">0.75</span>)
+clear_button=<img src="clear_button.png" />
+stop_button=<img src="stop_button.png" />
+WhatsNew_TAB=<img src="WhatsNew_TAB.png" />
+close_button=<img src="close_button.png" />
+<span class="skw">click</span>(<span class="skw">find</span>(WhatsNew_TAB).right().<span class="skw">find</span>(close_button))
+exit()
 smartcard_login_button=<img src="smartcard_login_button.png" />
 acceptCert_ok_button=<img src="acceptCert_ok_button.png" />
 cp_hazard_logo=<img src="cp_hazard_logo.png" />

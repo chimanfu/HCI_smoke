@@ -59,29 +59,24 @@ sanity check only checks after 'OK, now running sanity checks'
 
 */
 
-
 KeywordLogger log = new KeywordLogger()
-
-Screen s = new Screen()
 
 search_term = 'test_automation_record'
 
 String url = GlobalVariable.G_MAKE_MAS_url
-
+WebUI.comment 'now checking the URL from the GlobalVariable.G_MAKE_MAS_url: '+url
 if (url.contains('doctree')) {
-	println('this is doctree')
-	return
-	
+	WebUI.comment('this is doctree')
+	return	
 }
 if (url.contains('etasksheet')) {
-	println('this is doctree')
-	return
-	
+	WebUI.comment('this is doctree')
+	return	
 }
-if (url.contains('MAKE-MAS')) {
-    println('The URL contains MAKE-MAS, so it is a test OR dev instance')
+if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
+    WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
 } else {
-    log.logWarning('The URL does not contain MAKE-MAS, so it is NOT a test instance, so should not create new record on production site')
+    log.logWarning('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new record on production site')
     return null
 }
 
@@ -93,9 +88,28 @@ if (!(GlobalVariable.addNewRecord)) {
     log.logInfo('if the record is not already exists, will add a new record with name=' + search_term)
 }
 
+WebUI.comment 'randomly to run this test or not (0 or 1)'
+if ((int) (Math.random()+0.5)){
+	WebUI.comment('perform test this time')
+}
+else{
+	WebUI.comment 'will skip running it this time to save time'
+	return
+}
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-println('will create a new record ONLY if not already exists')
+// final check to make sure it's not production site
+url=WebUI.getUrl()
+WebUI.comment 'now checking thr URL from the current page from browser: '+url
+if (url.contains('MAKE-MAS') && url.contains('dev')) {
+	WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+} else {
+	log.logWarning('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new record on production site')
+	return null
+}
+
+WebUI.comment('will create a new record ONLY if not already exists')
 
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 
@@ -104,17 +118,17 @@ WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 WebUI.waitForElementVisible(findTestObject('Page_Record List/div_Displaying_how_many_found'), 10)
 
 //if (WebUI.getText(findTestObject('Page_Record List/div_Displaying_how_many_found')).contains('0 of 0')){
-//println('0 of 0 record found with search term='+search_term)
+//WebUI.comment('0 of 0 record found with search term='+search_term)
 if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'), FailureHandling.OPTIONAL)) {
-    println('No record found with search term=' + search_term)
+    WebUI.comment('No record found with search term=' + search_term)
 
-    println('will add a new record with tile =' + search_term)
+    WebUI.comment('will add a new record with tile =' + search_term)
 
     WebUI.click(findTestObject('Page_Main Page/a_New'))
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (GlobalVariable.G_MAKE_MAS_url.contains('react_cp_hazard_dev')) {
-        println('this is react_cp_hazard_dev')
+        WebUI.comment('this is react_cp_hazard_dev')
 
         WebUI.click(findTestObject('Page_Select Record Type/a_Hazard'))
 		
@@ -135,16 +149,16 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
         //WebUI.delay(1)
         //String url = elements.get(0).getAttribute("href");
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('cp_oms')) {
-        println('this is cp_oms')
+        WebUI.comment('this is cp_oms')
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('arc_praca')) {
-        println('this is arc_praca')
+        WebUI.comment('this is arc_praca')
 
         WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))
 
         WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_options'), 'AF - Aviation Systems Division', 
             true)
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
-        println('this is iss_hazard')
+        WebUI.comment('this is iss_hazard')
 
         WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New blank record'))
 
@@ -152,7 +166,7 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
     } else {
         WebDriver driver = DriverFactory.getWebDriver()
 
-        println('get all new record links from the New Record Page')
+        WebUI.comment('get all new record links from the New Record Page')
 
         List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"))
 
@@ -174,12 +188,12 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    println('going to add a short description in title field, then create a new record with ttile ' + search_term)
-
+    WebUI.comment('going to add a short description in title field, then create a new record with ttile ' + search_term)
+	Screen s = new Screen()
     if (GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
         WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
 
-        println('this is iss_hazard')
+        WebUI.comment('this is iss_hazard')
 
         WebUI.delay(1)
 
@@ -222,5 +236,5 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
     WebUI.waitForElementVisible(findTestObject('Page_Record View - test_automation_record/div_test_automation_record'), 
         5,FailureHandling.STOP_ON_FAILURE)
 } else {
-    println('found records with search term=' + search_term)
+    WebUI.comment('found records with search term=' + search_term)
 }

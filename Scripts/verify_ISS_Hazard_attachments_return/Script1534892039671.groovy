@@ -31,10 +31,11 @@ import org.sikuli.script.Key;
 import org.sikuli.script.KeyModifier
 import org.sikuli.script.Screen;
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
-	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	GlobalVariable.userPin2='SKIP'
-	return
+
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))) {
+	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
+	GlobalVariable.userPin2 = 'SKIP'
+	return null
 }
 if ( GlobalVariable.G_MAKE_MAS_url.contains('react_iss_hazard')){
 	WebUI.comment 'Skip this testcase as react_iss_hazard may not work on attachments'
@@ -45,26 +46,33 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 //String recordID='147'
 String recordID='43778'
+if ((GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))){
+	recordID='8189'
+}
+
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabBasic_Information&gv=group'
-
 WebUI.navigateToUrl(siteURL)
 
 WebUI.scrollToElement(findTestObject('Page_Record_43778_iss_hazard/div_Attachments'),10)
 
-WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_ppt_icon_attachment'))
-CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
-
-WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_doc_icon_attachment'))
-CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
-
-WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_pdf_icon_attachment'))
-CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(100)
-
-WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_xls_icon_attachment'))
-CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
-
+if (WebUI.waitForElementVisible(findTestObject('Page_Record_43778_iss_hazard/a_ppt_icon_attachment'),3)){
+	WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_ppt_icon_attachment'))
+	CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+}
+if (WebUI.waitForElementVisible(findTestObject('Page_Record_43778_iss_hazard/a_doc_icon_attachment'),3)){
+	WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_doc_icon_attachment'))
+	CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+}
+if (WebUI.waitForElementVisible(findTestObject('Page_Record_43778_iss_hazard/a_pdf_icon_attachment'),3)){
+	WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_pdf_icon_attachment'))
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(100)
+}
+if (WebUI.waitForElementVisible(findTestObject('Page_Record_43778_iss_hazard/a_xls_icon_attachment'),3)){
+	WebUI.click(findTestObject('Page_Record_43778_iss_hazard/a_xls_icon_attachment'))
+	CustomKeywords.'hci_smoke_test.common.check_defaultFile_Downloaded'(100)
+}
 return
 
 ////////////////////////////

@@ -24,7 +24,7 @@ import org.sikuli.script.KeyModifier
 import org.sikuli.script.Screen;
 
 println('Only for iss_part: Basic FMEA tab -> VMDB Integration')
-if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part') && !GlobalVariable.G_MAKE_MAS_url.contains('part.iss')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	GlobalVariable.userPin2='SKIP'
 	return
@@ -38,7 +38,14 @@ try {
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly go to record 7168 which has VMDB integration')
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_part_dev/show_bug.cgi?id=7168')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_part_dev/show_bug.cgi?id=7168')
+recordID='7168'
+siteURL=GlobalVariable.G_MAKE_MAS_url
+baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID
+// goto recordID
+WebUI.navigateToUrl(siteURL)
 
 println 'verify VMDB Linkable Fields'
 WebUI.waitForElementVisible(findTestObject('Page_Record_7168_PRACA/span_VMDB Linkable Fields'),10)

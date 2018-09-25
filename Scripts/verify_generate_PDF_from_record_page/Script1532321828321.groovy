@@ -109,12 +109,11 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 
 }
 WebUI.comment 'verify PDF report will be generated successfully and check pdf file downloaded'
-String recordName_for_PDFReport
+String recordName_for_PDFReport='1,3,10,11,12,14,15,18,20,40,50,70,80,100,200,300,400'
 //recordName_for_PDFReport='test_automation_record'
-
 //recordName_for_PDFReport=GlobalVariable.recordName1
-recordName_for_PDFReport='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
-
+//recordName_for_PDFReport='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+//recordName_for_PDFReport='1,3,10,11,12,14,15,18,20,40,50,70,80,100,200,300,400'
 /*if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	println('do not need to run generate PDF report test')
 	return
@@ -124,7 +123,9 @@ WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_test_automation_rec
 WebUI.click(findTestObject('Page_Main Page/a_test_automation_record'))
 */
 WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),25)
-WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+//WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+	WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 WebUI.waitForPageLoad(5)
 WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordName_for_PDFReport)
 WebUI.click(findTestObject('Page_Main Page/bt_Search'))

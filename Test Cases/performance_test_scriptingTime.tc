@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>performance_test_scriptingTime</name>
+   <tag></tag>
+   <comment>switch to Performance TAB
+average scripting time of reloading page &quot; + reload_times + &quot; times = &quot; + average_Scripting_time + &quot; ms</comment>
+   <testCaseGuid>0f385518-8db3-44cd-9950-bef3c6ac72f0</testCaseGuid>
+</TestCaseEntity>

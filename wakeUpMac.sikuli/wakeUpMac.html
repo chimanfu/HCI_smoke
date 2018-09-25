@@ -76,7 +76,7 @@ pin_field=<img src="pin_field.png" />
 new_PIN_field=<img src="new_pin_field.png" />
 <span class="skw">wait</span>(<span class="dig">1</span>)
 run(<span class="str">'caffeinate -u -t 2&amp;'</span>)
-<span class="kw">if</span> exists(new_PIN_field,<span class="dig">20</span>):
+<span class="kw">if</span> exists(new_PIN_field,<span class="dig">30</span>):
     <span class="skw">click</span>(new_PIN_field)
     <span class="skw">type</span>(<span class="str">'10051965\n'</span>)
 <span class="kw">elif</span> exists(pin_field,<span class="dig">1</span>):

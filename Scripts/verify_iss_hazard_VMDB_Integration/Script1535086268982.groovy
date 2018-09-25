@@ -7,15 +7,12 @@ import internal.GlobalVariable as GlobalVariable
 // ? found connection reset in VMDB Linkable Field of Part Number: 100 ?
 println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
 
-if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
+if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))) {
     WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
-
-    WebUI.comment('Skip this testcase')
-
     GlobalVariable.userPin2 = 'SKIP'
-
     return null
 }
+
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -68,10 +65,16 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')) {
 
     WebUI.click(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'))
 }
-
+//'click on create link button'
+//WebUI.click(findTestObject('Page_Record_256_mcard/button_Create Link'))
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/img_Create_Link_button'),1)){
+	WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/img_Create_Link_button'))
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+}
 // check VMDB errors
 if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/errorMsg_sqlQuerySQLParser'), 
-    2)) {
+    1)) {
     KeywordUtil.markFailedAndStop('ERROR: found error message -> sqlQuery:SQLParser.parse: malformed sql')
     throw new AssertionError('ERROR: found error message -> sqlQuery:SQLParser.parse: malformed sql')
 }
@@ -79,6 +82,7 @@ if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_82
 if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_8265_iss_hazard/span_Connection reset'), 1)) {
     KeywordUtil.markWarning('Warning: found Connection reset from search result')
     //throw new AssertionError('ERROR: found Connection reset from search result')
+	return
 	
 }
 
@@ -86,6 +90,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record_2769_FMEA/div_error_
     KeywordUtil.markFailedAndStop('ERROR: DAGGR_server_not_configured')
     throw new AssertionError('ERROR: DAGGR_server_not_configured')
 }
+
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 

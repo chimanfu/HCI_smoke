@@ -12,10 +12,10 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
 
-println 'directly goto the record id from site profile'
-println('get all Tabs from the Record Page')
-println 'click on each tab'
-println 'verify no js error and each tab is loaded properly '
+WebUI.comment 'directly goto the record id from site profile'
+WebUI.comment('get all Tabs from the Record Page')
+WebUI.comment 'click on each tab'
+WebUI.comment 'verify no js error and each tab is loaded properly '
 
 int retry_count = 0;
 int maxTries = 3;
@@ -25,7 +25,7 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-println 'directly goto the record id from site profile'
+WebUI.comment 'directly goto the record id from site profile'
 String recordID=GlobalVariable.recordName1
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (recordID.trim().equals("") || recordID.trim().equals(null)){
@@ -38,7 +38,8 @@ if (StringUtils.isNumeric(recordID)){
 }else{
 	// if recordID is not number
 	WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
-	WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+		WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 	WebUI.waitForPageLoad(5)
 	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordID)
 	WebUI.click(findTestObject('Page_Main Page/bt_Search'))
@@ -46,21 +47,21 @@ if (StringUtils.isNumeric(recordID)){
 }
 
 WebUI.waitForPageLoad(30)
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),25)
+WebUI.delay(5)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),5)
 WebDriver driver = DriverFactory.getWebDriver()
 
-println('get all Tabs from the Record Page')
+WebUI.comment('get all Tabs from the Record Page')
 List<WebElement> elements = driver.findElements(By.xpath("//div[@class='labelAndIcon']/div[@class='tablabel']"));
 int size=elements.size()
-println('size='+size)
+WebUI.comment('size='+size)
 for (int i = 0; i < size; i++) {
-	KeywordUtil.logInfo("Record Tab Name: " + elements.get(i).getText());
-	println 'click on each tab'
+	KeywordUtil.logInfo("will click on Record Tab Name: " + elements.get(i).getText());
+	//WebUI.comment 'click on each tab'
 	elements.get(i).click()
-	println 'verify no js error and each tab is loaded properly '
+	WebUI.comment 'verify no js error and each tab is loaded properly '
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),25)
+	//WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),1)
 }
 
 return

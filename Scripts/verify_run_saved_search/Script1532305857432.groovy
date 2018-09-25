@@ -56,7 +56,8 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+//String search_term='1,2,3,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500'
+String search_term='1,3,10,11,12,14,15,18,20,40,50,70,80,100,200,300,400'
 String saveSearchName='joe_search'
 WebUI.waitForElementPresent(findTestObject('Page_Main Page/input_quicksearch'),15)
 if (!WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'),10)){
@@ -65,6 +66,7 @@ if (!WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_SavedSearches'
 }
 WebUI.click(findTestObject('Page_Main Page/a_SavedSearches'))
 
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_My Records'),3)
 WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 
 WebUI.delay(1)

@@ -37,12 +37,14 @@ println('Select Hazard from the Source Type list')
 println('Search for Hazard Number field with searchTerm: open work')
 println('verify CP-Hazard search results')
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr') ) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
+
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -54,12 +56,19 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 WebDriver driver = DriverFactory.getWebDriver()
 //def driver = DriverFactory.getWebDriver()
 String baseUrl = "https://www.katalon.com/"
-selenium = new WebDriverBackedSelenium(driver, baseUrl)
+//selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
 println('check cp-hazard integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
-selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=126#tv=Authoritative%20Sources")
+//selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=126#tv=Authoritative%20Sources")
 
+recordID='126'
+siteURL=GlobalVariable.G_MAKE_MAS_url
+baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Authoritative%20Sources'
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+selenium.open(siteURL)
 
 println('Select Hazard from the Source Type list')
 CustomKeywords.'hci_smoke_test.common.waifForElement'("id=cf_source_type_NEW_ROW_1",25)

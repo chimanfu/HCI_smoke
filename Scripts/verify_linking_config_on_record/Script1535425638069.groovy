@@ -29,9 +29,9 @@ import org.sikuli.script.KeyModifier as KeyModifier
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*'only run on sites that aleady have dagger_server defined, except gmip'
-println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
+WebUI.comment('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
 if (myStringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url) && !GlobalVariable.G_MAKE_MAS_url.contains('gmip')){
-	println('do not need to run this test')
+	WebUI.comment('do not need to run this test')
 	WebUI.comment 'Skip this testcase as no dagger server defined for this site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
@@ -41,7 +41,7 @@ if (myStringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url) && !GlobalVa
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 
-println 'directly goto the record id from site profile'
+WebUI.comment 'directly goto the record id from site profile'
 String recordID=GlobalVariable.recordName1
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (recordID.trim().equals("") || recordID.trim().equals(null)){
@@ -56,7 +56,9 @@ if (StringUtils.isNumeric(recordID)){
 else{
 	// if recordID is not number
 	WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
-	WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+	//WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+		WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 	WebUI.waitForPageLoad(5)
 	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordID)
 	WebUI.click(findTestObject('Page_Main Page/bt_Search'))
@@ -64,44 +66,45 @@ else{
 }
 
 WebUI.waitForPageLoad(30)
-WebUI.delay(1)
-WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),25)
+WebUI.delay(5)
+WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),3)
 WebDriver driver = DriverFactory.getWebDriver()
 
-println('get all Tabs from the Record Page')
-println 'click on each tab to look for Linked Records setting'
-println 'create link by entering search content '
-println 'select one record from the search list and link it'
-println 'check the record is linked successfully'
+WebUI.comment('get all Tabs from the Record Page')
+WebUI.comment 'click on each tab to look for Linked Records setting'
+WebUI.comment 'create link by entering search content '
+WebUI.comment 'select one record from the search list and link it'
+WebUI.comment 'check the record is linked successfully'
 List<WebElement> elements = driver.findElements(By.xpath("//div[@class='labelAndIcon']/div[@class='tablabel']"));
 int size=elements.size()
-println('size='+size)
+WebUI.comment('size='+size)
 for (int i = 0; i < size; i++) {
-	KeywordUtil.logInfo("Record Tab Name: " + elements.get(i).getText());
+	WebUI.comment("Record Tab Name: " + elements.get(i).getText());
 	elements.get(i).click()
 	WebUI.delay(1)
-	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/input_create_link_search'),5)){
-		WebUI.click(findTestObject('Page_Record_contents/label_Create link'))
+	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/input_create_link_search'),4)){
+		WebUI.comment 'found input_create_link_search in this TAB, so trying to verify linking config now...'
+		if (WebUI.waitForElementClickable(findTestObject('Page_Record_contents/label_Create link'),4))
+			WebUI.click(findTestObject('Page_Record_contents/label_Create link'))
 		
-		WebUI.click(findTestObject('Page_Record_contents/div_Search content...'))
+		//WebUI.click(findTestObject('Page_Record_contents/div_Search content...'))
 		
 		WebUI.setText(findTestObject('Page_Record_contents/input_create_link_search'), 'system')
 		
 		WebUI.sendKeys(findTestObject('Page_Record_contents/input_create_link_search'), Keys.chord(Keys.ENTER))
 		
-		WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_Record_selected'),30)
-		
-		WebUI.click(findTestObject('Page_Record_contents/div_Record_selected'))
+		if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_Record_selected'),8))
+			WebUI.click(findTestObject('Page_Record_contents/div_Record_selected'))
 		
 		// check the record is linked
-		WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_trash'),5)
-		WebUI.click(findTestObject('Page_Record_contents/div_trash'))
-		
-		WebUI.click(findTestObject('Page_Record_contents/div_trash'))
+		if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/div_trash'),4)){
+			WebUI.click(findTestObject('Page_Record_contents/div_trash'))			
+			WebUI.click(findTestObject('Page_Record_contents/div_trash'))
+		}
 		break
+	}else{
+		WebUI.comment 'not found input_create_link_search in the TAB'
 	}
-		
-
 }
 
 CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()

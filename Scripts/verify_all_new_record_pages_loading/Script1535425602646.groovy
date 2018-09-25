@@ -93,34 +93,53 @@ else{
 //boolean STOP_ON_FAILURE=false
 //CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
+if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2))
+	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'))
+
+
 driver = DriverFactory.getWebDriver()
-println('get all new record links from the New Record Page')
+WebUI.comment('get all new record links from the New Record Page')
 elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
 //WebElement firstElement = elements.get(0);
 size=elements.size()
+if (size>10){
+	WebUI.comment 'randomly to run verifyLinksAccessible() on all new record links or only first 10 links'
+	if ((int) (Math.random()+0.5)){
+		WebUI.comment 'found '+size+' create new record links, only run verifyLinksAccessible() on first 10 links to save time'
+		size=10		
+	}
+	else{
+		WebUI.comment 'found '+size+' create new record links, run verifyLinksAccessible() on all new record liniks'		
+	}
+}
+
+//WebUI.comment 'found '+size+' links to create new record links'
 urls = new String[size]
 for (int i = 0; i < size; i++) {
-	println('get new record link name and url')
+	//println('get new record link name and url')
 	found_new_record_link=elements.get(i).getText()
 	url = elements.get(i).getAttribute("href");
 	urls[i]=url
-	log.logInfo("found_new_record_link: " + found_new_record_link);
-	log.logInfo("with URL: " + url);
+	log.logInfo("found new_record name: " + found_new_record_link+ "with URL: " + url);
+	//log.logInfo("with URL: " + url);
 }
 
-println 'use verifyLinksAccessible() to verify all new record links are Accessible'
+WebUI.comment 'run verifyLinksAccessible() to verify all new record links are Accessible'
 list_urls= Arrays.asList(urls);
 WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
 
-println 'navigate each link url to open new record page'
-println 'check for js error on each new record page when page is being loaded'
+if (size>10){
+	WebUI.comment 'found '+size+' create new record links, only navigate first 10 links to save time and check for js error on each loaded record page'
+	size=10
+} else{
+	WebUI.comment 'navigate each link url to open new record page and check for js error on each new record page when page is being loaded'
+}
 for (int i = 0; i < size; i++) {
-	println('navigate to new record link: '+urls[i])
+	WebUI.comment('navigate to new record link: '+urls[i])
 	WebUI.navigateToUrl(urls[i])
 	//driver.navigate().to(url)
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 	//WebUI.click(findTestObject('Page_Main Page/a_New'))
-
 }
 return
 /////////////////////////////////////////////////////////////////////////////

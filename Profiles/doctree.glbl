@@ -11,7 +11,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/doctree_dev'</initValue>
+      <initValue>'https://mas.nasa.gov/doctree'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

@@ -37,7 +37,15 @@ try {
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 println('directly goto record 256 -> Verification tab from search: Monitored Condition record type')
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/mcard_dev/show_bug.cgi?id=256#tv=Verification')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/mcard_dev/show_bug.cgi?id=256#tv=Verification')
+
+recordID='256'
+siteURL=GlobalVariable.G_MAKE_MAS_url
+//baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Verification'
+// goto recordID and Verifications TAB
+WebUI.navigateToUrl(siteURL)
 
 println 'select Verification Tab'
 WebUI.waitForElementClickable(findTestObject('Page_Record_256_mcard/div_Verification'),25)

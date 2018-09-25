@@ -33,11 +33,19 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 String baseUrl = "https://www.katalon.com/"
 WebDriver driver = DriverFactory.getWebDriver()
-selenium = new WebDriverBackedSelenium(driver, baseUrl)
+//selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
 //def driver = DriverFactory.getWebDriver()
 println('directly go to record 76 and open Products Tab')
-selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=76#tv=Products")
+//selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=76#tv=Products")
+
+recordID='76'
+siteURL=GlobalVariable.G_MAKE_MAS_url
+baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Products'
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+selenium.open(siteURL)
 
 //searchTerm="criterion"
 println('check cp-inventory integration on record 76->Products Tab->Mapped Product: Search for Record ID field with searchTerm: '+searchTerm)

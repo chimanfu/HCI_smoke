@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>New Test Case (2)</name>
+   <name>find_record_creator</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>0f385518-8db3-44cd-9950-bef3c6ac72f0</testCaseGuid>
+   <testCaseGuid>9c406c6a-7985-4f69-8522-bdb113e6dfd5</testCaseGuid>
 </TestCaseEntity>
