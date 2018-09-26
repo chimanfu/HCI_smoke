@@ -632,6 +632,14 @@ def static "com.jira.utils.CustomGlobalVariable.addGlobalVariable"(
          , 	value)
 }
 
+def static "hci_smoke_test.performance.get_average_scripting_time_loadingPage"(
+    	int reload_times	
+     , 	String pageName	) {
+    (new hci_smoke_test.performance()).get_average_scripting_time_loadingPage(
+        	reload_times
+         , 	pageName)
+}
+
 def static "question.VerifyInItemGrid.verifyItemInTheGrid"(
     	TestObject topDropDown	
      , 	int dropDownItemCount	

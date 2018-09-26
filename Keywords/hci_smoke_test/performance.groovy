@@ -25,7 +25,7 @@ public class performance {
 
 
 	@Keyword
-	def get_average_scripting_time_loadingPage(int reload_times){
+	def get_average_scripting_time_loadingPage(int reload_times, String pageName){
 		// Simple Peformance tests
 		// based on Kevin's approach in https://docs.google.com/document/d/1DGDvkmqTtdsYkrLHaBTcbuaxA2YwBpaHIjuLLTVVj4k/edit#heading=h.qpkrro43rjvj
 
@@ -43,7 +43,8 @@ public class performance {
 		 */
 
 		//prerequite: should already navigated to the page (record view, tab view, sanity check) that performance test will be run on
-
+		
+		WebUI.comment 'will find the loading (scripting) time of '+pageName+' Page by getting average of reloading page '+reload_times+' times'
 		//launch the devtool from Chrome
 		Screen s = new Screen()
 		App.focus('Google Chrome.app')
@@ -103,7 +104,8 @@ public class performance {
 
 			print 'reload page time '+(number+1)+' = '+time_load[number]+' ms\n'
 		}
-		WebUI.comment 'average scripting time of reloading page '+reload_times+' times = '+average_Scripting_time+' ms'
-
+		WebUI.comment '----------------------------------------------------------------------------------------------------------------'
+		WebUI.comment 'Average scripting time of reloading '+pageName+' Page of '+reload_times+' times = '+average_Scripting_time+' ms'
+		WebUI.comment '----------------------------------------------------------------------------------------------------------------'
 	}
 }

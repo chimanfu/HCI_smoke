@@ -126,6 +126,8 @@ public class LoginHelper {
 			try{
 				WebUI.switchToWindowIndex(0)
 				WebUI.switchToDefaultContent()
+				WebUI.maximizeWindow()
+				
 				WebDriver driver = DriverFactory.getWebDriver()
 				ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
 				println("No. of tabs: " + tabs.size())
@@ -147,7 +149,15 @@ public class LoginHelper {
 			 }catch (Exception e) {
 			 WebUI.switchToWindowIndex(0)
 			 }*/
-
+			// check if the restore pages is showing (restore_pages_cancel_button.png)
+			if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+				WebUI.delay(1)
+				//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+				//WebUI.delay(1)
+				Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+				//r=s.exists(pImage,1);
+				s.click(s.exists(pImage,1), 1)
+			}
 			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 			WebUI.comment 'Access Launchpad login'
@@ -155,28 +165,58 @@ public class LoginHelper {
 				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 				WebUI.waitForPageLoad(6)
 				WebUI.delay(1)
-
-				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
-				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-
-				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				///////////
+				for (int i = 0; i <3; i++) {
+					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',5)!=null){
+						s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					}
 					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
 						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 					}
+					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',5)!=null){
+						WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+						s.type(GlobalVariable.G_userPin+"\n")
+						break
+					}else{
+						WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+						s.type(GlobalVariable.G_userPin+"\n")
+						break
+					}
 				}
-				//			WebUI.delay(4)
-				//			s.type(GlobalVariable.G_userPin+"\n")
-				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}else{
-					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}
+				
+				
+				////////
+//				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
+//				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+//
+//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+//					}
+//				}
+//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)!=null){
+//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+//					}
+//				}
+//				//			WebUI.delay(4)
+//				//			s.type(GlobalVariable.G_userPin+"\n")
+//				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+//					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+//					s.type(GlobalVariable.G_userPin+"\n")
+//				}else{
+//					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+//					s.type(GlobalVariable.G_userPin+"\n")
+//				}
+				
 				WebUI.delay(5)
 				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7)){
 					WebUI.delay(1)
@@ -323,13 +363,35 @@ public class LoginHelper {
 			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 		}
-		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),17,FailureHandling.OPTIONAL)){
 			try{
+				////////
 				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 				WebUI.waitForPageLoad(6)
 				WebUI.delay(1)
-				WebUI.comment('found on input_SCLOGIN')
-				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+				WebUI.comment('found button input_SCLOGIN from Access Launchpad')
+				for (int i = 0; i <3; i++) {
+					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',(5-i))!=null){
+						s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					}
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',(5-i))!=null){
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
+					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i))!=null){
+						WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+						s.type(GlobalVariable.G_userPin+"\n")
+						break
+					}else{
+						if ((s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)==null)&&(s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)==null)){
+							WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+							s.type(GlobalVariable.G_userPin+"\n")
+							break
+						}
+					}
+				}
+				////////
+				
+				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
 				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 
 				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
@@ -349,7 +411,9 @@ public class LoginHelper {
 					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 					WebUI.delay(2)
 					s.type(GlobalVariable.G_userPin+"\n")
-				}
+				}*/
+				
+				
 			}catch (Exception e) {
 				KeywordUtil.markFailedAndStop(e.message)
 			}

@@ -4,7 +4,7 @@
    <name>smoke_test_loginVPN</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-09-23T21:29:21</lastRun>
+   <lastRun>2018-09-25T21:29:37</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
