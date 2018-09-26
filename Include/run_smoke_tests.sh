@@ -17,7 +17,7 @@ then
     echo "jenkins already running"
 else
     echo "jenkins Stopped, run it now"
-    java -jar ~/Katalon\ Studio/HCI_Group/Include/jenkins.war &
+    java -jar ~/Katalon\ Studio/HCI_Group/Drivers/jenkins.war &
 fi
 
 
