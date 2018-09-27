@@ -1,39 +1,12 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import static org.junit.Assert.*
 import org.openqa.selenium.Keys as Keys
-import internal.GlobalVariable as GlobalVariable
-import org.sikuli.script.Key;
-import org.sikuli.script.Screen;
-import org.sikuli.script.KeyModifier
 import org.openqa.selenium.WebDriver
 import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
-import com.thoughtworks.selenium.Selenium
-
-import com.thoughtworks.selenium.Selenium
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.WebDriver
-import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
-import static org.junit.Assert.*
-import java.util.regex.Pattern
-import static org.apache.commons.lang3.StringUtils.join
+import internal.GlobalVariable as GlobalVariable
 
 println 'only run on cp_hazard'
 println 'directly goto existing record 6505->Verifications Tab'
@@ -60,7 +33,7 @@ try {
 
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('training')){
 	//selection='DMM'
 	//selection='DVO'
 	selection='LCC'

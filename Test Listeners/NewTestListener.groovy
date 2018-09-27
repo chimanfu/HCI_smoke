@@ -38,7 +38,11 @@ class NewTestListener {
 				log.logNotRun("NOT run testcase: "+testcaseName)
 				GlobalVariable.userPin2='SKIP'
 			}
-		}		
+		}	
+		if (GlobalVariable.userPin3.equals('SKIP')){
+			log.logNotRun("NOT run testcase: "+testcaseName)
+			GlobalVariable.userPin2='SKIP'
+		}
 		//println testCaseContext.getTestCaseVariables()
 		//String cmd = "pkill -f Chrome"
 		//Runtime.getRuntime().exec(cmd)

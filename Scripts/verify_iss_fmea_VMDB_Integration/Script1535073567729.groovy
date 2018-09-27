@@ -1,10 +1,8 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-
 import org.openqa.selenium.Keys as Keys
-
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-
 import internal.GlobalVariable as GlobalVariable
 
 println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')

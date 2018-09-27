@@ -2,18 +2,13 @@ if (GlobalVariable.userPin2.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.apache.commons.lang3.StringUtils
-import com.mysql.jdbc.StringUtils as myStringUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys as Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
-import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
-import org.sikuli.script.Key;
-import org.sikuli.script.Screen;
-import org.sikuli.script.KeyModifier as KeyModifier
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	verify linking configuration is functioning by looking into one record and creating a link record in the Linked Records setting 
 //  from one of the Tabs

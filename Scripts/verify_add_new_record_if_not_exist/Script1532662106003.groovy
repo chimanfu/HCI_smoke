@@ -1,46 +1,15 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import org.openqa.selenium.Keys as Keys
-import internal.GlobalVariable as GlobalVariable
-import org.sikuli.script.Key;
-import org.sikuli.script.Screen;
-import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
-import java.util.List
-import com.kms.katalon.core.webui.driver.DriverFactory
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import java.util.List;
-import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.osgi.framework.AdminPermission
-import org.postgresql.translation.messages_bg
-import org.python.antlr.PythonParser.return_stmt_return
-import org.openqa.selenium.WebDriver
-import org.sikuli.script.Screen as Screen
+import org.sikuli.script.Key;
+import org.sikuli.script.Screen;
+import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
 /*
  This test may not need to run if already know which record can do diff report in dev sites

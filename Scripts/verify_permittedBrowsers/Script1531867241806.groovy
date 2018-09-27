@@ -1,22 +1,5 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
@@ -51,12 +34,16 @@ WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Po
 WebUI.scrollToElement(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),10)
 WebUI.click(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'))
 
-println('check permittedBrowsers value from permittedBrowsers parameter')
+WebUI.comment('check permittedBrowsers value from permittedBrowsers parameter')
 value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'), 'value')
-println('actual value of permittedBrowsers = '+value_permittedBrowsers)
-WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, false)
-println('matched with expected permittedBrowsers value = '+GlobalVariable.G_permitted_browser)
+WebUI.comment('actual value of permittedBrowsers = '+value_permittedBrowsers)
 
+if (!GlobalVariable.G_MAKE_MAS_url.contains('training')) {
+	WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, false)
+	WebUI.comment('matched with expected permittedBrowsers value = '+GlobalVariable.G_permitted_browser)
+}else{
+	WebUI.comment 'GlobalVariable.G_permitted_browser='+GlobalVariable.G_permitted_browser
+}
 
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.switchToWindowIndex(1)

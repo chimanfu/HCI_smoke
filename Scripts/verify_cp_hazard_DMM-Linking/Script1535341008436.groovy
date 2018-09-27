@@ -1,9 +1,8 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
-	import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import static org.junit.Assert.*
 import org.openqa.selenium.Keys as Keys
 import org.openqa.selenium.WebDriver as WebDriver
-import org.sikuli.script.Key as Key
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
@@ -37,7 +36,7 @@ while(true){
 	try {
 		/////////////////////////////////////////////////////////////////////////////
 		CustomKeywords.'helper.login.LoginHelper.login'()
-		if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+		if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('training')){
 			selection='DMM'
 			//selection='DVO'
 			//selection='LCC'

@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static org.junit.Assert.*
 import org.sikuli.script.Key;
 import org.sikuli.script.Screen;

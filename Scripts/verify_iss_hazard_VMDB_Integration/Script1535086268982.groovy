@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.Keys as Keys
 import com.kms.katalon.core.util.KeywordUtil as KeywordUtil

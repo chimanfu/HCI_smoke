@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>smoke_test</name>
+   <name>smoke_test_on_training_site</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-09-26T20:35:07</lastRun>
+   <lastRun>2018-09-26T20:35:08</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>true</rerunFailedTestCasesOnly>
-   <testSuiteGuid>3c5a669d-c1fb-41c1-bbfe-b97c9fe78638</testSuiteGuid>
+   <testSuiteGuid>19f68952-11ee-4ef1-b2ab-5b926fd3d2a9</testSuiteGuid>
+   <testCaseLink>
+      <guid>4fd939b8-fbaa-4d06-a34c-9a679b3a9a02</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/switch_to_training_site</testCaseId>
+   </testCaseLink>
    <testCaseLink>
       <guid>7afd3060-2e92-4ce8-8c98-795715a214db</guid>
       <isReuseDriver>false</isReuseDriver>

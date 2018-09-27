@@ -1,25 +1,8 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
-import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import internal.GlobalVariable as GlobalVariable
 import com.mysql.jdbc.StringUtils;
+import internal.GlobalVariable as GlobalVariable
 
 /*
  * check value of daggr_server parameter from Admin->Parameters->DAggr Params
@@ -35,9 +18,9 @@ import com.mysql.jdbc.StringUtils;
 
 
 //if (GlobalVariable.G_dagger_server_url.)
-println('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
+WebUI.comment('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
 if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
-	println('do not need to run this test')
+	WebUI.comment('do not need to run this test')
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
@@ -65,11 +48,18 @@ WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/dd
 
 value_dagger_server=WebUI.getAttribute(findTestObject('Object Repository/Page_Configuration DAggr Params/input_daggr_server'), 'value')
 
-println('value of value_dagger_server = '+value_dagger_server)
+
+WebUI.comment('value of actual value_dagger_server = '+value_dagger_server)
 
 //GlobalVariable.G_dagger_server_url='https://dig-it-dev.nas.nasa.gov/dig_it-server/services/'
-WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false)
+//WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false)
 
+if (!GlobalVariable.G_MAKE_MAS_url.contains('training')) {
+	WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false)
+	WebUI.comment('matched with expected dagger_server_url value = '+GlobalVariable.G_dagger_server_url)
+}else{
+	WebUI.comment 'GlobalVariable.G_dagger_server_url='+GlobalVariable.G_dagger_server_url
+}
 //WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/a_Home'))
 
 /////////////////////////////////////////////////////////////////////////////
