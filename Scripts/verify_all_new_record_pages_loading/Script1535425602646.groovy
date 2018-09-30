@@ -1,14 +1,15 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import org.openqa.selenium.By;
+import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement;
+import org.python.antlr.PythonParser.return_stmt_return
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* verify all links in create New record page are accessible and each add new record link is loading without any errors.
  * 
@@ -24,6 +25,10 @@ import internal.GlobalVariable as GlobalVariable
  * 		navigate each link url to open new record page 
  * 		check for js error on each new record page when page is being loaded
  *///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+boolean create_new_record_on_training=false
+int max_new_recording_page_loading=5
+
 KeywordLogger log = new KeywordLogger()
 String found_new_record_link
 String url
@@ -34,7 +39,7 @@ WebDriver driver
 List<String> list_urls
 
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
@@ -62,7 +67,7 @@ else{
 //boolean STOP_ON_FAILURE=false
 //CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
-if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2))
+if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2,FailureHandling.OPTIONAL))
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'))
 
 
@@ -71,15 +76,16 @@ WebUI.comment('get all new record links from the New Record Page')
 elements = driver.findElements(By.xpath("//a[contains(@href, 'enter_bug.cgi?')]"));
 //WebElement firstElement = elements.get(0);
 size=elements.size()
-if (size>10){
-	WebUI.comment 'randomly to run verifyLinksAccessible() on all new record links or only first 10 links'
-	if ((int) (Math.random()+0.5)){
-		WebUI.comment 'found '+size+' create new record links, only run verifyLinksAccessible() on first 10 links to save time'
-		size=10		
-	}
-	else{
+if (size>max_new_recording_page_loading){
+	WebUI.comment 'randomly to run verifyLinksAccessible() on all new record links or only first '+max_new_recording_page_loading+' links'	
+	WebUI.comment 'found '+size+' create new record links, only run verifyLinksAccessible() on first '+max_new_recording_page_loading+' links to save time'
+	size=max_new_recording_page_loading		
+	
+	/*else{
 		WebUI.comment 'found '+size+' create new record links, run verifyLinksAccessible() on all new record liniks'		
-	}
+	}*/
+}else{
+	WebUI.comment 'found '+size+' create new record links, run verifyLinksAccessible() on all new record liniks'		
 }
 
 //WebUI.comment 'found '+size+' links to create new record links'
@@ -97,9 +103,9 @@ WebUI.comment 'run verifyLinksAccessible() to verify all new record links are Ac
 list_urls= Arrays.asList(urls);
 WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
 
-if (size>10){
-	WebUI.comment 'found '+size+' create new record links, only navigate first 10 links to save time and check for js error on each loaded record page'
-	size=10
+if (size>max_new_recording_page_loading){
+	WebUI.comment 'found '+size+' create new record links, only navigate first '+max_new_recording_page_loading+' links to save time and check for js error on each loaded record page'
+	size='+max_new_recording_page_loading+'
 } else{
 	WebUI.comment 'navigate each link url to open new record page and check for js error on each new record page when page is being loaded'
 }
@@ -110,6 +116,48 @@ for (int i = 0; i < size; i++) {
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 	//WebUI.click(findTestObject('Page_Main Page/a_New'))
 }
+// will exit if create_new_record_on_training=false
+if (!create_new_record_on_training) return
+
+/////////////////////////////////////////////////////////////////////////////
+///////// create a new record for the training site
+search_term = 'test_create_record_on_training'
+if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+	WebUI.comment 'this is a training site, so trying to create a new record'
+	WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
+	WebUI.navigateToUrl(urls[0])
+	WebUI.delay(1)
+	WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_short_desc'),10)
+	WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
+
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/span_component_required'),2,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record 20g Centrifuge/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
+	}
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/span_mandatory_on_close_filled'),1,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.OPTIONAL)){
+			WebUI.selectOptionByIndex(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
+		}
+	}
+	
+	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)
+	WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))
+	// check record is created
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'),15,FailureHandling.OPTIONAL)){
+		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'))
+		WebUI.comment (recordID+' has been created successfully')
+	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'),1,FailureHandling.OPTIONAL)){
+		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'))
+		WebUI.comment (recordID+' has been created successfully')
+	}else if( WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'),1,FailureHandling.OPTIONAL)){
+		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'))
+		WebUI.comment (recordID+' has been created successfully')
+	}else if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),1) ){
+		WebUI.comment ('found save button, so the record has been created successfully')
+	}else{
+		KeywordUtil.markFailedAndStop("cannot determine the record has been created")
+	}
+}
+
 return
 /////////////////////////////////////////////////////////////////////////////
 break} catch (Exception e) {
@@ -121,198 +169,9 @@ break} catch (Exception e) {
 	
 }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 /*
-if ((GlobalVariable.G_MAKE_MAS_url).contains('react_cp_hazard')){
-	println 'this is cp_hazard'
-	WebUI.click(findTestObject('Page_Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Safety Data Package'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Hazard'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Action'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause Tree'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Cause'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_Watch'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
-	
-	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All'))
-	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 
-}else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
-	WebUI.click(findTestObject('Page_Main Page/a_New'))
-	println 'this is cp_oms'
-
-}else if ((GlobalVariable.G_MAKE_MAS_url).contains('arc_praca')){
-	println 'this is arc_praca'
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ADEPTSR1'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AdvancedRodentHabitat'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AirborneSciencesUASProjects'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ArcJet'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_Astrobee'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ATD1'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AVA'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_BioNutrients'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_BioSentinel'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CAP'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CellScience'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CHOMPTT'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_COAST'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CodeQS(SystemSafetyandMissio'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CodeRM(AppliedManufacturing)'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_CSP'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EcAMSat'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EDSN'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EEL'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_FruitFly'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_GEOCAMSPACE'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_HECC'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ISSPayloads'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_LADEE'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_LADEEORT'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_MEDLI'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_MEDLI2MISP'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_NLAS'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_NODES'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_OOREOS'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_OrionDFI'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PathfinderTechnologyDemonstr'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PhoneSat'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_PowerCell'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_ResourceProspector'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SOFIAProject'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SPHERES'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_SporeSat'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_TechEdSat'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_TPSADP'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('null'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_UTPWindTunnel'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_VMS'))
-	
-	WebUI.click(findTestObject('Object Repository/Page_ARC PRACA Main Page/a_New'))
-	WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_WetLab'))
-	
-}else if ((GlobalVariable.G_MAKE_MAS_url).contains('iss_hazard')){
-	println 'this is iss_hazard'
-	CustomKeywords.'hci_smoke_test.create_new_record.iss_hazard'()
-
-}else{
-	 found_new_record_link
-	 url
 	WebUI.click(findTestObject('Page_Main Page/a_New'))
 	CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
 	//WebDriver driver = DriverFactory.getWebDriver()

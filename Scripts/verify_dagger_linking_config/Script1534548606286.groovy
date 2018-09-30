@@ -14,7 +14,7 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	return
 }
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////

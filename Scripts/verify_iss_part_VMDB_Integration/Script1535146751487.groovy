@@ -10,6 +10,13 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_part') && !GlobalVariable.G_MAK
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+println('directly go to record 7168 which has VMDB integration')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_part_dev/show_bug.cgi?id=7168')
+String recordID='7168'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+String baseUrl=siteURL
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -18,13 +25,6 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-println('directly go to record 7168 which has VMDB integration')
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_part_dev/show_bug.cgi?id=7168')
-recordID='7168'
-siteURL=GlobalVariable.G_MAKE_MAS_url
-baseUrl=siteURL
-if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
-siteURL=siteURL+'show_bug.cgi?id='+recordID
 // goto recordID
 WebUI.navigateToUrl(siteURL)
 
@@ -37,15 +37,12 @@ WebUI.click(findTestObject('Page_Record_7168_PRACA/input_cf_partnumber'))
 WebUI.delay(2)
 WebUI.sendKeys(findTestObject('Page_Record_7168_PRACA/input_cf_partnumber'), Keys.chord(Keys.ENTER))
 
-
 println('search list displayed and click on the create link button')
 WebUI.waitForElementVisible(findTestObject('Page_Record_7168_PRACA/img_create_23971972'),10)
 WebUI.click(findTestObject('Page_Record_7168_PRACA/img_create_23971972'))
 
-
 println("verify create link is working and showing linking status")
 WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/img_img_cf_partnumber'),5)
-
 
 /*WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/div_View part in VMDB'),5)
 WebUI.waitForElementPresent(findTestObject('Page_Record_7168_PRACA/div_View drawing in VMDB'),5)*/

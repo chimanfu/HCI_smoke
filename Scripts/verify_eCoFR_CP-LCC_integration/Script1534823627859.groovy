@@ -21,7 +21,8 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 	return
 }
 if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
-
+String baseUrl = "https://www.katalon.com/"
+WebDriver driver
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -31,9 +32,7 @@ try {
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
 
-String baseUrl = "https://www.katalon.com/"
-
-WebDriver driver = DriverFactory.getWebDriver()
+driver = DriverFactory.getWebDriver()
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 //def driver = DriverFactory.getWebDriver()
 println('check cp-LCC integration in eCoFR')

@@ -32,6 +32,12 @@ if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - R
 	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 	return
 }
+
+if (WebUI.waitForElementPresent(findTestObject('Page_Record_2769_FMEA/span_VMDB Linkable Fields Created'),1)){
+	WebUI.comment 'already have a VMDB linked record'
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+}
 WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/span_VMDB Linkable Fields'), 3)
 
 println('verify VMDB Linkable Fields')

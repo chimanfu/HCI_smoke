@@ -114,10 +114,10 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.delay(1)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),8)
 	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/select_diff_report_version'),6)){
-	WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
-	WebUI.delay(1)
+		WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
+		WebUI.delay(1)
 	}else{
-	WebUI.comment 'WARNING: Not found select_diff_report_version, the record may not have snapshots'
+		WebUI.comment 'WARNING: Not found select_diff_report_version, the record may not have snapshots'
 	}
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)

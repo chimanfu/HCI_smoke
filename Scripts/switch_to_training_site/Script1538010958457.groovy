@@ -1,10 +1,11 @@
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
 CustomKeywords.'helper.login.LoginHelper.login'()
-
-if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10)){
+String training_site_url=''
+String siteURL
+if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
 	//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)	
 	WebUI.click(findTestObject('Object Repository/Page_Main Page/a_Home'))
 	WebUI.comment('found Home TAB, launch Home page now')
@@ -15,7 +16,8 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPr
 if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree'))
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),15)
 	
-if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'),5)){
+	//if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8,FailureHandling.OPTIONAL)){
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'),5,FailureHandling.OPTIONAL)){
 	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'))
 	WebUI.delay(2)
 	training_site_url=WebUI.getUrl()
@@ -26,6 +28,28 @@ if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_CP-Haza
 		WebUI.comment('clicked on input_login_btn')	
 	}
 }else{
-	WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site'
-	GlobalVariable.userPin3='SKIP'
+	WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have sandbox instance in Home page, try something else'
+	println GlobalVariable.G_MAKE_MAS_url+' does not have sandbox instance'
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+	GlobalVariable.G_MAKE_MAS_url=siteURL
+	if (GlobalVariable.G_MAKE_MAS_url.contains('mas.nasa.gov')){
+		if (GlobalVariable.G_MAKE_MAS_url.contains('Inventory')){
+			training_site_url=GlobalVariable.G_MAKE_MAS_url+'_Training'
+		}else if (GlobalVariable.G_MAKE_MAS_url.contains('WSTFwebPAPER')){
+			training_site_url=GlobalVariable.G_MAKE_MAS_url+'-training'
+		}else{
+			training_site_url=(GlobalVariable.G_MAKE_MAS_url+'Training')
+		}
+	}else{
+		training_site_url=(GlobalVariable.G_MAKE_MAS_url+'/training')
+	}
+	WebUI.navigateToUrl(training_site_url)
+	
+	if (WebUI.verifyElementPresent(findTestObject('Object Repository/Page_404 Not Found/h1_Not Found'), 3,FailureHandling.OPTIONAL)){
+		WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site'
+		GlobalVariable.userPin3='SKIP'
+	}
+	GlobalVariable.G_MAKE_MAS_url=training_site_url
+	
 }

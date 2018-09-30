@@ -15,7 +15,10 @@ import internal.GlobalVariable as GlobalVariable
  * verify message
  * verify actual value of permittedBrowsers with GlobalVariable.G_permitted_browser
  */
-
+// 7.0 rollout plan
+// https://docs.google.com/spreadsheets/d/1Y-aObiFf3VOppDvePzLnLsVXcxFN6EpnKlqsQHH03AY/edit#gid=1590469616
+// default:   Firefox/(?![123456789]\.)|Trident/[78]|Chrome|Safari
+// etasksheet: Firefox/(?![123456789]\.)|Safari   ?
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.click(findTestObject('Page_Main Page/a_Admin'))
@@ -38,6 +41,16 @@ WebUI.comment('check permittedBrowsers value from permittedBrowsers parameter')
 value_permittedBrowsers=WebUI.getAttribute(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'), 'value')
 WebUI.comment('actual value of permittedBrowsers = '+value_permittedBrowsers)
 
+// 7.0 rollout value
+String expected_value_permittedBrowsers='Firefox/(?![123456789]\\.)|Trident/[78]|Chrome|Safari'
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	expected_value_permittedBrowsers='Firefox/(?![123456789]\\.)|Safari'
+}
+if (GlobalVariable.G_MAKE_MAS_url.contains('raining') || (!GlobalVariable.G_MAKE_MAS_url.contains('dev'))) {
+	WebUI.verifyMatch(value_permittedBrowsers, expected_value_permittedBrowsers, false)
+	WebUI.comment('matched with expected permittedBrowsers value = '+expected_value_permittedBrowsers)
+	return
+}
 if (!GlobalVariable.G_MAKE_MAS_url.contains('training')) {
 	WebUI.verifyMatch(value_permittedBrowsers, GlobalVariable.G_permitted_browser, false)
 	WebUI.comment('matched with expected permittedBrowsers value = '+GlobalVariable.G_permitted_browser)

@@ -23,6 +23,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
 }
 if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
 
+WebDriver driver
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -34,7 +35,7 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 String baseUrl = "https://www.katalon.com/"
 
-WebDriver driver = DriverFactory.getWebDriver()
+ driver = DriverFactory.getWebDriver()
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 //def driver = DriverFactory.getWebDriver()
 println('check cp-OMRS integration in eCoFR')

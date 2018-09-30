@@ -28,15 +28,33 @@ println('directly goto record 2769 -> Attachments & References Tab')
 String recordID='2769'
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
-siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Attachments%20%26%20References'
+
+if (!GlobalVariable.G_MAKE_MAS_url.contains('dev')) {
+	siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabAttachments___References&gv=group'
+}else{
+	siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Attachments%20%26%20References'
+}
 WebUI.navigateToUrl(siteURL)
 WebUI.maximizeWindow()
 
-if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/div_The linked fields note'),5)){
+if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_2769_FMEA/input_for_uber_search_field'),5)){
+	WebUI.comment 'found input_for_uber_search_field'
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_2769_FMEA/input_for_uber_search_field'),5)
+	WebUI.delay(1)
+	WebUI.setText(findTestObject('Object Repository/Page_Record_2769_FMEA/input_for_uber_search_field'), 'link')
+	WebUI.sendKeys(findTestObject('Page_Record_2769_FMEA/input_for_uber_search_field'), Keys.chord(Keys.ENTER))
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_2769_FMEA/div_Search Results'),10)
+	WebUI.delay(1)
+	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
+	return
+}
+if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Cause - Record 6505  Erroneous/div_The linked fields note'),1)){
 	WebUI.comment 'already have a VMDB linked record'
 	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 	return
 }
+
+
 WebUI.waitForElementClickable(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
 WebUI.scrollToElement(findTestObject('Page_Record_2769_FMEA/label_Create link'), 25)
 

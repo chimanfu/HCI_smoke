@@ -4,6 +4,12 @@
    <name>a_sandbox instance</name>
    <tag></tag>
    <elementGuidId>87b208cd-68dd-4260-95d5-5873c4aab0bf</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[contains(@href, 'raining') and (contains(text(), 'instance') or contains(., 'instance'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -18,14 +24,14 @@
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>/training</value>
+      <value>raining</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>sandbox instance</value>
+      <value>instance</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

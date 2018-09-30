@@ -5,7 +5,7 @@ import internal.GlobalVariable as GlobalVariable
 //if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 WebUI.comment('only run this for production sites to make sure disallow_record_modification parameter is checked')
 String url=GlobalVariable.G_MAKE_MAS_url
-if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) return
+if ((url.contains('MAKE-MAS')) || (url.contains('dev'))|| (url.contains('raining'))) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('pracaBugs')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('dex')){
 	WebUI.comment 'DEX is different in disallow_record_modification parameter setting. Already manually set it.'

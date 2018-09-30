@@ -13,20 +13,27 @@ import internal.GlobalVariable as GlobalVariable
  goto Admin->NASA Params->bad_browser_blurb
  check bad_browser_blurb parameter with correct message for supporting browsers if running on unsupported browser
  check 2 key messages showing in the html message
-	 string1='Your browser is not supported by this system.'
+	 expected_message='Your browser is not supported by this system.'
 	 or
-	 string1='This application does not support your browser'
+	 expected_message='This application does not support your browser'
 	 and
-	 string1='Please use one of the following'
+	 expected_message='Please use one of the following'
  check with profile->GlobalVariable.allowedBrowsers for supported browser names from bad_browser_blurb message 
  should support browsers mentioned in the list of GlobalVariable.allowedBrowsers
  how about Edge?
  */
- 
+// 7.0 rollout plan 
+// https://docs.google.com/spreadsheets/d/1Y-aObiFf3VOppDvePzLnLsVXcxFN6EpnKlqsQHH03AY/edit#gid=1590469616
+// default:   IE9+ and FF, Chrome and Safari
+// etasksheet: FF, Safari  ?
 
+String supportedBrowser=''
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+nasa_params_view=siteURL+'/editparams.cgi?section=nasa'
 
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -45,88 +52,88 @@ WebUI.click(findTestObject('Page_Configuration Required Setting/a_NASA Params'))
 
 //WebUI.click(findTestObject('Object Repository/Page_Parameters Index/a_bad_browser_blurb'))
 
+
 WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/dt_bad_browser_blurb'))
-WebUI.scrollToElement(findTestObject('Object Repository/Page_Configuration NASA Params/dd_The message that users will'),15)
-bad_browser_blurb_message=WebUI.getText(findTestObject('Object Repository/Page_Configuration NASA Params/dd_The message that users will'))
+WebUI.scrollToElement(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'),15)
+WebUI.comment 'actual bad_browser_blurb_message from '+nasa_params_view+' is the following...'
+bad_browser_blurb_message=WebUI.getText(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'))
 
-string1='Your browser is not supported by this system.'
-if (bad_browser_blurb_message.contains(string1)){
-	KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
-}else{
-	KeywordUtil.logInfo('Try again, NOT found string: '+string1)
-	string1='This application does not support your browser'
-	if (bad_browser_blurb_message.contains(string1)){
-		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
-	}else{
-		KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found string: '+string1)
-		throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
-	}
-}
+expected_message='Your browser is not supported by this system.'
+check_message( bad_browser_blurb_message,  expected_message)
 
-string1='Please use one of the following'
-if (bad_browser_blurb_message.contains(string1)){
-	KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+string1)
-}else{
-	KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found string: '+string1)
-	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
-}
+expected_message='Please use one of the following'
+check_message( bad_browser_blurb_message,  expected_message)
 
 for (String supportedBrowserName : GlobalVariable.allowedBrowsers) {
 	KeywordUtil.logInfo('expected supported browser - '+supportedBrowserName)
-	if (bad_browser_blurb_message.contains(supportedBrowserName)){
+	check_message( bad_browser_blurb_message,  supportedBrowserName)
+	
+	/*if (bad_browser_blurb_message.contains(supportedBrowserName)){
 		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found supportedBrowserName: '+supportedBrowserName)
 	}else{
 		KeywordUtil.markFailed('bad_browser_blurb_message is wrong, NOT found supportedBrowserName: '+supportedBrowserName)
 		throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
-	}
+	}*/
 	
 }
+supportedBrowser='Safari'
+WebUI.comment('according to 7.0 rollout plan, it should support Safari now')
+if (!(GlobalVariable.G_MAKE_MAS_url).contains('dev')) {
+	check_message( bad_browser_blurb_message,  supportedBrowser)
+}
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.switchToWindowIndex(1)
 	WebUI.closeWindowIndex(1)
 	WebUI.switchToWindowIndex(0)
+	return
 }
+
+
 return
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-string1='Internet Explorer'
-if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+expected_message='Internet Explorer'
+if (bad_browser_blurb_message.contains(expected_message)){
+	WebUI.comment('bad_browser_blurb_message is OK, found string: '+expected_message)
 }else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
+	WebUI.comment('bad_browser_blurb_message is wrong, NOT found string: '+expected_message)
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
-string1='Firefox'
-if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+expected_message='Firefox'
+if (bad_browser_blurb_message.contains(expected_message)){
+	WebUI.comment('bad_browser_blurb_message is OK, found string: '+expected_message)
 }else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
+	WebUI.comment('bad_browser_blurb_message is wrong, NOT found string: '+expected_message)
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
-string1='Safari'
-if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
-}else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
-	//throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
-	println('WARNING: safari may not be supported in '+GlobalVariable.G_MAKE_MAS_url)
+expected_message='Safari'
+if (!GlobalVariable.G_MAKE_MAS_url.contains('dev')) {
+	if (bad_browser_blurb_message.contains(expected_message)){
+		WebUI.comment('bad_browser_blurb_message is OK, found string: '+expected_message)
+	}else{
+		WebUI.comment('bad_browser_blurb_message is wrong, NOT found string: '+expected_message)
+		throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
+		//WebUI.comment('WARNING: safari may not be supported in '+GlobalVariable.G_MAKE_MAS_url)
+	}
 }
 
-string1='Chrome'
-if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+
+expected_message='Chrome'
+if (bad_browser_blurb_message.contains(expected_message)){
+	WebUI.comment('bad_browser_blurb_message is OK, found string: '+expected_message)
 }else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
+	WebUI.comment('bad_browser_blurb_message is wrong, NOT found string: '+expected_message)
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
-string1='If you have an ACES machine and are not able to upgrade your browser, please contact'
-if (bad_browser_blurb_message.contains(string1)){
-	println('bad_browser_blurb_message is OK, found string: '+string1)
+expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact'
+if (bad_browser_blurb_message.contains(expected_message)){
+	WebUI.comment('bad_browser_blurb_message is OK, found string: '+expected_message)
 }else{
-	println('bad_browser_blurb_message is wrong, NOT found string: '+string1)
+	WebUI.comment('bad_browser_blurb_message is wrong, NOT found string: '+expected_message)
 	throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, check message: '+bad_browser_blurb_message)
 }
 
@@ -139,4 +146,19 @@ e.printStackTrace()
 if (++retry_count == maxTries) throw e;
 WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 }
+}
+
+def check_message(String bad_browser_blurb_message, String expected_message){
+	if (bad_browser_blurb_message.contains(expected_message)){
+		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+expected_message)
+	}else{
+		KeywordUtil.logInfo('Try again, NOT found string: '+expected_message)
+		expected_message='This application does not support your browser'
+		if (bad_browser_blurb_message.contains(expected_message)){
+			KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+expected_message)
+		}else{
+			KeywordUtil.markFailed('ERROR: bad_browser_blurb_message is wrong, NOT found expected string: "'+expected_message+'", please check actual bad_browser_blurb_message: '+bad_browser_blurb_message)
+			//throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, NOT found expected string: "'+expected_message+'", please check actual bad_browser_blurb_message: '+bad_browser_blurb_message)
+		}
+	}
 }

@@ -13,7 +13,15 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.
     GlobalVariable.userPin2 = 'SKIP'
     return null
 }
+String recordID = '8265'
 
+String siteURL = GlobalVariable.G_MAKE_MAS_url
+
+if (!(siteURL.endsWith('/'))) {
+	siteURL = (siteURL + '/')
+}
+
+siteURL = ((siteURL + 'show_bug.cgi?id=') + recordID)
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -21,16 +29,6 @@ try {
 /////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-
-String recordID = '8265'
-
-String siteURL = GlobalVariable.G_MAKE_MAS_url
-
-if (!(siteURL.endsWith('/'))) {
-    siteURL = (siteURL + '/')
-}
-
-siteURL = ((siteURL + 'show_bug.cgi?id=') + recordID)
 
 WebUI.navigateToUrl(siteURL)
 

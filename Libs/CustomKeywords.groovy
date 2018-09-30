@@ -232,12 +232,20 @@ def static "helper.login.LoginHelper.loginVPN"() {
     (new helper.login.LoginHelper()).loginVPN()
 }
 
-def static "helper.login.LoginHelper.checkHomePageExist"() {
-    (new helper.login.LoginHelper()).checkHomePageExist()
+def static "helper.login.LoginHelper.checkHomePageExist"(
+    	String site_url	) {
+    (new helper.login.LoginHelper()).checkHomePageExist(
+        	site_url)
 }
 
 def static "helper.login.LoginHelper.login"() {
     (new helper.login.LoginHelper()).login()
+}
+
+def static "helper.login.LoginHelper.login"(
+    	String site_url	) {
+    (new helper.login.LoginHelper()).login(
+        	site_url)
 }
 
 def static "helper.login.LoginHelper.loginIntoApplication"(

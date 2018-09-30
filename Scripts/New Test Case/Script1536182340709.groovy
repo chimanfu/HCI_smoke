@@ -18,7 +18,24 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+//CustomKeywords.'helper.login.LoginHelper.login'()
+search_term = 'test'
+if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+	WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_short_desc'),5)
+	WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
 
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/span_component_required'),2,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record 20g Centrifuge/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
+	}
+	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)
+	WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))
+	// check record is created
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'), 15,FailureHandling.STOP_ON_FAILURE)
+	recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'))
+	WebUI.comment (recordID+' has been created successfully')
+}
+
+return
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard'))) {
     WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
 

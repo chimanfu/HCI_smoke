@@ -1,6 +1,7 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import static org.junit.Assert.*
+import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
@@ -30,10 +31,11 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 WebUI.waitForElementClickable(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'),10)
 WebUI.click(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'))
 
+WebUI.scrollToElement(findTestObject('Page_Search for records/div_Search by change'),6)
 WebUI.waitForElementClickable(findTestObject('Page_Search for records/div_Search by change'),6)
 WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
 
-if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5)){
+if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5,FailureHandling.CONTINUE_ON_FAILURE)){
 	WebUI.comment("found option 'xml snapshot' from the Search by change field")
 	
 	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
@@ -43,7 +45,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 	WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
 	// verify the searchTitle_XML Snapshot in the search return list
-	WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),6)
+	WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),5,FailureHandling.STOP_ON_FAILURE)
 
 } else{
 	WebUI.comment("not found option 'xml snapshot' from the Search by change field")

@@ -21,6 +21,10 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr') ) {
 }
 if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
 
+String baseUrl = "https://www.katalon.com/"
+String recordID='126'
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+WebDriver driver
 int retry_count = 0;
 int maxTries = 3;
 while(true){
@@ -29,17 +33,16 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 //Screen s = new Screen()
-WebDriver driver = DriverFactory.getWebDriver()
+driver = DriverFactory.getWebDriver()
 //def driver = DriverFactory.getWebDriver()
-String baseUrl = "https://www.katalon.com/"
+
 //selenium = new WebDriverBackedSelenium(driver, baseUrl)
 
 println('check cp-hazard integration in eCoFR')
 println('directly go to record 126 and open Authoritative Sources Tab')
 //selenium.open("https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cofr_dev/show_bug.cgi?id=126#tv=Authoritative%20Sources")
 
-recordID='126'
-siteURL=GlobalVariable.G_MAKE_MAS_url
+
 baseUrl=siteURL
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Authoritative%20Sources'

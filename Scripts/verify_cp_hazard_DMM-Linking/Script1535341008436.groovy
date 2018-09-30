@@ -36,7 +36,7 @@ while(true){
 	try {
 		/////////////////////////////////////////////////////////////////////////////
 		CustomKeywords.'helper.login.LoginHelper.login'()
-		if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('training')){
+		if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('training')||GlobalVariable.G_MAKE_MAS_url.contains('cxhazard')){
 			selection='DMM'
 			//selection='DVO'
 			//selection='LCC'

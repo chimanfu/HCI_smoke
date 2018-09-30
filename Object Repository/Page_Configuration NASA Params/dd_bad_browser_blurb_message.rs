@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>dd_The message that users will</name>
+   <name>dd_bad_browser_blurb_message</name>
    <tag></tag>
    <elementGuidId>dbda6198-ebfe-469a-8a1c-effbecbe1fd3</elementGuidId>
    <selectorCollection>

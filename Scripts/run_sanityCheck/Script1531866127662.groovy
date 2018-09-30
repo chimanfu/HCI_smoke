@@ -62,7 +62,7 @@ try {
 	// will workaround it by clicking on the anityCheck_link.png with opencv image recognation feature
 	
 	WebUI.delay(2)
-	if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'), 30)){
+	if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'), 30,FailureHandling.OPTIONAL)){
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'), 5)
 		WebUI.delay(2)
 	    WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'))
@@ -85,7 +85,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('WSTFwebPAPER')) {
 
 WebUI.delay(3)
 log.logInfo('verify sanity check is working and without new issue.')
-if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), waitTime)){
+if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running sanity checks'), waitTime,FailureHandling.OPTIONAL)){
 	WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_now running sanity checks'), 10)
 }else{
 	WebUI.comment 'Not found: now running sanity checks'
@@ -94,13 +94,13 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running 
 	}
 }
 //WebUI.delay(1)
-if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 12)){
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 12,FailureHandling.OPTIONAL)){
 	WebUI.scrollToElement(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 5)
 	log.logError('found A system error has occurred')
 	throw new AssertionError('ERROR: found A system error has occurred ')	
 }
 
-if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), waitTime)){
+if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check completed'), waitTime,FailureHandling.OPTIONAL)){
 	WebUI.scrollToElement(findTestObject('Page_Sanity Check/p_Sanity check completed'), waitTime,FailureHandling.STOP_ON_FAILURE)
 }else{
 	WebUI.comment 'Not found Sanity check completed'

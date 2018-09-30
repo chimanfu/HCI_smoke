@@ -4,6 +4,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('dex')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
@@ -61,7 +62,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 WebUI.delay(2)
 try{
 	println('if more than 1 record found, then select the first record first')
-	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),10)){
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),60)){
 		WebUI.click(findTestObject('Page_Record List/a_record_1'))
 	}
 	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_test_automation_record'),1)){
@@ -80,8 +81,15 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.delay(1)
 	//WebUI.scrollToElement(findTestObject('Page_Record test_automation_record/a_Home'),10)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)
-	WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
-	WebUI.delay(1)
+	//WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
+	
+	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/select_diff_report_version'),5)){
+		WebUI.selectOptionByValue(findTestObject('Page_Record test_automation_record/select_diff_report_version'), '1', true)
+		WebUI.delay(1)
+	}else{
+		KeywordUtil.markWarning('WARNING: Not found select_diff_report_version, the record may not have snapshots, need to verify as why it can search it from select_option_xmlversion')
+	}
+	
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
 	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(90)

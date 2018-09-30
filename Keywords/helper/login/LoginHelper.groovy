@@ -38,7 +38,7 @@ public class LoginHelper {
 				WebUI.switchToWindowIndex(0)
 				WebUI.switchToDefaultContent()
 				WebUI.waitForPageLoad(60)
-				if ( WebUI.waitForElementClickable(findTestObject('Page_MailCatcher/a_MailCatcher_heading'), 5)) {
+				if ( WebUI.waitForElementClickable(findTestObject('Page_MailCatcher/a_MailCatcher_heading'),5,FailureHandling.OPTIONAL)) {
 					WebUI.comment 'already in MailCatcher'
 					WebUI.delay(5)
 					return
@@ -218,16 +218,16 @@ public class LoginHelper {
 //				}
 				
 				WebUI.delay(5)
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7)){
+				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7,FailureHandling.OPTIONAL)){
 					WebUI.delay(1)
 					WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
 					WebUI.delay(1)
 					s.type('\n')
 				}else{
-					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'),5)){
+					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'),5,FailureHandling.OPTIONAL)){
 						WebUI.click(findTestObject('Object Repository/Page_Ames Research Center - Confirm/input_Last Access Time_btnCont'))
 					}
-					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),20)){
+					if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),20,FailureHandling.OPTIONAL)){
 						WebUI.delay(1)
 						WebUI.click(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'))
 						WebUI.delay(1)
@@ -242,16 +242,19 @@ public class LoginHelper {
 	}
 
 	@Keyword
-	public boolean checkHomePageExist(){
+	public boolean checkHomePageExist(String site_url){
 		try{
+			if (site_url.equals(null) ||site_url.equals('')){
+				site_url=GlobalVariable.G_MAKE_MAS_url
+			}
 			if ( WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 1, FailureHandling.OPTIONAL)) {
 				//if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Configuration NASA Params/a_Home'),1,FailureHandling.OPTIONAL)){
 				//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-				//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-				WebUI.switchToWindowIndex(0)
-				WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-				WebUI.comment('found home link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-				WebUI.waitForPageLoad(30)
+				//WebUI.navigateToUrl(site_url)
+				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
+				WebUI.navigateToUrl(site_url,FailureHandling.OPTIONAL)
+				WebUI.comment('found home link, login to MAKE_MAS url succeeded! on '+site_url)
+				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 				if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
 					String alertText=WebUI.getAlertText()
 					WebUI.acceptAlert()
@@ -259,10 +262,10 @@ public class LoginHelper {
 				}
 				WebUI.comment('*** Already in Home Page, do not need to login ***')
 				return true
-			}else if (GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Page_Document Tree/a_TREE'), 1, FailureHandling.OPTIONAL)){
-				WebUI.comment('found Tree link, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-				WebUI.switchToWindowIndex(0)
-				WebUI.waitForPageLoad(30)
+			}else if (site_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Page_Document Tree/a_TREE'), 1, FailureHandling.OPTIONAL)){
+				WebUI.comment('found Tree link, login to MAKE_MAS url succeeded! on '+site_url)
+				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
+				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 
 				if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
 					String alertText=WebUI.getAlertText()
@@ -270,19 +273,19 @@ public class LoginHelper {
 					WebUI.comment('accept alert='+alertText)
 				}
 				WebUI.comment('*** Already in Home Page, do not need to login ***')
-				WebUI.switchToWindowIndex(0)
+				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
 				return true
-			}else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
-				WebUI.comment('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+GlobalVariable.G_MAKE_MAS_url)
-				WebUI.switchToWindowIndex(0)
-				WebUI.waitForPageLoad(30)
+			}else if (site_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
+				WebUI.comment('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+site_url)
+				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
+				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 				if (WebUI.waitForAlert(1,FailureHandling.OPTIONAL)){
 					String alertText=WebUI.getAlertText()
 					WebUI.acceptAlert()
 					WebUI.comment('accept alert='+alertText)
 				}
 				WebUI.comment('*** Already in Home Page, do not need to login ***')
-				WebUI.switchToWindowIndex(0)
+				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
 				return true
 			}
 			WebUI.comment('*** need to login ***')
@@ -341,6 +344,7 @@ public class LoginHelper {
 			//WebUI.switchToWindowIndex(0)
 			WebUI.delay(2)
 			KeywordUtil.markWarning(e.message)
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url,FailureHandling.STOP_ON_FAILURE)
 		}
 		//WebUI.maximizeWindow()
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
@@ -362,6 +366,11 @@ public class LoginHelper {
 			WebUI.comment('clicked on input_login_btn')
 			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+			WebUI.delay(2)
+			if (checkHomePageExist()){
+				WebUI.comment('done checkHomePageExist')
+				return null
+			}
 		}
 		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),17,FailureHandling.OPTIONAL)){
 			try{
@@ -434,7 +443,7 @@ public class LoginHelper {
 			WebUI.delay(2)
 			KeywordUtil.markWarning(e.message)
 			WebUI.openBrowser('')
-			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url,FailureHandling.OPTIONAL)
 			WebUI.delay(2)
 			WebUI.maximizeWindow()
 			if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
@@ -453,7 +462,11 @@ public class LoginHelper {
 		 //r=s.exists(pImage,1);
 		 s.click(s.exists(pImage,1), 1)
 		 }*/
-		if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
+		if (checkHomePageExist()){
+			WebUI.comment('done checkHomePageExist')
+			return null
+		}
+		/*if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
 			if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
@@ -463,9 +476,221 @@ public class LoginHelper {
 
 			//WebUI.waitForPageLoad(30)
 			WebUI.comment('*** Done Login ***')
-		}
+		}*/
 	}
+	@Keyword
+	public boolean login(String site_url){
+		/*try{
+		 //WebUI.switchToDefaultContent()
+		 WebUI.switchToWindowIndex(0)
+		 //WebUI.closeWindowIndex(1)
+		 //WebUI.switchToWindowIndex(0)
+		 }catch (Exception e) {
+		 //WebUI.switchToWindowIndex(0)
+		 WebUI.comment('cannot switchToWindowIndex(0)')
+		 }
+		 */
+		/*if (checkHomePageExist()){
+			WebUI.comment('done checkHomePageExist, already in Home page')
+			return null
+		}
 
+		String cmd = "pkill -f Chrome"
+		Runtime.getRuntime().exec(cmd)
+		WebUI.comment('killed all processes of Chrome before running test')*/
+
+		////////////////// new //////////////////
+		//cmd="killall -9 chromedriver"
+		//Runtime.getRuntime().exec(cmd)
+		//WebUI.comment('killed all processes of chromedriver before running test')
+		//WebUI.delay(1)
+		////////////////// new //////////////////
+		Screen s = new Screen()
+
+		try{
+			//WebUI.openBrowser('')
+			WebUI.navigateToUrl(site_url)
+			//WebUI.delay(2)
+			//WebUI.maximizeWindow()
+			//WebUI.closeWindowIndex(1)
+			WebUI.switchToWindowIndex(0)
+			WebUI.switchToDefaultContent()
+			/*WebDriver driver = DriverFactory.getWebDriver()
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+			println("No. of tabs: " + tabs.size())
+			int tabs_number=tabs.size()
+			while (tabs_number>1){
+				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+				tabs_number--
+			}*/
+		}catch (Exception e) {
+			//WebUI.switchToWindowIndex(0)
+			//WebUI.delay(2)
+			//KeywordUtil.markWarning(e.message)
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl(site_url)
+			//WebUI.delay(2)
+			WebUI.maximizeWindow()
+			//WebUI.closeWindowIndex(1)
+			WebUI.switchToWindowIndex(0)
+			WebUI.switchToDefaultContent()
+			WebDriver driver = DriverFactory.getWebDriver()
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+			println("No. of tabs: " + tabs.size())
+			int tabs_number=tabs.size()
+			while (tabs_number>1){
+				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+				tabs_number--
+			}
+			if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+				WebUI.delay(1)
+				//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+				//WebUI.delay(1)
+				Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+				//r=s.exists(pImage,1);
+				s.click(s.exists(pImage,1), 1)
+			}
+			
+		}
+		//WebUI.maximizeWindow()
+		//Screen s = new Screen()
+		// check if the restore pages is showing (restore_pages_cancel_button.png)
+		/*if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+			WebUI.delay(1)
+			//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+			//WebUI.delay(1)
+			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+			//r=s.exists(pImage,1);
+			s.click(s.exists(pImage,1), 1)
+		}*/
+//		if (checkHomePageExist()){
+//			WebUI.comment('done checkHomePageExist')
+//			return null
+//		}
+		WebUI.comment('checking input_login_btn')
+		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),7,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn')
+			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
+			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+			if (checkHomePageExist(site_url)){
+				WebUI.comment('done checkHomePageExist')
+				return true
+			}
+		}
+		//WebUI.delay(3)
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
+		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),10,FailureHandling.OPTIONAL)){
+			try{
+				////////
+				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+				WebUI.waitForPageLoad(6)
+				WebUI.delay(1)
+				WebUI.comment('found button input_SCLOGIN from Access Launchpad')
+				for (int i = 0; i <3; i++) {
+					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',(5-i))!=null){
+						s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					}
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',(5-i))!=null){
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
+					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i))!=null){
+						WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+						s.type(GlobalVariable.G_userPin+"\n")
+						break
+					}else{
+						if ((s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)==null)&&(s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)==null)){
+							WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+							s.type(GlobalVariable.G_userPin+"\n")
+							break
+						}
+					}
+				}
+				////////
+				
+				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+
+				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+					}
+				}
+				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+					s.type(GlobalVariable.G_userPin+"\n")
+				}else{
+					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+					WebUI.delay(2)
+					s.type(GlobalVariable.G_userPin+"\n")
+				}*/
+				
+				
+			}catch (Exception e) {
+				KeywordUtil.markFailedAndStop(e.message)
+			}
+		}
+		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn in 2nd attempt')
+		}
+		// check if alert is showing
+		try{
+			if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+				String alertText=WebUI.getAlertText()
+				WebUI.acceptAlert()
+				WebUI.comment('accept alert='+alertText)
+			}
+		}catch (Exception e) {
+			//WebUI.switchToWindowIndex(0)
+			WebUI.delay(2)
+			KeywordUtil.markWarning(e.message)
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl(site_url,FailureHandling.OPTIONAL)
+			WebUI.delay(2)
+			WebUI.maximizeWindow()
+			if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
+				String alertText=WebUI.getAlertText()
+				WebUI.acceptAlert()
+				WebUI.comment('accept alert='+alertText)
+			}
+		}
+
+		// check if the restore pages is showing (restore_pages_cancel_button.png)
+		/*if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+		 WebUI.delay(1)
+		 //s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+		 //WebUI.delay(1)
+		 Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+		 //r=s.exists(pImage,1);
+		 s.click(s.exists(pImage,1), 1)
+		 }*/
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
+		/*if (!site_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
+			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+			if ((site_url).contains('cp_hazard')){
+				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+				WebUI.comment('found cp_hazard_logo')
+				WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+			}
+
+			//WebUI.waitForPageLoad(30)
+			WebUI.comment('*** Done Login ***')
+		}*/
+		return false
+	}
+	
 	@Keyword
 	public void loginIntoApplication(String applicationUrl,String Username,String Password){
 
