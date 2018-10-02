@@ -11,8 +11,15 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('dex')){
 	WebUI.comment 'DEX is different in disallow_record_modification parameter setting. Already manually set it.'
 	return
 }
+if ((int) (Math.random()+0.5)){
+	WebUI.comment('perform disallow_record_modification check')	
+}
+else{
+	WebUI.comment 'will skip running disallow_record_modification check this time to save time'
+	return
+}
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_create_record_on_training</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>bac7e997-e50f-41c0-821a-bd16e8565587</testCaseGuid>
+</TestCaseEntity>

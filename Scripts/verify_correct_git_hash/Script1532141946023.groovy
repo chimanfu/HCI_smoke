@@ -17,6 +17,10 @@ import internal.GlobalVariable as GlobalVariable
  * 	https://docs.google.com/spreadsheets/d/1ouQAmhtSV9Z1pxPs1gGEtkUhc4Dd4Fap6hCJFfXXDyk/edit#gid=0
  * 
  */
+
+GlobalVariable.G_git_hash_ver='16da200'
+WebUI.comment  'for 7.0 rollout, correct git hash = '+GlobalVariable.G_git_hash_ver
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),20)
@@ -29,5 +33,5 @@ if (git_hash_ver.contains(GlobalVariable.G_git_hash_ver)){
 	println('git_hash_ver is OK, found expected git_hash_ver in '+git_hash_ver)
 }else{
 	println('git_hash_ver is not matched, NOT found expected git_hash_ver '+GlobalVariable.G_git_hash_ver+' in the actual footer message found in cp-hazard main page: '+git_hash_ver)
-	//throw new AssertionError('ERROR: git_hash_ver is wrong, check message: '+git_hash_ver)
+	throw new AssertionError('ERROR: git_hash_ver is wrong, expected git_hash_ver ='+GlobalVariable.G_git_hash_ver+', check actual footer message: '+git_hash_ver)
 }

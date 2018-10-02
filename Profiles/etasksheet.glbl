@@ -131,7 +131,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>['Chrome', 'Firefox']</initValue>
+      <initValue>['Safari', 'Firefox']</initValue>
       <name>allowedBrowsers</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

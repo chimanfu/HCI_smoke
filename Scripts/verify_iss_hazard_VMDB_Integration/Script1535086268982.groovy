@@ -32,7 +32,9 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.navigateToUrl(siteURL)
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+//if (GlobalVariable.G_MAKE_MAS_url.contains('react')) {
+if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('raining')||GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')){
+		
     // react code
     WebUI.click(findTestObject('Page_Record_8265_react_iss_hazard/div_Basic Information'))
 

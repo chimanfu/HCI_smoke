@@ -19,7 +19,7 @@ import internal.GlobalVariable as GlobalVariable
  */
 
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -49,14 +49,14 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 10)
-	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'ALL')
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'IHF')
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/div_Showing results for ALL'))
 	
 	String recordName=GlobalVariable.recordName1
-	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), recordName)
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), '24')
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
 	

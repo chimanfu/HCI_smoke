@@ -380,22 +380,24 @@ public class LoginHelper {
 				WebUI.delay(1)
 				WebUI.comment('found button input_SCLOGIN from Access Launchpad')
 				for (int i = 0; i <3; i++) {
-					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',(5-i))!=null){
+					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',(5-i*2))!=null){
 						s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 					}
-					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',(5-i))!=null){
+					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',(5-i*2))!=null){
 						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
 					}
-					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i))!=null){
+					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i*2))!=null){
 						WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
 						s.type(GlobalVariable.G_userPin+"\n")
 						break
 					}else{
-						if ((s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)==null)&&(s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)==null)){
+						/*if ((s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)==null)&&(s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)==null)){
 							WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 							s.type(GlobalVariable.G_userPin+"\n")
 							break
-						}
+						}*/
+						s.type(GlobalVariable.G_userPin+"\n")
+						WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 					}
 				}
 				////////

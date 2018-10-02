@@ -22,8 +22,8 @@ in cp_oms_dev:
 08-11-2018 04:53:00 PM - [FAILED] - Unable to verify all links on the page 'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_oms_dev/index.cgi' are accessible (Root cause: Some of links on the current page are inaccessible)
 
 */
-//Random rand = new Random();
 
+boolean verifyAllLinksOnCurrentPageAccessible=false
 
 boolean STOP_ON_FAILURE=false
 
@@ -44,15 +44,15 @@ WebUI.comment('perform some basic checks on the menu toolbar and items from the 
 //WebUI.comment('check Links Broken (http return code != 200) On Current Page of New Record Record')
 //CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
 
-
-// randomly to run this test verifyAllLinksOnCurrentPageAccessible() or not (0 or 1)
-if ((int) (Math.random()+0.5)){
-	WebUI.comment('perform verifyAllLinksOnCurrentPageAccessible() and exclude links with src')
-	CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
-	
-}
-else{
-	WebUI.comment 'will skip running verifyAllLinksOnCurrentPageAccessible() this time to save time'
+if (verifyAllLinksOnCurrentPageAccessible){
+	// randomly to run this test verifyAllLinksOnCurrentPageAccessible() or not (0 or 1)
+	if ((int) (Math.random()+0.5)){
+		WebUI.comment('perform verifyAllLinksOnCurrentPageAccessible() and exclude links with src')
+		CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
+	}
+	else{
+		WebUI.comment 'will skip running verifyAllLinksOnCurrentPageAccessible() this time to save time'
+	}
 }
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.comment('this is doctree, different setting in Home page')

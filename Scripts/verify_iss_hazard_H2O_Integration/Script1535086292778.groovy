@@ -24,7 +24,9 @@ if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=tabControls&gv=group'
 WebUI.navigateToUrl(siteURL)
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+//if (GlobalVariable.G_MAKE_MAS_url.contains('react')){
+if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_url.contains('raining')||GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')){
+		
 	// react code
 	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_react_iss_hazard/div_Controls'),35)
 	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/div_Controls'))

@@ -1,5 +1,6 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import org.stringtemplate.v4.compiler.CodeGenerator.region_return
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -63,6 +64,46 @@ check_message( bad_browser_blurb_message,  expected_message)
 
 expected_message='Please use one of the following'
 check_message( bad_browser_blurb_message,  expected_message)
+
+if (!GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	expected_message='Internet Explorer 11'
+	check_message( bad_browser_blurb_message,  expected_message)
+	expected_message='Chrome'
+	check_message( bad_browser_blurb_message,  expected_message)
+}
+
+expected_message='Firefox'
+check_message( bad_browser_blurb_message,  expected_message)
+
+expected_message='Safari'
+check_message( bad_browser_blurb_message,  expected_message)
+
+expected_message='images/ie.svg'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='images/firefox.svg'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='images/safari.svg'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='images/chrome.svg'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='href="https://aces.ndc.nasa.gov/itsupport.html"'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='ESD help desk'
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='If you believe your browser is being incorrectly blocked, please contact the '
+check_message( bad_browser_blurb_message,  expected_message)
+expected_message='="mailto:praca-admin@nas.nasa.gov?subject=My Browser is being blocked incorrectly'
+check_message( bad_browser_blurb_message,  expected_message)
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	WebUI.switchToWindowIndex(1)
+	WebUI.closeWindowIndex(1)
+	WebUI.switchToWindowIndex(0)
+	return
+}
+return
 
 for (String supportedBrowserName : GlobalVariable.allowedBrowsers) {
 	KeywordUtil.logInfo('expected supported browser - '+supportedBrowserName)
@@ -153,7 +194,7 @@ def check_message(String bad_browser_blurb_message, String expected_message){
 		KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+expected_message)
 	}else{
 		KeywordUtil.logInfo('Try again, NOT found string: '+expected_message)
-		expected_message='This application does not support your browser'
+		//expected_message='This application does not support your browser'
 		if (bad_browser_blurb_message.contains(expected_message)){
 			KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+expected_message)
 		}else{

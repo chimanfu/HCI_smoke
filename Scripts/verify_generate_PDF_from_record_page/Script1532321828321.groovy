@@ -62,7 +62,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'ALL')
+	WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_keywords'), 'IHF')
 	
 	WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Search'))
 	

@@ -1,12 +1,11 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement;
-import org.python.antlr.PythonParser.return_stmt_return
 import com.kms.katalon.core.logging.KeywordLogger as KeywordLogger
 import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -26,7 +25,7 @@ import internal.GlobalVariable as GlobalVariable
  * 		check for js error on each new record page when page is being loaded
  *///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-boolean create_new_record_on_training=false
+boolean create_new_record_on_training=true
 int max_new_recording_page_loading=5
 
 KeywordLogger log = new KeywordLogger()
@@ -120,41 +119,20 @@ for (int i = 0; i < size; i++) {
 if (!create_new_record_on_training) return
 
 /////////////////////////////////////////////////////////////////////////////
-///////// create a new record for the training site
-search_term = 'test_create_record_on_training'
+
 if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+	WebUI.comment 'going to run testcase:verify_create_record_on_training'
 	WebUI.comment 'this is a training site, so trying to create a new record'
 	WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
-	WebUI.navigateToUrl(urls[0])
+	WebUI.navigateToUrl(urls[1])
 	WebUI.delay(1)
-	WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_short_desc'),10)
-	WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
+	WebUI.callTestCase(findTestCase('verify_create_record_on_training'),[('call'):'test'])	
 
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/span_component_required'),2,FailureHandling.OPTIONAL)){
-		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record 20g Centrifuge/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
-	}
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/span_mandatory_on_close_filled'),1,FailureHandling.OPTIONAL)){
-		if (WebUI.waitForElementVisible(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.OPTIONAL)){
-			WebUI.selectOptionByIndex(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
-		}
-	}
-	
-	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)
-	WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))
-	// check record is created
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'),15,FailureHandling.OPTIONAL)){
-		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'))
-		WebUI.comment (recordID+' has been created successfully')
-	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'),1,FailureHandling.OPTIONAL)){
-		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/b_Record_number_created'))
-		WebUI.comment (recordID+' has been created successfully')
-	}else if( WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'),1,FailureHandling.OPTIONAL)){
-		recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'))
-		WebUI.comment (recordID+' has been created successfully')
-	}else if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),1) ){
-		WebUI.comment ('found save button, so the record has been created successfully')
-	}else{
-		KeywordUtil.markFailedAndStop("cannot determine the record has been created")
+	if (GlobalVariable.G_MAKE_MAS_url.contains('ARC-PRACA')){
+		WebUI.comment 'going to run testcase: verify_mandatory_fields_in_record'
+		WebUI.callTestCase(findTestCase('verify_mandatory_fields_in_record'),[('call'):'test'])	
+		WebUI.comment 'going to run testcase: verify_save_comments_SignatureClosure_TAB'
+		WebUI.callTestCase(findTestCase('verify_save_comments_SignatureClosure_TAB'),[('call'):'test'])
 	}
 }
 

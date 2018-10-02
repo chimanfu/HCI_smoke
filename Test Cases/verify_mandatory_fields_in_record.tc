@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_mandatory_fields_in_record</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>94aa50ac-5c44-4d27-97fb-894457329e42</testCaseGuid>
+</TestCaseEntity>

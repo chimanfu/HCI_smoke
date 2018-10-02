@@ -18,6 +18,11 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+
+
+WebUI.callTestCase(findTestCase('verify_mandatory_fields_in_record'),[('call'):'test'])
+return
+
 int retry_count = 0;
 int maxTries = 3;
 while(true) {

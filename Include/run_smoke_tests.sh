@@ -38,15 +38,15 @@ echo make sure using absolute path for -projectPath
 #######################
 echo run all smoke tests on production and training sites for 7.0 rollout
 
-./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_0" 
+#./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_0" 
 
 ./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_A"
 
-./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_B"
+#./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_B"
 
-./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_C"
+#./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_C"
 
-./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_D"
+#./Katalon\ Studio.app/Contents/MacOS/katalon --args -noSplash  -runMode=console -consoleLog -projectPath="/Users/jcfu/Katalon Studio/HCI_Group/HCI_Group.prj" -retry=0 -testSuiteCollectionPath="Test Suites/7.0_Rollout/smoke_test_production_Group_D"
 #######################
 
 

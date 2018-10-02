@@ -4,6 +4,12 @@
    <name>div_Showing results for ALL</name>
    <tag></tag>
    <elementGuidId>522138ab-c562-4c9d-a563-c89fbcdab2cd</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//div[@id = 'resultsTitle' and (contains(text(), 'Showing results for ') or contains(., 'Showing results for '))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -22,10 +28,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Showing results for &quot;ALL&quot;</value>
+      <value>Showing results for </value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
