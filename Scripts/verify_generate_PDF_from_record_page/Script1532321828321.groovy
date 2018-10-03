@@ -48,9 +48,10 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
 	//WebUI.verifyTextPresent('Preparing doctree', false)
 	// check file download
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(25)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(40)
 	
 	//WebUI.delay(5)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/select_Show All'), 10)
 	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Document Tree/select_Show All'), '5', true)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'),25)
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
@@ -58,7 +59,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
 	//WebUI.verifyTextPresent('Preparing doctree', false)
 	// check file download
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(25)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(35)
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)

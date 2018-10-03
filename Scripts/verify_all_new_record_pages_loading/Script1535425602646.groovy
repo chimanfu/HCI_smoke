@@ -123,8 +123,8 @@ if (!create_new_record_on_training) return
 if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
 	WebUI.comment 'going to run testcase:verify_create_record_on_training'
 	WebUI.comment 'this is a training site, so trying to create a new record'
-	WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
-	WebUI.navigateToUrl(urls[1])
+	//WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
+	//WebUI.navigateToUrl(urls[1])
 	WebUI.delay(1)
 	WebUI.callTestCase(findTestCase('verify_create_record_on_training'),[('call'):'test'])	
 

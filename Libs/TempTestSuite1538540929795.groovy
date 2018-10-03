@@ -29,7 +29,7 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.c
 
 
 
-RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test_on_training_site/20181001_183503/execution.properties")
+RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test_on_training_site/20181002_212849/execution.properties")
 
 TestCaseMain.beforeStart()
 

@@ -66,9 +66,13 @@ expected_message='Please use one of the following'
 check_message( bad_browser_blurb_message,  expected_message)
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	expected_message='Internet Explorer 11'
+	expected_message='Internet Explorer'
 	check_message( bad_browser_blurb_message,  expected_message)
 	expected_message='Chrome'
+	check_message( bad_browser_blurb_message,  expected_message)
+	expected_message='images/ie.svg'
+	check_message( bad_browser_blurb_message,  expected_message)
+	expected_message='images/chrome.svg'
 	check_message( bad_browser_blurb_message,  expected_message)
 }
 
@@ -78,14 +82,12 @@ check_message( bad_browser_blurb_message,  expected_message)
 expected_message='Safari'
 check_message( bad_browser_blurb_message,  expected_message)
 
-expected_message='images/ie.svg'
-check_message( bad_browser_blurb_message,  expected_message)
+
 expected_message='images/firefox.svg'
 check_message( bad_browser_blurb_message,  expected_message)
 expected_message='images/safari.svg'
 check_message( bad_browser_blurb_message,  expected_message)
-expected_message='images/chrome.svg'
-check_message( bad_browser_blurb_message,  expected_message)
+
 expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '
 check_message( bad_browser_blurb_message,  expected_message)
 expected_message='href="https://aces.ndc.nasa.gov/itsupport.html"'

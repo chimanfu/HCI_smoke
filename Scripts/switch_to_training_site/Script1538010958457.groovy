@@ -5,7 +5,26 @@ import internal.GlobalVariable as GlobalVariable
 CustomKeywords.'helper.login.LoginHelper.login'()
 String training_site_url=''
 String siteURL
-if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
+if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining'
+	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining/page.cgi'
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6)){
+		WebUI.click(findTestObject('Page_Login/input_login_btn'))
+		WebUI.comment('clicked on input_login_btn')
+	}
+	return
+}
+if((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
+	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/doctreeTraining'
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6)){
+		WebUI.click(findTestObject('Page_Login/input_login_btn'))
+		WebUI.comment('clicked on input_login_btn')
+	}
+	return
+}
+if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),5,FailureHandling.OPTIONAL)){
 	//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)	
 	WebUI.click(findTestObject('Object Repository/Page_Main Page/a_Home'))
 	WebUI.comment('found Home TAB, launch Home page now')
@@ -17,7 +36,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree'))
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),15)
 	
 	//if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8,FailureHandling.OPTIONAL)){
-if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'),5,FailureHandling.OPTIONAL)){
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'),3,FailureHandling.OPTIONAL)){
 	WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'))
 	WebUI.delay(2)
 	training_site_url=WebUI.getUrl()

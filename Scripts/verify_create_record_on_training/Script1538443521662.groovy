@@ -12,6 +12,16 @@ if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE
 	//WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
 	//WebUI.navigateToUrl(urls[0])
 	WebUI.delay(1)
+	
+	if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Summary_short_desc'), 'test')
+		
+		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Log Number_alias'), 'A12345')
+		
+		WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Save'))
+		return
+	}
+	
 	WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_short_desc'),15)
 	WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
 
@@ -23,14 +33,27 @@ if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE
 		
 	}
 		
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/span_component_required'),2,FailureHandling.OPTIONAL)){
-		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record 20g Centrifuge/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_component'),2,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
 	}
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/span_mandatory_on_close_filled'),1,FailureHandling.OPTIONAL)){
-		if (WebUI.waitForElementVisible(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.OPTIONAL)){
-			WebUI.selectOptionByIndex(findTestObject('Object Repository/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
+	/*if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/span_mandatory_on_close_filled'),1,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.OPTIONAL)){
+			WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
 		}
+		else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.OPTIONAL)){
+			WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.STOP_ON_FAILURE)
+		}
+	}*/
+	if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
 	}
+	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.STOP_ON_FAILURE)
+	}
+	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
+	}
+	
 	
 	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)
 	WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))

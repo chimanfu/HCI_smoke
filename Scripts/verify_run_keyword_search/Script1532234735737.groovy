@@ -19,14 +19,14 @@ import internal.GlobalVariable as GlobalVariable
  */
 
 int retry_count = 0;
-int maxTries = 1;
+int maxTries = 2;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	println('this is doctree')
-	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Document Tree/img_System Logo'),10)
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Document Tree/img_System Logo'),15)
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/img_System Logo'))
 	
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
@@ -63,8 +63,20 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.waitForElementVisible(findTestObject('Page_ARC JET/div_Showing results for RecordSeries'),25)
 	WebUI.click(findTestObject('Page_ARC JET/div_Showing results for RecordSeries'))
 	
-	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'),6)
-	WebUI.click(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'))
+	if (GlobalVariable.G_MAKE_MAS_url.contains('raining')) {
+		return
+	}
+	
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/span_AHF 306'),5)){
+		WebUI.click(findTestObject('Object Repository/Page_ARC JET/span_AHF 306'))
+		WebUI.delay(2)
+	}
+	if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'),2)){
+		WebUI.click(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'))
+	}
+	
+	//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/td_AHF 306 Pre-test Pyrometer'),6)
+	
 	
 	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ARC JET/button_Save'),5)
 	return

@@ -101,7 +101,7 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
 
         WebUI.click(findTestObject('Page_Select Record Type/a_Hazard'))
 		
-        WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_EGSHazards')) /*
+        WebUI.click(findTestObject('Page_Enter Record_old/a_EGSHazards')) /*
 			WebUI.waitForElementVisible(findTestObject('null'),5)
 			WebUI.selectOptionByLabel(findTestObject('null'),
 				'.*Ha.*',true)
@@ -122,16 +122,16 @@ if (WebUI.verifyElementVisible(findTestObject('Object Repository/Page_Record Lis
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('arc_praca')) {
         WebUI.comment('this is arc_praca')
 
-        WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_20gCentrifuge'))
+        WebUI.click(findTestObject('Page_Enter Record_old/a_20gCentrifuge'))
 
         WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_options'), 'AF - Aviation Systems Division', 
             true)
     } else if (GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) {
         WebUI.comment('this is iss_hazard')
 
-        WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_New blank record'))
+        WebUI.click(findTestObject('Page_Enter Record_old/a_New blank record'))
 
-        WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_AdAstraRocketCompany'))
+        WebUI.click(findTestObject('Page_Enter Record_old/a_AdAstraRocketCompany'))
     } else {
         WebDriver driver = DriverFactory.getWebDriver()
 

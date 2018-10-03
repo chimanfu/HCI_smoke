@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-10-01T06:34:24</lastRun>
+   <lastRun>2018-10-03T13:36:22</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -28,6 +28,12 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>8cdadaba-f421-443c-8ded-403cddcdb791</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_Metrics_TAB_loading</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>4efdb960-8e9b-4a20-bbeb-1067ef446855</guid>

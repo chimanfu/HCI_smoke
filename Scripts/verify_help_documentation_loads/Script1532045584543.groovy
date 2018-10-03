@@ -24,7 +24,7 @@ import internal.GlobalVariable as GlobalVariable
  */
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
-	WebUI.comment('do not need to run this test')
+	WebUI.comment('do not need to run this test, No help available for SSMA -- expected')
 	//WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return

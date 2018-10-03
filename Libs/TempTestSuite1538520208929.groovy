@@ -29,8 +29,8 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.c
 
 
 
-RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test_on_training_site/20181001_191512/execution.properties")
+RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/smoke_test_on_training_site/20181002_154328/execution.properties")
 
 TestCaseMain.beforeStart()
 
-TestCaseMain.startTestSuite('Test Suites/smoke_test_on_training_site', suiteProperties, [new TestCaseBinding('Test Cases/switch_to_training_site', 'Test Cases/switch_to_training_site',  null), new TestCaseBinding('Test Cases/verify_all_new_record_pages_loading', 'Test Cases/verify_all_new_record_pages_loading',  null)])
+TestCaseMain.startTestSuite('Test Suites/smoke_test_on_training_site', suiteProperties, [new TestCaseBinding('Test Cases/switch_to_training_site', 'Test Cases/switch_to_training_site',  null), new TestCaseBinding('Test Cases/verify_eCoFR_cp-inventory_integration', 'Test Cases/verify_eCoFR_cp-inventory_integration',  null)])
