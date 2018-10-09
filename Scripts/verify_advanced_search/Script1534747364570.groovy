@@ -35,18 +35,21 @@ WebUI.scrollToElement(findTestObject('Page_Search for records/div_Search by chan
 WebUI.waitForElementClickable(findTestObject('Page_Search for records/div_Search by change'),6)
 WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
 
-if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5,FailureHandling.CONTINUE_ON_FAILURE)){
-	WebUI.comment("found option 'xml snapshot' from the Search by change field")
-	
-	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
 
-	WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-08-20')
+if (WebUI.waitForElementPresent(findTestObject('Page_Search for records/input_Record_creation'),3,FailureHandling.OPTIONAL)){
+	WebUI.comment("found option 'Record_creation' from the Search by change field")
+	
+	WebUI.click(findTestObject('Page_Search for records/input_Record_creation'))
+
+	WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-01-01')
 
 	WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
 	// verify the searchTitle_XML Snapshot in the search return list
-	WebUI.waitForElementVisible(findTestObject('Page_Record List/strong_searchTitle_XML Snapshot'),5,FailureHandling.STOP_ON_FAILURE)
+	WebUI.waitForElementVisible(findTestObject('Page_Record List/ul_Creation date 2018-01-01'),5,FailureHandling.STOP_ON_FAILURE)
 
+	
+	
 } else{
 	WebUI.comment("not found option 'xml snapshot' from the Search by change field")
 }

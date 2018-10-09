@@ -4,7 +4,7 @@
    <name>smoke_test_on_training_site</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-10-03T13:13:05</lastRun>
+   <lastRun>2018-10-09T02:27:30</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

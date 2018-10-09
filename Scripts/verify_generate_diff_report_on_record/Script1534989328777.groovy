@@ -119,9 +119,10 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	}else{
 		WebUI.comment 'WARNING: Not found select_diff_report_version, the record may not have snapshots'
 	}
+	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),5)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(70)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(10)
 	WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),10)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),3)
 	

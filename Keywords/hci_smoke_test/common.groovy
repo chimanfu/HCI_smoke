@@ -59,10 +59,10 @@ class common {
 	def check_PDFFile_Downloaded(int seconds){
 
 		try{
-			if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),5)){
+			/*if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),5)){
 				WebUI.scrollToElement(findTestObject('Page_Record test_automation_record/a_PDF'),5)
 				//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
-			}
+			}*/
 			//(new helper.browserhelper.CustomBrowser()).takingScreenshot()
 			WebUI.comment('check_PDFFile_Downloaded ')
 			Screen s = new Screen()

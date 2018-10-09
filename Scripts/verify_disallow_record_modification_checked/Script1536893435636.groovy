@@ -18,6 +18,7 @@ else{
 	WebUI.comment 'will skip running disallow_record_modification check this time to save time'
 	return
 }
+String siteURL
 int retry_count = 0;
 int maxTries = 2;
 while(true){
@@ -39,7 +40,24 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')){
 
 WebUI.comment('current_login_user_email='+current_login_user_email)
 
-if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Edit user info/a_Admin'),5)){
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		try {
+			WebUI.delay(1)
+			WebUI.switchToWindowIndex(1)
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
+	}
+}
+/*if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Edit user info/a_Admin'),5)){
 	WebUI.comment('Admin tab/link not exists, so no need to run this test')
 	return
 }
@@ -52,7 +70,8 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	} catch (Exception e) {
 		e.printStackTrace()
 	}
-}
+}*/
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Administer your installation/a_Users'),10)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Users'))
 
 WebUI.setText(findTestObject('Object Repository/Page_Search users/input_matching_matchstr'), current_login_user_email+'\n')

@@ -31,7 +31,19 @@ class NewTestListener {
 			if (testcaseName.contains('login_basic_checks') || 
 				testcaseName.contains('verify_all_new_record_pages_loading') ||
 				testcaseName.contains('verify_generate_PDF_from_record_page') ||
-				testcaseName.contains('verify_run_keyword_search') 
+				testcaseName.contains('verify_run_keyword_search') ||
+				testcaseName.contains('verify_permittedBrowsers') ||
+				testcaseName.contains('verify_dagger_linking_config') ||
+				testcaseName.contains('verify_daggr_server') ||
+				testcaseName.contains('verify_bad_browser_blurb') ||
+				testcaseName.contains('verify_correct_git_hash') ||
+				testcaseName.contains('verify_correct_tag') ||
+				testcaseName.contains('verify_disallow_record_modification_checked') ||
+				testcaseName.contains('verify_help_documentation_loads') ||
+				testcaseName.contains('verify_run_saved_search') ||
+				testcaseName.contains('verify_run_keyword_search') ||
+				testcaseName.contains('verify_mail_search_result_to_team_member') ||
+				testcaseName.contains('run_sanityCheck')
 				){
 				log.logInfo("OK to run testcase: "+testcaseName)
 			}else{

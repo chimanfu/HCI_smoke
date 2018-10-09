@@ -76,8 +76,7 @@ clear_button=<img src="clear_button.png" />
 stop_button=<img src="stop_button.png" />
 WhatsNew_TAB=<img src="WhatsNew_TAB.png" />
 close_button=<img src="close_button.png" />
-<span class="skw">click</span>(<span class="skw">find</span>(WhatsNew_TAB).right().<span class="skw">find</span>(close_button))
-exit()
+
 smartcard_login_button=<img src="smartcard_login_button.png" />
 acceptCert_ok_button=<img src="acceptCert_ok_button.png" />
 cp_hazard_logo=<img src="cp_hazard_logo.png" />
@@ -86,7 +85,9 @@ vpn_url=<span class="str">"https://ames-vpn.arc.nasa.gov/dana/home/index.cgi"</s
 pulseAppLauncher_start_button=<img src="pulseAppLauncher_start_button.png" />
 pulseAppLauncher_allow_button=<img src="pulseAppLauncher_allow_button.png" />
 restore_pages_cancel_button=Pattern(<img src="restore_pages_cancel_button.png" />).targetOffset(<span class="dig">145</span>,-<span class="dig">6</span>)
-pdf_downloadedFile_icon=Pattern(<img src="pdf_downloadedFile_icon.png" />).similar(<span class="dig">0.66</span>)
+pdf_downloadedFile_icon_old=Pattern(<img src="pdf_downloadedFile_icon_old.png" />).similar(<span class="dig">0.66</span>)
+pdf_downloadedFile_icon=<img src="pdf_downloadedFile_icon.png" />
+
 Region(<span class="dig">1</span>,<span class="dig">770</span>,<span class="dig">167</span>,<span class="dig">129</span>)
 Region(<span class="dig">3</span>,<span class="dig">726</span>,<span class="dig">353</span>,<span class="dig">172</span>)
 Region(<span class="dig">1159</span>,<span class="dig">754</span>,<span class="dig">281</span>,<span class="dig">147</span>)
@@ -97,6 +98,7 @@ chrome_downloadedFile_showAll_cancel_button=Pattern(<img src="chrome_downloadedF
 
 KatalonNetworkConnections_deny_button=<img src="KatalonNetworkConnections_deny_button.png" />
 pin_field=<img src="pin_field.png" />
+
 new_pin_field=<img src="new_pin_field.png" />
 pin_field_activID=<img src="pin_field_activID.png" />
 disconnect=<img src="disconnect.png" />
@@ -104,6 +106,28 @@ disconnect=<img src="disconnect.png" />
 securePulseVPN_connected_icon=<img src="securePulseVPN_connected_icon.png" />
 vpn_selection=<img src="vpn_selection.png" />
 continue_the_session=<img src="continue_the_session.png" />
+
+<span class="cmt"># cisco anyconnect</span>
+AnyConnect_connect=<img src="AnyConnect_connect.png" />
+AnyConnect_Accept=<img src="AnyConnect_Accept.png" />
+AnyConnect_Up_icon=<img src="AnyConnect_Up_icon.png" />
+<span class="cmt">#run ('open "/Applications/Cisco/Cisco AnyConnect Secure Mobility Client.app" &amp;')</span>
+<span class="kw">if</span> exists(AnyConnect_connect,<span class="dig">20</span>):
+    <span class="skw">click</span>(AnyConnect_connect)
+
+<span class="kw">if</span> exists(pin_field_activID,<span class="dig">5</span>):
+    <span class="skw">type</span>(<span class="str">'10051965\n'</span>)
+<span class="kw">if</span> exists(AnyConnect_Accept,<span class="dig">8</span>):
+    <span class="skw">click</span>(AnyConnect_Accept)
+
+<span class="kw">if</span> exists(AnyConnect_Up_icon,<span class="dig">10</span>):
+    <span class="kw">print</span> <span class="str">'AnyConnect is Up'</span>
+<span class="kw">else</span>:
+    <span class="kw">print</span> <span class="str">'AnyConnect may not be Up'</span>
+exit()
+<span class="cmt"># cisco anyconnect</span>
+
+
 <span class="skw">wait</span>(<span class="dig">10</span>)
 <span class="cmt">#type('abc\n\n')</span>
 run(<span class="str">'caffeinate -u -t 2&amp;'</span>)

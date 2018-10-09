@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>a_OCAD 123001</name>
+   <name>a_OCAD record_number</name>
    <tag></tag>
    <elementGuidId>ed6a9400-ec9b-4001-84d1-6e11b963eddc</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[@href = 'show_bug.cgi?id=123001' and (text() = 'OCAD #123001' or . = 'OCAD #123001')]</value>
+         <value>//a[@target = '_blank' and contains(@href, 'show_bug.cgi?id=') and (contains(text(), 'OCAD #') or contains(., 'OCAD #'))]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -20,7 +20,7 @@
       <value>a</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>target</name>
       <type>Main</type>
@@ -31,14 +31,14 @@
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
-      <value>show_bug.cgi?id=123001</value>
+      <value>show_bug.cgi?id=</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>OCAD #123001</value>
+      <value>OCAD #</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

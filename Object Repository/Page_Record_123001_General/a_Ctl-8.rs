@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[@class = 'linkCell' and (text() = 'Ctl-8' or . = 'Ctl-8')]</value>
+         <value>//a[@class = 'linkCell' and (contains(text(), 'Ctl-') or contains(., 'Ctl-'))]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -49,10 +49,10 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Ctl-8</value>
+      <value>Ctl-</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

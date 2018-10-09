@@ -20,12 +20,19 @@ import internal.GlobalVariable as GlobalVariable
 // default:   Firefox/(?![123456789]\.)|Trident/[78]|Chrome|Safari
 // etasksheet: Firefox/(?![123456789]\.)|Safari   ?
 CustomKeywords.'helper.login.LoginHelper.login'()
-
-WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	WebUI.delay(1)
-	WebUI.switchToWindowIndex(1)
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	String siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		WebUI.delay(1)
+		WebUI.switchToWindowIndex(1)
+	}
 }
+WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),6)
 WebUI.click(findTestObject('Page_Administer your installation/a_Parameters'))
 
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_Administrative Policies'))

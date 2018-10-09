@@ -41,21 +41,27 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 String logMessage=''
 Screen s = new Screen()
-
+String siteURL
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
 log.logInfo('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
 
 WebUI.waitForPageLoad(180)
-WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
-WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	try {
-		WebUI.delay(1)
-		WebUI.switchToWindowIndex(1)
-	} catch (Exception e) {
-		e.printStackTrace()
-	}	
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		try {
+			WebUI.delay(1)
+			WebUI.switchToWindowIndex(1)
+		} catch (Exception e) {
+			e.printStackTrace()
+		}	
+	}
 }
 try {
 	// it may crash selenium by clciking on the Sanity Check link or it may wait for the page load forever.

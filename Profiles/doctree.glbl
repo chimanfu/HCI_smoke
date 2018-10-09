@@ -46,7 +46,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'https://dig-it-dev.nas.nasa.gov/dig_it-server/services/'</initValue>
+      <initValue>''</initValue>
       <name>G_dagger_server_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

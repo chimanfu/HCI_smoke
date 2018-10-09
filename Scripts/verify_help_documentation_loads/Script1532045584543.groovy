@@ -25,11 +25,19 @@ import internal.GlobalVariable as GlobalVariable
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	WebUI.comment('do not need to run this test, No help available for SSMA -- expected')
-	//WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'load_file.cgi?file=help/help.html')
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_DOCTREE User Guide/h1_DOCTREE User Guide'),6)	
+	return
+}
+
 int currentTab = WebUI.getWindowIndex()
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
@@ -51,23 +59,18 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 }
 
 WebUI.click(findTestObject('Page_Main Page/a_Help'))
-
 WebUI.delay(1)
-//GlobalVariable.G_MAKE_MAS_title
 try{
 	WebUI.switchToWindowIndex(currentTab+1)
-	
 }catch (Exception e) {
 	WebUI.comment('cannot switch window ' + e.getMessage())
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
 }
-
 WebUI.delay(1)
 if (WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),5))
 	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
 // need dynamically check all links in Help Page (User Guide)
-
 driver = DriverFactory.getWebDriver()
 WebUI.comment('get all help links from the Help Doc Page')
 elements = driver.findElements(By.xpath("//div[@class='toc']//a"));
@@ -81,9 +84,7 @@ for (int i = 0; i < size; i++) {
 	url = elements.get(i).getAttribute("href");
 	urls[i]=url
 	WebUI.comment ("found help link name: " + found_link+ "with URL: " + url);
-	
 }
-
 WebUI.comment 'use verifyLinksAccessible() to verify all links from the Help Doc Page'
 list_urls= Arrays.asList(urls);
 WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
@@ -94,7 +95,6 @@ CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
 
 try {
 	WebUI.closeWindowIndex(currentTab + 1)
-	
 }
 catch (Exception e) {
 	WebUI.comment('cannot close window ' + e.getMessage())
@@ -102,7 +102,6 @@ catch (Exception e) {
 	WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' User Guide')
 	//WebUI.closeWindowIndex(currentTab + 1)
 }
-
 try {
 	WebUI.switchToWindowIndex(currentTab)
 }
@@ -110,15 +109,12 @@ catch (Exception e) {
 	WebUI.comment('cannot switch window ' + e.getMessage())
 	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' Main Page')
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
-	
 }
-
 
 return
 ////////////////////////////////////////////////////////////
 
 //WebUI.waitForPageLoad(5)
-
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 	WebUI.comment 'this is cp_hazard'
 	
@@ -189,7 +185,6 @@ else if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_oms')){
 	WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/h2_Record Approval'))
 	
 	//WebUI.click(findTestObject('Object Repository/Page_CP-OMS User Guide/html_CP-OMS User Guidekatalonf'))	
-	
 }
 try {
     WebUI.closeWindowTitle(GlobalVariable.G_MAKE_MAS_title + ' User Guide')
@@ -208,4 +203,3 @@ catch (Exception e) {
     //throw new AssertionError('ERROR: Unable to verify alert present: ', e)	
     WebUI.switchToWindowIndex(currentTab)
 }
-

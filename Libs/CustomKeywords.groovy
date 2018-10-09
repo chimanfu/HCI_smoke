@@ -238,6 +238,10 @@ def static "helper.login.LoginHelper.checkHomePageExist"(
         	site_url)
 }
 
+def static "helper.login.LoginHelper.switch_to_training"() {
+    (new helper.login.LoginHelper()).switch_to_training()
+}
+
 def static "helper.login.LoginHelper.login"() {
     (new helper.login.LoginHelper()).login()
 }

@@ -64,7 +64,7 @@ break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
-	String cmd = "pkill -f Chrome"
+	cmd = "pkill -f Chrome"
 	Runtime.getRuntime().exec(cmd)
 	
 }

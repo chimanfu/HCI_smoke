@@ -53,6 +53,13 @@ if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE
 	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.OPTIONAL)){
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
 	}
+	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Mission_Object'),1,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Mission_Object'),1,FailureHandling.STOP_ON_FAILURE)
+	}
+	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_LCC_Type'),1,FailureHandling.OPTIONAL)){
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_LCC_Type'),1,FailureHandling.STOP_ON_FAILURE)
+	}
+	
 	
 	
 	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)

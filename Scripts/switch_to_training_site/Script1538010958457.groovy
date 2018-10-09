@@ -2,10 +2,42 @@ import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.login'()
 String training_site_url=''
-String siteURL
-if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+if (siteURL.contains('mas.nasa.gov')){
+	if (siteURL.contains('Inventory')){
+		training_site_url=siteURL+'_Training'
+	}else if (siteURL.contains('WSTFwebPAPER')){
+		training_site_url=siteURL+'-training'
+	}else{
+		training_site_url=(siteURL+'Training')
+	}
+	
+}else{
+	training_site_url=siteURL+'/training'
+}
+
+String cmd = "pkill -f Chrome"
+Runtime.getRuntime().exec(cmd)
+WebUI.comment('killed all processes of Chrome before running test')
+
+GlobalVariable.G_MAKE_MAS_url=training_site_url
+CustomKeywords.'helper.login.LoginHelper.login'(GlobalVariable.G_MAKE_MAS_url)
+
+if (WebUI.verifyElementPresent(findTestObject('Object Repository/Page_404 Not Found/h1_Not Found'), 3,FailureHandling.OPTIONAL)){
+	WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site'
+	GlobalVariable.userPin3='SKIP'
+}
+return
+/*WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6)){
+	WebUI.click(findTestObject('Page_Login/input_login_btn'))
+	WebUI.comment('clicked on input_login_btn')
+}
+return*/
+/*if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining'
 	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining/page.cgi'
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -15,7 +47,7 @@ if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 	}
 	return
 }
-if((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
+else if((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/doctreeTraining'
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 	if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6)){
@@ -23,7 +55,7 @@ if((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 		WebUI.comment('clicked on input_login_btn')
 	}
 	return
-}
+}*/
 if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),5,FailureHandling.OPTIONAL)){
 	//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)	
 	WebUI.click(findTestObject('Object Repository/Page_Main Page/a_Home'))
@@ -70,5 +102,9 @@ if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard
 		GlobalVariable.userPin3='SKIP'
 	}
 	GlobalVariable.G_MAKE_MAS_url=training_site_url
-	
+	println 'GlobalVariable.G_MAKE_MAS_url='+GlobalVariable.G_MAKE_MAS_url
+	if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6)){
+		WebUI.click(findTestObject('Page_Login/input_login_btn'))
+		WebUI.comment('clicked on input_login_btn')
+	}
 }

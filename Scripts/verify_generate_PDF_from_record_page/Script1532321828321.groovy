@@ -41,14 +41,14 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	
 	Screen s = new Screen()
-	
+	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'),25)
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/div_UPDATE TREE'))
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'),10)
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
 	//WebUI.verifyTextPresent('Preparing doctree', false)
 	// check file download
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(40)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(50)
 	
 	//WebUI.delay(5)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Document Tree/select_Show All'), 10)
@@ -59,7 +59,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_Download to PDF'))
 	//WebUI.verifyTextPresent('Preparing doctree', false)
 	// check file download
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(35)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(50)
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
@@ -81,7 +81,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),60)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
 	
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(60)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(50)
 	
 	WebUI.delay(1)
 	
@@ -140,10 +140,11 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record List/a_record_1'),10
 }
 if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),15)){
 	WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
-	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10))
+	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)){
+		WebUI.delay(1)
 		WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
-	WebUI.delay(1)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(150)
+	}
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(15)
 }else{
 	WebUI.comment('not found PDF link, so the site may not support PDF generation')
 }
@@ -152,11 +153,12 @@ WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record
 KeywordUtil.markPassed('PASS: Found PDF file, the test passed')
 
 /////////////////////////////////////////////////////////////////////////////
-break
-} catch (Exception e) {
-// handle exception
-e.printStackTrace()
-if (++retry_count == maxTries) throw e;
-WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+break} catch (Exception e) {
+	e.printStackTrace()
+	if (++retry_count == maxTries) throw e;
+	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
+	cmd = "pkill -f Chrome"
+	Runtime.getRuntime().exec(cmd)
+	
 }
 }

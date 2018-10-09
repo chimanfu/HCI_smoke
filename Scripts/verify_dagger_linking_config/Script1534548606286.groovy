@@ -13,6 +13,7 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	GlobalVariable.userPin2='SKIP'
 	return
 }
+String siteURL
 int retry_count = 0;
 int maxTries = 2;
 while(true){
@@ -21,8 +22,21 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		WebUI.delay(1)
+		WebUI.switchToWindowIndex(1)
+	}
+}
+//WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),6)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 // checking daggr linking parameters
 

@@ -39,13 +39,19 @@ while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
-
-WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'),25)
-WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
-	WebUI.delay(1)
-	WebUI.switchToWindowIndex(1)
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		WebUI.delay(1)
+		WebUI.switchToWindowIndex(1)
+	}
 }
+
 WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'),10)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 

@@ -60,7 +60,7 @@ public class LoginHelper {
 				WebUI.switchToDefaultContent()
 				WebDriver driver = DriverFactory.getWebDriver()
 				ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-				println("No. of tabs: " + tabs.size())
+				WebUI.comment("No. of tabs: " + tabs.size())
 				int tabs_number=tabs.size()
 				while (tabs_number>1){
 					WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
@@ -112,6 +112,33 @@ public class LoginHelper {
 		try{
 
 			Screen s = new Screen()
+
+			/////// AnyConnect
+			WebUI.comment 'Will connect VPN with Cisco AnyConnect'
+			// disconnect
+			Runtime.getRuntime().exec('/opt/cisco/anyconnect/bin/vpn disconnect')
+
+			// connect
+			String cmd = 'open "/Applications/Cisco/Cisco AnyConnect Secure Mobility Client.app" &'
+			Runtime.getRuntime().exec(cmd)
+
+			if (s.exists(GlobalVariable.G_image_path+'AnyConnect_connect.png',10)!=null){
+				s.click(GlobalVariable.G_image_path+'AnyConnect_connect.png')
+			}
+			if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',5)!=null){
+				s.type(GlobalVariable.G_userPin+"\n")
+			}
+			if (s.exists(GlobalVariable.G_image_path+'AnyConnect_Accept.png',8)!=null){
+				s.click(GlobalVariable.G_image_path+'AnyConnect_Accept.png')
+			}
+			if (s.exists(GlobalVariable.G_image_path+'AnyConnect_Up_icon.png',12)!=null){
+				WebUI.comment 'AnyConnect is Up'
+			}
+			else{
+				WebUI.comment 'AnyConnect may not be Up'
+			}
+			return
+			///////
 			Region righttop=new Screen(0).setRect(805,0,635,235)
 			WebUI.comment 'will disconnect VPN first if it already connected'
 			if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
@@ -127,10 +154,10 @@ public class LoginHelper {
 				WebUI.switchToWindowIndex(0)
 				WebUI.switchToDefaultContent()
 				WebUI.maximizeWindow()
-				
+
 				WebDriver driver = DriverFactory.getWebDriver()
 				ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-				println("No. of tabs: " + tabs.size())
+				WebUI.comment("No. of tabs: " + tabs.size())
 				int tabs_number=tabs.size()
 				while (tabs_number>1){
 					WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
@@ -183,40 +210,40 @@ public class LoginHelper {
 						break
 					}
 				}
-				
-				
+
+
 				////////
-//				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
-//				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-//
-//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-//					}
-//				}
-//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)!=null){
-//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-//					}
-//				}
-//				//			WebUI.delay(4)
-//				//			s.type(GlobalVariable.G_userPin+"\n")
-//				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-//					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-//					s.type(GlobalVariable.G_userPin+"\n")
-//				}else{
-//					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-//					s.type(GlobalVariable.G_userPin+"\n")
-//				}
-				
+				//				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
+				//				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				//
+				//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				//					}
+				//				}
+				//				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)!=null){
+				//					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				//				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				//					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				//					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				//						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				//						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				//					}
+				//				}
+				//				//			WebUI.delay(4)
+				//				//			s.type(GlobalVariable.G_userPin+"\n")
+				//				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+				//					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				//					s.type(GlobalVariable.G_userPin+"\n")
+				//				}else{
+				//					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				//					s.type(GlobalVariable.G_userPin+"\n")
+				//				}
+
 				WebUI.delay(5)
 				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7,FailureHandling.OPTIONAL)){
 					WebUI.delay(1)
@@ -295,6 +322,86 @@ public class LoginHelper {
 			return false
 		}
 	}
+	///////
+	@Keyword
+	public void switch_to_training(){
+		String training_site_url=''
+		String siteURL
+		if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
+			GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining'
+			GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/etasksheetTraining/page.cgi'
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6,FailureHandling.OPTIONAL)){
+				WebUI.click(findTestObject('Page_Login/input_login_btn'))
+				WebUI.comment('clicked on input_login_btn')
+			}
+			return
+		}
+		if((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
+			GlobalVariable.G_MAKE_MAS_url='https://mas.nasa.gov/doctreeTraining'
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+			if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6,FailureHandling.OPTIONAL)){
+				WebUI.click(findTestObject('Page_Login/input_login_btn'))
+				WebUI.comment('clicked on input_login_btn')
+			}
+			return
+		}
+		if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),5,FailureHandling.OPTIONAL)){
+			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+			WebUI.click(findTestObject('Object Repository/Page_Main Page/a_Home'))
+			WebUI.comment('found Home TAB, launch Home page now')
+		}else{
+			WebUI.comment('cannot find Home page, launch site url instead')
+			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		}
+		if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree'))
+			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),15)
+
+		//if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8,FailureHandling.OPTIONAL)){
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'),3,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Object Repository/Page_CP-Hazard Main Page/a_sandbox instance'))
+			WebUI.delay(2)
+			training_site_url=WebUI.getUrl()
+			GlobalVariable.G_MAKE_MAS_url=training_site_url
+			WebUI.comment 'GlobalVariable.G_MAKE_MAS_url='+GlobalVariable.G_MAKE_MAS_url
+			if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6,FailureHandling.OPTIONAL)){
+				WebUI.click(findTestObject('Page_Login/input_login_btn'))
+				WebUI.comment('clicked on input_login_btn')
+			}
+		}else{
+			WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have sandbox instance in Home page, try something else'
+			WebUI.comment GlobalVariable.G_MAKE_MAS_url+' does not have sandbox instance'
+			siteURL=GlobalVariable.G_MAKE_MAS_url
+			if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+			GlobalVariable.G_MAKE_MAS_url=siteURL
+			if (GlobalVariable.G_MAKE_MAS_url.contains('mas.nasa.gov')){
+				if (GlobalVariable.G_MAKE_MAS_url.contains('Inventory')){
+					training_site_url=GlobalVariable.G_MAKE_MAS_url+'_Training'
+				}else if (GlobalVariable.G_MAKE_MAS_url.contains('WSTFwebPAPER')){
+					training_site_url=GlobalVariable.G_MAKE_MAS_url+'-training'
+				}else{
+					training_site_url=(GlobalVariable.G_MAKE_MAS_url+'Training')
+				}
+			}else{
+				training_site_url=(GlobalVariable.G_MAKE_MAS_url+'/training')
+			}
+			WebUI.navigateToUrl(training_site_url)
+
+			if (WebUI.verifyElementPresent(findTestObject('Object Repository/Page_404 Not Found/h1_Not Found'), 3,FailureHandling.OPTIONAL)){
+				WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site'
+				GlobalVariable.userPin3='SKIP'
+			}
+
+			GlobalVariable.G_MAKE_MAS_url=training_site_url
+			if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),6,FailureHandling.OPTIONAL)){
+				WebUI.click(findTestObject('Page_Login/input_login_btn'))
+				WebUI.comment('clicked on input_login_btn')
+			}
+
+		}
+
+	}
+	///////
 	@Keyword
 	public void login(){
 		/*try{
@@ -334,7 +441,7 @@ public class LoginHelper {
 			WebUI.switchToDefaultContent()
 			WebDriver driver = DriverFactory.getWebDriver()
 			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-			println("No. of tabs: " + tabs.size())
+			WebUI.comment("No. of tabs: " + tabs.size())
 			int tabs_number=tabs.size()
 			while (tabs_number>1){
 				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
@@ -392,39 +499,38 @@ public class LoginHelper {
 						break
 					}else{
 						/*if ((s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)==null)&&(s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',1)==null)){
-							WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-							s.type(GlobalVariable.G_userPin+"\n")
-							break
-						}*/
+						 WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+						 s.type(GlobalVariable.G_userPin+"\n")
+						 break
+						 }*/
 						s.type(GlobalVariable.G_userPin+"\n")
 						WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
 					}
 				}
 				////////
-				
-				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
-				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 
-				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-					}
-				}
-				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}else{
-					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-					WebUI.delay(2)
-					s.type(GlobalVariable.G_userPin+"\n")
-				}*/
-				
-				
+				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				 //s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				 }else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				 //s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				 }
+				 }
+				 if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+				 WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 }else{
+				 WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				 WebUI.delay(2)
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 }*/
+
+
 			}catch (Exception e) {
 				KeywordUtil.markFailedAndStop(e.message)
 			}
@@ -469,16 +575,15 @@ public class LoginHelper {
 			return null
 		}
 		/*if (!GlobalVariable.G_MAKE_MAS_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
-			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-			if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
-				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
-				WebUI.comment('found cp_hazard_logo')
-				WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
-			}
-
-			//WebUI.waitForPageLoad(30)
-			WebUI.comment('*** Done Login ***')
-		}*/
+		 //s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+		 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
+		 s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+		 WebUI.comment('found cp_hazard_logo')
+		 WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+		 }
+		 //WebUI.waitForPageLoad(30)
+		 WebUI.comment('*** Done Login ***')
+		 }*/
 	}
 	@Keyword
 	public boolean login(String site_url){
@@ -493,13 +598,12 @@ public class LoginHelper {
 		 }
 		 */
 		/*if (checkHomePageExist()){
-			WebUI.comment('done checkHomePageExist, already in Home page')
-			return null
-		}
-
-		String cmd = "pkill -f Chrome"
-		Runtime.getRuntime().exec(cmd)
-		WebUI.comment('killed all processes of Chrome before running test')*/
+		 WebUI.comment('done checkHomePageExist, already in Home page')
+		 return null
+		 }
+		 String cmd = "pkill -f Chrome"
+		 Runtime.getRuntime().exec(cmd)
+		 WebUI.comment('killed all processes of Chrome before running test')*/
 
 		////////////////// new //////////////////
 		//cmd="killall -9 chromedriver"
@@ -518,13 +622,13 @@ public class LoginHelper {
 			WebUI.switchToWindowIndex(0)
 			WebUI.switchToDefaultContent()
 			/*WebDriver driver = DriverFactory.getWebDriver()
-			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-			println("No. of tabs: " + tabs.size())
-			int tabs_number=tabs.size()
-			while (tabs_number>1){
-				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
-				tabs_number--
-			}*/
+			 ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
+			 println("No. of tabs: " + tabs.size())
+			 int tabs_number=tabs.size()
+			 while (tabs_number>1){
+			 WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+			 tabs_number--
+			 }*/
 		}catch (Exception e) {
 			//WebUI.switchToWindowIndex(0)
 			//WebUI.delay(2)
@@ -538,7 +642,7 @@ public class LoginHelper {
 			WebUI.switchToDefaultContent()
 			WebDriver driver = DriverFactory.getWebDriver()
 			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-			println("No. of tabs: " + tabs.size())
+			WebUI.comment("No. of tabs: " + tabs.size())
 			int tabs_number=tabs.size()
 			while (tabs_number>1){
 				WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
@@ -552,23 +656,23 @@ public class LoginHelper {
 				//r=s.exists(pImage,1);
 				s.click(s.exists(pImage,1), 1)
 			}
-			
+
 		}
 		//WebUI.maximizeWindow()
 		//Screen s = new Screen()
 		// check if the restore pages is showing (restore_pages_cancel_button.png)
 		/*if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
-			WebUI.delay(1)
-			//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
-			//WebUI.delay(1)
-			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
-			//r=s.exists(pImage,1);
-			s.click(s.exists(pImage,1), 1)
-		}*/
-//		if (checkHomePageExist()){
-//			WebUI.comment('done checkHomePageExist')
-//			return null
-//		}
+		 WebUI.delay(1)
+		 //s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+		 //WebUI.delay(1)
+		 Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+		 //r=s.exists(pImage,1);
+		 s.click(s.exists(pImage,1), 1)
+		 }*/
+		//		if (checkHomePageExist()){
+		//			WebUI.comment('done checkHomePageExist')
+		//			return null
+		//		}
 		WebUI.comment('checking input_login_btn')
 		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),7,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -612,30 +716,29 @@ public class LoginHelper {
 					}
 				}
 				////////
-				
-				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
-				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
 
-				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-					//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-						//s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
-						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-					}
-				}
-				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}else{
-					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-					WebUI.delay(2)
-					s.type(GlobalVariable.G_userPin+"\n")
-				}*/
-				
-				
+				/*s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				 //s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				 }else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+				 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				 //s.wait(GlobalVariable.G_image_path+'acceptCert_ok_button.png',15)
+				 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				 }
+				 }
+				 if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+				 WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 }else{
+				 WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				 WebUI.delay(2)
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 }*/
+
+
 			}catch (Exception e) {
 				KeywordUtil.markFailedAndStop(e.message)
 			}
@@ -680,19 +783,18 @@ public class LoginHelper {
 			return true
 		}
 		/*if (!site_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),10,FailureHandling.OPTIONAL)){
-			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
-			if ((site_url).contains('cp_hazard')){
-				s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
-				WebUI.comment('found cp_hazard_logo')
-				WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
-			}
-
-			//WebUI.waitForPageLoad(30)
-			WebUI.comment('*** Done Login ***')
-		}*/
+		 //s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',10)
+		 if ((site_url).contains('cp_hazard')){
+		 s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)
+		 WebUI.comment('found cp_hazard_logo')
+		 WebUI.comment('found home link and cp_hazard_logo, login to cp_hazard succeeded!')
+		 }
+		 //WebUI.waitForPageLoad(30)
+		 WebUI.comment('*** Done Login ***')
+		 }*/
 		return false
 	}
-	
+
 	@Keyword
 	public void loginIntoApplication(String applicationUrl,String Username,String Password){
 

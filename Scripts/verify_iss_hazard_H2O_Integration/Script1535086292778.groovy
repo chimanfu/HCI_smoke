@@ -39,7 +39,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_u
 	
 	WebUI.scrollToElement(findTestObject('Page_Record_27228_react_iss_hazard/span_Ctl-8'),10)
 	CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshot'()
-	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD 123001'))
+	WebUI.click(findTestObject('Page_Record_27228_react_iss_hazard/a_OCAD record_number'))
 }else{
 	// old code
 	WebUI.waitForElementVisible(findTestObject('Page_Record_27228_iss_hazard/div_Controls'),35)

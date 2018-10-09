@@ -7,20 +7,20 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//input[@type = 'checkbox' and @value = 'xmlversion' and @name = 'chfield']</value>
+         <value>//div[@class='search_form_container']//div[@id='search_change']//div[@id='chfield']/ul[@class='nasa-ms-select']//input[@id='chfield_xmlversion']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>input</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>type</name>
       <type>Main</type>
@@ -34,14 +34,14 @@
       <value>ms-cb</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>value</name>
       <type>Main</type>
       <value>xmlversion</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>name</name>
       <type>Main</type>
@@ -55,10 +55,10 @@
       <value>chfield_xmlversion</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;chfield_xmlversion&quot;)</value>
+      <value>//div[@class='search_form_container']//div[@id='search_change']//div[@id='chfield']/ul[@class='nasa-ms-select']//input[@id='chfield_xmlversion']</value>
    </webElementProperties>
 </WebElementEntity>

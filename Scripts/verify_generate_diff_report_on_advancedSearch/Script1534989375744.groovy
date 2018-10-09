@@ -4,6 +4,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('dex')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -36,12 +37,14 @@ while(true) {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-
+WebUI.waitForElementClickable(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'),10)
 WebUI.click(findTestObject('Object Repository/Page_OCAD Main Page/a_Advanced Search'))
 
+WebUI.scrollToElement(findTestObject('Page_Search for records/div_Search by change'),6)
+WebUI.waitForElementClickable(findTestObject('Page_Search for records/div_Search by change'),1)
 WebUI.click(findTestObject('Page_Search for records/div_Search by change'))
 
-if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),5)){
+if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_select_option_xmlversion'),3,FailureHandling.OPTIONAL)){
 	
 	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
 
@@ -89,10 +92,10 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	}else{
 		KeywordUtil.markWarning('WARNING: Not found select_diff_report_version, the record may not have snapshots, need to verify as why it can search it from select_option_xmlversion')
 	}
-	
+	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),5)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(90)
+	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(10)
 	WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),25)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),25)
 }else{

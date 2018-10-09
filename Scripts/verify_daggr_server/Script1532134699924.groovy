@@ -27,10 +27,15 @@ Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training/se
 
 //https://fmea.iss.nasa.gov
 https://mas.nasa.gov/ARC-PRACA/editparams.cgi?section=daggrvmdb
-if (siteURL.contains('fmea.iss')) {
-Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
-Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training-vmdb/services/'
+if (siteURL.contains('fmea.iss')||siteURL.contains('ocad.iss')) {
+	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
+	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training-vmdb/services/'
 }
+if (siteURL.contains('part.iss')){
+	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
+	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb-training/services/'
+}
+
 
 WebUI.comment('G_dagger_server_url='+GlobalVariable.G_dagger_server_url)
 if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
@@ -50,8 +55,20 @@ try {
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-
+if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+	siteURL=GlobalVariable.G_MAKE_MAS_url
+	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+	WebUI.navigateToUrl(siteURL+'admin.cgi')
+}else{
+	WebUI.waitForElementClickable(findTestObject('Page_Main Page/a_Admin'), 60)
+	WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+	if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+		WebUI.delay(1)
+		WebUI.switchToWindowIndex(1)
+	}
+}
+//WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),6)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Params'))
