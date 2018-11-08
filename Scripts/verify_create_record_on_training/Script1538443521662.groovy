@@ -6,25 +6,27 @@ import internal.GlobalVariable as GlobalVariable
 
 ///////// create a new record for the training site
 search_term = 'test_create_record_on_training'
+//recordID=search_term
 //search_term = 'test'
-if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+//if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) || ((WebUI.getUrl()).contains('MAKE-MAS')&& (GlobalVariable.G_MAKE_MAS_url).contains('MAKE-MAS')) ){
+		
 	WebUI.comment 'this is a training site, so trying to create a new record'
 	//WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
 	//WebUI.navigateToUrl(urls[0])
+	//WebUI.refresh()
 	WebUI.delay(1)
 	
 	if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
-		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Summary_short_desc'), 'test')
-		
-		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Log Number_alias'), 'A12345')
-		
+		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Summary_short_desc'), 'test')		
+		WebUI.setText(findTestObject('Object Repository/Page_ARC JET/input_Log Number_alias'), 'A12345')	
 		WebUI.click(findTestObject('Object Repository/Page_ARC JET/button_Save'))
 		return
 	}
 	
 	WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/input_short_desc'),15)
 	WebUI.setText(findTestObject('Page_Enter Record View/input_short_desc'), search_term)
-
+	WebUI.delay(1)
 	if (GlobalVariable.G_MAKE_MAS_url.contains('ARC-PRACA')){
 		WebUI.comment 'check Title_required_field, Business Area_required_field and Reporting Organization_required_field'
 		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Title_required_field'))
@@ -34,6 +36,7 @@ if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE
 	}
 		
 	if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_component'),2,FailureHandling.OPTIONAL)){
+		WebUI.click(findTestObject('Page_Enter Record View/select_component'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_component'), 1,FailureHandling.STOP_ON_FAILURE)
 	}
 	/*if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/span_mandatory_on_close_filled'),1,FailureHandling.OPTIONAL)){
@@ -45,23 +48,33 @@ if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE
 		}
 	}*/
 	if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.OPTIONAL)){
+		WebUI.click(findTestObject('Page_Enter Record View/select_omrs_type'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_omrs_type'),1,FailureHandling.STOP_ON_FAILURE)
 	}
 	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.OPTIONAL)){
+		//WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.STOP_ON_FAILURE)
+		WebUI.click(findTestObject('Page_Enter Record View/select_record_type'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_record_type'),1,FailureHandling.STOP_ON_FAILURE)
 	}
-	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.OPTIONAL)){
-		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
-	}
+//	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.OPTIONAL)){
+//		WebUI.click(findTestObject('Page_Enter Record View/select_Group'))
+//		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
+//	}
 	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Mission_Object'),1,FailureHandling.OPTIONAL)){
+		WebUI.click(findTestObject('Page_Enter Record View/select_Mission_Object'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Mission_Object'),1,FailureHandling.STOP_ON_FAILURE)
 	}
 	else if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_LCC_Type'),1,FailureHandling.OPTIONAL)){
+		WebUI.click(findTestObject('Page_Enter Record View/select_LCC_Type'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_LCC_Type'),1,FailureHandling.STOP_ON_FAILURE)
 	}
+	if (WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.OPTIONAL)){
+		WebUI.click(findTestObject('Page_Enter Record View/select_Group'))
+		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
+	}
+	//return
 	
-	
-	
+	WebUI.delay(1)
 	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Create New Record'),5)
 	WebUI.click(findTestObject('Page_Enter Record View/input_Create New Record'))
 	// check record is created

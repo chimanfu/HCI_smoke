@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>div_Basic InformationDeliverab</name>
+   <tag></tag>
+   <elementGuidId>0f14018b-e170-44fb-8b96-93ed4e03c559</elementGuidId>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>div</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>id</name>
+      <type>Main</type>
+      <value>record</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>row</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>Basic InformationDeliverablesDependencies and DependentsAttachmentsCommentsConcurrenceDescription:Memos defining core stage geometry for dynamics analysis:
+Core Stage Geometric Form Tolerance: Memo EV-34 (16-013)
+Forward Attach Interface Detailed Product (IDP) CAD models: Memo EV34(18-04)Request Justification:Memo has been previously delivered and used in previous cycles as referenceIntended Use:Lift-Off and Booster Separation analysis for EM2 and SM1Requested Pedigree: ---RFIRFTU  Points of ContactRequesting POC:Ben Burger(edit)Requesting Org:BoosterCrew OfficeEGSEnginesIASMPCVOPSPPCProductionPropulsionSESMASPIEStEStagesTestVM1 selected Requesting Org Approver(s):Jason Bush(edit)Providing POC:(edit)Providing Org:BoosterCrew OfficeEGSEnginesIASMPCVOPSPPCProductionPropulsionSESMASPIEStEStagesTestVM1 selected Providing Org Approver(s):Preston Schmauch(edit)Other POC(s):(edit)ScheduleRequestor Need Date:‹December 2019›SuMoTuWeThFrSa24252627282930123456789101112131415161718192021222324252627282930311234Delivery Date Instructions:   Provider Expected Delivery Date: The providing organization's best estimate of when the requested data will be released for use. Adjusted Delivery Date: Used by the providing organization after the request is in work to identify late-breaking changes. Provider Expected Delivery Date:‹December 2018›SuMoTuWeThFrSa2526272829301234567891011121314151617181920212223242526272829303112345Adjusted Delivery Date:‹October 2018›SuMoTuWeThFrSa301234567891011121314151617181920212223242526272829303112345678910Variance from Need Date (in Calendar Days):365Expected Delivery Date Rationale:Analysis Activity:EM-2 / MAC-1SM-1 / DAC-12 selected Vehicle Configuration:Block 1Block 1B1 selected Mission Effectivity:EM-1EM-2SM-12 selected Visibility RestrictionsRestrict Record Visibility:Only users in all of the selected groups can view this record. Unchecking all the boxes makes this record visible to more users.EAR: Restrict visibility and apply EAR markings to the record PDFITAR: Restrict visibility and apply ITAR markings to the record PDFSBU: Restrict visibility and apply SBU markings to the record PDFEnable Role Visibility:Users in the roles selected below can always view this record:Reporter (the person who created the record)People on the CC list</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;record&quot;)</value>
+   </webElementProperties>
+   <webElementXpaths>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:attributes</name>
+      <value>//div[@id='record']</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:idRelative</name>
+      <value>//div[@id='record_background']/div[2]</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:neighbor</name>
+      <value>(.//*[normalize-space(text()) and normalize-space(.)='edit'])[1]/following::div[1]</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:position</name>
+      <value>//div[2]/div[2]</value>
+   </webElementXpaths>
+</WebElementEntity>

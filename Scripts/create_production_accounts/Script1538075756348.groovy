@@ -8,7 +8,7 @@ import internal.GlobalVariable as GlobalVariable
 
 boolean add_for_training_sites=true
 boolean add_for_production_sites=false
-user_pin='10051965'
+user_pin='12345678'
 user_email='joseph.fu@nasa.gov'
 user_name='Joseph Fu'
 user_uupic='739534374'

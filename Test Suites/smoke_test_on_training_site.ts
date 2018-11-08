@@ -4,7 +4,7 @@
    <name>smoke_test_on_training_site</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-10-09T02:27:30</lastRun>
+   <lastRun>2018-11-02T14:59:31</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -36,12 +36,6 @@
       <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>55aaf4fb-7b15-484e-aaa2-7c98fec4af2f</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_Metrics_TAB_loading</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>4efdb960-8e9b-4a20-bbeb-1067ef446855</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -58,6 +52,12 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>55aaf4fb-7b15-484e-aaa2-7c98fec4af2f</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_Metrics_TAB_loading</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
@@ -114,12 +114,6 @@
       <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>f59afac7-4fc3-4595-b731-0cab00d02a0a</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_diff_report_on_record</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -148,6 +142,18 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_dagger_linking_config</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>bb8530bf-95af-4707-a515-fd1c69cf4595</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_analytics_site_url</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>29424b2e-307c-4214-b8ba-da30a888a972</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_loginblurb</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b39ec0bb-a540-43fd-a18c-e3cbe54d95e3</guid>
@@ -256,5 +262,17 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_mcard_VMDB_Cradle_Integration</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>4c6e4f2c-c907-445d-a62c-cc9f0382d7b8</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_cpid_dex_variance_days</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>2af1dfe2-bff1-46a3-ad8d-b91a5c7df0f1</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_auto_status</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

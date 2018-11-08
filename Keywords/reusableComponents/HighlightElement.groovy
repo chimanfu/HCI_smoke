@@ -15,15 +15,15 @@ public class HighlightElement {
 	@Keyword
 	public static void run(TestObject objectto) {
 		try {
-			WebElement element = WebUiCommonHelper.findWebElement(objectto, 20);
+			WebElement element = WebUiCommonHelper.findWebElement(objectto, 20)
 			for (int i = 0; i < 5; i++) {
 
-				JavascriptExecutor js = (JavascriptExecutor) driver;
+				JavascriptExecutor js = (JavascriptExecutor) driver
 				js.executeScript("arguments[0].setAttribute('style','background: yellow; border: 5px solid red;');",
-						element);
+						element)
 			}
 		} catch (Exception e) {
-			Assert.fail(e.getMessage());
+			Assert.fail(e.getMessage())
 		}
 	}
 }

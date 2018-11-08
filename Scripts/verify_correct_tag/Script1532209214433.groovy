@@ -18,13 +18,28 @@ import internal.GlobalVariable as GlobalVariable
  * 	https://docs.google.com/spreadsheets/d/1ouQAmhtSV9Z1pxPs1gGEtkUhc4Dd4Fap6hCJFfXXDyk/edit#gid=0
  *
  */
-
+if (GlobalVariable.G_MAKE_MAS_url.contains('MAKE-MAS')){
+	WebUI.comment 'do not need to run it for dev sites'
+	return
+}
 GlobalVariable.G_tag_ver='master 7.0'
+if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')||GlobalVariable.G_MAKE_MAS_url.contains('cxhazard')|| GlobalVariable.G_MAKE_MAS_url.contains('lms')||GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	//GlobalVariable.G_tag_ver='master 7.0.3'
+	GlobalVariable.G_tag_ver='master 7.0.3.1'
+}
+if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
+	GlobalVariable.G_tag_ver='master 7.0.3' // for 7.0.3
+}
+
+//GlobalVariable.G_tag_ver='master 7.0.2'
+
 WebUI.comment  'for 7.0 rollout, expected correct tag = '+GlobalVariable.G_tag_ver
 //refer to https://docs.google.com/spreadsheets/d/1Y-aObiFf3VOppDvePzLnLsVXcxFN6EpnKlqsQHH03AY/edit#gid=1051137565
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),20)
+
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/div_About-git-hash'),20)
+WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),10)
 // WebUI.click(findTestObject('Page_Main Page/div_About-git-hash'))
  
  footer_message=WebUI.getText(findTestObject('Page_Main Page/div_About-git-hash'))

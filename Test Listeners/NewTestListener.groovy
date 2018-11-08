@@ -24,9 +24,14 @@ class NewTestListener {
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		GlobalVariable.userPin2='RUN'
+		//GlobalVariable.G_image_path='opencv_images/'
+		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
+		//GlobalVariable.G_userPin='12345678'
+		GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
 		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		String testcaseName=testCaseContext.getTestCaseId()
 		WebUI.comment 'Testcase: '+testcaseName
+		GlobalVariable.recordName1=testcaseName
 		if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 			if (testcaseName.contains('login_basic_checks') || 
 				testcaseName.contains('verify_all_new_record_pages_loading') ||
@@ -139,21 +144,20 @@ class NewTestListener {
 	def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
 		WebUI.comment 'TestSuite Name: '+ testSuiteContext.getTestSuiteId()
 		String cmd = "pkill -f Chrome"
+		//String cmd = 'while pgrep Chrome ; do pkill Chrome ; done'
 		Runtime.getRuntime().exec(cmd)
 		cmd="killall -9 chromedriver"
 		Runtime.getRuntime().exec(cmd)
 		println('killed all processes of Chrome and chromedriver before running test')
 		
 		Screen s = new Screen();
+		//GlobalVariable.G_image_path='opencv_images/'
+		GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
 		
 		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')
-		}
-		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
-		//GlobalVariable.G_userPin='12345678'
-		//CustomKeywords.'helper.login.LoginHelper.loginVPN'()
-		
+		}			
 	}
 
 	/**

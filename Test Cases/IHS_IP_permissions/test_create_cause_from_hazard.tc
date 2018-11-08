@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>test_create_cause_from_hazard</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>da0218b1-40a0-411f-b088-df8bf22d68b3</testCaseGuid>
+</TestCaseEntity>

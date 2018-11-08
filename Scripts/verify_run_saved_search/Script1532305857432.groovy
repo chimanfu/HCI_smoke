@@ -51,7 +51,11 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.navigateToUrl(siteURL+'query.cgi')
 	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Search for records/input_Search for words'),10)
 	WebUI.setText(findTestObject('Object Repository/Page_Search for records/input_Search for words'),search_term+'\n')
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),10,FailureHandling.OPTIONAL)){
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Record ID_found'),5,FailureHandling.OPTIONAL)){
+		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/li_Record ID_found'))
+		
+	}
+	else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/span_search_records_found'))
 	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'No records found for search term='+search_term
@@ -73,7 +77,7 @@ else{
 	WebUI.waitForElementVisible(findTestObject('Page_Main Page/a_My Records'),3)
 	WebUI.click(findTestObject('Page_Main Page/a_My Records'))
 	
-	WebUI.delay(1)
+	//WebUI.delay(1)
 	
 	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 	
@@ -92,7 +96,12 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Search updated/a_joe_search'),10)
 	WebUI.click(findTestObject('Object Repository/Page_Search updated/a_joe_search'))
 	
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),10,FailureHandling.OPTIONAL)){
+	
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Record ID_found'),5,FailureHandling.OPTIONAL)){
+		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/li_Record ID_found'))
+		
+	}	
+	else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/span_search_records_found'))
 	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'No records found for search term='+search_term
@@ -117,7 +126,11 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.waitForElementVisible(findTestObject('Page_Search created/a_joe_search'),6)
 	WebUI.click(findTestObject('Page_Search created/a_joe_search'))
 	
-	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),10,FailureHandling.OPTIONAL)){
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Record ID_found'),5,FailureHandling.OPTIONAL)){
+		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/li_Record ID_found'))
+		
+	}
+	else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/span_search_records_found'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'found search record as '+WebUI.getText(findTestObject('Object Repository/Page_Record List/span_search_records_found'))
 	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'No records found for search term='+search_term

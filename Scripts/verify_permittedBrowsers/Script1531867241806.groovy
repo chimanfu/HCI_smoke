@@ -19,7 +19,8 @@ import internal.GlobalVariable as GlobalVariable
 // https://docs.google.com/spreadsheets/d/1Y-aObiFf3VOppDvePzLnLsVXcxFN6EpnKlqsQHH03AY/edit#gid=1590469616
 // default:   Firefox/(?![123456789]\.)|Trident/[78]|Chrome|Safari
 // etasksheet: Firefox/(?![123456789]\.)|Safari   ?
-CustomKeywords.'helper.login.LoginHelper.login'()
+
+/*CustomKeywords.'helper.login.LoginHelper.login'()
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	String siteURL=GlobalVariable.G_MAKE_MAS_url
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
@@ -40,8 +41,16 @@ WebUI.delay(1)
 WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/dd_The browsers that this system support'),15)
 WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Configuration Administrative Policies/dt_permittedBrowsers'),10)
 WebUI.click(findTestObject('Object Repository/Page_Configuration Administrative Policies/dt_permittedBrowsers'))
-WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),10)
-WebUI.scrollToElement(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),10)
+WebUI.waitForElementVisible(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),10)*/
+
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+permittedBrowsers_view=siteURL+'/editparams.cgi?section=admin#permittedBrowsers_desc'
+CustomKeywords.'helper.login.LoginHelper.login'()
+WebUI.navigateToUrl(permittedBrowsers_view)
+
+WebUI.waitForElementClickable(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),15)
+WebUI.scrollToElement(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'),5)
 WebUI.click(findTestObject('Page_Configuration Administrative Policies/txt_permittedBrowsers'))
 
 WebUI.comment('check permittedBrowsers value from permittedBrowsers parameter')
@@ -65,9 +74,9 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('training')) {
 	WebUI.comment 'GlobalVariable.G_permitted_browser='+GlobalVariable.G_permitted_browser
 }
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+/*if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.switchToWindowIndex(1)
 	WebUI.closeWindowIndex(1)
 	WebUI.switchToWindowIndex(0)
-}
+}*/
 

@@ -1,3 +1,4 @@
+if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -14,6 +15,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
+
 WebUI.comment 'verify loading of Metrics page from the Metrics TAB if it is available'
 /*
 verify loading of Metrics page from the Metrics TAB if it is available, it will 
@@ -27,7 +30,10 @@ if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR M
 	WebUI.comment 'found Metrics TAB, going to check the Metrics page loading'
 	WebUI.click(findTestObject('Object Repository/Page_eCoFR Main Page/a_Metrics'))
 	
-	if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/select_Mission'),5)){
+	if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/select_Mission'),18)){
+		WebUI.delay(1)
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_eCoFR Metrics/select_Mission'),12)
+		WebUI.delay(1)
 		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_eCoFR Metrics/select_Mission'),1,FailureHandling.STOP_ON_FAILURE)
 		
 		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_eCoFR Metrics/select_Review'), 1,FailureHandling.STOP_ON_FAILURE)
@@ -35,13 +41,18 @@ if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR M
 		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_eCoFR Metrics/select_Organization'), 1,FailureHandling.STOP_ON_FAILURE)
 		
 		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_eCoFR Metrics/select_Groups'), 1,FailureHandling.STOP_ON_FAILURE)
-		WebUI.delay(2)
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'),5)
-		WebUI.click(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'))
+		WebUI.delay(5)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'),8)
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'),8)
 		WebUI.delay(1)
 		WebUI.click(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'))
-		WebUI.scrollToElement(findTestObject('Object Repository/Page_eCoFR Metrics/span_Dissenting Opinion record'),5)
-		//WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/span_Dissenting Opinion record'),5)
+		//WebUI.delay(1)
+		//WebUI.click(findTestObject('Object Repository/Page_eCoFR Metrics/div_OPEN DISSENTS_metrics'))
+		//WebUI.delay(1)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_eCoFR Metrics/span_Dissenting Opinion record'),8)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_eCoFR Metrics/span_Dissenting Opinion record'),2)
+		WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
+		
 	}
 }else{
 	WebUI.comment 'NOT found Metrics TAB, will not check the Metrics page loading'

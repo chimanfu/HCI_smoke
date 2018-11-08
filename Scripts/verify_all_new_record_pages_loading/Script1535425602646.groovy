@@ -11,18 +11,21 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* verify all links in create New record page are accessible and each add new record link is loading without any errors.
+ * now only limit to first 5 links checking due to time saving
  * 
  * Steps:
  * 
  * click on New link from the Home page
- * dynamically get all the add new record links on the page (Page_Enter Record)
- * 		On the Page of New Record, perform verifyLinksAccessible() to verify all create record links are not broken 
- * 		will report any links that are not accessible.
- * 		will fail the test if FailureHandling.STOP_ON_FAILURE
- *
+ * click All link if exists to display all new enter record links
+ * dynamically get all the add new record links on the page (Page of Enter Record)
+ * verify on each Page of New Record (max_new_recording_page_loading=5)
+ * 		perform verifyLinksAccessible() to verify link is accessible
  * 		get new record link name and url
- * 		navigate each link url to open new record page 
+ * 		navigate to link url to open new record page 
  * 		check for js error on each new record page when page is being loaded
+ * if training site, call testcase to create a new record
+ * 
+	
  *///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 boolean create_new_record_on_training=true
@@ -34,7 +37,7 @@ String url
 int size
 List<WebElement> elements
 WebDriver driver
-
+boolean have_All_link=false
 List<String> list_urls
 
 int retry_count = 0;
@@ -44,6 +47,7 @@ try {
 /////////////////////////////////////////////////////////////////////////////
 
 CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
 
 println('click New Record link from Home page')
 if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
@@ -66,9 +70,11 @@ else{
 //boolean STOP_ON_FAILURE=false
 //CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
-if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2,FailureHandling.OPTIONAL))
+// select All 
+if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2,FailureHandling.OPTIONAL)){
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'))
-
+	have_All_link=true
+}
 
 driver = DriverFactory.getWebDriver()
 WebUI.comment('get all new record links from the New Record Page')
@@ -119,16 +125,17 @@ for (int i = 0; i < size; i++) {
 if (!create_new_record_on_training) return
 
 /////////////////////////////////////////////////////////////////////////////
-
-if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
+if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) ){
+//if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) || ((WebUI.getUrl()).contains('MAKE-MAS')&& (GlobalVariable.G_MAKE_MAS_url).contains('MAKE-MAS')) ){
 	WebUI.comment 'going to run testcase:verify_create_record_on_training'
 	WebUI.comment 'this is a training site, so trying to create a new record'
 	//WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
-	//WebUI.navigateToUrl(urls[1])
+	if (have_All_link)
+		WebUI.navigateToUrl(urls[0])
 	WebUI.delay(1)
 	WebUI.callTestCase(findTestCase('verify_create_record_on_training'),[('call'):'test'])	
 
-	if (GlobalVariable.G_MAKE_MAS_url.contains('ARC-PRACA')){
+	if (GlobalVariable.G_MAKE_MAS_url.contains('ARC-PRACA')|| GlobalVariable.G_MAKE_MAS_url.contains('arc_praca')){
 		WebUI.comment 'going to run testcase: verify_mandatory_fields_in_record'
 		WebUI.callTestCase(findTestCase('verify_mandatory_fields_in_record'),[('call'):'test'])	
 		WebUI.comment 'going to run testcase: verify_save_comments_SignatureClosure_TAB'

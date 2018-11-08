@@ -17,13 +17,26 @@ import internal.GlobalVariable as GlobalVariable
  * 	https://docs.google.com/spreadsheets/d/1ouQAmhtSV9Z1pxPs1gGEtkUhc4Dd4Fap6hCJFfXXDyk/edit#gid=0
  * 
  */
+if (GlobalVariable.G_MAKE_MAS_url.contains('MAKE-MAS')){
+	WebUI.comment 'do not need to run it for dev sites'
+	return
+}
+GlobalVariable.G_git_hash_ver='fad218e' // for 7.0
+if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')||GlobalVariable.G_MAKE_MAS_url.contains('cxhazard')|| GlobalVariable.G_MAKE_MAS_url.contains('lms')||GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	//GlobalVariable.G_git_hash_ver='fad218e' // for 7.0.3
+	GlobalVariable.G_git_hash_ver='fce9593' // for 7.0.3.1
+}
+if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
+	GlobalVariable.G_git_hash_ver='fad218e' // for 7.0.3
+}
 
-GlobalVariable.G_git_hash_ver='16da200'
 WebUI.comment  'for 7.0 rollout, correct git hash = '+GlobalVariable.G_git_hash_ver
 
 CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
 
-WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),20)
+WebUI.waitForElementVisible(findTestObject('Page_Main Page/div_About-git-hash'),20)
+WebUI.scrollToElement(findTestObject('Page_Main Page/div_About-git-hash'),10)
 
 git_hash_ver=WebUI.getText(findTestObject('Page_Main Page/div_About-git-hash'))
 

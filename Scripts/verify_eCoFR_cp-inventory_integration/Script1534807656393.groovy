@@ -35,6 +35,13 @@ while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
 CustomKeywords.'helper.login.LoginHelper.login'()
+//CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
+if (GlobalVariable.G_MAKE_MAS_url.contains('raining')) {
+	recordID='107'
+}
+siteURL=GlobalVariable.G_MAKE_MAS_url
+if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
+siteURL=siteURL+'show_bug.cgi?id='+recordID+'#tv=Products'
 
 driver = DriverFactory.getWebDriver()
 selenium = new WebDriverBackedSelenium(driver, baseUrl)

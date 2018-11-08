@@ -44,7 +44,7 @@ WebUI.comment('perform some basic checks on the menu toolbar and items from the 
 //WebUI.comment('check Links Broken (http return code != 200) On Current Page of New Record Record')
 //CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
 
-if (verifyAllLinksOnCurrentPageAccessible){
+/*if (verifyAllLinksOnCurrentPageAccessible){
 	// randomly to run this test verifyAllLinksOnCurrentPageAccessible() or not (0 or 1)
 	if ((int) (Math.random()+0.5)){
 		WebUI.comment('perform verifyAllLinksOnCurrentPageAccessible() and exclude links with src')
@@ -53,7 +53,7 @@ if (verifyAllLinksOnCurrentPageAccessible){
 	else{
 		WebUI.comment 'will skip running verifyAllLinksOnCurrentPageAccessible() this time to save time'
 	}
-}
+}*/
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	WebUI.comment('this is doctree, different setting in Home page')
 	WebUI.verifyTextPresent('SELECT FROM THE LIST OF PROGRAMS TO POPULATE THE TREE', false)
@@ -141,7 +141,7 @@ if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Search fo
 
 WebUI.click(findTestObject('Object Repository/Page_Request Queue/a_SavedSearches'))
 
-WebUI.click(findTestObject('Object Repository/Page_Request Queue/a_SavedSearches'))
+//WebUI.click(findTestObject('Object Repository/Page_Request Queue/a_SavedSearches'))
 
 /*if (!(GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard_dev')){
 		WebUI.comment 'this is cp_hazard_dev, no Subscriptions tab'

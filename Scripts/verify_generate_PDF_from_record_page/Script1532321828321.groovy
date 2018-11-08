@@ -77,8 +77,8 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 	List<WebElement> elements = driver.findElements(By.xpath("//img[@src = 'extensions/arcjet/web/css/img/pdf_multi.png' and @class = 'pdf']"));
 	WebElement firstElement = elements.get(0);
 	firstElement.click()
-	//WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),10)
-	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),60)
+	//WebUI.waitForElementPresent(findTestObject('Page_ARC JET/span_Preparing PDF'),10)
+	//WebUI.waitForElementNotPresent(findTestObject('Page_ARC JET/span_Preparing PDF'),60)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
 	
 	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(50)
@@ -100,8 +100,8 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('doctree')){
 		e.printStackTrace()
 	}
 	
-	//WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),10)
-	//WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_ARC JET/span_Preparing PDF...'),20)
+	//WebUI.waitForElementPresent(findTestObject('Page_ARC JET/span_Preparing PDF'),10)
+	//WebUI.waitForElementNotPresent(findTestObject('Page_ARC JET/span_Preparing PDF'),20)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'),100)
 	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(220)
 	WebUI.delay(1)

@@ -246,28 +246,22 @@ def static "helper.login.LoginHelper.login"() {
     (new helper.login.LoginHelper()).login()
 }
 
+def static "helper.login.LoginHelper.check_restore_pages_popup"() {
+    (new helper.login.LoginHelper()).check_restore_pages_popup()
+}
+
+def static "helper.login.LoginHelper.check_accept_alert"() {
+    (new helper.login.LoginHelper()).check_accept_alert()
+}
+
 def static "helper.login.LoginHelper.login"(
     	String site_url	) {
     (new helper.login.LoginHelper()).login(
         	site_url)
 }
 
-def static "helper.login.LoginHelper.loginIntoApplication"(
-    	String applicationUrl	
-     , 	String Username	
-     , 	String Password	) {
-    (new helper.login.LoginHelper()).loginIntoApplication(
-        	applicationUrl
-         , 	Username
-         , 	Password)
-}
-
-def static "helper.login.LoginHelper.loginIntoApplicationWith"() {
-    (new helper.login.LoginHelper()).loginIntoApplicationWith()
-}
-
-def static "helper.login.LoginHelper.logoutFromApplication"() {
-    (new helper.login.LoginHelper()).logoutFromApplication()
+def static "helper.login.LoginHelper.smartcard_login"() {
+    (new helper.login.LoginHelper()).smartcard_login()
 }
 
 def static "kramp.Groups.select_TAB_Groups"() {
@@ -286,6 +280,86 @@ def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptio
     	TestObject objectto	) {
     (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
         	objectto)
+}
+
+def static "ip_permissions.utils.testing"() {
+    (new ip_permissions.utils()).testing()
+}
+
+def static "ip_permissions.utils.edit_product"(
+    	Object new_product	
+     , 	Object new_component	) {
+    (new ip_permissions.utils()).edit_product(
+        	new_product
+         , 	new_component)
+}
+
+def static "ip_permissions.utils.create_record_from_record"(
+    	Object record_title	) {
+    (new ip_permissions.utils()).create_record_from_record(
+        	record_title)
+}
+
+def static "ip_permissions.utils.verify_XML_element"(
+    	Object group_names	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_XML_element(
+        	group_names
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.verify_partner_flags"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_partner_flags(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.end_session"() {
+    (new ip_permissions.utils()).end_session()
+}
+
+def static "ip_permissions.utils.generate_unique_title"(
+    	Object product	) {
+    (new ip_permissions.utils()).generate_unique_title(
+        	product)
+}
+
+def static "ip_permissions.utils.impersonate"(
+    	Object email	) {
+    (new ip_permissions.utils()).impersonate(
+        	email)
+}
+
+def static "ip_permissions.utils.create_new_record"(
+    	Object product	
+     , 	Object record_title	
+     , 	Object component	
+     , 	Object record_type	) {
+    (new ip_permissions.utils()).create_new_record(
+        	product
+         , 	record_title
+         , 	component
+         , 	record_type)
+}
+
+def static "ip_permissions.utils.validate_ECR_checkboxes"(
+    	Object checkboxes_selected	
+     , 	Object checkboxes_disabled	
+     , 	Object checkboxes_visible	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).validate_ECR_checkboxes(
+        	checkboxes_selected
+         , 	checkboxes_disabled
+         , 	checkboxes_visible
+         , 	user_name
+         , 	product)
 }
 
 def static "com.common.utils.ScreenShot.takeScreenShot"(

@@ -36,13 +36,13 @@ public class ExcelHelper {
 	// Create Work book
 
 	private XSSFWorkbook getWorkBook(){
-		return new XSSFWorkbook();
+		return new XSSFWorkbook()
 	}
 
 	//Create the Sheet
 
 	private XSSFSheet getSheet(XSSFWorkbook workBook,String sheetName){
-		return workBook.createSheet(sheetName);
+		return workBook.createSheet(sheetName)
 	}
 
 	//Keyword , which write the data to excel

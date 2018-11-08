@@ -32,7 +32,7 @@ public class ClickAnyLink {
 	}
 
 	private TestObject getLinkXpath(String linkName) {
-		TestObject linkToCLick = new TestObject(linkName);
+		TestObject linkToCLick = new TestObject(linkName)
 		println "getLinkXpath called"
 		/*		println("**********************"+linkToCLick)
 		 println("**********************"+createLinkXpath(linkName))

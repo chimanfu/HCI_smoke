@@ -73,11 +73,12 @@ WebUI.comment 'check the record is linked successfully'
 List<WebElement> elements = driver.findElements(By.xpath("//div[@class='labelAndIcon']/div[@class='tablabel']"));
 int size=elements.size()
 WebUI.comment('size='+size)
-for (int i = 0; i < size; i++) {
+//for (int i = 0; i < size; i++) {
+for (int i = size-1; i >= 0; i--) {
 	WebUI.comment("Record Tab Name: " + elements.get(i).getText());
 	elements.get(i).click()
 	WebUI.delay(1)
-	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/input_create_link_search'),4)){
+	if (WebUI.waitForElementVisible(findTestObject('Page_Record_contents/input_create_link_search'),3)){
 		WebUI.comment 'found input_create_link_search in this TAB, so trying to verify linking config now...'
 		if (WebUI.waitForElementClickable(findTestObject('Page_Record_contents/label_Create link'),4))
 			WebUI.click(findTestObject('Page_Record_contents/label_Create link'))

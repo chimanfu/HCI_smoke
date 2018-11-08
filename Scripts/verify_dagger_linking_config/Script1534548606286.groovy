@@ -1,5 +1,6 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 import internal.GlobalVariable as GlobalVariable
@@ -36,11 +37,11 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	}
 }
 //WebUI.click(findTestObject('Page_Main Page/a_Admin'))
-WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),6)
+WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),10)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
 // checking daggr linking parameters
 
-if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'),6)){
+if (!WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Linking Params'),4,FailureHandling.OPTIONAL)){
 	println('not found a_DAggr Linking Params, skip the test')
 	return
 }

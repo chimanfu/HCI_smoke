@@ -46,14 +46,15 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	return
 }
 
+daggr_server_view=siteURL+'/editparams.cgi?section=daggrvmdb#daggr_server_desc'
+
 int retry_count = 0;
 int maxTries = 2;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
 
-
-CustomKeywords.'helper.login.LoginHelper.login'()
+/*CustomKeywords.'helper.login.LoginHelper.login'()
 
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	siteURL=GlobalVariable.G_MAKE_MAS_url
@@ -70,13 +71,14 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 //WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 WebUI.waitForElementClickable(findTestObject('Page_Administer your installation/a_Parameters'),6)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
-
 WebUI.click(findTestObject('Object Repository/Page_Configuration Required Setting/a_DAggr Params'))
-
 WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/dt_daggr_server'))
+WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/dd_The URL of the DAggr server'))*/
 
-WebUI.click(findTestObject('Object Repository/Page_Configuration DAggr Params/dd_The URL of the DAggr server'))
+CustomKeywords.'helper.login.LoginHelper.login'()
+WebUI.navigateToUrl(daggr_server_view)
 
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Configuration DAggr Params/input_daggr_server'), 15)
 value_dagger_server=WebUI.getAttribute(findTestObject('Object Repository/Page_Configuration DAggr Params/input_daggr_server'), 'value')
 
 WebUI.comment('value of actual value_dagger_server = '+value_dagger_server)

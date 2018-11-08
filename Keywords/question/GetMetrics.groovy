@@ -31,6 +31,6 @@ public class GetMetrics {
 	public ArrayList<String> getAlarmsCountfromGA() {
 		ClickAnyLink objectOne = new ClickAnyLink()
 		objectOne.clickALink("adasda")
-		return null;
+		return null
 	}
 }

@@ -30,16 +30,18 @@ import internal.GlobalVariable as GlobalVariable
 
 String supportedBrowser=''
 String siteURL=GlobalVariable.G_MAKE_MAS_url
+
 if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
-nasa_params_view=siteURL+'/editparams.cgi?section=nasa'
+bad_browser_blub_view=siteURL+'/editparams.cgi?section=nasa#bad_browser_blurb_desc'
 
 int retry_count = 0;
 int maxTries = 2;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
-CustomKeywords.'helper.login.LoginHelper.login'()
-if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
+//CustomKeywords.'helper.login.LoginHelper.login'()
+		
+/*if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	siteURL=GlobalVariable.G_MAKE_MAS_url
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 	WebUI.navigateToUrl(siteURL+'admin.cgi')
@@ -50,22 +52,28 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 		WebUI.delay(1)
 		WebUI.switchToWindowIndex(1)
 	}
-}
+}*/
 
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'),10)
+
+CustomKeywords.'helper.login.LoginHelper.login'()
+WebUI.navigateToUrl(bad_browser_blub_view)
+
+/*WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'),10)
 WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Parameters'))
-
 WebUI.click(findTestObject('Page_Configuration Required Setting/a_NASA Params'))
-
 //WebUI.click(findTestObject('Object Repository/Page_Parameters Index/a_bad_browser_blurb'))
+WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/dt_bad_browser_blurb'))*/
 
-
-WebUI.click(findTestObject('Object Repository/Page_Configuration NASA Params/dt_bad_browser_blurb'))
-WebUI.scrollToElement(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'),15)
-WebUI.comment 'actual bad_browser_blurb_message from '+nasa_params_view+' is the following...'
+WebUI.waitForElementClickable(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'),15)
+WebUI.scrollToElement(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'),5)
+WebUI.comment 'actual bad_browser_blurb_message from '+bad_browser_blub_view+' is the following...'
 bad_browser_blurb_message=WebUI.getText(findTestObject('Page_Configuration NASA Params/dd_bad_browser_blurb_message'))
 
-expected_message='Your browser is not supported by this system.'
+if (GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	expected_message='This application does not support your browser'
+}else{
+	expected_message='Your browser is not supported by this system.'
+}
 check_message( bad_browser_blurb_message,  expected_message)
 
 expected_message='Please use one of the following'
@@ -76,10 +84,13 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	check_message( bad_browser_blurb_message,  expected_message)
 	expected_message='Chrome'
 	check_message( bad_browser_blurb_message,  expected_message)
-	expected_message='images/ie.svg'
-	check_message( bad_browser_blurb_message,  expected_message)
-	expected_message='images/chrome.svg'
-	check_message( bad_browser_blurb_message,  expected_message)
+	if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+		expected_message='images/ie.svg'
+		check_message( bad_browser_blurb_message,  expected_message)
+		expected_message='images/chrome.svg'
+		check_message( bad_browser_blurb_message,  expected_message)
+	}
+	
 }
 
 expected_message='Firefox'
@@ -88,13 +99,19 @@ check_message( bad_browser_blurb_message,  expected_message)
 expected_message='Safari'
 check_message( bad_browser_blurb_message,  expected_message)
 
+if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	expected_message='images/firefox.svg'
+	check_message( bad_browser_blurb_message,  expected_message)
+	expected_message='images/safari.svg'
+	check_message( bad_browser_blurb_message,  expected_message)
+}
 
-expected_message='images/firefox.svg'
-check_message( bad_browser_blurb_message,  expected_message)
-expected_message='images/safari.svg'
-check_message( bad_browser_blurb_message,  expected_message)
 
-expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '
+if (GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	expected_message='If you are not able to upgrade your browser, please contact the'
+}else{
+	expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '
+}
 check_message( bad_browser_blurb_message,  expected_message)
 expected_message='href="https://aces.ndc.nasa.gov/itsupport.html"'
 check_message( bad_browser_blurb_message,  expected_message)
@@ -105,14 +122,14 @@ check_message( bad_browser_blurb_message,  expected_message)
 expected_message='="mailto:praca-admin@nas.nasa.gov?subject=My Browser is being blocked incorrectly'
 check_message( bad_browser_blurb_message,  expected_message)
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+/*if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.switchToWindowIndex(1)
 	WebUI.closeWindowIndex(1)
 	WebUI.switchToWindowIndex(0)
 	return
-}
+}*/
 return
-
+////////////////////////////////////////////////////////////////////
 for (String supportedBrowserName : GlobalVariable.allowedBrowsers) {
 	KeywordUtil.logInfo('expected supported browser - '+supportedBrowserName)
 	check_message( bad_browser_blurb_message,  supportedBrowserName)

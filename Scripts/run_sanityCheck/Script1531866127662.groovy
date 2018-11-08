@@ -36,16 +36,17 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('WSTFwebPAPER')) {
 	KeywordUtil.markWarning("WSTFwebPAPER as it is taking very long time to run sanity check. It will get stuck in 'Checking for unsent mail'")
 	return
 }
-CustomKeywords.'helper.login.LoginHelper.login'()
 
-
-String logMessage=''
-Screen s = new Screen()
-String siteURL
+String siteURL=GlobalVariable.G_MAKE_MAS_url
+if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+sanitycheck_view=siteURL+'/sanitycheck.cgi'
 log.logInfo('Run sanity checks to locate problems in your database. This may take several tens of minutes depending on the size of your installation. ')
 log.logInfo('You can also automate this check by running sanitycheck.pl from a cron job. A notification will be sent per email to the specified user if errors are detected.')
 
-WebUI.waitForPageLoad(180)
+
+/*
+CustomKeywords.'helper.login.LoginHelper.login'()
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	siteURL=GlobalVariable.G_MAKE_MAS_url
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
@@ -73,6 +74,7 @@ try {
 		WebUI.delay(2)
 	    WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Sanity Check'))
 	}else{
+		Screen s = new Screen()
 	    s.wait(GlobalVariable.G_image_path + 'sanityCheck_link.png', 20)
 	    s.click(GlobalVariable.G_image_path + 'sanityCheck_link.png')
 	    WebUI.delay(1)
@@ -83,7 +85,13 @@ try {
 catch (Exception e) {
     WebUI.comment('Unable to find sanity check link: ' + e.getMessage()) 
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
-} 
+} */
+
+CustomKeywords.'helper.login.LoginHelper.login'()
+WebUI.waitForPageLoad(180)
+WebUI.navigateToUrl(sanitycheck_view)
+
+//////////////////////////////////
 int waitTime=200
 if (GlobalVariable.G_MAKE_MAS_url.contains('WSTFwebPAPER')) {
 	waitTime=60
@@ -100,7 +108,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_now running 
 	}
 }
 //WebUI.delay(1)
-if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 12,FailureHandling.OPTIONAL)){
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 5,FailureHandling.OPTIONAL)){
 	WebUI.scrollToElement(findTestObject('Object Repository/Page_Sanity Check/h1_A system error has occurred'), 5)
 	log.logError('found A system error has occurred')
 	throw new AssertionError('ERROR: found A system error has occurred ')	
@@ -121,7 +129,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Sanity Check/p_Sanity check
 //WebUI.comment(alertMessages)
 //alerts_Search_Xpath="//p[@class = 'alert' and not(contains(., 'attachment'))]"
 
-'acceptable alert errors below, construct alerts_Search_Xpath to ignore the following alert messages'
+WebUI.comment 'acceptable alert errors below, construct alerts_Search_Xpath to ignore the following alert messages'
 acceptedAlert1="attachment"
 acceptedAlert2="non-open status"
 acceptedAlert3="Invalid flag"
@@ -229,7 +237,7 @@ return
 //}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////		
 // print out all log message
-logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))
+String logMessage=WebUI.getText(findTestObject('Object Repository/Page_Sanity Check/p_output_log_message'))
 //WebUI.comment(logMessage)
 // check log message
 /*expectedlogMessage='Checking for attachment indexer.'
