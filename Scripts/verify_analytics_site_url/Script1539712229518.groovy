@@ -10,6 +10,7 @@ import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.testcase.TestCase as TestCase
 import com.kms.katalon.core.testdata.TestData as TestData
 import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -21,7 +22,11 @@ analytics_site_view=siteURL+'/editparams.cgi?section=nasa#analytics_site_url_des
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 WebUI.navigateToUrl(analytics_site_view)
-WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Configuration NASA Params/input_analytics_site_name'),16)
+
+if (!WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Configuration NASA Params/input_analytics_site_name'),5)){
+	KeywordUtil.markWarning('input_analytics_site_name not found in Page_Configuration NASA Params')
+	return
+}
 WebUI.scrollToElement(findTestObject('Object Repository/Page_Configuration NASA Params/input_analytics_site_name'),6)
 analytics_site_name=WebUI.getAttribute(findTestObject('Object Repository/Page_Configuration NASA Params/input_analytics_site_name'), 'value')
 if (analytics_site_name.contains('nasa.gov')){

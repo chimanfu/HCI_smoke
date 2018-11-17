@@ -62,6 +62,10 @@ String expected_value_permittedBrowsers='Firefox/(?![123456789]\\.)|Trident/[78]
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	expected_value_permittedBrowsers='Firefox/(?![123456789]\\.)|Safari'
 }
+if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
+	expected_value_permittedBrowsers='Firefox/(?![123456789]\\.)|MSIE 9|Trident/[567]|Chrome'
+}
+
 if (GlobalVariable.G_MAKE_MAS_url.contains('raining') || (!GlobalVariable.G_MAKE_MAS_url.contains('dev'))) {
 	WebUI.verifyMatch(value_permittedBrowsers, expected_value_permittedBrowsers, false)
 	WebUI.comment('matched with expected permittedBrowsers value = '+expected_value_permittedBrowsers)

@@ -31,7 +31,7 @@ class NewTestListener {
 		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		String testcaseName=testCaseContext.getTestCaseId()
 		WebUI.comment 'Testcase: '+testcaseName
-		GlobalVariable.recordName1=testcaseName
+		GlobalVariable.recordName1=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
 		if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 			if (testcaseName.contains('login_basic_checks') || 
 				testcaseName.contains('verify_all_new_record_pages_loading') ||

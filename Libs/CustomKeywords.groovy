@@ -286,6 +286,76 @@ def static "ip_permissions.utils.testing"() {
     (new ip_permissions.utils()).testing()
 }
 
+def static "ip_permissions.utils.create_new_users"() {
+    (new ip_permissions.utils()).create_new_users()
+}
+
+def static "ip_permissions.utils.add_verify_attachment_flags"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).add_verify_attachment_flags(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.verify_attachment_partner_flags_after_save"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_attachment_partner_flags_after_save(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.verify_attachment_partner_flags_before_save"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_attachment_partner_flags_before_save(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.validate_attachment_flags"(
+    	Object checkboxes_selected	
+     , 	Object checkboxes_disabled	
+     , 	Object checkboxes_visible	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).validate_attachment_flags(
+        	checkboxes_selected
+         , 	checkboxes_disabled
+         , 	checkboxes_visible
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.create_record_from_template"(
+    	Object record_title	
+     , 	Object product	
+     , 	Object component	
+     , 	Object export_control_rating	
+     , 	Object proprietary_limited_rights	) {
+    (new ip_permissions.utils()).create_record_from_template(
+        	record_title
+         , 	product
+         , 	component
+         , 	export_control_rating
+         , 	proprietary_limited_rights)
+}
+
+def static "ip_permissions.utils.create_version_clone_record"() {
+    (new ip_permissions.utils()).create_version_clone_record()
+}
+
+def static "ip_permissions.utils.create_clone_record"() {
+    (new ip_permissions.utils()).create_clone_record()
+}
+
 def static "ip_permissions.utils.edit_product"(
     	Object new_product	
      , 	Object new_component	) {
@@ -331,9 +401,33 @@ def static "ip_permissions.utils.generate_unique_title"(
 }
 
 def static "ip_permissions.utils.impersonate"(
-    	Object email	) {
+    	Object email	
+     , 	Object info	) {
     (new ip_permissions.utils()).impersonate(
-        	email)
+        	email
+         , 	info)
+}
+
+def static "ip_permissions.utils.create_record_through_VTL"(
+    	Object product	
+     , 	Object record_title	
+     , 	Object component	
+     , 	Object record_type	
+     , 	Object verification_status	) {
+    (new ip_permissions.utils()).create_record_through_VTL(
+        	product
+         , 	record_title
+         , 	component
+         , 	record_type
+         , 	verification_status)
+}
+
+def static "ip_permissions.utils.navigate_VTI_ID"() {
+    (new ip_permissions.utils()).navigate_VTI_ID()
+}
+
+def static "ip_permissions.utils.approve_record"() {
+    (new ip_permissions.utils()).approve_record()
 }
 
 def static "ip_permissions.utils.create_new_record"(
@@ -346,6 +440,46 @@ def static "ip_permissions.utils.create_new_record"(
          , 	record_title
          , 	component
          , 	record_type)
+}
+
+def static "ip_permissions.utils.check_record_created"() {
+    (new ip_permissions.utils()).check_record_created()
+}
+
+def static "ip_permissions.utils.check_user_enabled_permissions"(
+    	Object user_name	
+     , 	Object info	) {
+    (new ip_permissions.utils()).check_user_enabled_permissions(
+        	user_name
+         , 	info)
+}
+
+def static "ip_permissions.utils.validate_ECR_checkboxes"(
+    	Object checkboxes_selected	
+     , 	Object checkboxes_disabled	
+     , 	Object checkboxes_visible	
+     , 	Object user_name	
+     , 	Object product	
+     , 	Object info	) {
+    (new ip_permissions.utils()).validate_ECR_checkboxes(
+        	checkboxes_selected
+         , 	checkboxes_disabled
+         , 	checkboxes_visible
+         , 	user_name
+         , 	product
+         , 	info)
+}
+
+def static "ip_permissions.utils.impersonate"(
+    	Object email	) {
+    (new ip_permissions.utils()).impersonate(
+        	email)
+}
+
+def static "ip_permissions.utils.check_user_enabled_permissions"(
+    	Object user_name	) {
+    (new ip_permissions.utils()).check_user_enabled_permissions(
+        	user_name)
 }
 
 def static "ip_permissions.utils.validate_ECR_checkboxes"(

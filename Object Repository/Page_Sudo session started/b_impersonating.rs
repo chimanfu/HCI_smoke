@@ -4,28 +4,34 @@
    <name>b_impersonating</name>
    <tag></tag>
    <elementGuidId>646d6f44-7cdf-4ecd-a039-dc6c788e966c</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//div[@id='praca_login']/div[ (contains(text(), 'impersonating') or contains(., 'impersonating'))]|//div[@class = 'LoginInfo' and (contains(text(), 'impersonating') or contains(., 'impersonating'))]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>b</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>starts with</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>impersonating</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;praca_login&quot;)/div[1]/b[1]</value>
+      <value>//div[@id='praca_login']/div[ (contains(text(), 'impersonating') or contains(., 'impersonating'))]|//div[@class = 'LoginInfo' and (contains(text(), 'impersonating') or contains(., 'impersonating'))]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

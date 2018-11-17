@@ -61,31 +61,27 @@ public class LoginHelper {
 			WebUI.comment 'Access Launchpad login'
 			smartcard_login()
 			/*if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),20,FailureHandling.OPTIONAL)){
-				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
-				WebUI.waitForPageLoad(6)
-				WebUI.delay(1)
-
-				s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
-				s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-
-				if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-					s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-				}else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
-					s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-					}
-				}
-
-				if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
-					WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}else{
-					WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-					s.type(GlobalVariable.G_userPin+"\n")
-				}
-
-			}*/
+			 //WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
+			 WebUI.waitForPageLoad(6)
+			 WebUI.delay(1)
+			 s.wait(GlobalVariable.G_image_path+'smartcard_login_button.png',16)
+			 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+			 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+			 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+			 }else if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',1)!=null){
+			 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+			 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+			 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+			 }
+			 }
+			 if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',4)!=null){
+			 WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+			 s.type(GlobalVariable.G_userPin+"\n")
+			 }else{
+			 WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+			 s.type(GlobalVariable.G_userPin+"\n")
+			 }
+			 }*/
 			WebUI.waitForElementNotClickable(findTestObject('Page_MailCatcher/a_MailCatcher_heading'),15)
 			WebUI.comment('successfully logint to mailcatcher')
 		}catch (Exception e) {
@@ -157,7 +153,7 @@ public class LoginHelper {
 				KeywordUtil.markWarning(e.message)
 				WebUI.switchToWindowIndex(0)
 			}
-			
+
 			check_restore_pages_popup()
 			//WebUI.waitForElementVisible(findTestObject('Page_Access Launchpad/input_SCLOGIN'),15)
 			//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
@@ -167,25 +163,25 @@ public class LoginHelper {
 				smartcard_login()
 				//WebUI.click(findTestObject('Page_Access Launchpad/input_SCLOGIN'))
 				/*WebUI.waitForPageLoad(6)
-				WebUI.delay(1)
-				///////////
-				for (int i = 0; i <3; i++) {
-					if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',5)!=null){
-						s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
-					}
-					if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
-						s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
-					}
-					if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',5)!=null){
-						WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
-						s.type(GlobalVariable.G_userPin+"\n")
-						break
-					}else{
-						WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
-						s.type(GlobalVariable.G_userPin+"\n")
-						break
-					}
-				}*/
+				 WebUI.delay(1)
+				 ///////////
+				 for (int i = 0; i <3; i++) {
+				 if (s.exists(GlobalVariable.G_image_path+'smartcard_login_button.png',5)!=null){
+				 s.click(GlobalVariable.G_image_path+'smartcard_login_button.png')
+				 }
+				 if (s.exists(GlobalVariable.G_image_path+'acceptCert_ok_button.png',5)!=null){
+				 s.click(GlobalVariable.G_image_path+'acceptCert_ok_button.png')
+				 }
+				 if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',5)!=null){
+				 WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 break
+				 }else{
+				 WebUI.comment('Not found on pin_field_activID, still enter the PIN for the user just in case')
+				 s.type(GlobalVariable.G_userPin+"\n")
+				 break
+				 }
+				 }*/
 				WebUI.delay(5)
 				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Pulse Connect Secure - Home/input_btnNCStart'),7,FailureHandling.OPTIONAL)){
 					WebUI.delay(1)
@@ -251,7 +247,7 @@ public class LoginHelper {
 			return false
 		}
 	}
-	
+
 	@Keyword
 	public void switch_to_training(){
 		if (WebUI.getUrl().contains('raining')){
@@ -338,9 +334,9 @@ public class LoginHelper {
 		}
 
 	}
-	
+
 	@Keyword
-	public void login(){			
+	public void login(){
 		if (checkHomePageExist()){
 			WebUI.comment('done checkHomePageExist, already in Home page')
 			return null
@@ -398,7 +394,7 @@ public class LoginHelper {
 			}
 		}
 		// run the smartcard login
-		smartcard_login()	
+		smartcard_login()
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
 			WebUI.comment('clicked on input_login_btn in 2nd attempt')
@@ -409,7 +405,7 @@ public class LoginHelper {
 		if (checkHomePageExist()){
 			WebUI.comment('done checkHomePageExist')
 			return null
-		}	
+		}
 	}
 	@Keyword
 	def check_restore_pages_popup(){
@@ -458,12 +454,12 @@ public class LoginHelper {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	@Keyword
 	public boolean login(String site_url){
-		
+
 		/*if (checkHomePageExist()){
 		 WebUI.comment('done checkHomePageExist, already in Home page')
 		 return null
@@ -513,7 +509,7 @@ public class LoginHelper {
 			}
 			check_restore_pages_popup()
 		}
-		
+
 		WebUI.comment('checking input_login_btn')
 		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),7,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -528,7 +524,7 @@ public class LoginHelper {
 			return true
 		}
 		smartcard_login()
-		
+
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
 			WebUI.comment('clicked on input_login_btn in 2nd attempt')
@@ -540,9 +536,9 @@ public class LoginHelper {
 			return true
 		}
 		WebUI.comment 'failed to login to site URL '+site_url
-		return false 
+		return false
 	}
-	
+
 	@Keyword
 	def smartcard_login(){
 		// take care the smartcard login sequence
@@ -635,7 +631,7 @@ public class LoginHelper {
 								s.type(GlobalVariable.G_userPin+"\n")
 								break
 							}
-						}					
+						}
 					}
 				}
 			}catch (Exception e) {

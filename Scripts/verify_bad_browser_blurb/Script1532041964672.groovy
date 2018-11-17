@@ -84,7 +84,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	check_message( bad_browser_blurb_message,  expected_message)
 	expected_message='Chrome'
 	check_message( bad_browser_blurb_message,  expected_message)
-	if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+	if (!GlobalVariable.G_MAKE_MAS_url.contains('oms') && !GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
 		expected_message='images/ie.svg'
 		check_message( bad_browser_blurb_message,  expected_message)
 		expected_message='images/chrome.svg'
@@ -95,11 +95,12 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 
 expected_message='Firefox'
 check_message( bad_browser_blurb_message,  expected_message)
-
-expected_message='Safari'
+if (!GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
+	expected_message='Safari'
+}
 check_message( bad_browser_blurb_message,  expected_message)
-
-if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('oms') && !GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
+//if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
 	expected_message='images/firefox.svg'
 	check_message( bad_browser_blurb_message,  expected_message)
 	expected_message='images/safari.svg'
@@ -107,7 +108,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
 }
 
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+if (GlobalVariable.G_MAKE_MAS_url.contains('oms')||GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
 	expected_message='If you are not able to upgrade your browser, please contact the'
 }else{
 	expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '

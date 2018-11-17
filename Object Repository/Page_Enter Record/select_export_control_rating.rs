@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>select_export_control_rating</name>
+   <tag></tag>
+   <elementGuidId>b47f47ca-1e75-4344-b7c4-2176d5cb9dc2</elementGuidId>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>select</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>id</name>
+      <type>Main</type>
+      <value>cf_export_control_rating</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>name</name>
+      <type>Main</type>
+      <value>cf_export_control_rating</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>size</name>
+      <type>Main</type>
+      <value>1</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>
+                        ---
+                            Not Classified to US Export Ratings (ISS IP-Provided Safety Data)
+                            Not Cleared for Export
+                            Not Export Controlled - Suitable for NASA and ISS-IP Release
+                            EAR/15 CFR 730-774
+                            EAR99/NLR
+                            ITAR
+                            USML Cat XV
+                            1A999/NLR
+                            2B007.d
+                            4A003
+                            4A994b
+                            5A992.a/NLR
+                            5D002
+                            5E991
+                            7A994
+                            9A004
+                            9A004A
+                            9A515.a
+                            9A515.x
+                            9B990
+                            9D001
+                            9E001
+                            9E002
+                            9E515
+                            9E515.a
+                            9E515.f
+                            9A004.X
+                            E4992
+                            ECCN 3A999
+                            Various - See Notes and Attachments Below
+                    </value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;cf_export_control_rating&quot;)</value>
+   </webElementProperties>
+   <webElementXpaths>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:attributes</name>
+      <value>//select[@id='cf_export_control_rating']</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:idRelative</name>
+      <value>//form[@id='template_form']/table/tbody/tr[3]/td/div/div/select</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:neighbor</name>
+      <value>(.//*[normalize-space(text()) and normalize-space(.)='Add New Subsystem/Payload'])[1]/following::select[1]</value>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:position</name>
+      <value>//tr[3]/td/div/div/select</value>
+   </webElementXpaths>
+</WebElementEntity>

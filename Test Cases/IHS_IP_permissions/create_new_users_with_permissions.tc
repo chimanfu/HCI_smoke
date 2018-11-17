@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>create_new_users_with_permissions</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>fe0ef498-82a9-4db1-a0c8-07ef53b175f8</testCaseGuid>
+</TestCaseEntity>
