@@ -11,7 +11,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_IP_auto_1/'</initValue>
+      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_IP_auto_1'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

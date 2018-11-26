@@ -7,6 +7,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
 
 import internal.GlobalVariable as GlobalVariable
+import internal.GlobalVariable as GlobalVariable
 
 /*New Record from Regular Create Page (New link) @Kristle
 
@@ -39,7 +40,7 @@ KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 
 ////////////////////////////////////////////////////////////////////////////////////
-
+boolean run_loading_record_on_users=true
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
 for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
@@ -50,22 +51,22 @@ for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 		component='APAS'
 		record_type='Hazard'
 		expected_results='us_general'
-		create_record_from_new_link(product,component,record_type,expected_results,row)
-		loading_record_on_users(product,row)
+		create_record_from_new_link(product,component,record_type,expected_results,row,run_loading_record_on_users)
+		if (run_loading_record_on_users) loading_record_on_users(product,row)
 		
 		product='Khrunichev'
 		component='EPS'
 		record_type='Hazard'
 		expected_results='partner_general'
-		create_record_from_new_link(product,component,record_type,expected_results,row)
-		loading_record_on_users(product,row)
+		create_record_from_new_link(product,component,record_type,expected_results,row,run_loading_record_on_users)
+		if (run_loading_record_on_users) loading_record_on_users(product,row)
 		
 		// end session
-		CustomKeywords.'ip_permissions.utils.end_session'()
+		//CustomKeywords.'ip_permissions.utils.end_session'()
 	} catch (Exception e) {
 		//e.printStackTrace()
 		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-		KeywordUtil.markError('ERROR: adding new records on US or Partner products for user ('+row+')\n' +e.message)
+		KeywordUtil.markFailed('ERROR: adding new records on US or Partner products for user ('+row+')\n' +e.message)
 	}
 	
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
@@ -91,10 +92,11 @@ def loading_record_on_users(product,sheet){
 		expected_results='IHS_IP_permissions/expected_results_record_loading/us/expected_results_records_us (1) - Copy ('+sheet+')'
 	else
 		expected_results='IHS_IP_permissions/expected_results_record_loading/partner/expected_results_records_partner (1) - Copy ('+sheet+')'
-	String user_name=CustomKeywords.'ip_permissions.data.get'('user_name',sheet,ip_test_user_list)
+	String user_name_createRecord=CustomKeywords.'ip_permissions.data.get'('user_name',sheet,ip_test_user_list)
 	String user_email=CustomKeywords.'ip_permissions.data.get'('user_email',sheet,ip_test_user_list)
-	String info='verify loading record on different users for product:'+product+', record created by '+user_name+'\n'+'expected_results using spreadsheet: '+expected_results+'\n'
+	String info='verify loading record on different users for product:'+product+', record created by '+user_name_createRecord+'\n'+'expected_results using spreadsheet: '+expected_results+'\n'
 	KeywordUtil.logInfo('expected_results='+expected_results)
+	String user_name
 	for (int row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 		user_name=CustomKeywords.'ip_permissions.data.get'('user_name',row,ip_test_user_list)
 		user_email=CustomKeywords.'ip_permissions.data.get'('user_email',row,ip_test_user_list)
@@ -151,20 +153,24 @@ def loading_record_on_users(product,sheet){
 			CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
 			CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 			CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
-			//CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+			if (user_name_createRecord.equals(user_name))
+				CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
 		}
 		KeywordUtil.logInfo '---------- Done loading new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 		} catch (Exception e) {
 		//e.printStackTrace()
 		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_loading_record')
-		KeywordUtil.markError('ERROR: loading record for user ('+user_name+')\n' +e.message)
+		KeywordUtil.markFailed('ERROR: loading record for user ('+user_name+')\n' +e.message)
 		}
+		
+		// !!!!! test
+		//if (row ==2) break
+		// !!!!! test
 	}
 	
 }
 
-
-def create_record_from_new_link(product,component,record_type,expected_results,row){
+def create_record_from_new_link(product,component,record_type,expected_results,row,run_loading_record_on_users){
 	try{
 	String user_name=CustomKeywords.'ip_permissions.data.get'('user_name',row)
 	String user_email=CustomKeywords.'ip_permissions.data.get'('user_email',row)
@@ -206,16 +212,17 @@ def create_record_from_new_link(product,component,record_type,expected_results,r
 	String record_title=CustomKeywords.'ip_permissions.utils.generate_unique_title'(product)
 	KeywordUtil.logInfo('record_title='+record_title)
 	CustomKeywords.'ip_permissions.utils.create_new_record'(product, record_title, component, record_type)
-	// verify result
-	CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
-	CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
-	CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
-	CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
-	
+	if (!run_loading_record_on_users){
+		// verify result
+		CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
+		CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
+		CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)	
+		CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+	}
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 	} catch (Exception e) {
 		//e.printStackTrace()
 		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-		KeywordUtil.markError('ERROR: create_record_from_new_link for user ('+row+')\n' +e.message)
+		KeywordUtil.markFailed('ERROR: create_record_from_new_link for user ('+row+')\n' +e.message)
 	}
 }

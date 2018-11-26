@@ -276,48 +276,52 @@ def static "kramp.Groups.delete_3_static_groups"() {
     (new kramp.Groups()).delete_3_static_groups()
 }
 
-def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
-    	TestObject objectto	) {
-    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
-        	objectto)
-}
-
 def static "ip_permissions.utils.testing"() {
     (new ip_permissions.utils()).testing()
 }
 
-def static "ip_permissions.utils.create_new_users"() {
-    (new ip_permissions.utils()).create_new_users()
+def static "ip_permissions.utils.check_users_permissions"() {
+    (new ip_permissions.utils()).check_users_permissions()
+}
+
+def static "ip_permissions.utils.create_new_users_with_permissions"() {
+    (new ip_permissions.utils()).create_new_users_with_permissions()
 }
 
 def static "ip_permissions.utils.add_verify_attachment_flags"(
     	Object list_of_flags	
      , 	Object user_name	
-     , 	Object product	) {
+     , 	Object product	
+     , 	Object info	) {
     (new ip_permissions.utils()).add_verify_attachment_flags(
         	list_of_flags
          , 	user_name
-         , 	product)
+         , 	product
+         , 	info)
 }
 
 def static "ip_permissions.utils.verify_attachment_partner_flags_after_save"(
     	Object list_of_flags	
      , 	Object user_name	
-     , 	Object product	) {
+     , 	Object product	
+     , 	Object info	) {
     (new ip_permissions.utils()).verify_attachment_partner_flags_after_save(
         	list_of_flags
          , 	user_name
-         , 	product)
+         , 	product
+         , 	info)
 }
 
 def static "ip_permissions.utils.verify_attachment_partner_flags_before_save"(
     	Object list_of_flags	
      , 	Object user_name	
-     , 	Object product	) {
+     , 	Object product	
+     , 	Object info	) {
     (new ip_permissions.utils()).verify_attachment_partner_flags_before_save(
         	list_of_flags
          , 	user_name
-         , 	product)
+         , 	product
+         , 	info)
 }
 
 def static "ip_permissions.utils.validate_attachment_flags"(
@@ -339,13 +343,15 @@ def static "ip_permissions.utils.create_record_from_template"(
      , 	Object product	
      , 	Object component	
      , 	Object export_control_rating	
-     , 	Object proprietary_limited_rights	) {
+     , 	Object proprietary_limited_rights	
+     , 	Object record_not_visible	) {
     (new ip_permissions.utils()).create_record_from_template(
         	record_title
          , 	product
          , 	component
          , 	export_control_rating
-         , 	proprietary_limited_rights)
+         , 	proprietary_limited_rights
+         , 	record_not_visible)
 }
 
 def static "ip_permissions.utils.create_version_clone_record"() {
@@ -370,14 +376,8 @@ def static "ip_permissions.utils.create_record_from_record"(
         	record_title)
 }
 
-def static "ip_permissions.utils.verify_XML_element"(
-    	Object group_names	
-     , 	Object user_name	
-     , 	Object product	) {
-    (new ip_permissions.utils()).verify_XML_element(
-        	group_names
-         , 	user_name
-         , 	product)
+def static "ip_permissions.utils.closeExtraWindowTabs"() {
+    (new ip_permissions.utils()).closeExtraWindowTabs()
 }
 
 def static "ip_permissions.utils.verify_partner_flags"(
@@ -470,6 +470,36 @@ def static "ip_permissions.utils.validate_ECR_checkboxes"(
          , 	info)
 }
 
+def static "ip_permissions.utils.add_verify_attachment_flags"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).add_verify_attachment_flags(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.verify_attachment_partner_flags_after_save"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_attachment_partner_flags_after_save(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
+def static "ip_permissions.utils.verify_attachment_partner_flags_before_save"(
+    	Object list_of_flags	
+     , 	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).verify_attachment_partner_flags_before_save(
+        	list_of_flags
+         , 	user_name
+         , 	product)
+}
+
 def static "ip_permissions.utils.impersonate"(
     	Object email	) {
     (new ip_permissions.utils()).impersonate(
@@ -494,6 +524,12 @@ def static "ip_permissions.utils.validate_ECR_checkboxes"(
          , 	checkboxes_visible
          , 	user_name
          , 	product)
+}
+
+def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
+    	TestObject objectto	) {
+    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
+        	objectto)
 }
 
 def static "com.common.utils.ScreenShot.takeScreenShot"(

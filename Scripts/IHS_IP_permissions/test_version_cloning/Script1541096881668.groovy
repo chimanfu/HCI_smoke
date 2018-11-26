@@ -54,11 +54,11 @@ for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	create_record_from_version_cloning_record(product,component,record_type,expected_results,row)
 
 	// end session
-	CustomKeywords.'ip_permissions.utils.end_session'()
+	//CustomKeywords.'ip_permissions.utils.end_session'()
 	} catch (Exception e) {
 		//e.printStackTrace()
 		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-		KeywordUtil.markError('ERROR: adding new records on US or Partner products for user ('+row+')\n' +e.message)
+		KeywordUtil.markFailed('ERROR: adding new records on US or Partner products for user ('+row+')\n' +e.message)
 	}
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
@@ -75,9 +75,11 @@ def create_record_from_version_cloning_record(product,component,record_type,expe
 	KeywordUtil.logInfo('expected_results='+expected_results)
 	KeywordUtil.logInfo('user_name='+user_name)
 	KeywordUtil.logInfo('user_email='+user_email)
+	String info='verify create_record_from_version_cloning_record, on product: '+product+', record created by '+user_name+'\n'+'expected_results using spreadsheet: '+expected_results+'\n'
+		
 	//////////////////////////////////////////////////////////////////////
 	// for each user, perform these actions
-	CustomKeywords.'ip_permissions.utils.impersonate'(user_email)
+	CustomKeywords.'ip_permissions.utils.impersonate'(user_email,info)
 	//////////////////////////////////////////////////////////////////////
 
 	KeywordUtil.logInfo '---------- Start adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
@@ -120,6 +122,6 @@ def create_record_from_version_cloning_record(product,component,record_type,expe
 	} catch (Exception e) {
 	//e.printStackTrace()
 	(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-	KeywordUtil.markError('ERROR: create_record_from_new_link for user ('+row+')\n' +e.message)
+	KeywordUtil.markFailed('ERROR: create_record_from_new_link for user ('+row+')\n' +e.message)
 }
 }

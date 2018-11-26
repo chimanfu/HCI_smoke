@@ -21,7 +21,77 @@ class utils {
 		println 'ending here...'
 	}
 	@Keyword
-	def create_new_users(){
+	def check_users_permissions(){
+		String url = GlobalVariable.G_MAKE_MAS_url
+		if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
+			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+		} else {
+			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
+			return null
+		}
+		url=WebUI.getUrl()
+		WebUI.comment 'now checking the URL from the current page from browser: '+url
+		if (url.contains('MAKE-MAS') && url.contains('dev')) {
+			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+		} else {
+			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
+			return null
+		}
+		String ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list2'
+		KeywordUtil.logInfo('will check existing test users in '+ip_test_user_list)
+		String status,user_name,user_email,permission,checked_status, expected_permissions
+		boolean test_failed=false
+		WebDriver driver
+		driver = DriverFactory.getWebDriver()
+		for (int row = 2; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
+			user_name=findTestData(ip_test_user_list).getValue(1, row).trim()
+			user_email=findTestData(ip_test_user_list).getValue(2, row).trim()
+			// goto user view
+			WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Admin'), 16)
+			WebUI.click(findTestObject('Page_Main Page/a_Admin'))
+			WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Administer your installation/a_Users'),10)
+			WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Users'))
+			// search for user
+			WebUI.setText(findTestObject('Object Repository/Page_Search users/input_matching_matchstr'), user_email+'\n')
+			WebUI.click(findTestObject('Object Repository/Page_Select user/a_user_email_selection'))
+
+			status='Checked on existing user = '
+			status=status+ user_name + ', '
+			status=status+ user_email+ '\n'
+
+			expected_permissions=check_user_enabled_permissions(user_name,'check actual user permissions from the user permission view from the site')
+
+			status=status+ 'From the spreadsheet '+ip_test_user_list
+			status=status+ ' with expected permission:\n'
+			for (int permission_col = 3; permission_col <= findTestData(ip_test_user_list).getColumnNumbers(); permission_col++){
+				permission=findTestData(ip_test_user_list).getValue(permission_col, 1).trim()
+				checked_status=findTestData(ip_test_user_list).getValue(permission_col, row).trim()
+				if (checked_status.toLowerCase().equals('x')){
+					//if (permission.equals('PARTNER_RSA')) permission='A_PARTNER_RSA'
+					//if (permission.equals('PARTNER_JAXA')) permission='A_PARTNER_JAXA'
+					//if (permission.equals('US_Person')) permission='U.S._Persons'
+					//driver.findElement(By.className(permission)).click()
+					status=status+permission+'\n'
+					if (!expected_permissions.contains(permission)){
+						if (permission.equals('US_Person')) {
+							if (!expected_permissions.contains('U.S._Persons'))
+								test_failed=true
+						}else
+							test_failed=true
+					}
+
+				}
+			}
+			if (test_failed)
+				KeywordUtil.markFailed(status+'\n'+expected_permissions+'\n')
+			else
+				KeywordUtil.markPassed(status)
+
+			//KeywordUtil.markPassed(status)
+		}
+	}
+	@Keyword
+	def create_new_users_with_permissions(){
 		String url = GlobalVariable.G_MAKE_MAS_url
 		if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
 			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
@@ -37,6 +107,7 @@ class utils {
 			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new user on production site')
 			return null
 		}
+		boolean test_failed=false
 		String ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list2'
 		KeywordUtil.logInfo('will create new test users in '+ip_test_user_list)
 		String status,user_name,user_email,permission,checked_status
@@ -50,6 +121,8 @@ class utils {
 			WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 			WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Administer your installation/a_Users'),10)
 			WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Users'))
+
+			// add user
 			WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Search users/a_add a new user'),6)
 			WebUI.click(findTestObject('Object Repository/Page_Search users/a_add a new user'))
 			WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Add user/input_Email'),6)
@@ -62,6 +135,8 @@ class utils {
 			status=status+ user_name + ', '
 			status=status+ user_email+ '\n'
 			status=status+ 'with checked permission:\n'
+
+			//WebElement element
 			for (int permission_col = 3; permission_col <= findTestData(ip_test_user_list).getColumnNumbers(); permission_col++){
 				permission=findTestData(ip_test_user_list).getValue(permission_col, 1).trim()
 				//status=status+ 'permission='+permission+','
@@ -71,11 +146,25 @@ class utils {
 				// check permission if checked_status=x
 				if (checked_status.toLowerCase().equals('x')){
 					try{
-						WebElement element = driver.findElement(By.className(permission))
-						element.click()
+						if (permission.equals('PARTNER_RSA')) permission='A_PARTNER_RSA'
+						if (permission.equals('PARTNER_JAXA')) permission='A_PARTNER_JAXA'
+						driver.findElement(By.className(permission)).click()
 						status=status+permission+'\n'
 					} catch (Exception e) {
-						status=status+ "No Permission Named: "+permission+'\n'
+						if (permission.equals('US_Person')){
+							status=status+"!!! Not found Permission: "+permission
+							permission='U.S._Persons'
+							try{
+								driver.findElement(By.className(permission)).click()
+								status=status+', found Permission: '+permission+'\n'
+							} catch (Exception e1) {
+								status=status+ "!!! No Permission Named: "+permission+'\n'
+								test_failed=true
+							}
+						}else{
+							status=status+ "!!! No Permission Named: "+permission+'\n'
+							test_failed=true
+						}
 					}
 				}
 			}
@@ -84,13 +173,19 @@ class utils {
 			WebUI.click(findTestObject('Object Repository/Page_Edit user info/input_update'))
 			WebUI.delay(1)
 			check_user_enabled_permissions(user_name,'check actual user permissions after creating new user')
-			KeywordUtil.markPassed(status)
+			if (test_failed)
+				KeywordUtil.markFailed(status)
+			else
+				KeywordUtil.markPassed(status)
 		}
 	}
 	@Keyword
-	def add_verify_attachment_flags(list_of_flags,user_name,product){
-		WebUI.refresh()
-		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),10)
+	def add_verify_attachment_flags(list_of_flags,user_name,product,def info=null){
+		WebUI.refresh(FailureHandling.OPTIONAL)
+		WebUI.delay(2)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),20)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'),6)
 		WebUI.click(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'))
 
@@ -132,25 +227,44 @@ class utils {
 		WebUI.scrollToElement(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'),10)
 
 		//validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
-		verify_attachment_partner_flags_before_save(list_of_flags,user_name,product)
+		verify_attachment_partner_flags_before_save(list_of_flags,user_name,product,info)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
-		WebUI.delay(5)
+		WebUI.delay(6)
+		check_record_save_alert()
 		check_record_created()
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		check_record_save_alert()
 		WebUI.delay(1)
 		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
 		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
 		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
-		verify_attachment_partner_flags_after_save(list_of_flags,user_name,product)
+		verify_attachment_partner_flags_after_save(list_of_flags,user_name,product,info)
 
 	}
+	def check_record_save_alert(){
+		int i=5
+		while (i>0)
+			try{
+				WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),30,FailureHandling.OPTIONAL)
+				WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20,FailureHandling.OPTIONAL)
+				KeywordUtil.markPassed "found alert Record Saved"
+				break
+			} catch (Exception e) {
+				i--
+				KeywordUtil.logInfo "cannot find alert Record Saved, try again"
+				KeywordUtil.logInfo (e)
+				WebUI.delay(5)
+			}
+	}
 	@Keyword
-	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product){
+	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product, def info=null){
 		boolean test_failed=false
 		//String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected "GRANTED ACCESS" Flags='+list_of_flags+'\n'
-		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n'
+		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n'
 		//String all_logMsg=logMsg
+		if (info!=null) all_logMsg=all_logMsg+info+'\n'
+		if (GlobalVariable.userPin3.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
+		if (GlobalVariable.userPin3.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		try{
 			'check flags from attachments after save'
 			if (list_of_flags.contains('CSA')){
@@ -191,7 +305,7 @@ class utils {
 				all_logMsg=all_logMsg+('not found flag RSA from attachment after adding attachment into record\n')
 
 		} catch (Exception e) {
-			KeywordUtil.logInfo "cannot check flag from attachments"
+			KeywordUtil.logInfo "cannot check flag from attachments after save"
 			KeywordUtil.logInfo (e)
 		}
 		if (test_failed){
@@ -205,10 +319,12 @@ class utils {
 		KeywordUtil.logInfo( 'Done: verify_attachment_partner_flags_after_save()')
 	}
 	@Keyword
-	def verify_attachment_partner_flags_before_save(list_of_flags,user_name,product){
+	def verify_attachment_partner_flags_before_save(list_of_flags,user_name,product,def info=null){
 		boolean test_failed=false
-		String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n'
-		String all_logMsg=logMsg
+		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n'
+		if (info!=null) all_logMsg=all_logMsg+info+'\n'
+		if (GlobalVariable.userPin3.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
+		if (GlobalVariable.userPin3.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
 		}else{
@@ -217,7 +333,7 @@ class utils {
 		}
 		/////////
 		if (list_of_flags.contains('CSA')){
-			if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 				all_logMsg=all_logMsg+'CSA: Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with CSA: visible and checked\n'
@@ -225,7 +341,7 @@ class utils {
 			}
 		}else{
 			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA: visible and checked\n'
 					test_failed=true
 				}else
@@ -235,7 +351,7 @@ class utils {
 		}
 		/////////
 		if (list_of_flags.contains('ESA')){
-			if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 				all_logMsg=all_logMsg+'ESA: Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with ESA: visible and checked\n'
@@ -243,7 +359,7 @@ class utils {
 			}
 		}else{
 			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA: visible and checked\n'
 					test_failed=true
 				}else
@@ -253,7 +369,7 @@ class utils {
 		}
 		/////////
 		if (list_of_flags.contains('JAXA')){
-			if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 				all_logMsg=all_logMsg+'JAXA: Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with JAXA: visible and checked\n'
@@ -261,7 +377,7 @@ class utils {
 			}
 		}else{
 			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA: visible and checked\n'
 					test_failed=true
 				}else
@@ -270,8 +386,9 @@ class utils {
 				all_logMsg=all_logMsg+'JAXA Flag not displayed as expected\n'
 		}
 		/////////
+
 		if (list_of_flags.contains('RSA')){
-			if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 				all_logMsg=all_logMsg+'RSA: Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with RSA: visible and checked\n'
@@ -279,7 +396,7 @@ class utils {
 			}
 		}else{
 			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.verifyElementChecked(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'),1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA: visible and checked\n'
 					test_failed=true
 				}else
@@ -301,10 +418,10 @@ class utils {
 
 	@Keyword
 	def validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product){
-		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\n'
+		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\n'
 
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		KeywordUtil.logInfo('attachment_flags_selected='+checkboxes_selected)
@@ -443,17 +560,33 @@ class utils {
 	}
 
 	@Keyword
-	def create_record_from_template(record_title,product,component,export_control_rating,proprietary_limited_rights){
+	def create_record_from_template(record_title,product,component,export_control_rating,proprietary_limited_rights,record_not_visible){
+		String logMsg='\nproduct='+product+', record_title='+record_title+', component='+component+', export_control_rating='+export_control_rating+', proprietary_limited_rights='+proprietary_limited_rights+'\n'
+		String siteURL=GlobalVariable.G_MAKE_MAS_url
+		if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
+		String Create_record_from_template_url=siteURL+'/select_template.cgi'
+		WebUI.navigateToUrl(Create_record_from_template_url)
 		// Create record from template
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'),10)
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'),10)
-		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'))
-
+		/*WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'),10)
+		 WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'),10)
+		 WebUI.click(findTestObject('Object Repository/Page_Enter Record View/a_Create record from template'))
+		 */
 		//select first option of bug template from the list and use the selected template
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Template/input_first_bugid_selection'),10)
 		WebUI.click(findTestObject('Object Repository/Page_Select Template/input_first_bugid_selection'))
 		WebUI.click(findTestObject('Object Repository/Page_Select Template/button_Use Selected Template'))
-
+		if (record_not_visible.toLowerCase().equals('x')){
+			if (WebUI.waitForElementPresent(findTestObject('Page_Missing or Invalid User/b_You made an invalid entry'),5,FailureHandling.OPTIONAL)){
+				KeywordUtil.markPassed('found "You made an invalid entry", record is not visible as expected, done create_record_from_template\n'+logMsg)
+				return
+			}else{
+				KeywordUtil.markFailed('NOT found "You made an invalid entry", record should not be visible')
+				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_record_visible')
+				return
+			}
+		}else{
+			KeywordUtil.logInfo('continue to create record from template')
+		}
 		// fill out the fields and create a record
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record/input_Title_short_desc'),6)
 		WebUI.setText(findTestObject('Object Repository/Page_Enter Record/input_Title_short_desc'), record_title)
@@ -476,13 +609,16 @@ class utils {
 		WebUI.click(findTestObject('Object Repository/Page_Enter Record/input_Create'))
 		WebUI.delay(5)
 		check_record_created()
-		KeywordUtil.markPassed('done create_record_from_template')
+		KeywordUtil.markPassed('done create_record_from_template\n'+logMsg)
 	}
 
 	@Keyword
 	def create_version_clone_record(){
 		//WebUI.refresh()
-		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),10)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),20)
+		//WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),20)
 		WebUI.delay(1)
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),12)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/a_Create a new version'),6)
@@ -491,8 +627,9 @@ class utils {
 			//WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/a_Create a new version'),6)
 			WebUI.click(findTestObject('Object Repository/Page_Record_Created/a_Create a new version'))
 		}catch (Exception e) {
-			WebUI.refresh()
+			WebUI.refresh(FailureHandling.OPTIONAL)
 			WebUI.delay(10)
+			WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),20)
 			WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),10)
 			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),12)
 			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/a_Create a new version'),6)
@@ -526,7 +663,7 @@ class utils {
 	}
 	@Keyword
 	def edit_product(new_product, new_component){
-		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/select_product'),5,FailureHandling.STOP_ON_FAILURE)){
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/select_product'),7,FailureHandling.STOP_ON_FAILURE)){
 			WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_product'))
 			//WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Record_Created/select_product'), 1,FailureHandling.STOP_ON_FAILURE)
 			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_product'), new_product, true)
@@ -538,13 +675,16 @@ class utils {
 		}
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		WebUI.delay(2)
+		check_record_created()
+		check_record_save_alert()
 		KeywordUtil.markPassed('edit product successful to new_product='+new_product+' and new_component='+new_component)
 	}
 	@Keyword
 	def create_record_from_record(record_title){
 		//record_title='test_1'
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Linked_Causes_Add_New_Record'),10)
+		WebUI.refresh(FailureHandling.OPTIONAL)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Linked_Causes_Add_New_Record'),15)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Linked_Causes_Add_New_Record'))
 
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/input_Title_newRecordContainer'),5)
@@ -552,7 +692,10 @@ class utils {
 
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		WebUI.delay(4)
+		check_record_save_alert()
+		check_record_created()
+		check_record_save_alert()
 
 		// find the newly created record link
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/a_record_link_Cause'),15)
@@ -579,26 +722,51 @@ class utils {
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_create_cause_record')
 			KeywordUtil.markFailedAndStop("ERROR: cannot find a_record_link_Cause with correct title, so it cannot create cause record from record")
 		}
-		WebUI.delay(5)
+		WebUI.delay(6)
 		check_record_created()
 	}
-	@Keyword
+	def
+	@Keyword closeExtraWindowTabs(){
+		WebDriver driver = DriverFactory.getWebDriver()
+		WebUI.switchToWindowIndex(0)
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		KeywordUtil.logInfo("No. of tabs: " + tabs.size());
+		int tabs_number=tabs.size()
+		while (tabs_number>1){
+			WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
+			tabs_number--
+		}
+		WebUI.switchToWindowIndex(0)
+	}
 	def verify_XML_element(group_names,user_name,product){
 		//group_names='_NASA|RSA<'
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected group_names in XML doc = '+group_names+'\n'
+		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
 		String[] group_name_list
 		group_name_list = group_names.split('\\|')
 		int currentTab = WebUI.getWindowIndex()
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/a_XML'), 10)
-		WebUI.click(findTestObject('Object Repository/Page_Record_Created/a_XML'))
-		WebUI.delay(1)
-		WebUI.switchToWindowIndex(currentTab+1)
-		//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_group id_tag'),3,FailureHandling.OPTIONAL)
-		//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_This XML file does not appear'),5,FailureHandling.OPTIONAL)
-		String xml_page_contents=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/all_XML_contents'))
-		WebUI.closeWindowIndex(currentTab + 1)
-		WebUI.switchToWindowIndex(currentTab)
+		String xml_page_contents
+		//WebDriver driver = DriverFactory.getWebDriver()
+		int i=5
+		while (i>0){
+			try{
+				WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/a_XML'), 10)
+				WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/a_XML'), 10)
+				WebUI.click(findTestObject('Object Repository/Page_Record_Created/a_XML'))
+				WebUI.delay(1)
+				WebUI.switchToWindowIndex(currentTab+1)
+				//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_group id_tag'),3,FailureHandling.OPTIONAL)
+				//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_This XML file does not appear'),5,FailureHandling.OPTIONAL)
+				xml_page_contents=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/all_XML_contents'))
+				WebUI.closeWindowIndex(currentTab + 1)
+				WebUI.switchToWindowIndex(currentTab)
+				break
+			}catch (Exception e) {
+				closeExtraWindowTabs()
+				WebUI.delay(1)
+				i--
+			}
+		}
 		for( String group_name : group_name_list ){
 			KeywordUtil.logInfo(group_name)
 			if (xml_page_contents.contains(group_name)){
@@ -617,17 +785,19 @@ class utils {
 			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
 		}
 		WebUI.delay(1)
-		if (! WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)) {
+		if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 60, FailureHandling.OPTIONAL)) {
 			KeywordUtil.markFailed("cannot find Home tab clickable")
 		}
-		if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)) {
-			KeywordUtil.markFailed("cannot find Home tab visible")
+		if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 40, FailureHandling.OPTIONAL)) {
+			KeywordUtil.markWarning("cannot find Home tab visible")
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+
 		}
 	}
 	@Keyword
 	def verify_partner_flags(list_of_flags,user_name,product){
 		boolean test_failed=false
-		String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
+		String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
 		String all_logMsg=logMsg
 		if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
@@ -748,7 +918,8 @@ class utils {
 	}
 	@Keyword
 	def impersonate(email,def info=null){
-		WebUI.refresh()
+		//WebUI.refresh()
+		closeExtraWindowTabs()
 		if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
 			String alertText=WebUI.getAlertText()
 			WebUI.acceptAlert()
@@ -781,7 +952,7 @@ class utils {
 		WebUI.click(findTestObject('Page_Main Page/a_Admin'))
 		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Administer your installation/a_Users'),10)
 		WebUI.click(findTestObject('Object Repository/Page_Administer your installation/a_Users'))
-
+		// search for user
 		WebUI.setText(findTestObject('Object Repository/Page_Search users/input_matching_matchstr'), email+'\n')
 		WebUI.click(findTestObject('Object Repository/Page_Select user/a_user_email_selection'))
 		if (info!=null)
@@ -818,7 +989,8 @@ class utils {
 
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		check_record_created()
+		check_record_save_alert()
 		KeywordUtil.markPassed('Done create_record_through_VTL with title='+'Verification_'+record_title+',verification_status='+verification_status)
 		WebUI.delay(4)
 		check_record_created()
@@ -864,8 +1036,10 @@ class utils {
 	}
 	@Keyword
 	def approve_record(){
+		WebUI.refresh()
 		KeywordUtil.logInfo 'Go to approvals and concurrences tab'
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Approvals and Concurrences'),10)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_Approvals and Concurrences'),20)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Approvals and Concurrences'),20)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/div_Approvals and Concurrences'))
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_Record Status'),10)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Record Status'),2)
@@ -880,8 +1054,9 @@ class utils {
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
 		WebUI.delay(4)
+		check_record_save_alert()
 		check_record_created()
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		check_record_save_alert()
 		WebUI.delay(1)
 		// change record status to 'PHASE III APPROVED'
 		record_status='PHASE III APPROVED'
@@ -891,8 +1066,10 @@ class utils {
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
 		WebUI.delay(4)
+		check_record_save_alert()
 		check_record_created()
-		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
+		check_record_save_alert()
+		//WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),20)
 		WebUI.delay(1)
 	}
 	@Keyword
@@ -944,7 +1121,7 @@ class utils {
 		int i=0
 		while (check_record_created_failed){
 			try{
-				WebUI.waitForPageLoad(60, FailureHandling.STOP_ON_FAILURE)
+				WebUI.waitForPageLoad(80, FailureHandling.OPTIONAL)
 				if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),25) ){
 					KeywordUtil.logInfo ('found save button, so the record has been created successfully'+logMsg)
 				}else{
@@ -957,17 +1134,20 @@ class utils {
 					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
 					KeywordUtil.markFailed("cannot determine the record has been created")
 				}
-				WebUI.waitForPageLoad(60, FailureHandling.STOP_ON_FAILURE)
+				WebUI.waitForPageLoad(80, FailureHandling.OPTIONAL)
 				//WebUI.waitForAngularLoad(60, FailureHandling.STOP_ON_FAILURE)
 				//WebUI.waitForJQueryLoad(60, FailureHandling.STOP_ON_FAILURE)
-				if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'),30,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 60, FailureHandling.OPTIONAL)) {
+					KeywordUtil.markWarning("cannot find Home tab clickable")
+				}
+				if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'),35,FailureHandling.CONTINUE_ON_FAILURE)){
 					if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'),30,FailureHandling.CONTINUE_ON_FAILURE)){
 						recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/div_record_name_title'))
 						KeywordUtil.markPassed ('record title: "'+recordID+'" has been created successfully'+logMsg)
 						check_record_created_failed=false
 					}
 				}
-				if( WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'),25,FailureHandling.CONTINUE_ON_FAILURE)){
+				if( WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'),35,FailureHandling.CONTINUE_ON_FAILURE)){
 					recordID=WebUI.getText(findTestObject('Object Repository/Page_Record_Created/strong_Record_ID_status'))
 					KeywordUtil.markPassed ('record ID and status: "'+recordID+'" has been created successfully'+logMsg)
 					check_record_created_failed=false
@@ -980,17 +1160,17 @@ class utils {
 					if (recordID.length()>1)
 						break
 				}
-				if (! WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)) {
+				if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 50, FailureHandling.OPTIONAL)) {
 					KeywordUtil.markFailed("cannot find Home tab clickable")
 				}
-				if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 20, FailureHandling.OPTIONAL)) {
+				if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 30, FailureHandling.OPTIONAL)) {
 					KeywordUtil.markFailed("cannot find Home tab visible")
 				}
 			} catch (Exception e) {
 				KeywordUtil.logInfo "continue..."
 				WebUI.delay(2)
 				i++
-				if (i>7){
+				if (i>10){
 					KeywordUtil.markFailedAndStop("cannot determine the record has been created")
 					break
 				}
@@ -999,7 +1179,7 @@ class utils {
 		String siteURL=WebUI.getUrl()
 		siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
 		GlobalVariable.recordName2=siteURL
-		KeywordUtil.logInfo 'getting current record url='+GlobalVariable.recordName2
+		KeywordUtil.markPassed 'current record url='+GlobalVariable.recordName2
 	}
 	@Keyword
 	def check_user_enabled_permissions(user_name,def info=null){
@@ -1012,7 +1192,7 @@ class utils {
 		WebDriver driver = DriverFactory.getWebDriver()
 		List<WebElement> elements = driver.findElements(By.xpath("//input[@type = 'checkbox' and @checked = 'checked']"));
 		int size=elements.size()
-		
+
 		user_enabled_permissions=user_enabled_permissions+'\nEnabled(Checked) permissions For the User: '+user_name+'\n'
 		String parameter_enabled=''
 		for (int i = 0; i < size; i++) {
@@ -1025,11 +1205,11 @@ class utils {
 	}
 	@Keyword
 	def validate_ECR_checkboxes(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product,def info=null){
-		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\n'
-
+		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordName2+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n\n'
+		if (info!=null) logMsg_checkboxes=logMsg_checkboxes+info+'\n'
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		all_logMsg_checkboxes=all_logMsg_checkboxes+('expected checkboxes_selected='+checkboxes_selected+'\n')+('expected checkboxes_disabled='+checkboxes_disabled+'\n')+('expected checkboxes_visible='+checkboxes_visible+'\n')
 		//KeywordUtil.logInfo('expected checkboxes_selected='+checkboxes_selected+'\n')

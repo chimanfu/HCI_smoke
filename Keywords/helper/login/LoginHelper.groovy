@@ -56,6 +56,7 @@ public class LoginHelper {
 				KeywordUtil.markWarning(e.message)
 				WebUI.delay(2)
 				WebUI.switchToWindowIndex(0)
+				e.printStackTrace()
 			}
 			//Screen s = new Screen()
 			WebUI.comment 'Access Launchpad login'
@@ -127,12 +128,18 @@ public class LoginHelper {
 			WebUI.comment 'login to VPN on Pulse Secure'
 			Region righttop=new Screen(0).setRect(805,0,635,235)
 			WebUI.comment 'will disconnect VPN first if it already connected'
-			if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
-				righttop.click(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png')
-				righttop.wait(GlobalVariable.G_image_path+'vpn_selection.png',5)
-				righttop.click(GlobalVariable.G_image_path+'vpn_selection.png')
-				righttop.wait(GlobalVariable.G_image_path+'disconnect.png',5)
-				righttop.click(GlobalVariable.G_image_path+'disconnect.png')
+			try{
+				if (righttop.exists(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png',5)!=null){
+					righttop.click(GlobalVariable.G_image_path+'securePulseVPN_connected_icon.png')
+					WebUI.delay(1)
+					righttop.wait(GlobalVariable.G_image_path+'vpn_selection.png',5)
+					righttop.click(GlobalVariable.G_image_path+'vpn_selection.png')
+					righttop.wait(GlobalVariable.G_image_path+'disconnect.png',5)
+					righttop.click(GlobalVariable.G_image_path+'disconnect.png')
+				}
+			}catch (Exception e) {
+				KeywordUtil.markWarning(e.message)
+				e.printStackTrace()	
 			}
 			WebUI.openBrowser('')
 			WebUI.navigateToUrl('http://vpn.nasa.gov/')
@@ -152,6 +159,8 @@ public class LoginHelper {
 			}catch (Exception e) {
 				KeywordUtil.markWarning(e.message)
 				WebUI.switchToWindowIndex(0)
+				e.printStackTrace()
+				
 			}
 
 			check_restore_pages_popup()
