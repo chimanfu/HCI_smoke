@@ -7,7 +7,8 @@ import com.kms.katalon.core.util.KeywordUtil
 
 import internal.GlobalVariable
 
-println new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+path= (new File("Include/opencv_images/").absolutePath)+'/file'
+println path
 //String source_fileName="/Users/jcfu/Desktop/test_result.xlsx"
 //String dest_fileName="/Users/jcfu/Desktop/test_result_"+GlobalVariable.recordName1+".xlsx"
 

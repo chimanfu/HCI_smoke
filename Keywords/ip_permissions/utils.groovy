@@ -374,7 +374,7 @@ class utils {
 		//if (!GlobalVariable.user_enabled_permissions_info.contains('US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
 		if (info==null) info=''
 		info=info+'\nAlready added attachment into record with '+GlobalVariable.attachment_name+'\n'
-		all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
+		all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
 		
 		//all_logMsg=all_logMsg+'\n'
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
@@ -498,7 +498,7 @@ class utils {
 		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		if (info==null) info=''
 		info=info+'\nWill add attachment into record with '+GlobalVariable.attachment_name+'\n'
-		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
+		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
 		
 		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_before_save()')
 		if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
@@ -588,10 +588,10 @@ class utils {
 
 	@Keyword
 	def validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product){
-		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\n'
 
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		KeywordUtil.logInfo('attachment_flags_selected='+checkboxes_selected)
@@ -911,7 +911,7 @@ class utils {
 	def verify_XML_element(group_names,user_name,product){
 		//group_names='_NASA|RSA<'
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
+		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
 		String[] group_name_list
 		group_name_list = group_names.split('\\|')
 		int currentTab = WebUI.getWindowIndex()
@@ -967,7 +967,7 @@ class utils {
 	@Keyword
 	def verify_partner_flags(list_of_flags,user_name,product){
 		boolean test_failed=false
-		String logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
+		String logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
 		String all_logMsg=logMsg
 		if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
@@ -1365,8 +1365,9 @@ class utils {
 		}
 		String siteURL=WebUI.getUrl()
 		siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
-		GlobalVariable.recordName2=siteURL
-		KeywordUtil.markPassed 'current record url='+GlobalVariable.recordName2
+		//GlobalVariable.recordURL=siteURL
+		addGlobalVariable('recordURL',siteURL)
+		KeywordUtil.markPassed 'current record url='+GlobalVariable.recordURL
 	}
 	@Keyword
 	def check_user_enabled_permissions(user_name,def info=null){
@@ -1399,10 +1400,10 @@ class utils {
 	}
 	@Keyword
 	def validate_ECR_checkboxes(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product,def info=null){
-		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordName2+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordURL+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n\n'
 		if (info!=null) logMsg_checkboxes=logMsg_checkboxes+info+'\n'
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		all_logMsg_checkboxes=all_logMsg_checkboxes+('expected checkboxes_selected='+checkboxes_selected+'\n')+('expected checkboxes_disabled='+checkboxes_disabled+'\n')+('expected checkboxes_visible='+checkboxes_visible+'\n')
