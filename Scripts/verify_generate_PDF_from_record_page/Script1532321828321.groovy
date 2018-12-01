@@ -139,6 +139,10 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record List/a_record_1'),10
 	WebUI.click(findTestObject('Page_Record List/a_record_1'))
 }
 if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_PDF'),15)){
+	String siteURL=WebUI.getUrl()
+	siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
+	GlobalVariable.recordName2=siteURL
+	KeywordUtil.markPassed 'current record url='+GlobalVariable.recordName2
 	WebUI.click(findTestObject('Page_Record test_automation_record/a_PDF'))
 	if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),10)){
 		WebUI.delay(1)

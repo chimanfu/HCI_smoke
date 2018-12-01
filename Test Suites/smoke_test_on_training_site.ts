@@ -4,7 +4,7 @@
    <name>smoke_test_on_training_site</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-11-02T14:59:31</lastRun>
+   <lastRun>2018-11-28T16:29:01</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -60,12 +60,6 @@
       <testCaseId>Test Cases/verify_Metrics_TAB_loading</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>b03962a4-345a-4b44-8bdf-9dc8abf8aa43</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -96,12 +90,6 @@
       <testCaseId>Test Cases/verify_advanced_search</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>34b56fe4-239e-4e36-9036-738b2672df3f</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_linking_config_on_record</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>a4b6976b-3d35-429d-a19d-32930484f08a</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -118,6 +106,18 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>34b56fe4-239e-4e36-9036-738b2672df3f</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_linking_config_on_record</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>43538696-da1a-4895-a64e-9248a2d03fe9</guid>

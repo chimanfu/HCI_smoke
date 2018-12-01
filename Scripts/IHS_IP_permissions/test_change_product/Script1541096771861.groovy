@@ -52,7 +52,7 @@ Verify XML*/
 KeywordUtil.logInfo 'Test: New-like Record Through Changing Product'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
-
+GlobalVariable.G_wait_s=1
 ////////////////////////////////////////////////////////////////////////////////////
 
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
@@ -100,7 +100,7 @@ def create_record_from_change_product(product,component,record_type,expected_res
 	KeywordUtil.logInfo('expected_results='+expected_results)
 	KeywordUtil.logInfo('user_name='+user_name)
 	KeywordUtil.logInfo('user_email='+user_email)
-	String info='verify create_record_from_change_product, record created from product '+product+' to '+new_product+', record created by '+user_name+'\n'+'expected_results using spreadsheet: '+expected_results+'\n'
+	String info='verify create_record_from_change_product, record created from product "'+product+'", then changed to product "'+new_product+'", record created by '+user_name+'\n'+'expected_results using spreadsheet: '+expected_results+'\n'
 	
 	//////////////////////////////////////////////////////////////////////
 	// for each user, perform these actions
@@ -142,6 +142,8 @@ def create_record_from_change_product(product,component,record_type,expected_res
 	CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 	CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
 	CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+	CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+	
 	
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 	} catch (Exception e) {

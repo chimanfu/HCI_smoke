@@ -6,10 +6,10 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
 CustomKeywords.'helper.login.LoginHelper.login'()
-CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
+//CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('raining')) {
-	WebUI.comment 'only test on training, skip the test'
+	WebUI.comment 'only run this test on training, skip the test as it is not a training site'
 	GlobalVariable.userPin2 = 'SKIP'
 	return null
 }
@@ -32,6 +32,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')) {
 	check_message( Linked_Record_Status_contents,  expected_message)
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('cplms')) {
 	WebUI.navigateToUrl('https://cplms.nasa.gov/training/show_bug.cgi?id=972#tv=Workflow')
+	// need to make sure the current record status is PRELIMINARY in record 972, it should trigger the auto save popup by changing From PRELIMINARY to REVIEW
 	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'),
 		'REVIEW', true)
 	WebUI.click(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/button_Save Changes'))
@@ -61,6 +62,8 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')) {
 	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'),
 		'REVIEW', true)
 	WebUI.click(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/button_Save Changes'))
+	WebUI.delay(1)
+	WebUI.waitForElementPresent(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/h4_Linked Record Status'),10)
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/h4_Linked Record Status'),5)
 	WebUI.click(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/h4_Linked Record Status'))
 	Linked_Record_Status_contents=WebUI.getText(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/div_Linked Record Status contents'))	

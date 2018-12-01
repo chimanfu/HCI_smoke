@@ -25,9 +25,23 @@ try {
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 WebUI.comment 'directly goto the record id from site profile'
-String recordID=GlobalVariable.recordName1
+//String recordID=GlobalVariable.recordName1
 String siteURL=GlobalVariable.G_MAKE_MAS_url
-if (recordID.trim().equals("") || recordID.trim().equals(null)){
+String record_url=GlobalVariable.recordName2
+String recordID='10'
+if (record_url.contains('http')){
+	WebUI.navigateToUrl(record_url)
+	WebUI.comment 'directly goto the record url if existed'
+}else{
+	WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+	if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+		WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+	WebUI.waitForPageLoad(5)
+	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordID)
+	WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+}
+
+/*if (recordID.trim().equals("") || recordID.trim().equals(null)){
 	recordID='test_automation_record'
 }
 if (StringUtils.isNumeric(recordID)){
@@ -43,7 +57,7 @@ if (StringUtils.isNumeric(recordID)){
 	WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), recordID)
 	WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 	
-}
+}*/
 
 WebUI.waitForPageLoad(30)
 WebUI.delay(5)

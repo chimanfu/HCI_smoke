@@ -43,6 +43,7 @@ Repeat for Khrunichev
 KeywordUtil.logInfo 'Test: Create Record Through VTL (ISS Hazard only)'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
+GlobalVariable.G_wait_s=1
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -143,6 +144,8 @@ def create_record_from_VTL(product,component,record_type,expected_results,row){
 		CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 		CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
 		CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+		CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+		
 		/*if (record_not_visible.equals('X')){
 			KeywordUtil.markFailed( '!FAIL: ' + user_name + ' is NOT supposed to be able to see ' + 'record_key' + '\'s record ' + record_id + ' and can.')
 		}else{

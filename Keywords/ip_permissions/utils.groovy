@@ -10,13 +10,76 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.kms.katalon.core.configuration.RunConfiguration
+
 class utils {
+	@Keyword
+	void addGlobalVariable(String name, def value) {
+	 GroovyShell shell1 = new GroovyShell()
+	 MetaClass mc = shell1.evaluate("internal.GlobalVariable").metaClass
+	 String getterName = "get" + name.capitalize()
+	 mc.'static'."$getterName" = { -> return value }
+	 mc.'static'."$name" = value
+   }
+	@Keyword
+	def write_failed_result( def col1=null, def col2=null) {
+		String col0='ISSUE # '+(GlobalVariable.G_wait_s++)
+		//String source_fileName="/Users/jcfu/Desktop/test_result.xlsx"
+		String source_fileName="Data Files/IHS_IP_permissions/test_result.xlsx"
+		String getReportFolder=RunConfiguration.getReportFolder()
+		println('getReportFolder='+getReportFolder)
+		//String fileName=getReportFolder+"/test_result_"+GlobalVariable.recordName1+".xlsx"
+		String fileName=getReportFolder+"/Report.xlsx"
+
+		//KeywordUtil.markPassed('triage test failed result spreadsheet in '+fileName)
+		try{
+			def inputFile = new File(fileName)
+			// Check if a file with same name exisits in the folder.
+			if(!inputFile.exists()){
+				//inputFile.createNewFile()
+				new File(fileName) << new File(source_fileName).bytes
+
+			}
+			FileInputStream fis = new FileInputStream(inputFile);
+			XSSFWorkbook workbook = new XSSFWorkbook(fis);
+			//XSSFSheet sheet = workbook.getSheet("Sheet1");
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
+			int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum();
+			Row row = sheet.createRow(rowCount+1);
+			Cell cell = row.createCell(0);
+			cell.setCellType(cell.CELL_TYPE_STRING);
+			cell.setCellValue(col0);
+			if (!col1.equals(null)){
+				cell = row.createCell(1);
+				cell.setCellType(cell.CELL_TYPE_STRING);
+				cell.setCellValue(col1);
+			}
+			if (!col2.equals(null)){
+				cell = row.createCell(2);
+				cell.setCellType(cell.CELL_TYPE_STRING);
+				cell.setCellValue(col2);
+			}
+			FileOutputStream fos = new FileOutputStream(fileName);
+			workbook.write(fos);
+			fos.close();
+		} catch (Exception e) {
+			KeywordUtil.markWarning('cannot write result for '+col0+' to file='+fileName)
+		}
+		KeywordUtil.markFailed(col0+'\n'+col1)
+
+	}
+
 	@Keyword
 	def testing(){
 		String user_name='xxx'
 		String product='yyy'
 		String logMsg_checkboxes_selected=''
-		KeywordUtil.markFailed(logMsg_checkboxes_selected+'ERROR: checkboxes_selected_set NOT = selected_checkboxes_set\nexpected:"'+'"\nactual:"'+'"\n')
+		write_failed_result(logMsg_checkboxes_selected+'ERROR: checkboxes_selected_set NOT = selected_checkboxes_set\nexpected:"'+'"\nactual:"'+'"\n')
 		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_selected')
 		println 'ending here...'
 	}
@@ -83,7 +146,7 @@ class utils {
 				}
 			}
 			if (test_failed)
-				KeywordUtil.markFailed(status+'\n'+expected_permissions+'\n')
+				write_failed_result(status+'\n'+expected_permissions+'\n')
 			else
 				KeywordUtil.markPassed(status)
 
@@ -174,13 +237,47 @@ class utils {
 			WebUI.delay(1)
 			check_user_enabled_permissions(user_name,'check actual user permissions after creating new user')
 			if (test_failed)
-				KeywordUtil.markFailed(status)
+				write_failed_result(status)
 			else
 				KeywordUtil.markPassed(status)
 		}
 	}
+	def get_random_attachment(){
+		int number=Math.abs(new Random().nextInt() % 6) + 1  // random number 1 to 6
+		String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+		String attachment=''
+		switch(number) {
+			case 1:
+				attachment='Full Text Search - Blank.pdf'
+				break
+			case 2:
+				attachment='Full Text Search - Excel.xlsx'
+				break
+			case 3:
+				attachment='Full Text Search - Word.docx'
+				break
+			case 4:
+				attachment='OCR with image.pdf'
+				break
+			case 5:
+				attachment='OCR no image.pdf'
+				break
+			case 6:
+				attachment='Full Text Search - Blank.pdf'
+				break
+			default:
+				attachment='Full Text Search - Blank.pdf'
+				break
+		}
+		
+		addGlobalVariable('attachment_name', path+'/'+attachment)
+		
+		KeywordUtil.markPassed('will add attachment into record with '+GlobalVariable.attachment_name)
+		return GlobalVariable.attachment_name
+	}
 	@Keyword
 	def add_verify_attachment_flags(list_of_flags,user_name,product,def info=null){
+		
 		WebUI.refresh(FailureHandling.OPTIONAL)
 		WebUI.delay(2)
 		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
@@ -203,13 +300,17 @@ class utils {
 		'add attachment to input_Add New Attachment'
 		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
 		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
-		WebUI.delay(1)
+		//WebUI.delay(1)
 		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Add New Attachment'),10)
-		WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), '/Users/jcfu/Katalon Studio/HCI_Group/Data Files/IHS_IP_permissions/expected_results_partner.xlsx')
+		//WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), '/Users/jcfu/Katalon Studio/HCI_Group/Data Files/IHS_IP_permissions/expected_results_partner.xlsx')
+		get_random_attachment()
+		if (info==null) info=''
+		//info=info+'\nwill add attachment into record with '+GlobalVariable.attachment_name+'\n'
+		WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), GlobalVariable.attachment_name)
 		//WebUI.delay(5)
 
 		WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
-		WebUI.delay(1)
+		//WebUI.delay(1)
 		//WebUI.click(findTestObject('Object Repository/Page_Enter Record View/label_Add New Attachment'))
 		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/select_attachment_type'),10)
 		WebUI.click(findTestObject('Page_Enter Record View/select_attachment_type'))
@@ -228,19 +329,20 @@ class utils {
 
 		//validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 		verify_attachment_partner_flags_before_save(list_of_flags,user_name,product,info)
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
-		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
-		WebUI.delay(6)
-		check_record_save_alert()
-		check_record_created()
-		check_record_save_alert()
-		WebUI.delay(1)
-		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
-		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
-		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
-		verify_attachment_partner_flags_after_save(list_of_flags,user_name,product,info)
+		//		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
+		//		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+		//		WebUI.delay(6)
+		//		check_record_save_alert()
+		//		check_record_created()
+		//		check_record_save_alert()
+		//		WebUI.delay(1)
+		//		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		//		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		//		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
+		//		verify_attachment_partner_flags_after_save(list_of_flags,user_name,product,info)
 
 	}
+
 	def check_record_save_alert(){
 		int i=5
 		while (i>0)
@@ -259,58 +361,129 @@ class utils {
 	@Keyword
 	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product, def info=null){
 		boolean test_failed=false
-		//String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'\nExpected "GRANTED ACCESS" Flags='+list_of_flags+'\n'
-		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n'
-		//String all_logMsg=logMsg
-		if (info!=null) all_logMsg=all_logMsg+info+'\n'
-		if (GlobalVariable.userPin3.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
-		if (GlobalVariable.userPin3.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
-		try{
-			'check flags from attachments after save'
-			if (list_of_flags.contains('CSA')){
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_flag CSA'),1,FailureHandling.OPTIONAL)){
-					all_logMsg=all_logMsg+('found flag CSA from attachment after adding attachment into record\n')
-				}else{
-					all_logMsg=all_logMsg+('not found flag CSA from attachment after adding attachment into record\n')
-					test_failed=true
-				}
-			}else
-				all_logMsg=all_logMsg+('not found flag CSA from attachment after adding attachment into record\n')
-			if (list_of_flags.contains('ESA')){
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_flag ESA'),1,FailureHandling.OPTIONAL)){
-					all_logMsg=all_logMsg+('found flag ESA from attachment after adding attachment into record\n')
-				}else{
-					all_logMsg=all_logMsg+('not found flag ESA from attachment after adding attachment into record\n')
-					test_failed=true
-				}
-			}else
-				all_logMsg=all_logMsg+('not found flag ESA from attachment after adding attachment into record\n')
-			if (list_of_flags.contains('JAXA')){
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_flag JAXA'),1,FailureHandling.OPTIONAL)){
-					all_logMsg=all_logMsg+('found flag JAXA from attachment after adding attachment into record\n')
-				}else{
-					all_logMsg=all_logMsg+('not found flag JAXA from attachment after adding attachment into record\n')
-					test_failed=true
-				}
-			}else
-				all_logMsg=all_logMsg+('not found flag JAXA from attachment after adding attachment into record\n')
-			if (list_of_flags.contains('RSA')){
-				if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_flag RSA'),1,FailureHandling.OPTIONAL)){
-					all_logMsg=all_logMsg+('found flag RSA from attachment after adding attachment into record\n')
-				}else{
-					all_logMsg=all_logMsg+('not found flag RSA from attachment after adding attachment into record\n')
-					test_failed=true
-				}
-			}else
-				all_logMsg=all_logMsg+('not found flag RSA from attachment after adding attachment into record\n')
+		boolean attachments_Not_Allowed=false
+		String all_logMsg=''
+		if (GlobalVariable.user_permissions.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
+		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
+		if (!GlobalVariable.user_permissions.contains('U.S._Persons')&&
+		!GlobalVariable.user_permissions.contains('NON_US_Person')&&
+		!GlobalVariable.user_permissions.contains('US_Person')&&
+		product.contains('Boeing'))
+			attachments_Not_Allowed=true
+		//if (!GlobalVariable.user_enabled_permissions_info.contains('NON_US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
+		//if (!GlobalVariable.user_enabled_permissions_info.contains('US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
+		if (info==null) info=''
+		info=info+'\nAlready added attachment into record with '+GlobalVariable.attachment_name+'\n'
+		all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
+		
+		//all_logMsg=all_logMsg+'\n'
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+		WebUI.delay(6)
 
+		check_record_save_alert()
+		check_record_created()
+
+		////// check attachments_Not_Allowed dialog
+		try{
+			if (attachments_Not_Allowed ){
+				if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_attachments_Not_Allowed_msg'),1,FailureHandling.OPTIONAL)){
+					KeywordUtil.markPassed(all_logMsg+'\nPASS: found attachments_Not_Allowed dialog, check user permission if it is expected\n')
+					//write_failed_result(all_logMsg+'\nERROR: found attachments_Not_Allowed dialog, check user permission if it is expected\n')
+					//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
+					WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Close'))
+					return
+				}else{
+					write_failed_result(all_logMsg+'\nERROR: NOT found attachments_Not_Allowed dialog, check user permission if it is expected\n')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
+					//WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Close'))
+					return
+				}
+			}
 		} catch (Exception e) {
-			KeywordUtil.logInfo "cannot check flag from attachments after save"
-			KeywordUtil.logInfo (e)
+			KeywordUtil.markWarning(e.detailMessage)
 		}
+		/////
+		check_record_save_alert()
+		WebUI.delay(1)
+		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
+
+
+		//try{
+		//'check flags from attachments after save'
+		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_after_save()')
+		if (list_of_flags.contains('CSA')){
+			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag CSA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('PASS: found flag CSA from attachment after adding attachment into record\n')
+			}else{
+				all_logMsg=all_logMsg+('ERROR: not found flag CSA from attachment after adding attachment into record\n')
+				test_failed=true
+			}
+		}else{
+			if (!WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag CSA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('ERROR: found flag CSA from attachment after adding attachment into record\n')
+				test_failed=true
+			}else{
+				all_logMsg=all_logMsg+('PASS: not found flag CSA from attachment after adding attachment into record\n')
+
+			}
+		}
+		if (list_of_flags.contains('ESA')){
+			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag ESA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('PASS: found flag ESA from attachment after adding attachment into record\n')
+			}else{
+				all_logMsg=all_logMsg+('ERROR: not found flag ESA from attachment after adding attachment into record\n')
+				test_failed=true
+			}
+		}else{
+			if (!WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag ESA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('ERROR: found flag ESA from attachment after adding attachment into record\n')
+				test_failed=true
+			}else{
+				all_logMsg=all_logMsg+('PASS: not found flag ESA from attachment after adding attachment into record\n')
+			}
+		}
+		if (list_of_flags.contains('JAXA')){
+			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag JAXA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('PASS: found flag JAXA from attachment after adding attachment into record\n')
+			}else{
+				all_logMsg=all_logMsg+('ERROR: not found flag JAXA from attachment after adding attachment into record\n')
+				test_failed=true
+			}
+		}else{
+			if (!WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag JAXA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('ERROR: found flag JAXA from attachment after adding attachment into record\n')
+				test_failed=true
+			}else{
+				all_logMsg=all_logMsg+('PASS: not found flag JAXA from attachment after adding attachment into record\n')
+			}
+		}
+		if (list_of_flags.contains('RSA')){
+			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag RSA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('PASS: found flag RSA from attachment after adding attachment into record\n')
+			}else{
+				all_logMsg=all_logMsg+('ERROR: not found flag RSA from attachment after adding attachment into record\n')
+				test_failed=true
+			}
+		}else{
+			if (!WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag RSA'),1,FailureHandling.OPTIONAL)){
+				all_logMsg=all_logMsg+('ERROR: found flag RSA from attachment after adding attachment into record\n')
+				test_failed=true
+			}else{
+				all_logMsg=all_logMsg+('PASS: not found flag RSA from attachment after adding attachment into record\n')
+
+			}
+		}
+
+		/*} catch (Exception e) {
+		 KeywordUtil.logInfo "cannot check flag from attachments after save"
+		 KeywordUtil.logInfo (e)
+		 }*/
 		if (test_failed){
-			KeywordUtil.markFailed(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			write_failed_result(all_logMsg)
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
@@ -321,107 +494,104 @@ class utils {
 	@Keyword
 	def verify_attachment_partner_flags_before_save(list_of_flags,user_name,product,def info=null){
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n'
-		if (info!=null) all_logMsg=all_logMsg+info+'\n'
-		if (GlobalVariable.userPin3.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
-		if (GlobalVariable.userPin3.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
+		if (GlobalVariable.user_permissions.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
+		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
+		if (info==null) info=''
+		info=info+'\nWill add attachment into record with '+GlobalVariable.attachment_name+'\n'
+		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
+		
+		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_before_save()')
 		if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
 		}else{
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_find_record')
 			KeywordUtil.markFailedAndStop("cannot determine the record page is displayed")
 		}
-		/////////
 		if (list_of_flags.contains('CSA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
-				all_logMsg=all_logMsg+'CSA: Flag visible and checked as expected\n'
+				all_logMsg=all_logMsg+'PASS: CSA Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with CSA: visible and checked\n'
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (!WebUI.waitForElementNotHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_CSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'CSA: Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: CSA Flag visible (Flag unchecked) as expected\n'
 			}else
-				all_logMsg=all_logMsg+'CSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: CSA Flag not displayed as expected\n'
 		}
-		/////////
 		if (list_of_flags.contains('ESA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
-				all_logMsg=all_logMsg+'ESA: Flag visible and checked as expected\n'
+				all_logMsg=all_logMsg+'PASS: ESA Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with ESA: visible and checked\n'
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (!WebUI.waitForElementNotHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'ESA: Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: ESA Flag visible (Flag unchecked) as expected\n'
 			}else
-				all_logMsg=all_logMsg+'ESA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: ESA Flag not displayed as expected\n'
 		}
-		/////////
 		if (list_of_flags.contains('JAXA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
-				all_logMsg=all_logMsg+'JAXA: Flag visible and checked as expected\n'
+				all_logMsg=all_logMsg+'PASS: JAXA Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with JAXA: visible and checked\n'
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (!WebUI.waitForElementNotHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'JAXA: Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: JAXA Flag visible (Flag unchecked) as expected\n'
 			}else
-				all_logMsg=all_logMsg+'JAXA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: JAXA Flag not displayed as expected\n'
 		}
-		/////////
-
 		if (list_of_flags.contains('RSA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
-				all_logMsg=all_logMsg+'RSA: Flag visible and checked as expected\n'
+				all_logMsg=all_logMsg+'PASS: RSA Flag visible and checked as expected\n'
 			}else{
 				all_logMsg=all_logMsg+'ERROR: Cannot find flag with RSA: visible and checked\n'
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
-				if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 1,FailureHandling.CONTINUE_ON_FAILURE)){
+				if (!WebUI.waitForElementNotHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'RSA: Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: RSA Flag visible (Flag unchecked) as expected\n'
 			}else
-				all_logMsg=all_logMsg+'RSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: RSA Flag not displayed as expected\n'
 		}
-		/////////
 		if (test_failed){
-			KeywordUtil.markFailed(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			write_failed_result(all_logMsg)
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_before_save')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
 			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
 		}
-		KeywordUtil.logInfo( 'Done: verify_partner_flags()')
+		KeywordUtil.logInfo( 'Done: verify_attachment_partner_flags_before_save()')
 	}
 
 	@Keyword
 	def validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product){
-		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\n'
 
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		KeywordUtil.logInfo('attachment_flags_selected='+checkboxes_selected)
@@ -554,7 +724,7 @@ class utils {
 			runScreenshot=true
 		}
 		if (runScreenshot){
-			KeywordUtil.markFailed(all_logMsg_checkboxes)
+			write_failed_result(all_logMsg_checkboxes)
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_attachment_flags_status')
 		}
 	}
@@ -580,7 +750,7 @@ class utils {
 				KeywordUtil.markPassed('found "You made an invalid entry", record is not visible as expected, done create_record_from_template\n'+logMsg)
 				return
 			}else{
-				KeywordUtil.markFailed('NOT found "You made an invalid entry", record should not be visible')
+				write_failed_result('NOT found "You made an invalid entry", record should not be visible')
 				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_record_visible')
 				return
 			}
@@ -741,7 +911,7 @@ class utils {
 	def verify_XML_element(group_names,user_name,product){
 		//group_names='_NASA|RSA<'
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
+		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
 		String[] group_name_list
 		group_name_list = group_names.split('\\|')
 		int currentTab = WebUI.getWindowIndex()
@@ -777,7 +947,7 @@ class utils {
 			}
 		}
 		if (test_failed){
-			KeywordUtil.markFailed(all_logMsg)
+			write_failed_result(all_logMsg)
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
 		}
 		else{
@@ -786,7 +956,7 @@ class utils {
 		}
 		WebUI.delay(1)
 		if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 60, FailureHandling.OPTIONAL)) {
-			KeywordUtil.markFailed("cannot find Home tab clickable")
+			write_failed_result("cannot find Home tab clickable")
 		}
 		if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 40, FailureHandling.OPTIONAL)) {
 			KeywordUtil.markWarning("cannot find Home tab visible")
@@ -797,7 +967,7 @@ class utils {
 	@Keyword
 	def verify_partner_flags(list_of_flags,user_name,product){
 		boolean test_failed=false
-		String logMsg=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
+		String logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
 		String all_logMsg=logMsg
 		if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
@@ -813,7 +983,7 @@ class utils {
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 1,FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 'title')).contains('GRANTED ACCESS')){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA: GRANTED ACCESS.\n'
 					test_failed=true
@@ -831,7 +1001,7 @@ class utils {
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 1,FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 'title')).contains('GRANTED ACCESS')){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA: GRANTED ACCESS.\n'
 					test_failed=true
@@ -849,7 +1019,7 @@ class utils {
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 1,FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 'title')).contains('GRANTED ACCESS')){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA: GRANTED ACCESS.\n'
 					test_failed=true
@@ -867,7 +1037,7 @@ class utils {
 				test_failed=true
 			}
 		}else{
-			if (WebUI.waitForElementPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 1,FailureHandling.OPTIONAL)){
+			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 'title')).contains('GRANTED ACCESS')){
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA: GRANTED ACCESS.\n'
 					test_failed=true
@@ -878,7 +1048,7 @@ class utils {
 				all_logMsg=all_logMsg+'RSA Flag not displayed as expected\n'
 		}
 		if (test_failed){
-			KeywordUtil.markFailed(all_logMsg)
+			write_failed_result(all_logMsg)
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
 		}
 		else{
@@ -891,18 +1061,21 @@ class utils {
 	@Keyword
 	def end_session(){
 		try{
+			if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 60, FailureHandling.OPTIONAL)) {
+				KeywordUtil.markWarning("cannot find Home tab clickable")
+			}
 			if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'),15,FailureHandling.OPTIONAL)){
 				WebUI.waitForElementVisible(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'),3)
 				WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'))
 				WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'),7)
 				KeywordUtil.markPassed 'done end_session'
 			}else{
-				KeywordUtil.markFailed("not found 'end session' link, cannot end_session")
+				write_failed_result("not found 'end session' link, cannot end_session")
 				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
 				//WebUI.closeBrowser()
 			}
 		}catch (Exception e) {
-			KeywordUtil.markFailed("ERROR: cannot end_session...\n"+e.message)
+			write_failed_result("ERROR: cannot end_session...\n"+e.message)
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
 			WebUI.closeBrowser()
 		}
@@ -926,26 +1099,40 @@ class utils {
 			WebUI.comment('accept alert='+alertText)
 			KeywordUtil.markWarning('alertText "'+alertText+'" may not be acceptable')
 		}
+		if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 30, FailureHandling.OPTIONAL)) {
+			KeywordUtil.markWarning("cannot find Home tab")
+		}
 		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'),4,FailureHandling.OPTIONAL)){
 			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'),5)
 			if (WebUI.getText(findTestObject('Object Repository/Page_Sudo session started/b_impersonating')).contains(email)){
 				KeywordUtil.markPassed 'it is being impersonating user: '+email
 				return
 			}else{
-				println 'current impersonating user:'+WebUI.getText(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'))
-				println 'need to impersonating user: '+email
+				KeywordUtil.logInfo 'current impersonating user:'+WebUI.getText(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'))
+				KeywordUtil.logInfo 'need to impersonating user: '+email
 			}
 		}
 		try{
+			if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 30, FailureHandling.OPTIONAL)) {
+				KeywordUtil.markWarning("cannot find Home tab")
+			}
 			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'),1,FailureHandling.OPTIONAL)){
 				WebUI.waitForElementClickable(findTestObject('Page_ISS Hazard Main Page/a_end session'),8)
+				WebUI.waitForElementVisible(findTestObject('Page_ISS Hazard Main Page/a_end session'),8)
 				WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'))
 			}
 		} catch (Exception e) {
-			WebUI.delay(5)
-			WebUI.waitForElementClickable(findTestObject('Page_ISS Hazard Main Page/a_end session'),8)
-			WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'))
+			WebUI.delay(1)
+			try{
+				WebUI.waitForElementClickable(findTestObject('Page_ISS Hazard Main Page/a_end session'),8)
+				WebUI.waitForElementVisible(findTestObject('Page_ISS Hazard Main Page/a_end session'),8)
+				WebUI.click(findTestObject('Object Repository/Page_ISS Hazard Main Page/a_end session'))
+			} catch (Exception e1) {
+				KeywordUtil.markWarning("need to relaunch the browser")
+				WebUI.refresh()
+			}
 		}
+
 		WebUI.waitForElementNotPresent(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'),8)
 
 		WebUI.waitForElementPresent(findTestObject('Page_Main Page/a_Admin'), 16)
@@ -1100,9 +1287,9 @@ class utils {
 		}
 		//WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record Boeing/select_export_control_rating'), 'EAR/15 CFR 730-774', true)
 
-		WebUI.delay(1)
-		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record Boeing/div_New Record(INWORK)'),5)
-		WebUI.click(findTestObject('Object Repository/Page_Enter Record Boeing/div_New Record(INWORK)'))
+		//		WebUI.delay(1)
+		//		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record Boeing/div_New Record(INWORK)'),5)
+		//		WebUI.click(findTestObject('Object Repository/Page_Enter Record Boeing/div_New Record(INWORK)'))
 		// not save
 		//CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 		//return
@@ -1126,13 +1313,13 @@ class utils {
 					KeywordUtil.logInfo ('found save button, so the record has been created successfully'+logMsg)
 				}else{
 					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-					KeywordUtil.markFailed("cannot determine the record has been created")
+					write_failed_result("cannot determine the record has been created")
 				}
 				if(WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),25) ){
 					KeywordUtil.logInfo ('found save button, so the record has been created successfully'+logMsg)
 				}else{
 					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
-					KeywordUtil.markFailed("cannot determine the record has been created")
+					write_failed_result("cannot determine the record has been created")
 				}
 				WebUI.waitForPageLoad(80, FailureHandling.OPTIONAL)
 				//WebUI.waitForAngularLoad(60, FailureHandling.STOP_ON_FAILURE)
@@ -1161,10 +1348,10 @@ class utils {
 						break
 				}
 				if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 50, FailureHandling.OPTIONAL)) {
-					KeywordUtil.markFailed("cannot find Home tab clickable")
+					write_failed_result("cannot find Home tab clickable")
 				}
 				if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 30, FailureHandling.OPTIONAL)) {
-					KeywordUtil.markFailed("cannot find Home tab visible")
+					write_failed_result("cannot find Home tab visible")
 				}
 			} catch (Exception e) {
 				KeywordUtil.logInfo "continue..."
@@ -1183,9 +1370,9 @@ class utils {
 	}
 	@Keyword
 	def check_user_enabled_permissions(user_name,def info=null){
-		String user_enabled_permissions=''
+		String user_enabled_permissions_info=''
 		if (info!=null){
-			user_enabled_permissions=info
+			user_enabled_permissions_info=info
 		}
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Edit user info/a_Impersonate this user'),5)
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_User Preferences/input_parameter_checked'),6)
@@ -1193,22 +1380,29 @@ class utils {
 		List<WebElement> elements = driver.findElements(By.xpath("//input[@type = 'checkbox' and @checked = 'checked']"));
 		int size=elements.size()
 
-		user_enabled_permissions=user_enabled_permissions+'\nEnabled(Checked) permissions For the User: '+user_name+'\n'
+		user_enabled_permissions_info=user_enabled_permissions_info+'\nEnabled(Checked) permissions For the User: '+user_name+'\n'
 		String parameter_enabled=''
+		String user_permissions=''
 		for (int i = 0; i < size; i++) {
 			parameter_enabled = elements.get(i).getAttribute("class");
-			user_enabled_permissions=user_enabled_permissions+parameter_enabled+'\n'
+			//user_enabled_permissions_info=user_enabled_permissions_info+parameter_enabled+'\n'
+			user_permissions=user_permissions+parameter_enabled+'\n'
 		}
-		KeywordUtil.logInfo(user_enabled_permissions)
-		GlobalVariable.userPin3=user_enabled_permissions
-		return user_enabled_permissions
+		user_enabled_permissions_info=user_enabled_permissions_info+user_permissions
+		KeywordUtil.logInfo(user_enabled_permissions_info)
+		//GlobalVariable.user_enabled_permissions_info=user_enabled_permissions_info
+		addGlobalVariable('user_enabled_permissions_info', user_enabled_permissions_info)
+		addGlobalVariable('user_permissions', user_permissions)
+		println 'GlobalVariable.user_permissions='+GlobalVariable.user_permissions
+		println 'GlobalVariable.user_enabled_permissions_info='+GlobalVariable.user_enabled_permissions_info
+		return user_enabled_permissions_info
 	}
 	@Keyword
 	def validate_ECR_checkboxes(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product,def info=null){
-		String logMsg_checkboxes_selected=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordName2+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.userPin3+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordName2+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordName2+'\n\n'
 		if (info!=null) logMsg_checkboxes=logMsg_checkboxes+info+'\n'
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		all_logMsg_checkboxes=all_logMsg_checkboxes+('expected checkboxes_selected='+checkboxes_selected+'\n')+('expected checkboxes_disabled='+checkboxes_disabled+'\n')+('expected checkboxes_visible='+checkboxes_visible+'\n')
@@ -1379,7 +1573,7 @@ class utils {
 			test_failed=true
 		}
 		if (test_failed){
-			KeywordUtil.markFailed(all_logMsg_checkboxes)
+			write_failed_result(all_logMsg_checkboxes)
 			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_status')
 		}
 		else{

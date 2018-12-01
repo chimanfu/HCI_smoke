@@ -153,7 +153,7 @@ class NewTestListener {
 		Screen s = new Screen();
 		//GlobalVariable.G_image_path='opencv_images/'
 		GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
-		
+		GlobalVariable.G_wait_s=0 // failed_case count from running the test suite
 		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')

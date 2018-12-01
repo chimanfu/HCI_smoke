@@ -276,6 +276,28 @@ def static "kramp.Groups.delete_3_static_groups"() {
     (new kramp.Groups()).delete_3_static_groups()
 }
 
+def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
+    	TestObject objectto	) {
+    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
+        	objectto)
+}
+
+def static "ip_permissions.utils.addGlobalVariable"(
+    	String name	
+     , 	Object value	) {
+    (new ip_permissions.utils()).addGlobalVariable(
+        	name
+         , 	value)
+}
+
+def static "ip_permissions.utils.write_failed_result"(
+    	Object col1	
+     , 	Object col2	) {
+    (new ip_permissions.utils()).write_failed_result(
+        	col1
+         , 	col2)
+}
+
 def static "ip_permissions.utils.testing"() {
     (new ip_permissions.utils()).testing()
 }
@@ -470,6 +492,16 @@ def static "ip_permissions.utils.validate_ECR_checkboxes"(
          , 	info)
 }
 
+def static "ip_permissions.utils.write_failed_result"(
+    	Object col1	) {
+    (new ip_permissions.utils()).write_failed_result(
+        	col1)
+}
+
+def static "ip_permissions.utils.write_failed_result"() {
+    (new ip_permissions.utils()).write_failed_result()
+}
+
 def static "ip_permissions.utils.add_verify_attachment_flags"(
     	Object list_of_flags	
      , 	Object user_name	
@@ -524,12 +556,6 @@ def static "ip_permissions.utils.validate_ECR_checkboxes"(
          , 	checkboxes_visible
          , 	user_name
          , 	product)
-}
-
-def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
-    	TestObject objectto	) {
-    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
-        	objectto)
 }
 
 def static "com.common.utils.ScreenShot.takeScreenShot"(

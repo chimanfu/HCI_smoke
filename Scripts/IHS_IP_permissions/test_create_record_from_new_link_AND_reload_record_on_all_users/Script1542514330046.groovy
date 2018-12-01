@@ -38,6 +38,7 @@ Repeat above for Khrunichev*/
 KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
+GlobalVariable.G_wait_s=1
 
 ////////////////////////////////////////////////////////////////////////////////////
 boolean run_loading_record_on_users=true
@@ -153,8 +154,10 @@ def loading_record_on_users(product,sheet){
 			CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
 			CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 			CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
-			if (user_name_createRecord.equals(user_name))
-				CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+			//if (user_name_createRecord.equals(user_name))
+			CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+			CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+				
 		}
 		KeywordUtil.logInfo '---------- Done loading new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 		} catch (Exception e) {
@@ -218,6 +221,8 @@ def create_record_from_new_link(product,component,record_type,expected_results,r
 		CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 		CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)	
 		CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
+		CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+		
 	}
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 	} catch (Exception e) {
