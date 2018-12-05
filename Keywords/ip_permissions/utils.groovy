@@ -18,13 +18,91 @@ import com.kms.katalon.core.configuration.RunConfiguration
 
 class utils {
 	@Keyword
+	def search_attachment(user_name,product){
+		boolean search_found_expected=true
+		if (GlobalVariable.attachment_status.contains('attachments_Not_Allowed')){
+			KeywordUtil.markPassed (GlobalVariable.testLog_info+'\nPASS: attachments_Not_Allowed for this user, so skip search_attachment\n')
+			return
+		}
+		// using GlobalVariable.attachment_name to determine search_found_expected status
+		if (GlobalVariable.attachment_name.contains('Blank')) search_found_expected=false
+		//if (GlobalVariable.attachment_name.contains('image')) search_found_expected=false
+		String info=GlobalVariable.testLog_info+'\nAlready added attachment into record with "'+GlobalVariable.attachment_name+'"\n'
+		
+		String search_term=get_random_search_term()
+		String record_id=GlobalVariable.record_id
+		WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+		if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+			WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
+		WebUI.waitForPageLoad(5)
+		WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
+		WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+		try{
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),10)
+			if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Search_Content'),10)){
+				KeywordUtil.logInfo("found li_Search_Content")
+			}
+			//WebUI.verifyElementAttributeValue(findTestObject('Object Repository/Page_Record List/li_Search_Content'), 'text', search_term, 10)
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/a_ID_column'),10)
+			if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_descending order'),1)){
+				println 'already in descending order'
+			}else if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_ascending order'),1)){
+				WebUI.click(findTestObject('Object Repository/Page_Record List/a_ID_ascending order'))
+				WebUI.delay(2)
+				WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_descending order'),10)
+			}
+			WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			WebUI.waitForElementVisible(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			WebUI.waitForElementClickable(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			def record_link = WebUI.modifyObjectProperty(findTestObject('Page_Record List/a_record_id_link'), 'text', 'equals', record_id, true)
+			KeywordUtil.logInfo ('start looking for record_link')
+			if (search_found_expected){
+				if (WebUI.waitForElementPresent(record_link, 10,FailureHandling.OPTIONAL)){
+					WebUI.click(record_link)
+					/// start looking for attachment link
+					WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_Attachments_Label'),10,FailureHandling.OPTIONAL)
+					WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments_Label'),10,FailureHandling.OPTIONAL)
+					def attachment_link = WebUI.modifyObjectProperty(findTestObject('Object Repository/Page_Record_Created/a_attachment_link'), 'text', 'equals', GlobalVariable.attachment_name, true)
+					if (WebUI.waitForElementPresent(attachment_link, 10,FailureHandling.OPTIONAL)){
+						//println 'PASS: found attachment_link'
+						WebUI.click(attachment_link)
+						KeywordUtil.markPassed (info+'\nPASS: search_attachment found attachment link "'+GlobalVariable.attachment_name+'" in record:'+record_id+' with the search term as => '+search_term)
+					}else{
+						//println 'ERROR: Not found attachment_link'
+						write_failed_result(info+'\nERROR: search_attachment NOT found attachment link "'+GlobalVariable.attachment_name+'" in record:'+record_id+' with the search term as => '+search_term+'\n')
+						(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+					}
+					/// end looking for attachment link
+				}else{
+					write_failed_result(info+'\nERROR: search_attachment NOT found record:'+record_id+' with the search term as => '+search_term+'\n')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+				}
+			}else{
+				if (!WebUI.waitForElementNotPresent(record_link, 5,FailureHandling.OPTIONAL)){
+					write_failed_result(info+'\nERROR: search_attachment found record:'+record_id+' with the search term as => '+search_term+'\n')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+				}else{
+					KeywordUtil.markPassed (info+'\nPASS: search_attachment NOT found record:'+record_id+' with the search term as => '+search_term)
+				}
+			}
+			KeywordUtil.logInfo ('done looking for record_link')
+		} catch (Exception e) {
+			
+			write_failed_result(info+'\nERROR: search_attachment Failed to find record:'+record_id+' with the search term as => '+search_term+'\n'+e.printStackTrace())
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+			
+		}
+		return
+	}
+	@Keyword
 	void addGlobalVariable(String name, def value) {
-	 GroovyShell shell1 = new GroovyShell()
-	 MetaClass mc = shell1.evaluate("internal.GlobalVariable").metaClass
-	 String getterName = "get" + name.capitalize()
-	 mc.'static'."$getterName" = { -> return value }
-	 mc.'static'."$name" = value
-   }
+		GroovyShell shell1 = new GroovyShell()
+		MetaClass mc = shell1.evaluate("internal.GlobalVariable").metaClass
+		String getterName = "get" + name.capitalize()
+		mc.'static'."$getterName" = { -> return value }
+		mc.'static'."$name" = value
+	}
 	@Keyword
 	def write_failed_result( def col1=null, def col2=null) {
 		String col0='ISSUE # '+(GlobalVariable.G_wait_s++)
@@ -242,13 +320,37 @@ class utils {
 				KeywordUtil.markPassed(status)
 		}
 	}
+	def get_random_search_term(){
+		int number=Math.abs(new Random().nextInt() % 4) + 1  // random number 1 to 4
+		String search_term=''
+		switch(number) {
+		case 1:
+			search_term='"the brown fox jumped over the lazy dog"'
+			break
+		case 2:
+			search_term='Autohagiographer Gambrinous'
+			break
+		case 3:
+			search_term='самодовольный'
+			break
+		case 4:
+			search_term='1F800123456'
+			break
+		default:
+			search_term='"the brown fox jumped over the lazy dog"'
+			break
+		}
+		addGlobalVariable('search_term', search_term)
+		KeywordUtil.markPassed('will use this search_term to search for attachment => '+GlobalVariable.search_term)
+		return GlobalVariable.search_term
+	}
 	def get_random_attachment(){
 		int number=Math.abs(new Random().nextInt() % 6) + 1  // random number 1 to 6
 		String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
 		String attachment=''
 		switch(number) {
 			case 1:
-				attachment='Full Text Search - Blank.pdf'
+				attachment='Full Text Search - PDF.pdf'
 				break
 			case 2:
 				attachment='Full Text Search - Excel.xlsx'
@@ -269,15 +371,13 @@ class utils {
 				attachment='Full Text Search - Blank.pdf'
 				break
 		}
-		
-		addGlobalVariable('attachment_name', path+'/'+attachment)
-		
+		addGlobalVariable('attachment_name', attachment)
 		KeywordUtil.markPassed('will add attachment into record with '+GlobalVariable.attachment_name)
 		return GlobalVariable.attachment_name
 	}
 	@Keyword
 	def add_verify_attachment_flags(list_of_flags,user_name,product,def info=null){
-		
+
 		WebUI.refresh(FailureHandling.OPTIONAL)
 		WebUI.delay(2)
 		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),50)
@@ -306,7 +406,8 @@ class utils {
 		get_random_attachment()
 		if (info==null) info=''
 		//info=info+'\nwill add attachment into record with '+GlobalVariable.attachment_name+'\n'
-		WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), GlobalVariable.attachment_name)
+		String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+		WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), path+'/'+GlobalVariable.attachment_name)
 		//WebUI.delay(5)
 
 		WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
@@ -362,20 +463,24 @@ class utils {
 	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product, def info=null){
 		boolean test_failed=false
 		boolean attachments_Not_Allowed=false
+		addGlobalVariable('attachment_status','')
 		String all_logMsg=''
 		if (GlobalVariable.user_permissions.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
 		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		if (!GlobalVariable.user_permissions.contains('U.S._Persons')&&
 		!GlobalVariable.user_permissions.contains('NON_US_Person')&&
 		!GlobalVariable.user_permissions.contains('US_Person')&&
-		product.contains('Boeing'))
+		product.contains('Boeing')){
+			addGlobalVariable('attachment_status','attachments_Not_Allowed')
 			attachments_Not_Allowed=true
-		//if (!GlobalVariable.user_enabled_permissions_info.contains('NON_US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
-		//if (!GlobalVariable.user_enabled_permissions_info.contains('US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
+		}
+
+		//if (!GlobalVariable.user_permissions_info.contains('NON_US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
+		//if (!GlobalVariable.user_permissions_info.contains('US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
 		if (info==null) info=''
-		info=info+'\nAlready added attachment into record with '+GlobalVariable.attachment_name+'\n'
-		all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
-		
+		info=info+'\nAlready added attachment into record with "'+GlobalVariable.attachment_name+'"\n'
+		all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
+
 		//all_logMsg=all_logMsg+'\n'
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
@@ -497,9 +602,9 @@ class utils {
 		if (GlobalVariable.user_permissions.contains('PARTNER_RSA')) list_of_flags=list_of_flags+',RSA'
 		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		if (info==null) info=''
-		info=info+'\nWill add attachment into record with '+GlobalVariable.attachment_name+'\n'
-		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
-		
+		info=info+'\nWill add attachment into record with "'+GlobalVariable.attachment_name+'"\n'
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
+
 		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_before_save()')
 		if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
@@ -588,10 +693,10 @@ class utils {
 
 	@Keyword
 	def validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product){
-		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\n'
 
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		KeywordUtil.logInfo('attachment_flags_selected='+checkboxes_selected)
@@ -911,7 +1016,7 @@ class utils {
 	def verify_XML_element(group_names,user_name,product){
 		//group_names='_NASA|RSA<'
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
 		String[] group_name_list
 		group_name_list = group_names.split('\\|')
 		int currentTab = WebUI.getWindowIndex()
@@ -967,8 +1072,10 @@ class utils {
 	@Keyword
 	def verify_partner_flags(list_of_flags,user_name,product){
 		boolean test_failed=false
-		String logMsg=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
-		String all_logMsg=logMsg
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
+		String testLog_info=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'
+		//String all_logMsg=logMsg
+		addGlobalVariable('testLog_info',testLog_info)
 		if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
 		}else{
@@ -1091,6 +1198,7 @@ class utils {
 	}
 	@Keyword
 	def impersonate(email,def info=null){
+		addGlobalVariable('testLog_info','')
 		//WebUI.refresh()
 		closeExtraWindowTabs()
 		if (WebUI.waitForAlert(1,FailureHandling.CONTINUE_ON_FAILURE)){
@@ -1365,15 +1473,16 @@ class utils {
 		}
 		String siteURL=WebUI.getUrl()
 		siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
-		//GlobalVariable.recordURL=siteURL
 		addGlobalVariable('recordURL',siteURL)
+		String record_id=GlobalVariable.recordURL.substring(GlobalVariable.recordURL.lastIndexOf('id=')+3)
+		addGlobalVariable('record_id',record_id)
 		KeywordUtil.markPassed 'current record url='+GlobalVariable.recordURL
 	}
 	@Keyword
 	def check_user_enabled_permissions(user_name,def info=null){
-		String user_enabled_permissions_info=''
+		String user_permissions_info=''
 		if (info!=null){
-			user_enabled_permissions_info=info
+			user_permissions_info=info
 		}
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Edit user info/a_Impersonate this user'),5)
 		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_User Preferences/input_parameter_checked'),6)
@@ -1381,29 +1490,29 @@ class utils {
 		List<WebElement> elements = driver.findElements(By.xpath("//input[@type = 'checkbox' and @checked = 'checked']"));
 		int size=elements.size()
 
-		user_enabled_permissions_info=user_enabled_permissions_info+'\nEnabled(Checked) permissions For the User: '+user_name+'\n'
+		user_permissions_info=user_permissions_info+'\nEnabled(Checked) permissions For the User: '+user_name+'\n'
 		String parameter_enabled=''
 		String user_permissions=''
 		for (int i = 0; i < size; i++) {
 			parameter_enabled = elements.get(i).getAttribute("class");
-			//user_enabled_permissions_info=user_enabled_permissions_info+parameter_enabled+'\n'
+			//user_permissions_info=user_permissions_info+parameter_enabled+'\n'
 			user_permissions=user_permissions+parameter_enabled+'\n'
 		}
-		user_enabled_permissions_info=user_enabled_permissions_info+user_permissions
-		KeywordUtil.logInfo(user_enabled_permissions_info)
-		//GlobalVariable.user_enabled_permissions_info=user_enabled_permissions_info
-		addGlobalVariable('user_enabled_permissions_info', user_enabled_permissions_info)
+		user_permissions_info=user_permissions_info+user_permissions
+		KeywordUtil.logInfo(user_permissions_info)
+		//GlobalVariable.user_permissions_info=user_permissions_info
+		addGlobalVariable('user_permissions_info', user_permissions_info)
 		addGlobalVariable('user_permissions', user_permissions)
 		println 'GlobalVariable.user_permissions='+GlobalVariable.user_permissions
-		println 'GlobalVariable.user_enabled_permissions_info='+GlobalVariable.user_enabled_permissions_info
-		return user_enabled_permissions_info
+		println 'GlobalVariable.user_permissions_info='+GlobalVariable.user_permissions_info
+		return user_permissions_info
 	}
 	@Keyword
 	def validate_ECR_checkboxes(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product,def info=null){
-		String logMsg_checkboxes_selected=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordURL+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_enabled_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordURL+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n\n'
 		if (info!=null) logMsg_checkboxes=logMsg_checkboxes+info+'\n'
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		all_logMsg_checkboxes=all_logMsg_checkboxes+('expected checkboxes_selected='+checkboxes_selected+'\n')+('expected checkboxes_disabled='+checkboxes_disabled+'\n')+('expected checkboxes_visible='+checkboxes_visible+'\n')

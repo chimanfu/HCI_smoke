@@ -282,6 +282,14 @@ def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptio
         	objectto)
 }
 
+def static "ip_permissions.utils.search_attachment"(
+    	Object user_name	
+     , 	Object product	) {
+    (new ip_permissions.utils()).search_attachment(
+        	user_name
+         , 	product)
+}
+
 def static "ip_permissions.utils.addGlobalVariable"(
     	String name	
      , 	Object value	) {

@@ -4,7 +4,7 @@
    <name>test_create_record_from_new_link_AND_reload_record_on_all_users</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-11-29T22:31:37</lastRun>
+   <lastRun>2018-12-02T10:32:44</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
