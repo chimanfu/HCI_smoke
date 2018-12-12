@@ -93,10 +93,10 @@ public class LoginHelper {
 
 	@Keyword
 	public void loginVPN(){
+		Screen s = new Screen()
+		boolean useAnyConnect=true
+		WebUI.comment 'running loginVPN'
 		try{
-
-			Screen s = new Screen()
-			boolean useAnyConnect=false
 			if (useAnyConnect){
 				/////// AnyConnect
 				WebUI.comment 'Will connect VPN with Cisco AnyConnect'
@@ -122,6 +122,7 @@ public class LoginHelper {
 				else{
 					WebUI.comment 'AnyConnect may not be Up'
 				}
+				GlobalVariable.userPin2='SKIP'
 				return
 				///////
 			}
@@ -139,7 +140,7 @@ public class LoginHelper {
 				}
 			}catch (Exception e) {
 				KeywordUtil.markWarning(e.message)
-				e.printStackTrace()	
+				e.printStackTrace()
 			}
 			WebUI.openBrowser('')
 			WebUI.navigateToUrl('http://vpn.nasa.gov/')
@@ -160,7 +161,7 @@ public class LoginHelper {
 				KeywordUtil.markWarning(e.message)
 				WebUI.switchToWindowIndex(0)
 				e.printStackTrace()
-				
+
 			}
 
 			check_restore_pages_popup()

@@ -28,21 +28,25 @@ class utils {
 		if (GlobalVariable.attachment_name.contains('Blank')) search_found_expected=false
 		//if (GlobalVariable.attachment_name.contains('image')) search_found_expected=false
 		String info=GlobalVariable.testLog_info+'\nAlready added attachment into record with "'+GlobalVariable.attachment_name+'"\n'
-		
+
 		String search_term=get_random_search_term()
 		String record_id=GlobalVariable.record_id
 		WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+		WebUI.waitForElementClickable(findTestObject('Page_Main Page/input_quicksearch'),15)
 		if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
 			WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
-		WebUI.waitForPageLoad(5)
+		WebUI.waitForPageLoad(60)
+		WebUI.waitForElementClickable(findTestObject('Page_Main Page/bt_Search'),5)
 		WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 		WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 		try{
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
-			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),10)
-			if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Search_Content'),10)){
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),20)
+			if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Search_Content'),20)){
 				KeywordUtil.logInfo("found li_Search_Content")
 			}
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_Displaying_result'),30)
+
 			//WebUI.verifyElementAttributeValue(findTestObject('Object Repository/Page_Record List/li_Search_Content'), 'text', search_term, 10)
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/a_ID_column'),10)
 			if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_descending order'),1)){
@@ -52,9 +56,9 @@ class utils {
 				WebUI.delay(2)
 				WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_descending order'),10)
 			}
-			WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
-			WebUI.waitForElementVisible(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
-			WebUI.waitForElementClickable(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			//WebUI.waitForElementPresent(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			//WebUI.waitForElementVisible(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
+			//WebUI.waitForElementClickable(findTestObject('Page_Record List/a_ID_ascending a_record_id_link'),15)
 			def record_link = WebUI.modifyObjectProperty(findTestObject('Page_Record List/a_record_id_link'), 'text', 'equals', record_id, true)
 			KeywordUtil.logInfo ('start looking for record_link')
 			if (search_found_expected){
@@ -71,27 +75,32 @@ class utils {
 					}else{
 						//println 'ERROR: Not found attachment_link'
 						write_failed_result(info+'\nERROR: search_attachment NOT found attachment link "'+GlobalVariable.attachment_name+'" in record:'+record_id+' with the search term as => '+search_term+'\n')
-						(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+						(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_search_attachment')
 					}
 					/// end looking for attachment link
 				}else{
 					write_failed_result(info+'\nERROR: search_attachment NOT found record:'+record_id+' with the search term as => '+search_term+'\n')
-					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_search_attachment')
 				}
 			}else{
-				if (!WebUI.waitForElementNotPresent(record_link, 5,FailureHandling.OPTIONAL)){
-					write_failed_result(info+'\nERROR: search_attachment found record:'+record_id+' with the search term as => '+search_term+'\n')
-					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
+				if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_id_link'),5,FailureHandling.OPTIONAL)){
+					if (!WebUI.waitForElementNotPresent(record_link, 5,FailureHandling.OPTIONAL)){
+						write_failed_result(info+'\nERROR: search_attachment found record:'+record_id+' with the search term as => '+search_term+'\n')
+						(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_search_attachment')
+					}else{
+						KeywordUtil.markPassed (info+'\nPASS: search_attachment NOT found record:'+record_id+' with the search term as => '+search_term)
+					}
 				}else{
 					KeywordUtil.markPassed (info+'\nPASS: search_attachment NOT found record:'+record_id+' with the search term as => '+search_term)
 				}
+
 			}
 			KeywordUtil.logInfo ('done looking for record_link')
 		} catch (Exception e) {
-			
+
 			write_failed_result(info+'\nERROR: search_attachment Failed to find record:'+record_id+' with the search term as => '+search_term+'\n'+e.printStackTrace())
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_search_attachment')
-			
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_search_attachment')
+
 		}
 		return
 	}
@@ -105,12 +114,16 @@ class utils {
 	}
 	@Keyword
 	def write_failed_result( def col1=null, def col2=null) {
-		String col0='ISSUE # '+(GlobalVariable.G_wait_s++)
+		//String col0='ISSUE # '+(GlobalVariable.G_wait_s++)
+		///
+		addGlobalVariable('failed_issue_count',GlobalVariable.failed_issue_count+1)
+		String col0='ISSUE # '+(GlobalVariable.failed_issue_count)
+		///
 		//String source_fileName="/Users/jcfu/Desktop/test_result.xlsx"
 		String source_fileName="Data Files/IHS_IP_permissions/test_result.xlsx"
 		String getReportFolder=RunConfiguration.getReportFolder()
 		println('getReportFolder='+getReportFolder)
-		//String fileName=getReportFolder+"/test_result_"+GlobalVariable.recordName1+".xlsx"
+		//String fileName=getReportFolder+"/test_result_"+GlobalVariable.testcaseName+".xlsx"
 		String fileName=getReportFolder+"/Report.xlsx"
 
 		//KeywordUtil.markPassed('triage test failed result spreadsheet in '+fileName)
@@ -158,7 +171,7 @@ class utils {
 		String product='yyy'
 		String logMsg_checkboxes_selected=''
 		write_failed_result(logMsg_checkboxes_selected+'ERROR: checkboxes_selected_set NOT = selected_checkboxes_set\nexpected:"'+'"\nactual:"'+'"\n')
-		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_selected')
+		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_selected')
 		println 'ending here...'
 	}
 	@Keyword
@@ -234,7 +247,7 @@ class utils {
 	@Keyword
 	def create_new_users_with_permissions(){
 		String url = GlobalVariable.G_MAKE_MAS_url
-		if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
+		if ((url.contains('MAKE-MAS'))) {
 			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
 		} else {
 			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new user on production site')
@@ -242,7 +255,7 @@ class utils {
 		}
 		url=WebUI.getUrl()
 		WebUI.comment 'now checking the URL from the current page from browser: '+url
-		if (url.contains('MAKE-MAS') && url.contains('dev')) {
+		if (url.contains('MAKE-MAS') ) {
 			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
 		} else {
 			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new user on production site')
@@ -324,21 +337,21 @@ class utils {
 		int number=Math.abs(new Random().nextInt() % 4) + 1  // random number 1 to 4
 		String search_term=''
 		switch(number) {
-		case 1:
-			search_term='"the brown fox jumped over the lazy dog"'
-			break
-		case 2:
-			search_term='Autohagiographer Gambrinous'
-			break
-		case 3:
-			search_term='самодовольный'
-			break
-		case 4:
-			search_term='1F800123456'
-			break
-		default:
-			search_term='"the brown fox jumped over the lazy dog"'
-			break
+			case 1:
+				search_term='"the brown fox jumped over the lazy dog"'
+				break
+			case 2:
+				search_term='Autohagiographer Gambrinous'
+				break
+			case 3:
+				search_term='самодовольный'
+				break
+			case 4:
+				search_term='1F800123456'
+				break
+			default:
+				search_term='"the brown fox jumped over the lazy dog"'
+				break
 		}
 		addGlobalVariable('search_term', search_term)
 		KeywordUtil.markPassed('will use this search_term to search for attachment => '+GlobalVariable.search_term)
@@ -479,7 +492,7 @@ class utils {
 		//if (!GlobalVariable.user_permissions_info.contains('US_Person')&&product.contains('Boeing')) attachments_Not_Allowed=true
 		if (info==null) info=''
 		info=info+'\nAlready added attachment into record with "'+GlobalVariable.attachment_name+'"\n'
-		all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
+		all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level after save ='+list_of_flags+'\n\n'
 
 		//all_logMsg=all_logMsg+'\n'
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
@@ -495,12 +508,12 @@ class utils {
 				if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_attachments_Not_Allowed_msg'),1,FailureHandling.OPTIONAL)){
 					KeywordUtil.markPassed(all_logMsg+'\nPASS: found attachments_Not_Allowed dialog, check user permission if it is expected\n')
 					//write_failed_result(all_logMsg+'\nERROR: found attachments_Not_Allowed dialog, check user permission if it is expected\n')
-					//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
+					//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status_after_save')
 					WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Close'))
 					return
 				}else{
 					write_failed_result(all_logMsg+'\nERROR: NOT found attachments_Not_Allowed dialog, check user permission if it is expected\n')
-					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status_after_save')
 					//WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Close'))
 					return
 				}
@@ -588,11 +601,11 @@ class utils {
 		 }*/
 		if (test_failed){
 			write_failed_result(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_after_save')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status_after_save')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		KeywordUtil.logInfo( 'Done: verify_attachment_partner_flags_after_save()')
 	}
@@ -603,13 +616,13 @@ class utils {
 		if (GlobalVariable.user_permissions.contains('PARTNER_JAXA')) list_of_flags=list_of_flags+',JAXA'
 		if (info==null) info=''
 		info=info+'\nWill add attachment into record with "'+GlobalVariable.attachment_name+'"\n'
-		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+info+'\nExpected "visible and checked" Flags from attachment level before save ='+list_of_flags+'\n\n'
 
 		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_before_save()')
 		if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
 		}else{
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_find_record')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_cannot_find_record')
 			KeywordUtil.markFailedAndStop("cannot determine the record page is displayed")
 		}
 		if (list_of_flags.contains('CSA')){
@@ -625,9 +638,9 @@ class utils {
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'PASS: CSA Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: CSA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'PASS: CSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: CSA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('ESA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_ESA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
@@ -642,9 +655,9 @@ class utils {
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'PASS: ESA Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: ESA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'PASS: ESA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: ESA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('JAXA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_JAXA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
@@ -659,9 +672,9 @@ class utils {
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'PASS: JAXA Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: JAXA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'PASS: JAXA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: JAXA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('RSA')){
 			if (WebUI.waitForElementHasAttribute(findTestObject('Page_Enter Record View/checkbox_attachment_RSA_Flag'), 'checked', 1, FailureHandling.OPTIONAL)){
@@ -676,27 +689,27 @@ class utils {
 					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA: visible and checked\n'
 					test_failed=true
 				}else
-					all_logMsg=all_logMsg+'PASS: RSA Flag visible (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: RSA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'PASS: RSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: RSA Flag not visible as expected\n'
 		}
 		if (test_failed){
 			write_failed_result(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status_before_save')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status_before_save')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		KeywordUtil.logInfo( 'Done: verify_attachment_partner_flags_before_save()')
 	}
 
 	@Keyword
 	def validate_attachment_flags(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product){
-		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\n'
 
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		KeywordUtil.logInfo('attachment_flags_selected='+checkboxes_selected)
@@ -800,7 +813,7 @@ class utils {
 		}else{
 			all_logMsg_checkboxes=all_logMsg_checkboxes+'\nERROR: selected_attachment_flags values NOT MATCH\nexpected:'+checkboxes_selected_set+'\nactual:'+selected_checkboxes_set+'\n'
 			//KeywordUtil.markFailed(logMsg_checkboxes_selected+'ERROR: checkboxes_selected_set NOT = selected_checkboxes_set\nexpected:"'+checkboxes_selected_set+'"\nactual:"'+selected_checkboxes_set+'"\n')
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_selected')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_selected')
 			runScreenshot=true
 		}
 		if (checkboxes_disabled_set.isEmpty()&&disabled_checkboxes_set.isEmpty()){
@@ -813,7 +826,7 @@ class utils {
 			all_logMsg_checkboxes=all_logMsg_checkboxes+'\nERROR: disabled_attachment_flags values NOT MATCH\nexpected:'+checkboxes_disabled_set+'\nactual:'+disabled_checkboxes_set+'\n'
 
 			//KeywordUtil.markFailed(logMsg_checkboxes_disabled+'ERROR: checkboxes_disabled_set NOT = disabled_checkboxes_set\nexpected:'+checkboxes_disabled_set+'\nactual:'+disabled_checkboxes_set+'\n')
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_disabled')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_disabled')
 			runScreenshot=true
 		}
 		if (checkboxes_visible_set.isEmpty()&&visible_checkboxes_set.isEmpty()){
@@ -825,12 +838,12 @@ class utils {
 		}else{
 			all_logMsg_checkboxes=all_logMsg_checkboxes+'\nERROR: visible_attachment_flags values NOT MATCH\nexpected:'+checkboxes_visible_set+'\nactual:'+visible_checkboxes_set+'\n'
 			//KeywordUtil.markFailed(logMsg_checkboxes_visible+'ERROR: checkboxes_visible_set NOT = visible_checkboxes_set\nexpected:'+checkboxes_visible_set+'\nactual:'+visible_checkboxes_set+'\n')
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_visible')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_visible')
 			runScreenshot=true
 		}
 		if (runScreenshot){
 			write_failed_result(all_logMsg_checkboxes)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_attachment_flags_status')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_attachment_flags_status')
 		}
 	}
 
@@ -856,7 +869,7 @@ class utils {
 				return
 			}else{
 				write_failed_result('NOT found "You made an invalid entry", record should not be visible')
-				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_record_visible')
+				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_record_visible')
 				return
 			}
 		}else{
@@ -951,6 +964,13 @@ class utils {
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
 		WebUI.delay(2)
+		// check An Error Occurred msg and close button
+		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Close'),1)){
+			KeywordUtil.markWarning("Found Close button: Could be error popup")
+
+		}
+
+		/////
 		check_record_created()
 		check_record_save_alert()
 		KeywordUtil.markPassed('edit product successful to new_product='+new_product+' and new_component='+new_component)
@@ -990,11 +1010,11 @@ class utils {
 				KeywordUtil.markPassed('page of newly created cause record is displayed with title='+record_title)
 				KeywordUtil.markPassed("created cause record from record successfully")
 			}else{
-				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_create_cause_record')
+				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_cannot_create_cause_record')
 				KeywordUtil.markFailedAndStop("ERROR: cannot find div_record_title with correct title, so it cannot create cause record from record")
 			}
 		}else{
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_create_cause_record')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_cannot_create_cause_record')
 			KeywordUtil.markFailedAndStop("ERROR: cannot find a_record_link_Cause with correct title, so it cannot create cause record from record")
 		}
 		WebUI.delay(6)
@@ -1016,7 +1036,7 @@ class utils {
 	def verify_XML_element(group_names,user_name,product){
 		//group_names='_NASA|RSA<'
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected group_names in XML doc = '+group_names+'\n'
 		String[] group_name_list
 		group_name_list = group_names.split('\\|')
 		int currentTab = WebUI.getWindowIndex()
@@ -1053,11 +1073,11 @@ class utils {
 		}
 		if (test_failed){
 			write_failed_result(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		WebUI.delay(1)
 		if (! WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'), 60, FailureHandling.OPTIONAL)) {
@@ -1065,102 +1085,111 @@ class utils {
 		}
 		if (! WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/a_Home'), 40, FailureHandling.OPTIONAL)) {
 			KeywordUtil.markWarning("cannot find Home tab visible")
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 
 		}
 	}
 	@Keyword
 	def verify_partner_flags(list_of_flags,user_name,product){
 		boolean test_failed=false
-		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
-		String testLog_info=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'
+		String all_logMsg=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected record level "GRANTED ACCESS" permission Flags='+list_of_flags+'\n'
+		String testLog_info=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'
 		//String all_logMsg=logMsg
 		addGlobalVariable('testLog_info',testLog_info)
+		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Close'),1)){
+			KeywordUtil.markWarning("Found Close button: Could be error popup")
+			test_failed=true
+			all_logMsg=all_logMsg+'ERROR: Found Close button: Could be error popup.\n'
+			write_failed_result(all_logMsg)
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_Found_Close_button')
+			WebUI.closeBrowser()
+			return
+		}
 		if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),5) ){
 			KeywordUtil.logInfo ('found save button, so the record page is displayed')
 		}else{
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_cannot_find_record')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_cannot_find_record')
 			KeywordUtil.markFailedAndStop("cannot determine the record page is displayed")
 		}
 		if (list_of_flags.contains('CSA')){
 			if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 'title')).contains('GRANTED ACCESS'))
-				all_logMsg=all_logMsg+'CSA: GRANTED ACCESS as expected\n'
+				all_logMsg=all_logMsg+'PASS: CSA Flag visible and checked as expected\n'
 			else{
-				all_logMsg=all_logMsg+'ERROR: Cannot find flag with CSA: GRANTED ACCESS.\n'
+				all_logMsg=all_logMsg+'ERROR: CSA Flag not visible or unchecked\n'
 				test_failed=true
 			}
 		}else{
 			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_CSA'), 'title')).contains('GRANTED ACCESS')){
-					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA: GRANTED ACCESS.\n'
+					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with CSA Flag visible and checked\n'
 					test_failed=true
 				}
 				else
-					all_logMsg=all_logMsg+'CSA: GRANTED ACCESS Not displayed (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: CSA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'CSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: CSA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('ESA') ){
 			if ( (WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 'title')).contains('GRANTED ACCESS'))
-				all_logMsg=all_logMsg+'ESA: GRANTED ACCESS as expected\n'
+				all_logMsg=all_logMsg+'PASS: ESA Flag visible and checked as expected\n'
 			else{
-				all_logMsg=all_logMsg+'ERROR: Cannot find flag with ESA: GRANTED ACCESS.\n'
+				all_logMsg=all_logMsg+'ERROR: ESA Flag not visible or unchecked\n'
 				test_failed=true
 			}
 		}else{
 			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_ESA'), 'title')).contains('GRANTED ACCESS')){
-					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA: GRANTED ACCESS.\n'
+					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with ESA Flag visible and checked\n'
 					test_failed=true
 				}
 				else
-					all_logMsg=all_logMsg+'ESA: GRANTED ACCESS Not displayed (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: ESA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'ESA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: ESA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('JAXA') ){
 			if ( (WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 'title')).contains('GRANTED ACCESS'))
-				all_logMsg=all_logMsg+'JAXA: GRANTED ACCESS as expected'
+				all_logMsg=all_logMsg+'PASS: JAXA Flag visible and checked as expected'
 			else{
-				all_logMsg=all_logMsg+'ERROR: Cannot find flag with JAXA: GRANTED ACCESS.\n'
+				all_logMsg=all_logMsg+'ERROR: JAXA Flag not visible or unchecked\n'
 				test_failed=true
 			}
 		}else{
 			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_JAXA'), 'title')).contains('GRANTED ACCESS')){
-					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA: GRANTED ACCESS.\n'
+					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with JAXA Flag visible and checked\n'
 					test_failed=true
 				}
 				else
-					all_logMsg=all_logMsg+'JAXA: GRANTED ACCESS Not displayed (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: JAXA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'JAXA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: JAXA Flag not visible as expected\n'
 		}
 		if (list_of_flags.contains('RSA')  ){
 			if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 'title')).contains('GRANTED ACCESS'))
-				all_logMsg=all_logMsg+'RSA: GRANTED ACCESS as expected'
+				all_logMsg=all_logMsg+'PASS: RSA Flag visible and checked as expected'
 			else{
-				all_logMsg=all_logMsg+'ERROR: Cannot find flag with RSA: GRANTED ACCESS.\n'
+				all_logMsg=all_logMsg+'ERROR: RSA Flag not visible or unchecked\n'
 				test_failed=true
 			}
 		}else{
 			if (!WebUI.waitForElementNotPresent(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 1,FailureHandling.OPTIONAL)){
 				if ((WebUI.getAttribute(findTestObject('Page_Record_Created/flag_IP_ACCESS_RSA'), 'title')).contains('GRANTED ACCESS')){
-					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA: GRANTED ACCESS.\n'
+					all_logMsg=all_logMsg+'ERROR: displayed invalid flag with RSA Flag visible and checked\n'
 					test_failed=true
 				}
 				else
-					all_logMsg=all_logMsg+'RSA: GRANTED ACCESS Not displayed (Flag unchecked) as expected\n'
+					all_logMsg=all_logMsg+'PASS: RSA Flag visible and unchecked as expected\n'
 			}else
-				all_logMsg=all_logMsg+'RSA Flag not displayed as expected\n'
+				all_logMsg=all_logMsg+'PASS: RSA Flag not visible as expected\n'
 		}
 		if (test_failed){
 			write_failed_result(all_logMsg)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg)
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_flag_status')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status')
 		}
 		KeywordUtil.logInfo( 'Done: verify_partner_flags()')
 	}
@@ -1178,12 +1207,12 @@ class utils {
 				KeywordUtil.markPassed 'done end_session'
 			}else{
 				write_failed_result("not found 'end session' link, cannot end_session")
-				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+				(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 				//WebUI.closeBrowser()
 			}
 		}catch (Exception e) {
 			write_failed_result("ERROR: cannot end_session...\n"+e.message)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 			WebUI.closeBrowser()
 		}
 	}
@@ -1214,6 +1243,17 @@ class utils {
 			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'),5)
 			if (WebUI.getText(findTestObject('Object Repository/Page_Sudo session started/b_impersonating')).contains(email)){
 				KeywordUtil.markPassed 'it is being impersonating user: '+email
+				////
+				String user_permissions_info=''
+				if (info!=null){
+					user_permissions_info=info
+				}
+				user_permissions_info=user_permissions_info+'\nEnabled(Checked) permissions For the User: '+email+'\n'
+				user_permissions_info=user_permissions_info+GlobalVariable.user_permissions
+				KeywordUtil.logInfo(user_permissions_info)
+				//GlobalVariable.user_permissions_info=user_permissions_info
+				addGlobalVariable('user_permissions_info', user_permissions_info)
+				////
 				return
 			}else{
 				KeywordUtil.logInfo 'current impersonating user:'+WebUI.getText(findTestObject('Object Repository/Page_Sudo session started/b_impersonating'))
@@ -1420,13 +1460,13 @@ class utils {
 				if(WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),25) ){
 					KeywordUtil.logInfo ('found save button, so the record has been created successfully'+logMsg)
 				}else{
-					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 					write_failed_result("cannot determine the record has been created")
 				}
 				if(WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),25) ){
 					KeywordUtil.logInfo ('found save button, so the record has been created successfully'+logMsg)
 				}else{
-					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+					(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 					write_failed_result("cannot determine the record has been created")
 				}
 				WebUI.waitForPageLoad(80, FailureHandling.OPTIONAL)
@@ -1509,10 +1549,10 @@ class utils {
 	}
 	@Keyword
 	def validate_ECR_checkboxes(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product,def info=null){
-		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordURL+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
-		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
-		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
-		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.recordName1+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n\n'
+		String logMsg_checkboxes_selected=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+'on record='+GlobalVariable.recordURL+'\nExpected checkboxes_selected="'+checkboxes_selected+'"\n'
+		String logMsg_checkboxes_disabled=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_disabled="'+checkboxes_disabled+'"\n'
+		String logMsg_checkboxes_visible= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n'+'\nExpected checkboxes_visible="'+checkboxes_visible+'"\n'
+		String logMsg_checkboxes= GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\nuser='+user_name+' on product='+product+' on record='+GlobalVariable.recordURL+'\n\n'
 		if (info!=null) logMsg_checkboxes=logMsg_checkboxes+info+'\n'
 		String all_logMsg_checkboxes=logMsg_checkboxes
 		all_logMsg_checkboxes=all_logMsg_checkboxes+('expected checkboxes_selected='+checkboxes_selected+'\n')+('expected checkboxes_disabled='+checkboxes_disabled+'\n')+('expected checkboxes_visible='+checkboxes_visible+'\n')
@@ -1684,11 +1724,11 @@ class utils {
 		}
 		if (test_failed){
 			write_failed_result(all_logMsg_checkboxes)
-			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_status')
+			(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_status')
 		}
 		else{
 			KeywordUtil.markPassed(all_logMsg_checkboxes)
-			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_'+user_name+'_'+product+'_checkboxes_status')
+			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_checkboxes_status')
 		}
 	}
 }

@@ -24,6 +24,7 @@ class NewTestListener {
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		GlobalVariable.userPin2='RUN'
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 		//GlobalVariable.G_image_path='opencv_images/'
 		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
 		//GlobalVariable.G_userPin='12345678'
@@ -32,7 +33,9 @@ class NewTestListener {
 		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		String testcaseName=testCaseContext.getTestCaseId()
 		WebUI.comment 'Testcase: '+testcaseName
-		GlobalVariable.recordName1=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
+		testcaseName=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
+		GlobalVariable.recordName1=testcaseName
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testcaseName',testcaseName)
 		if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 			if (testcaseName.contains('login_basic_checks') || 
 				testcaseName.contains('verify_all_new_record_pages_loading') ||
@@ -155,7 +158,12 @@ class NewTestListener {
 		//GlobalVariable.G_image_path='opencv_images/'
 		//GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
 		GlobalVariable.G_image_path= (new File("Include/opencv_images/").absolutePath)+'/'
-		GlobalVariable.G_wait_s=0 // failed_case count from running the test suite
+		//GlobalVariable.G_wait_s=0 // failed_case count from running the test suite
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+		
+		
+		
+		
 		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')

@@ -39,6 +39,7 @@ KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 GlobalVariable.G_wait_s=1
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 ////////////////////////////////////////////////////////////////////////////////////
 boolean run_loading_record_on_users=false
 //new_record_url=new_record_url+product
@@ -65,14 +66,14 @@ for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 		//CustomKeywords.'ip_permissions.utils.end_session'()
 	} catch (Exception e) {
 		//e.printStackTrace()
-		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 		KeywordUtil.markFailed('ERROR: adding new records on US or Partner products for user ('+row+')\n' +e.message)
 	}
 	
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
 // !!!!! test
-//if (row ==1) break
+//if (row ==2) break
 // !!!!! test
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +163,7 @@ def loading_record_on_users(product,sheet){
 		KeywordUtil.logInfo '---------- Done loading new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 		} catch (Exception e) {
 		//e.printStackTrace()
-		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_loading_record')
+		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_loading_record')
 		KeywordUtil.markFailed('ERROR: loading record for user ('+user_name+')\n' +e.message)
 		}
 		
@@ -222,13 +223,13 @@ def create_record_from_new_link(product,component,record_type,expected_results,r
 		CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)	
 		CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
 		CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
-		CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
+		//CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
 		
 	}
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
 	} catch (Exception e) {
 		//e.printStackTrace()
-		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.recordName1+'_create_record')
+		(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_create_record')
 		KeywordUtil.markFailed('ERROR: create_record_from_new_link for user ('+row+')\n' +e.message)
 	}
 }

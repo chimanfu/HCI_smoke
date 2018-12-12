@@ -44,11 +44,11 @@ KeywordUtil.logInfo 'Test: Create Record Through VTL (ISS Hazard only)'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 GlobalVariable.G_wait_s=1
-
+int start_on_user_id=1 // default should be 1
 ////////////////////////////////////////////////////////////////////////////////////
 
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
-for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
+for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	CustomKeywords.'helper.login.LoginHelper.login'()
 	KeywordUtil.logInfo '********** Staring adding new records on US and Partner products for user ('+row+')**********'
 	try{

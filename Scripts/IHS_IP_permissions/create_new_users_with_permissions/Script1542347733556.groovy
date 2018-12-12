@@ -16,7 +16,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
 CustomKeywords.'helper.login.LoginHelper.login'()
-//CustomKeywords.'ip_permissions.utils.create_new_users_with_permissions'()
+CustomKeywords.'ip_permissions.utils.create_new_users_with_permissions'()
 //CustomKeywords.'ip_permissions.utils.check_users_permissions'()
 
 

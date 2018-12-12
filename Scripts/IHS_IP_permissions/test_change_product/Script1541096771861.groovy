@@ -54,30 +54,35 @@ KeywordUtil.logInfo 'Test: New-like Record Through Changing Product'
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 GlobalVariable.G_wait_s=1
 ////////////////////////////////////////////////////////////////////////////////////
-
+int start_on_user_id=1 // default should be 1
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
-for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
-	CustomKeywords.'helper.login.LoginHelper.login'()
+for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
+	
 	KeywordUtil.logInfo '********** Staring adding new records on US and Partner products for user ('+row+')**********'
 	try{
-	product='Khrunichev'
-	component='EPS'
-	new_product='Boeing'
-	new_component='APAS'
-	record_type='Hazard'
-	expected_results='partner_product'
-	//info='changed product on record from Khrunichev to Boeing'
-	create_record_from_change_product(product,component,record_type,expected_results,row,new_product, new_component)
-		
+	
 	product='Boeing'
 	component='APAS'
 	new_product='Khrunichev'
 	new_component='EPS'
 	record_type='Hazard'
-	expected_results='us_product'
+	//expected_results='us_product'
+	expected_results='partner_product'
 	//info='changed product on record from Boeing to Khrunichev'
+	CustomKeywords.'helper.login.LoginHelper.login'()
 	create_record_from_change_product(product,component,record_type,expected_results,row,new_product, new_component)
 	
+	product='Khrunichev'
+	component='EPS'
+	new_product='Boeing'
+	new_component='APAS'
+	record_type='Hazard'
+	//expected_results='partner_product'
+	expected_results='us_product'
+	//info='changed product on record from Khrunichev to Boeing'
+	CustomKeywords.'helper.login.LoginHelper.login'()
+	create_record_from_change_product(product,component,record_type,expected_results,row,new_product, new_component)
+		
 	// end session
 	//CustomKeywords.'ip_permissions.utils.end_session'()
 	} catch (Exception e) {
@@ -88,7 +93,7 @@ for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
 // !!!!! test
-//if (row ==2) break
+//if (row ==5) break
 // !!!!! test
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -138,11 +143,11 @@ def create_record_from_change_product(product,component,record_type,expected_res
 	CustomKeywords.'ip_permissions.utils.create_new_record'(product, record_title, component, record_type)
 	CustomKeywords.'ip_permissions.utils.edit_product'(new_product, new_component)
 	// verify result
-	CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
-	CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
-	CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
-	CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
-	CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+	CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,new_product)
+	CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,new_product)
+	CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,new_product)
+	CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,new_product)
+	CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,new_product)
 	
 	
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
