@@ -14,9 +14,8 @@ println('Select LCC from the Source Type list')
 println('Search for LCC Number field with searchTerm: ')
 println('verify CP-LCC search results')
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('ecofr') && !GlobalVariable.G_MAKE_MAS_url.contains('cofr_dev')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
@@ -24,7 +23,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
 String baseUrl = "https://www.katalon.com/"
 WebDriver driver
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////

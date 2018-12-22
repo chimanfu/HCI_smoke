@@ -94,7 +94,7 @@ public class LoginHelper {
 	@Keyword
 	public void loginVPN(){
 		Screen s = new Screen()
-		boolean useAnyConnect=true
+		boolean useAnyConnect=false
 		WebUI.comment 'running loginVPN'
 		try{
 			if (useAnyConnect){

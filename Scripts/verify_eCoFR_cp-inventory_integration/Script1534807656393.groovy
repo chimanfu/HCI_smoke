@@ -9,7 +9,7 @@ import internal.GlobalVariable as GlobalVariable
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.WebDriver as WebDriver
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr')) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('ecofr') && !GlobalVariable.G_MAKE_MAS_url.contains('cofr_dev')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	GlobalVariable.userPin2='SKIP'
 	return

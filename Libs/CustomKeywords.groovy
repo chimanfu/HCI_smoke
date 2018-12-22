@@ -276,12 +276,6 @@ def static "kramp.Groups.delete_3_static_groups"() {
     (new kramp.Groups()).delete_3_static_groups()
 }
 
-def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
-    	TestObject objectto	) {
-    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
-        	objectto)
-}
-
 def static "ip_permissions.utils.search_attachment"(
     	Object user_name	
      , 	Object product	) {
@@ -564,6 +558,12 @@ def static "ip_permissions.utils.validate_ECR_checkboxes"(
          , 	checkboxes_visible
          , 	user_name
          , 	product)
+}
+
+def static "reusableComponents.VerifyDrodownValues_AlphabeticalOrder.verifyOptionsInDropdownInAphabeticalOrder"(
+    	TestObject objectto	) {
+    (new reusableComponents.VerifyDrodownValues_AlphabeticalOrder()).verifyOptionsInDropdownInAphabeticalOrder(
+        	objectto)
 }
 
 def static "com.common.utils.ScreenShot.takeScreenShot"(

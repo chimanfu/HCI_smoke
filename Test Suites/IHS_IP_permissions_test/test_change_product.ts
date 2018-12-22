@@ -4,7 +4,7 @@
    <name>test_change_product</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-10T22:20:49</lastRun>
+   <lastRun>2018-12-20T19:19:39</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -12,10 +12,16 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>2c4cd82c-3921-4b30-b503-b71d1e411a7e</testSuiteGuid>
    <testCaseLink>
+      <guid>4f3f51b1-0eac-4273-a532-9d3394d925e1</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>3c73a0cd-91a4-4294-976d-68ba252e1e7c</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>false</isRun>
-      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users</testCaseId>
+      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users_1</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>ec2f3abd-f80c-4f14-b64c-4cc8e9d7a393</guid>

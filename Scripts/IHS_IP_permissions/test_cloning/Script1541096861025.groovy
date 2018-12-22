@@ -45,7 +45,9 @@ Repeat above for Khrunichev*/
 KeywordUtil.logInfo 'Test: Create New Record through Cloning'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
-GlobalVariable.G_wait_s=1
+//GlobalVariable.G_wait_s=1
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)

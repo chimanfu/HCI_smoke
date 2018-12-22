@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//div[@class=&quot;rt-td&quot;][1]/div[1]/div[@class=&quot;line ip_flag ESA&quot;]</value>
+         <value>//div[@class='rt-tr-group'][1]//div[@class=&quot;rt-td&quot;][2]/div[1]/div[@class=&quot;line ip_flag ESA&quot;]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -31,7 +31,7 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//div[@class=&quot;rt-td&quot;][1]/div[1]/div[@class=&quot;line ip_flag ESA&quot;]</value>
+      <value>//div[@class='rt-tr-group'][1]//div[@class=&quot;rt-td&quot;][2]/div[1]/div[@class=&quot;line ip_flag ESA&quot;]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

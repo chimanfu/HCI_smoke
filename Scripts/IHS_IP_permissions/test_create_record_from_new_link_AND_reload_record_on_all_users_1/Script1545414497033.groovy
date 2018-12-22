@@ -38,10 +38,13 @@ Repeat above for Khrunichev*/
 KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
-GlobalVariable.G_wait_s=1
-int start_on_user_id=8 // default should be 1
+//GlobalVariable.G_wait_s=1
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+int start_on_user_id=1 // default should be 1
 ////////////////////////////////////////////////////////////////////////////////////
 boolean run_loading_record_on_users=true
+boolean run_search_record_title_and_attachment=false
+
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
 for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
@@ -53,14 +56,14 @@ for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumber
 		record_type='Hazard'
 		expected_results='us_general'
 		create_record_from_new_link(product,component,record_type,expected_results,row,run_loading_record_on_users)
-		if (run_loading_record_on_users) loading_record_on_users(product,row)
+		if (run_loading_record_on_users) loading_record_on_users(product,row,run_search_record_title_and_attachment)
 		
 		product='Khrunichev'
 		component='EPS'
 		record_type='Hazard'
 		expected_results='partner_general'
 		create_record_from_new_link(product,component,record_type,expected_results,row,run_loading_record_on_users)
-		if (run_loading_record_on_users) loading_record_on_users(product,row)
+		if (run_loading_record_on_users) loading_record_on_users(product,row,run_search_record_title_and_attachment)
 		
 		// end session
 		//CustomKeywords.'ip_permissions.utils.end_session'()
@@ -73,12 +76,15 @@ for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumber
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
 // !!!!! test
-//if (row ==7) break
+if (row ==8) break
 // !!!!! test
 }
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 
-def loading_record_on_users(product,sheet){
+def loading_record_on_users(product,sheet,run_search_record_title_and_attachment){
 	String siteURL=WebUI.getUrl()
 	siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
 
@@ -154,10 +160,12 @@ def loading_record_on_users(product,sheet){
 			CustomKeywords.'ip_permissions.utils.verify_partner_flags'(flags,user_name,product)
 			CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 			CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)
-			//if (user_name_createRecord.equals(user_name))
 			CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
 			CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
-			//CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
+			if (run_search_record_title_and_attachment){
+				CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
+				CustomKeywords.'ip_permissions.utils.search_record_title'()
+			}
 				
 		}
 		KeywordUtil.logInfo '---------- Done loading new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'
@@ -223,8 +231,8 @@ def create_record_from_new_link(product,component,record_type,expected_results,r
 		CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)	
 		CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
 		CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
-		//CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
-		
+		CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
+		CustomKeywords.'ip_permissions.utils.search_record_title'()		
 		
 	}
 	KeywordUtil.logInfo '---------- Done adding new record for product:'+product+' on user:'+user_name+', email:'+user_email+' ----------'

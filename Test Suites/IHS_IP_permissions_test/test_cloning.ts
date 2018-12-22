@@ -4,7 +4,7 @@
    <name>test_cloning</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-11-29T19:45:26</lastRun>
+   <lastRun>2018-12-21T13:50:51</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -12,10 +12,16 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>a53ecf91-4c29-4c57-8417-8b5731f282c6</testSuiteGuid>
    <testCaseLink>
+      <guid>0fe5f6a5-05df-404b-b587-bf3cb6e4d321</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>3c73a0cd-91a4-4294-976d-68ba252e1e7c</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>false</isRun>
-      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users</testCaseId>
+      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users_1</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>ec2f3abd-f80c-4f14-b64c-4cc8e9d7a393</guid>

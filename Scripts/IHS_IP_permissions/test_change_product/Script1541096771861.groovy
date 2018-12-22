@@ -52,7 +52,9 @@ Verify XML*/
 KeywordUtil.logInfo 'Test: New-like Record Through Changing Product'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
-GlobalVariable.G_wait_s=1
+//GlobalVariable.G_wait_s=1
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+
 ////////////////////////////////////////////////////////////////////////////////////
 int start_on_user_id=1 // default should be 1
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)

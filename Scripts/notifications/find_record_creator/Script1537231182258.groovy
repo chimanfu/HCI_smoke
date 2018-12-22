@@ -10,14 +10,14 @@ import static org.junit.Assert.*
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 
-WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_csn/show_bug.cgi?id=7191#tv=tabVerifications')
-
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_csn/show_bug.cgi?id=7191#tv=tabVerifications')
+WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/cp_hazard_dev/show_bug.cgi?id=7191#tv=tabVerifications')
 WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 7191  kens sec/div_Verifications'))
 WebUI.delay(1)
 WebDriver driver = DriverFactory.getWebDriver()
 List<WebElement> elements = driver.findElements(By.xpath("id('cfgr_Verifications_dd_list')//span[(contains(text(), 'VERIF'))]"))
 int mails_matched_size=elements.size()
-println mails_matched_size
+println 'mails_matched_size='+mails_matched_size
 String[] mail_ids = new String[mails_matched_size]
 
 for (int i = 1; i <= mails_matched_size; i++) {

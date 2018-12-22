@@ -30,7 +30,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')||GlobalVariable.G_MAKE_MAS_u
 if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
 	GlobalVariable.G_tag_ver='master 7.0.3' // for 7.0.3
 }
-GlobalVariable.G_tag_ver='master 7.0.4'
+GlobalVariable.G_tag_ver='master 7.0.5'
 //GlobalVariable.G_tag_ver='master 7.0.2'
 
 WebUI.comment  'for 7.0 rollout, expected correct tag = '+GlobalVariable.G_tag_ver

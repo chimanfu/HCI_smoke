@@ -16,9 +16,9 @@ import internal.GlobalVariable as GlobalVariable
 Map<String, String> suiteProperties = new HashMap<String, String>();
 
 
-suiteProperties.put('id', 'Test Suites/IHS_IP_permissions_test/test_new_record_through_VTL')
+suiteProperties.put('id', 'Test Suites/IHS_IP_permissions_test/test_create_record_from_new_link_AND_reload_record_on_all_users')
 
-suiteProperties.put('name', 'test_new_record_through_VTL')
+suiteProperties.put('name', 'test_create_record_from_new_link_AND_reload_record_on_all_users')
 
 suiteProperties.put('description', '')
  
@@ -29,8 +29,8 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.c
 
 
 
-RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/IHS_IP_permissions_test/test_new_record_through_VTL/20181211_171112/execution.properties")
+RunConfiguration.setExecutionSettingFile("/Users/jcfu/Katalon Studio/HCI_Group/Reports/IHS_IP_permissions_test/test_create_record_from_new_link_AND_reload_record_on_all_users/20181213_170331/execution.properties")
 
 TestCaseMain.beforeStart()
 
-TestCaseMain.startTestSuite('Test Suites/IHS_IP_permissions_test/test_new_record_through_VTL', suiteProperties, [new TestCaseBinding('Test Cases/IHS_IP_permissions/test_new_record_through_VTL', 'Test Cases/IHS_IP_permissions/test_new_record_through_VTL',  null)])
+TestCaseMain.startTestSuite('Test Suites/IHS_IP_permissions_test/test_create_record_from_new_link_AND_reload_record_on_all_users', suiteProperties, [new TestCaseBinding('Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users', 'Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users',  null)])

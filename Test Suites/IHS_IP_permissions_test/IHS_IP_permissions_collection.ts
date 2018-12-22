@@ -56,7 +56,7 @@
             <profileName>react_iss_hazard_dev</profileName>
             <runConfigurationId>Chrome</runConfigurationId>
          </configuration>
-         <runEnabled>false</runEnabled>
+         <runEnabled>true</runEnabled>
          <testSuiteEntity>Test Suites/IHS_IP_permissions_test/test_version_cloning</testSuiteEntity>
       </TestSuiteRunConfiguration>
       <TestSuiteRunConfiguration>
@@ -71,10 +71,10 @@
       <TestSuiteRunConfiguration>
          <configuration>
             <groupName>Web Desktop</groupName>
-            <profileName>react_iss_hazard_dev</profileName>
+            <profileName>default</profileName>
             <runConfigurationId>Chrome</runConfigurationId>
          </configuration>
-         <runEnabled>true</runEnabled>
+         <runEnabled>false</runEnabled>
          <testSuiteEntity>Test Suites/IHS_IP_permissions_test/test_create_record_from_new_link_AND_reload_record_on_all_users</testSuiteEntity>
       </TestSuiteRunConfiguration>
    </testSuiteRunConfigurations>

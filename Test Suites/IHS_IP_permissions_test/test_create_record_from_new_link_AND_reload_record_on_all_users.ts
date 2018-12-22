@@ -4,7 +4,7 @@
    <name>test_create_record_from_new_link_AND_reload_record_on_all_users</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-12T00:04:57</lastRun>
+   <lastRun>2018-12-20T21:58:12</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -12,10 +12,22 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>17fc4f03-fdae-422c-8a3c-08d8e8d5ddad</testSuiteGuid>
    <testCaseLink>
+      <guid>14f2d2d8-597e-488f-8343-4d9bd1a6cd9f</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>3c73a0cd-91a4-4294-976d-68ba252e1e7c</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users</testCaseId>
+      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users_1</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>4bda7cf1-709e-4258-a482-d418ff68de10</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users_2</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>ec2f3abd-f80c-4f14-b64c-4cc8e9d7a393</guid>

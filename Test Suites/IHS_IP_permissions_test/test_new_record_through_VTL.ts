@@ -4,7 +4,7 @@
    <name>test_new_record_through_VTL</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-11T17:11:12</lastRun>
+   <lastRun>2018-12-21T09:53:59</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -12,10 +12,16 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>25dc83ed-0eef-4fa4-8158-ba5eaa959ea4</testSuiteGuid>
    <testCaseLink>
+      <guid>6c445bd6-3e0c-451e-962b-13840ac45909</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>3c73a0cd-91a4-4294-976d-68ba252e1e7c</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>false</isRun>
-      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users</testCaseId>
+      <testCaseId>Test Cases/IHS_IP_permissions/test_create_record_from_new_link_AND_reload_record_on_all_users_1</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>ec2f3abd-f80c-4f14-b64c-4cc8e9d7a393</guid>

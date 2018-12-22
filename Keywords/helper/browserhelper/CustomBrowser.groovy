@@ -66,7 +66,7 @@ public class CustomBrowser {
 	 }*/
 
 	@Keyword
-	public void takingScreenshot(String screenshotname){
+	public String takingScreenshot(String screenshotname){
 		try {
 			//import com.kms.katalon.core.configuration.RunConfiguration
 			if (screenshotname.equals(null) ||screenshotname.equals('')){
@@ -93,10 +93,12 @@ public class CustomBrowser {
 				ImageIO.write(image, "png", new File(screenshotPath))
 			}
 			WebUI.comment('screenshot in '+screenshotPath)
+			return screenshotPath
 		}
 		catch (Exception e) {
 			e.printStackTrace()
 		}
+		return null
 	}
 	@Keyword
 	public void takingScreenshotStatus(String testcaseName, String testStatus){

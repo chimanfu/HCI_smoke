@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>test_create_record_from_new_link_AND_reload_record_on_all_users_2</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>befe5cdb-f1b7-465f-a2a9-2a40105e6532</testCaseGuid>
+</TestCaseEntity>

@@ -39,7 +39,8 @@ GlobalVariable.G_MAKE_MAS_url='https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_i
 KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
-GlobalVariable.G_wait_s=1
+//GlobalVariable.G_wait_s=1
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 
 ////////////////////////////////////////////////////////////////////////////////////
 

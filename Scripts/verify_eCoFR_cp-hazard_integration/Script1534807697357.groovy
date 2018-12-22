@@ -13,20 +13,21 @@ println('Select Hazard from the Source Type list')
 println('Search for Hazard Number field with searchTerm: open work')
 println('verify CP-Hazard search results')
 
-if (!GlobalVariable.G_MAKE_MAS_url.contains('cofr') ) {
+if (!GlobalVariable.G_MAKE_MAS_url.contains('ecofr') && !GlobalVariable.G_MAKE_MAS_url.contains('cofr_dev')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
-	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
 	return
 }
 if (!GlobalVariable.G_MAKE_MAS_url.contains('dev') ) return
 
 String baseUrl = "https://www.katalon.com/"
-String recordID='126'
+recordID='126'
+if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr'))
+	recordID='76'
 String siteURL=GlobalVariable.G_MAKE_MAS_url
 WebDriver driver
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
