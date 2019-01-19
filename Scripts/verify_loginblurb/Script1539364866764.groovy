@@ -19,6 +19,19 @@ String siteURL=GlobalVariable.G_MAKE_MAS_url
 if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
 loginblurb_view=siteURL+'/editparams.cgi?section=core#loginblurb_desc'
 /*
+checking loginblurb_script loginblurb_script for the announce.cgi javascript code
+
+<script>
+$(document).ready(function () {
+    let $lb = $('#login-blurb');
+    if ($lb.length !== 0) {
+        $.get('announce.cgi', function( data ) {
+            $lb.prepend( data );
+        });
+    }
+});
+</script>
+
 the script is not the same in
 https://cplms.nasa.gov/editparams.cgi?section=core#loginblurb_desc
 https://cpoms.nasa.gov/editparams.cgi?section=core#loginblurb_desc

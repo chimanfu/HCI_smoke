@@ -14,17 +14,23 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('raining')) {
 	return null
 }
 if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')) {
-	WebUI.navigateToUrl('https://hazard.iss.nasa.gov/training/show_bug.cgi?id=27671#tv=tabApprovals_and_Concurrences&gv=group')
+	//WebUI.navigateToUrl('https://hazard.iss.nasa.gov/training/show_bug.cgi?id=27671#tv=Approvals_and_Concurrences&gv=group')
+	WebUI.navigateToUrl('https://hazard.iss.nasa.gov/training/show_bug.cgi?id=27671#tv=Approvals%20and%20Concurrences')
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'),5)
 	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'), 
 	    'INWORK', true)
-	WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/input_save_changes'))
+	//WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/input_save_changes'))
+	WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+	
 	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/span_Linked Record Status'),5)
 	WebUI.click(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/span_Linked Record Status'))
 	
-	Linked_Record_Status_contents=WebUI.getText(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/div_Linked Record Status contents'))
+	//Linked_Record_Status_contents=WebUI.getText(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/div_Linked Record Status contents'))
+	Linked_Record_Status_contents=WebUI.getText(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/div_Linked Record Status contents'))
+	
 	Linked_Record_Status_contents=Linked_Record_Status_contents.trim().replaceAll("\\s+", " ")
 	WebUI.comment 'Linked_Record_Status_contents: \n'+Linked_Record_Status_contents
-	expected_message='You are about to change Record 27671 - Improper Manufacturing from PHASE III APPROVED to INWORK'
+	expected_message='You are about to change record 27671 - Improper Manufacturing from PHASE III APPROVED to INWORK'
 	check_message( Linked_Record_Status_contents,  expected_message)
 	expected_message='The following checked records will have their statuses automatically changed on save:'
 	check_message( Linked_Record_Status_contents,  expected_message)
@@ -33,6 +39,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')) {
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('cplms')) {
 	WebUI.navigateToUrl('https://cplms.nasa.gov/training/show_bug.cgi?id=972#tv=Workflow')
 	// need to make sure the current record status is PRELIMINARY in record 972, it should trigger the auto save popup by changing From PRELIMINARY to REVIEW
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'),5)
 	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Cause - Record 27671  Improper/select_record_status'),
 		'REVIEW', true)
 	WebUI.click(findTestObject('Object Repository/Page_LCN 972 test_create_record_on_/button_Save Changes'))

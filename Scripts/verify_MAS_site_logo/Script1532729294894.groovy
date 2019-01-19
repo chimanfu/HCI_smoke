@@ -1,7 +1,12 @@
 if (GlobalVariable.userPin2.equals('SKIP')) return
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+
 import org.sikuli.script.Pattern as Pattern
 import org.sikuli.script.Screen;
+
+import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
 import internal.GlobalVariable as GlobalVariable
 
  WebUI.comment('verify the MAS site logo is correct (using OpenCV image recognition library)')
@@ -12,10 +17,8 @@ import internal.GlobalVariable as GlobalVariable
  WebUI.comment('look for expected site logo from the Home page')
  WebUI.comment('')
  
-
- 
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +28,9 @@ while(true) {
 		Screen s = new Screen();
 		//GlobalVariable.G_image_path="/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/"
 		//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_cp_hazard_dev/')
-		
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Main Page/site_logo'),10)
+		logo_src_path=WebUI.getAttribute(findTestObject('Object Repository/Page_Main Page/site_logo'), 'src')
+		KeywordUtil.markPassed ('site logo_src_path='+logo_src_path)
 		if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){
 			WebUI.comment('look for expected site logo from the Home page')
 			//s.wait(GlobalVariable.G_image_path+'cp_hazard_logo.png',20)

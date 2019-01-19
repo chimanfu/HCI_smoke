@@ -23,7 +23,7 @@ if (!(siteURL.endsWith('/'))) {
 
 siteURL = ((siteURL + 'show_bug.cgi?id=') + recordID)
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
@@ -68,8 +68,9 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_u
 }
 //'click on create link button'
 //WebUI.click(findTestObject('Page_Record_256_mcard/button_Create Link'))
-if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/img_Create_Link_button'),1)){
-	WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/img_Create_Link_button'))
+if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_contents/button_Create Link'),10)){
+	//WebUI.click(findTestObject('Object Repository/Page_Hazard - Record 8265  IVA Crew/img_Create_Link_button'))
+	WebUI.click(findTestObject('Object Repository/Page_Record_contents/button_Create Link'))
 	CustomKeywords.'helper.browserhelper.CustomBrowser.not_save_exit'()
 	return
 }

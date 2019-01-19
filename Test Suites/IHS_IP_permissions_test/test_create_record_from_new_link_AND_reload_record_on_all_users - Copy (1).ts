@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>test_create_record_from_new_link_AND_reload_record_on_all_users</name>
+   <name>test_create_record_from_new_link_AND_reload_record_on_all_users - Copy (1)</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-20T21:58:12</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
-   <testSuiteGuid>17fc4f03-fdae-422c-8a3c-08d8e8d5ddad</testSuiteGuid>
+   <testSuiteGuid>5502d662-c49b-4b17-9d29-8e2a4ea84980</testSuiteGuid>
    <testCaseLink>
       <guid>14f2d2d8-597e-488f-8343-4d9bd1a6cd9f</guid>
       <isReuseDriver>false</isReuseDriver>

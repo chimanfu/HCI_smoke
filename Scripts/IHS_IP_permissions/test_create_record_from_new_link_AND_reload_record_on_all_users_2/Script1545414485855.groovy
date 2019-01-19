@@ -43,7 +43,7 @@ CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 int start_on_user_id=9 // default should be 1
 ////////////////////////////////////////////////////////////////////////////////////
 boolean run_loading_record_on_users=true
-boolean run_search_record_title_and_attachment=false
+boolean run_search_record_title_and_attachment=true
 
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)

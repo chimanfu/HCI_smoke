@@ -4,7 +4,7 @@
    <name>smoke_test_on_training_site</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-20T17:48:56</lastRun>
+   <lastRun>2019-01-18T15:06:00</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -28,12 +28,6 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/login_basic_checks</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>4efdb960-8e9b-4a20-bbeb-1067ef446855</guid>
@@ -162,6 +156,12 @@
       <testCaseId>Test Cases/run_sanityCheck</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>19260b52-ff26-4987-b0a1-86fbcffd9366</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>3878f30d-db59-4848-b5a1-0a3657506827</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
@@ -274,5 +274,11 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_auto_status</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

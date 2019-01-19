@@ -41,7 +41,7 @@ boolean have_All_link=false
 List<String> list_urls
 
 int retry_count = 0;
-int maxTries = 2;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
@@ -63,6 +63,7 @@ else if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 }
 else{
 	WebUI.click(findTestObject('Page_Main Page/a_New'))
+	WebUI.delay(1)
 }
 //println('check Links Broken (http return code != 200) On Current Page of New Record Record')
 //CustomKeywords.'hci_smoke_test.common.checkLinksBrokenOnCurrentPage'()
@@ -70,6 +71,12 @@ else{
 //boolean STOP_ON_FAILURE=false
 //CustomKeywords.'hci_smoke_test.common.verifyAllLinksOnCurrentPageAccessible'(STOP_ON_FAILURE)
 
+if (WebUI.waitForElementPresent(findTestObject('Page_ISS Hazard Main Page/a_New blank record'),3,FailureHandling.OPTIONAL)){
+	WebUI.waitForElementClickable(findTestObject('Page_ISS Hazard Main Page/a_New blank record'),2)
+	WebUI.click(findTestObject('Page_ISS Hazard Main Page/a_New blank record'))
+	//WebUI.click(findTestObject('Object Repository/Page_Select Category/a_All'))
+	//WebUI.click(findTestObject('Object Repository/Page_Enter Record/a_Boeing'))
+}
 // select All 
 if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'),2,FailureHandling.OPTIONAL)){
 	WebUI.click(findTestObject('Object Repository/Page_Select Record Type/a_All_enter_new_record_links'))

@@ -29,7 +29,10 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')||GlobalVariable.G_MAKE_MAS_u
 if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
 	GlobalVariable.G_git_hash_ver='fad218e' // for 7.0.3
 }
-GlobalVariable.G_git_hash_ver='654f541'
+//GlobalVariable.G_git_hash_ver='654f541'
+
+GlobalVariable.G_git_hash_ver='079251e'
+
 //WebUI.comment  'for 7.0.4 rollout, correct git hash = '+GlobalVariable.G_git_hash_ver
 
 CustomKeywords.'helper.login.LoginHelper.login'()

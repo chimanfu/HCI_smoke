@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//div[@class = 'groupTitleLabel_rowTitle' and (contains(text(), 'Ctl-8:') or contains(., 'Ctl-8:'))]</value>
+         <value>//div[@class = 'groupTitleLabel_rowTitle' and (contains(text(), 'Ctl-8') or contains(., 'Ctl-8'))]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -31,7 +31,7 @@
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Ctl-8:</value>
+      <value>Ctl-8</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>

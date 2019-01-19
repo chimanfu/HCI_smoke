@@ -34,7 +34,7 @@ Verify ECR checkboxes
 
 Verify XML*/
 
-GlobalVariable.G_MAKE_MAS_url='https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev'
+//GlobalVariable.G_MAKE_MAS_url='https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev'
 
 KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
@@ -46,6 +46,13 @@ CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
+////////////////////
+//'replace the for statement with these lines for running only certain users from the users_list'
+//def users_list=[4,6,7,10,12,15] // main user list
+//for (row in users_list) println 'run test on user='+row
+//for (row in users_list){
+////////////////////
+
 for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	CustomKeywords.'helper.login.LoginHelper.login'()
 	KeywordUtil.logInfo '********** Staring adding new records on US and Partner products for user ('+row+')**********'

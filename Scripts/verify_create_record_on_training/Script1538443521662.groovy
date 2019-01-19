@@ -72,6 +72,10 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 		WebUI.click(findTestObject('Page_Enter Record View/select_Group'))
 		WebUI.selectOptionByIndex(findTestObject('Page_Enter Record View/select_Group'),1,FailureHandling.STOP_ON_FAILURE)
 	}
+	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'),1,FailureHandling.STOP_ON_FAILURE)){
+		WebUI.click(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'))
+		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), 2, FailureHandling.STOP_ON_FAILURE)
+	}
 	//return
 	
 	WebUI.delay(1)

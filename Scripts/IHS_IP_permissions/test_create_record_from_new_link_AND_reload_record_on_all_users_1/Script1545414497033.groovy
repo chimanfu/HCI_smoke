@@ -43,10 +43,17 @@ CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 int start_on_user_id=1 // default should be 1
 ////////////////////////////////////////////////////////////////////////////////////
 boolean run_loading_record_on_users=true
-boolean run_search_record_title_and_attachment=false
+boolean run_search_record_title_and_attachment=true
 
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
+////////////////////
+//'replace the for statement with these lines for running only certain users from the users_list'
+//def users_list=[4,6,7,10,12,15] // main user list
+//for (row in users_list) println 'run test on user='+row
+//for (row in users_list){
+////////////////////
+
 for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	CustomKeywords.'helper.login.LoginHelper.login'()
 	KeywordUtil.logInfo '********** Staring adding new records on US and Partner products for user ('+row+')**********'
@@ -77,6 +84,7 @@ for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumber
 	
 // !!!!! test
 if (row ==8) break
+//if (row ==3) break
 // !!!!! test
 }
 
@@ -164,7 +172,9 @@ def loading_record_on_users(product,sheet,run_search_record_title_and_attachment
 			CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
 			if (run_search_record_title_and_attachment){
 				CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
+				CustomKeywords.'ip_permissions.utils.del_attachment_from_record'()
 				CustomKeywords.'ip_permissions.utils.search_record_title'()
+				
 			}
 				
 		}
@@ -176,7 +186,7 @@ def loading_record_on_users(product,sheet,run_search_record_title_and_attachment
 		}
 		
 		// !!!!! test
-		//if (row ==2) break
+		//if (row ==3) break
 		// !!!!! test
 	}
 	

@@ -39,11 +39,19 @@ KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 //GlobalVariable.G_wait_s=1
 CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+int start_on_user_id=1 // default should be 1
 
 ////////////////////////////////////////////////////////////////////////////////////
 //new_record_url=new_record_url+product
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
-for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
+////////////////////
+//'replace the for statement with these lines for running only certain users from the users_list'
+//def users_list=[4,6,7,10,12,15] // main user list
+//for (row in users_list) println 'run test on user='+row
+//for (row in users_list){
+////////////////////
+
+for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	CustomKeywords.'helper.login.LoginHelper.login'()
 	KeywordUtil.logInfo '********** Staring adding new records on US and Partner products for user ('+row+')**********'
 	try{
@@ -69,7 +77,7 @@ for (row = 1; row <= findTestData(ip_test_user_list).getRowNumbers(); row++){
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
 // !!!!! test
-if (row ==7) break
+//if (row ==7) break
 // !!!!! test
 }
 ////////////////////////////////////////////////////////////////////////////////////

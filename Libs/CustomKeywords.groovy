@@ -276,6 +276,10 @@ def static "kramp.Groups.delete_3_static_groups"() {
     (new kramp.Groups()).delete_3_static_groups()
 }
 
+def static "ip_permissions.utils.search_record_title"() {
+    (new ip_permissions.utils()).search_record_title()
+}
+
 def static "ip_permissions.utils.search_attachment"(
     	Object user_name	
      , 	Object product	) {
@@ -294,10 +298,10 @@ def static "ip_permissions.utils.addGlobalVariable"(
 
 def static "ip_permissions.utils.write_failed_result"(
     	Object col1	
-     , 	Object col2	) {
+     , 	Object col3	) {
     (new ip_permissions.utils()).write_failed_result(
         	col1
-         , 	col2)
+         , 	col3)
 }
 
 def static "ip_permissions.utils.testing"() {
@@ -310,6 +314,10 @@ def static "ip_permissions.utils.check_users_permissions"() {
 
 def static "ip_permissions.utils.create_new_users_with_permissions"() {
     (new ip_permissions.utils()).create_new_users_with_permissions()
+}
+
+def static "ip_permissions.utils.del_attachment_from_record"() {
+    (new ip_permissions.utils()).del_attachment_from_record()
 }
 
 def static "ip_permissions.utils.add_verify_attachment_flags"(

@@ -41,8 +41,6 @@ KeywordUtil.logInfo 'Test: Create Record from Regular Create Page'
 //CustomKeywords.'helper.login.LoginHelper.login'()
 ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list'
 
-int start_on_user_id=1 // default should be 1
-
 CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 ////////////////////////////////////////////////////////////////////////////////////
 //boolean run_loading_record_on_users=false
@@ -50,6 +48,14 @@ boolean run_search_record_title_and_attachment=false
 KeywordUtil.logInfo('Iterate through test users in '+ip_test_user_list)
 ////////////////////
 /*
+ * main users:
+ * Nebelung 4
+ * Shaquille Oneil 12
+ * Peterbald 6
+ * Scottish Fold 7
+ * Miguel 15
+ * Sokoke 10
+
 Abyssinian 1
 Cyprus 2
 Manx 3
@@ -67,7 +73,10 @@ Michael Jackson 14
 Miguel 15
 Monica 16
 */
-//def users_list=[13]
+int start_on_user_id=1 // default should be 1
+////////////////////
+//'replace the for statement with these lines for running only certain users from the users_list'
+//def users_list=[4,6,7,10,12,15] // main user list
 //for (row in users_list) println 'run test on user='+row
 //for (row in users_list){
 ////////////////////
@@ -99,7 +108,7 @@ for (row = start_on_user_id; row <= findTestData(ip_test_user_list).getRowNumber
 	KeywordUtil.logInfo '********** Done adding new records on US and Partner products for user ('+row+')**********'
 	
 // !!!!! test
-//if (row ==1) break
+//if (row ==3) break
 // !!!!! test
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +161,7 @@ def create_record_from_new_link(product,component,record_type,expected_results,r
 	CustomKeywords.'ip_permissions.utils.validate_ECR_checkboxes'(checkboxes_selected,checkboxes_disabled,checkboxes_visible,user_name,product)
 	CustomKeywords.'ip_permissions.utils.verify_XML_element'(group_names,user_name,product)	
 	CustomKeywords.'ip_permissions.utils.add_verify_attachment_flags'(flags,user_name,product)
-	CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product)
+	CustomKeywords.'ip_permissions.utils.verify_attachment_partner_flags_after_save'(flags,user_name,product,'check_edit_attachment_flags')
 	if (run_search_record_title_and_attachment){
 		CustomKeywords.'ip_permissions.utils.search_attachment'(user_name,product)
 		CustomKeywords.'ip_permissions.utils.search_record_title'()

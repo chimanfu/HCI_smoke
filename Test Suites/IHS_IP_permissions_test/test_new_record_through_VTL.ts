@@ -4,7 +4,7 @@
    <name>test_new_record_through_VTL</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-21T09:53:59</lastRun>
+   <lastRun>2019-01-16T23:49:39</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

@@ -32,6 +32,7 @@ KeywordLogger log = new KeywordLogger()
 
 search_term = 'test_automation_record'
 
+
 String url = GlobalVariable.G_MAKE_MAS_url
 WebUI.comment 'now checking the URL from the GlobalVariable.G_MAKE_MAS_url: '+url
 if (url.contains('doctree')) {

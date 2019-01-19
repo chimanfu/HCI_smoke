@@ -4,7 +4,7 @@
    <name>smoke_test</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-12-21T16:12:34</lastRun>
+   <lastRun>2019-01-18T16:48:16</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>
@@ -22,12 +22,6 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/login_basic_checks</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>4efdb960-8e9b-4a20-bbeb-1067ef446855</guid>
@@ -268,5 +262,11 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_cpid_dex_variance_days</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

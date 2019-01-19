@@ -35,21 +35,24 @@ import org.apache.poi.ss.util.CellRangeAddress;
 class utils {
 	@Keyword
 	def search_record_title(){
+
 		// search record with record title as search term
 		String search_term='"'+GlobalVariable.record_title+'"'
 		String record_title=GlobalVariable.record_title
 		String record_id=GlobalVariable.record_id
 		String info=GlobalVariable.testLog_info+'\nSearch for record:'+record_id+' link with title "'+record_title+'"\n'
-
-		WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
-		WebUI.waitForElementClickable(findTestObject('Page_Main Page/input_quicksearch'),15)
-		if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
-			WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.itle', true)
-		WebUI.waitForPageLoad(60)
-		WebUI.waitForElementClickable(findTestObject('Page_Main Page/bt_Search'),5)
-		WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
-		WebUI.click(findTestObject('Page_Main Page/bt_Search'))
 		try{
+			WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
+			WebUI.waitForElementClickable(findTestObject('Page_Main Page/input_quicksearch'),15)
+			/*
+			 if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
+			 WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.itle', true)
+			 */
+			WebUI.waitForPageLoad(60)
+			WebUI.waitForElementClickable(findTestObject('Page_Main Page/bt_Search'),5)
+			WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
+			WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+			//try{
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),20)
 			if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/li_Search_Content'),20)){
@@ -68,9 +71,9 @@ class utils {
 			KeywordUtil.logInfo ('start looking for record:'+record_id+' with title:'+search_term)
 
 			if (WebUI.waitForElementPresent(record_link, 10,FailureHandling.OPTIONAL)){
-				KeywordUtil.markPassed (info+'\nPASS: found record:'+record_id+' link with search term as => '+search_term)
+				KeywordUtil.markPassed (info+'\nPASS: search_record_title: found record:'+record_id+' link with search term as => '+search_term)
 			}else{
-				write_failed_result(info+'\nERROR: NOT found record:'+record_id+' link with search term as => '+search_term+'\n')
+				write_failed_result(info+'\nERROR: search_record_title: NOT found record:'+record_id+' link with search term as => '+search_term+'\n')
 			}
 			KeywordUtil.logInfo ('done looking for record_link')
 		} catch (Exception e) {
@@ -79,13 +82,16 @@ class utils {
 	}
 	@Keyword
 	def search_attachment(user_name,product){
+
 		boolean search_found_expected=true
+		boolean OCR_attachment_delay=false
 		if (GlobalVariable.attachment_status.contains('attachments_Not_Allowed')){
 			KeywordUtil.markPassed (GlobalVariable.testLog_info+'\nPASS: attachments_Not_Allowed for this user, so skip search_attachment\n')
 			return
 		}
 		// using GlobalVariable.attachment_name to determine search_found_expected status
 		if (GlobalVariable.attachment_name.contains('Blank')) search_found_expected=false
+		if (GlobalVariable.attachment_name.contains('OCR')) OCR_attachment_delay=true
 		//if (GlobalVariable.attachment_name.contains('image')) search_found_expected=false
 		String info=GlobalVariable.testLog_info+'\nAlready added attachment into record with "'+GlobalVariable.attachment_name+'"\n'
 
@@ -93,12 +99,19 @@ class utils {
 		String record_id=GlobalVariable.record_id
 		WebUI.waitForElementVisible(findTestObject('Page_Main Page/input_quicksearch'),15)
 		WebUI.waitForElementClickable(findTestObject('Page_Main Page/input_quicksearch'),15)
+		if (OCR_attachment_delay) {
+			WebUI.delay(8)
+			info=info+'\nAdded delay for search, OCR attachments may need more time to create search index\n'
+		}
 		if (WebUI.waitForElementVisible(findTestObject('Page_Main Page/select_search_option'),2))
 			WebUI.selectOptionByValue(findTestObject('Page_Main Page/select_search_option'), '.ll', true)
 		WebUI.waitForPageLoad(60)
 		WebUI.waitForElementClickable(findTestObject('Page_Main Page/bt_Search'),5)
+		// OCR attachments may need more time to create search index
+
 		WebUI.setText(findTestObject('Page_Main Page/input_quicksearch'), search_term)
 		WebUI.click(findTestObject('Page_Main Page/bt_Search'))
+
 		try{
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/a_EditSearch'),20)
 			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List joe_search/label_SaveSearch'),20)
@@ -157,7 +170,6 @@ class utils {
 			}
 			KeywordUtil.logInfo ('done looking for record_link')
 		} catch (Exception e) {
-
 			write_failed_result(info+'\nERROR: search_attachment Failed to find record:'+record_id+' with the search term as => '+search_term+'\n'+e.printStackTrace())
 			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_search_attachment')
 
@@ -271,20 +283,21 @@ class utils {
 	@Keyword
 	def check_users_permissions(){
 		String url = GlobalVariable.G_MAKE_MAS_url
-		if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
-			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
-		} else {
-			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
-			return null
-		}
-		url=WebUI.getUrl()
-		WebUI.comment 'now checking the URL from the current page from browser: '+url
-		if (url.contains('MAKE-MAS') && url.contains('dev')) {
-			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
-		} else {
-			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
-			return null
-		}
+		/*
+		 if ((url.contains('MAKE-MAS')) && (url.contains('dev'))) {
+		 WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+		 } else {
+		 KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
+		 return null
+		 }
+		 url=WebUI.getUrl()
+		 WebUI.comment 'now checking the URL from the current page from browser: '+url
+		 if (url.contains('MAKE-MAS') && url.contains('dev')) {
+		 WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+		 } else {
+		 KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not check new user on production site')
+		 return null
+		 }*/
 		String ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list2'
 		KeywordUtil.logInfo('will check existing test users in '+ip_test_user_list)
 		String status,user_name,user_email,permission,checked_status, expected_permissions
@@ -315,8 +328,8 @@ class utils {
 				permission=findTestData(ip_test_user_list).getValue(permission_col, 1).trim()
 				checked_status=findTestData(ip_test_user_list).getValue(permission_col, row).trim()
 				if (checked_status.toLowerCase().equals('x')){
-					//if (permission.equals('PARTNER_RSA')) permission='A_PARTNER_RSA'
-					//if (permission.equals('PARTNER_JAXA')) permission='A_PARTNER_JAXA'
+					if (permission.equals('PARTNER_RSA')) permission='A_PARTNER_RSA'
+					if (permission.equals('PARTNER_JAXA')) permission='A_PARTNER_JAXA'
 					//if (permission.equals('US_Person')) permission='U.S._Persons'
 					//driver.findElement(By.className(permission)).click()
 					status=status+permission+'\n'
@@ -341,20 +354,15 @@ class utils {
 	@Keyword
 	def create_new_users_with_permissions(){
 		String url = GlobalVariable.G_MAKE_MAS_url
-		if ((url.contains('MAKE-MAS'))) {
-			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
+		//if ((url.contains('MAKE-MAS'))) {
+		if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) || ((WebUI.getUrl()).contains('MAKE-MAS')&& (GlobalVariable.G_MAKE_MAS_url).contains('MAKE-MAS')) ){
+
+			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance OR training site')
 		} else {
 			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new user on production site')
 			return null
 		}
-		url=WebUI.getUrl()
-		WebUI.comment 'now checking the URL from the current page from browser: '+url
-		if (url.contains('MAKE-MAS') ) {
-			WebUI.comment('The URL contains MAKE-MAS and dev, so it is a test OR dev instance')
-		} else {
-			KeywordUtil.logInfo('The URL does not contain MAKE-MAS and dev, so it is NOT a test instance, so should not create new user on production site')
-			return null
-		}
+
 		boolean test_failed=false
 		String ip_test_user_list='IHS_IP_permissions/international_partner_permissions_test_user_list2'
 		KeywordUtil.logInfo('will create new test users in '+ip_test_user_list)
@@ -377,6 +385,11 @@ class utils {
 			WebUI.setText(findTestObject('Object Repository/Page_Add user/input_Email'), user_email)
 			WebUI.setText(findTestObject('Object Repository/Page_Add user/input_name'), user_name)
 			WebUI.click(findTestObject('Object Repository/Page_Add user/input_add'))
+			if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Account Already Exists/div_exists_account_text'),4)){
+				KeywordUtil.logInfo(user_name+': account already exists')
+				continue
+			}
+
 			//println 'added new user='+user_name+', '+user_email
 			//println 'going to add permission to the new user'
 			status='Added new user = '
@@ -474,15 +487,37 @@ class utils {
 				attachment='OCR no image.pdf'
 				break
 			case 6:
-				attachment='Full Text Search - Blank.pdf'
+			//attachment='Full Text Search - Blank.pdf' // issue in obsolete attachment, skip Blank for now
+				attachment='Full Text Search - Word.docx'
 				break
 			default:
-				attachment='Full Text Search - Blank.pdf'
+			//attachment='Full Text Search - Blank.pdf'
+				attachment='OCR with image.pdf'
 				break
 		}
 		addGlobalVariable('attachment_name', attachment)
 		KeywordUtil.markPassed('will add attachment into record with '+GlobalVariable.attachment_name)
 		return GlobalVariable.attachment_name
+	}
+	@Keyword
+	def del_attachment_from_record(){
+		KeywordUtil.logInfo ('del_attachment_from_record: current record url='+GlobalVariable.recordName2)
+		WebUI.navigateToUrl(GlobalVariable.recordName2)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),15)
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),15)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),15)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_contents/input_obsolete_checkbox'),5)){
+			KeywordUtil.logInfo ('del_attachment_from_record: found obsolete_checkbox, so delete the attachment first')
+			WebUI.click(findTestObject('Object Repository/Page_Record_contents/input_obsolete_checkbox'))
+			WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
+			WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+			WebUI.delay(6)
+			check_record_save_alert()
+		}else{
+			KeywordUtil.logInfo ('del_attachment_from_record: NOT found obsolete_checkbox, no need to delete the attachment first')
+
+		}
 	}
 	@Keyword
 	def add_verify_attachment_flags(list_of_flags,user_name,product,def info=null){
@@ -555,6 +590,11 @@ class utils {
 	}
 	@Keyword
 	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product, def info=null){
+		boolean check_edit_attachment_flags=false
+		if (info.equals('check_edit_attachment_flags')) {
+			check_edit_attachment_flags=true
+			info='Will perform check_edit_attachment_flags after adding attachment'
+		}
 		boolean test_failed=false
 		boolean attachments_Not_Allowed=false
 		addGlobalVariable('attachment_status','')
@@ -604,7 +644,15 @@ class utils {
 		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
 		//WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
 		WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments_Label'),10)
+		///
+		KeywordUtil.logInfo 'wait for obsolete checkbox to appear'
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_contents/input_obsolete_checkbox'),15)){
+			KeywordUtil.markPassed 'found obsolete checkbox, continue the check flags from attachments after save'
+		}else{
+			KeywordUtil.markWarning '!!! still not seeing the obsolete checkbox, someting wrong !!!'
+		}
 
+		///
 		//try{
 		//'check flags from attachments after save'
 		KeywordUtil.logInfo( 'Start: verify_attachment_partner_flags_after_save()')
@@ -672,6 +720,19 @@ class utils {
 		 KeywordUtil.logInfo "cannot check flag from attachments after save"
 		 KeywordUtil.logInfo (e)
 		 }*/
+		///////////check_edit_attachment_flags ////////////
+		if (check_edit_attachment_flags){
+			if (!test_failed){
+				 KeywordUtil.logInfo 'if check flag from attachments after save are PASSED, continue to check_edit_attachment_flags'
+				 if (!check_edit_attachment_flags(list_of_flags)){
+					 all_logMsg=all_logMsg+('ERROR: Some Flags are not correct in either edit attachment mode or after edit and save it. Please check\n')
+					 test_failed=true
+				 }else{
+				 	all_logMsg=all_logMsg+('PASS: All Flags are correct in edit attachment mode and after edit and save it.\n')
+				 }
+			 }
+		}
+		///////////check_edit_attachment_flags ////////////
 		if (test_failed){
 			write_failed_result(all_logMsg)
 			//(new helper.browserhelper.CustomBrowser()).takingScreenshot(GlobalVariable.testcaseName+'_'+user_name+'_'+product+'_flag_status_after_save')
@@ -680,6 +741,80 @@ class utils {
 			KeywordUtil.markPassed(all_logMsg)
 		}
 		KeywordUtil.logInfo( 'Done: verify_attachment_partner_flags_after_save()')
+	}
+	@Keyword
+	def check_edit_attachment_flags(list_of_flags){
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_IP_Permissions/img_edit_attachment'),10)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_IP_Permissions/img_edit_attachment'),10)
+		WebUI.click(findTestObject('Object Repository/Page_IP_Permissions/img_edit_attachment'))
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_IP_Permissions/input_edit_attachment_description_field'),10)
+		try{
+			'check flags during edit attachment'
+			if (list_of_flags.contains('CSA')){
+				WebUI.verifyElementChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_CSA_Flag'),10)
+
+			}else{
+				WebUI.verifyElementNotChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_CSA_Flag'),10)
+			}
+			if (list_of_flags.contains('RSA')){
+				WebUI.verifyElementChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_RSA_Flag'),10)
+			}else{
+				WebUI.verifyElementNotChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_RSA_Flag'),10)
+			}
+			if (list_of_flags.contains('ESA')){
+				WebUI.verifyElementChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_ESA_Flag'),10)
+			}else{
+				WebUI.verifyElementNotChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_ESA_Flag'),10)
+			}
+			if (list_of_flags.contains('JAXA')){
+				WebUI.verifyElementChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_JAXA_Flag'),10)
+			}else{
+				WebUI.verifyElementNotChecked(findTestObject('Page_IP_Permissions/checkbox_edit_attachment_JAXA_Flag'),10)
+			}
+		}catch (Exception e) {
+			KeywordUtil.markFailed('Some Flags are not correct in edit attachment mode. Please check')
+			return false
+		}
+		'edit the description and save change'
+		WebUI.setText(findTestObject('Object Repository/Page_IP_Permissions/input_edit_attachment_description_field'),'edited attachment')
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+		WebUI.delay(6)
+		check_record_save_alert()
+		check_record_created()
+		try{
+			'check flags after edit attachment'
+			if (list_of_flags.contains('CSA')){
+				WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag CSA'),1)
+
+			}else{
+				WebUI.verifyElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag CSA'),1)
+			}
+			if (list_of_flags.contains('RSA')){
+				WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag RSA'),1)
+
+			}else{
+				WebUI.verifyElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag RSA'),1)
+			}
+			if (list_of_flags.contains('ESA')){
+				WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag ESA'),1)
+
+			}else{
+				WebUI.verifyElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag ESA'),1)
+			}
+			if (list_of_flags.contains('JAXA')){
+				WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Record_Created/div_flag JAXA'),1)
+
+			}else{
+				WebUI.verifyElementNotPresent(findTestObject('Object Repository/Page_Record_Created/div_flag JAXA'),1)
+			}
+
+		}catch (Exception e) {
+			KeywordUtil.markFailed('Some Flags are not correct after edit attachment and save it. Please check')
+			return false
+		}
+		KeywordUtil.markPassed('PASS: All Flags are correct in edit attachment mode and after edit and save it.\n')
+		return true
 	}
 	@Keyword
 	def verify_attachment_partner_flags_before_save(list_of_flags,user_name,product,def info=null){
@@ -1026,23 +1161,27 @@ class utils {
 			WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_product'))
 			//WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Record_Created/select_product'), 1,FailureHandling.STOP_ON_FAILURE)
 			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_product'), new_product, true)
+			//WebUI.delay(1)
 		}
 		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'),5,FailureHandling.STOP_ON_FAILURE)){
 			WebUI.click(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'))
 			//WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), 1,FailureHandling.STOP_ON_FAILURE)
-			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), new_component, true)
+			try{
+				WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), new_component, true)
+			}catch (Exception e1) {
+				WebUI.comment('something wrong in selectOptionByValue')
+			}
 		}
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),2)
 		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
 		WebUI.delay(3)
 		// check An Error Occurred msg and close button
 		/*if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Close'),1)){
-			KeywordUtil.markWarning("Found Close button: Could be error popup")
-
-		}*/
+		 KeywordUtil.markWarning("Found Close button: Could be error popup")
+		 }*/
 		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record_Created/button_Close'),1)){
 			KeywordUtil.markWarning("Found Close button: Could be error popup")
-			
+
 			String testLog_info=GlobalVariable.user_permissions_info+'\nTestcase: '+GlobalVariable.testcaseName+'\n on product='+new_product+' on record='+GlobalVariable.recordURL+'\n'
 			//String all_logMsg=logMsg
 			addGlobalVariable('testLog_info',testLog_info)
@@ -1391,6 +1530,8 @@ class utils {
 	def create_record_through_VTL(product,record_title, component, record_type,verification_status){
 		create_new_record(product, record_title, component, record_type)
 		//create verification and change verification status to 'Closed to VTL'
+		//WebUI.refresh()
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'),10)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'),10)
 		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'))
 
@@ -1416,9 +1557,12 @@ class utils {
 	@Keyword
 	def navigate_VTI_ID(){
 		//goto verification tab
+		WebUI.refresh()
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'),12)
 		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'),12)
 		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/div_Verifications_TAB'))
-		if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Closed to VTL_link'),5)){
+		if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/div_Closed to VTL_link'),7)){
+			WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/div_Closed to VTL_link'),10)
 			WebUI.click(findTestObject('Object Repository/Page_Record_Created/div_Closed to VTL_link'))
 		}
 		//int currentTab = WebUI.getWindowIndex()
@@ -1622,8 +1766,8 @@ class utils {
 		//GlobalVariable.user_permissions_info=user_permissions_info
 		addGlobalVariable('user_permissions_info', user_permissions_info)
 		addGlobalVariable('user_permissions', user_permissions)
-		println 'GlobalVariable.user_permissions='+GlobalVariable.user_permissions
-		println 'GlobalVariable.user_permissions_info='+GlobalVariable.user_permissions_info
+		println 'GlobalVariable.user_permissions=\n'+GlobalVariable.user_permissions
+		println 'GlobalVariable.user_permissions_info=\n'+GlobalVariable.user_permissions_info
 		return user_permissions_info
 	}
 	@Keyword

@@ -161,9 +161,6 @@ class NewTestListener {
 		//GlobalVariable.G_wait_s=0 // failed_case count from running the test suite
 		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 		
-		
-		
-		
 		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')

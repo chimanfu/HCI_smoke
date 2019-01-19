@@ -11,7 +11,7 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.
 	return null
 }
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
