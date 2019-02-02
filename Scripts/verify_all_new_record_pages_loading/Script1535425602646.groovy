@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.By

@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import static org.junit.Assert.*
 import com.kms.katalon.core.model.FailureHandling

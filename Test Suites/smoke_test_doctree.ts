@@ -4,7 +4,6 @@
    <name>smoke_test_doctree</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-27T23:23:21</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

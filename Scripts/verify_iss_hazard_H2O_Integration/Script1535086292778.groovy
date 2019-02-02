@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -8,6 +8,7 @@ import internal.GlobalVariable as GlobalVariable
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))) {
 	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
 	GlobalVariable.userPin2 = 'SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return null
 }
 int retry_count = 0;

@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
@@ -59,6 +59,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 	println('Not found select_option xml snapshot so it does not support creating snapshot, so it cannot do diff report')
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 

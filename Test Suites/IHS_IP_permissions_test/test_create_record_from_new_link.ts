@@ -4,7 +4,6 @@
    <name>test_create_record_from_new_link</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2019-01-16T22:34:30</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

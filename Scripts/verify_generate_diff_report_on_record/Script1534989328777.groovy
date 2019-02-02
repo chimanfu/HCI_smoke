@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('cofr')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('dex')) return
@@ -75,6 +75,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')){
 	println('do not need to run generate diff report test as no snapshot feature in record')
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

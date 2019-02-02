@@ -24,6 +24,7 @@ class NewTestListener {
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
 		GlobalVariable.userPin2='RUN'
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','RUN')
 		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 		//GlobalVariable.G_image_path='opencv_images/'
 		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
@@ -58,11 +59,13 @@ class NewTestListener {
 			}else{
 				log.logNotRun("NOT run testcase: "+testcaseName)
 				GlobalVariable.userPin2='SKIP'
+				CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 			}
 		}	
 		if (GlobalVariable.userPin3.equals('SKIP')){
 			log.logNotRun("NOT run testcase: "+testcaseName)
 			GlobalVariable.userPin2='SKIP'
+			CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 		}
 		//println testCaseContext.getTestCaseVariables()
 		//String cmd = "pkill -f Chrome"

@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.Keys as Keys
 import com.kms.katalon.core.util.KeywordUtil as KeywordUtil
@@ -11,6 +11,7 @@ println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))) {
     WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
     GlobalVariable.userPin2 = 'SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
     return null
 }
 String recordID = '8265'
@@ -62,8 +63,8 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('react')||GlobalVariable.G_MAKE_MAS_u
 
     WebUI.sendKeys(findTestObject('Page_Record_8265_iss_hazard/input_cf_rh_part_number_0'), Keys.chord(Keys.ENTER))
 
-    WebUI.waitForElementVisible(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'), 15)
-
+    WebUI.waitForElementVisible(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'), 30)
+	WebUI.delay(1)
     WebUI.click(findTestObject('Page_Record_8265_iss_hazard/div_VMDB search results'))
 }
 //'click on create link button'

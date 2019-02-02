@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import static org.junit.Assert.*
 import org.openqa.selenium.Keys as Keys
@@ -20,7 +20,8 @@ println('takingScreenshot and exit the current state and reload page after popup
 
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) &&  !(GlobalVariable.G_MAKE_MAS_url.contains('cxhazard'))) {
 	WebUI.comment('Skip this testcase as this is a specific testcase for a specific site')
-	GlobalVariable.userPin2 = 'SKIP'
+	//GlobalVariable.testrun_status = 'SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return null
 }
 KeywordLogger log = new KeywordLogger()

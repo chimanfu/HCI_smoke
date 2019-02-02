@@ -4,7 +4,6 @@
    <name>test_create_cause_from_hazard</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2019-01-16T23:49:39</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

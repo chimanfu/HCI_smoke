@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.By;
@@ -27,6 +27,7 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
 	println('do not need to run generate PDF report test as no PDF feature in record')
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 

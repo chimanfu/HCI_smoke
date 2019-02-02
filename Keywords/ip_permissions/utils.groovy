@@ -34,8 +34,18 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 class utils {
 	@Keyword
+	def get_record_id(){
+		String siteURL=WebUI.getUrl()
+		siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
+		addGlobalVariable('recordURL',siteURL)
+		String record_id=GlobalVariable.recordURL.substring(GlobalVariable.recordURL.lastIndexOf('id=')+3)
+		addGlobalVariable('record_id',record_id)
+		KeywordUtil.logInfo( 'current record url='+GlobalVariable.recordURL)
+		KeywordUtil.logInfo( 'current record id='+GlobalVariable.record_id)
+		return GlobalVariable.record_id
+	}
+	@Keyword
 	def search_record_title(){
-
 		// search record with record title as search term
 		String search_term='"'+GlobalVariable.record_title+'"'
 		String record_title=GlobalVariable.record_title
@@ -520,6 +530,72 @@ class utils {
 		}
 	}
 	@Keyword
+	def add_attachments(num_attachments){
+
+		println "will add ${num_attachments} attachments"
+		'will perform verify_attachment_partner_flags_before_save'
+		//WebUI.refresh(FailureHandling.OPTIONAL)
+		//WebUI.delay(2)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),30)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),5)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),1)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'),6)
+		WebUI.click(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'))
+
+		'enter values for 3 required fields'
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'), 'ITAR', true)
+
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/span_International Partner Designation'))
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+		WebUI.check(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'), 'TBD', true)
+		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
+		String number=0
+		1.upto(num_attachments) {
+			'add attachment to input_Add New Attachment'
+
+			//WebUI.delay(1)
+			WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Add New Attachment'),10)
+			//WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), '/Users/jcfu/Katalon Studio/HCI_Group/Data Files/IHS_IP_permissions/expected_results_partner.xlsx')
+			get_random_attachment()
+
+			//info=info+'\nwill add attachment into record with '+GlobalVariable.attachment_name+'\n'
+			String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+			WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), path+'/'+GlobalVariable.attachment_name)
+			//WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
+			//WebUI.delay(1)
+			//WebUI.click(findTestObject('Object Repository/Page_Enter Record View/label_Add New Attachment'))
+			WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/select_attachment_type'),10)
+			WebUI.click(findTestObject('Page_Enter Record View/select_attachment_type'))
+			WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_attachment_type'), 'Comments Sheet', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'), 'Non-Phase Specific', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'), 'TBD', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'), 'Yes', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'), 'ITAR', true)
+
+			if (it<10) number='0'+it
+			else number=it
+			WebUI.setText(findTestObject('Object Repository/Page_Enter Record View/input_Description_field'), 'test_attachment_'+it)
+			//WebUI.click(findTestObject('Object Repository/Page_Record_Created/label_Export Control Rating'))
+			//WebUI.scrollToElement(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'),10)
+			// verify_attachment_partner_flags_before_save
+		}
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),15)
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+		WebUI.delay(6)
+		check_record_save_alert()
+	}
+
+	@Keyword
 	def add_verify_attachment_flags(list_of_flags,user_name,product,def info=null){
 		'will perform verify_attachment_partner_flags_before_save'
 		WebUI.refresh(FailureHandling.OPTIONAL)
@@ -723,14 +799,14 @@ class utils {
 		///////////check_edit_attachment_flags ////////////
 		if (check_edit_attachment_flags){
 			if (!test_failed){
-				 KeywordUtil.logInfo 'if check flag from attachments after save are PASSED, continue to check_edit_attachment_flags'
-				 if (!check_edit_attachment_flags(list_of_flags)){
-					 all_logMsg=all_logMsg+('ERROR: Some Flags are not correct in either edit attachment mode or after edit and save it. Please check\n')
-					 test_failed=true
-				 }else{
-				 	all_logMsg=all_logMsg+('PASS: All Flags are correct in edit attachment mode and after edit and save it.\n')
-				 }
-			 }
+				KeywordUtil.logInfo 'if check flag from attachments after save are PASSED, continue to check_edit_attachment_flags'
+				if (!check_edit_attachment_flags(list_of_flags)){
+					all_logMsg=all_logMsg+('ERROR: Some Flags are not correct in either edit attachment mode or after edit and save it. Please check\n')
+					test_failed=true
+				}else{
+					all_logMsg=all_logMsg+('PASS: All Flags are correct in edit attachment mode and after edit and save it.\n')
+				}
+			}
 		}
 		///////////check_edit_attachment_flags ////////////
 		if (test_failed){

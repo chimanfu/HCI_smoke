@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
@@ -12,6 +12,7 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	WebUI.comment 'Skip this testcase as no dagger server defined for this site'
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 String siteURL

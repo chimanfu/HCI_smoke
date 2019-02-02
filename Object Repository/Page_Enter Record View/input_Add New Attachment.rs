@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//input[@class = 'inputFile' and (@id = 'attBtn_0' or  @id = 'attBtn' )]</value>
+         <value>//input[@class = 'inputFile' and contains(@id, 'attBtn_')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -28,7 +28,7 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>id</name>
       <type>Main</type>
       <value>attBtn</value>
@@ -45,7 +45,7 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//input[@class = 'inputFile' and (@id = 'attBtn_0' or  @id = 'attBtn' )]</value>
+      <value>//input[@class = 'inputFile' and contains(@id, 'attBtn_')]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

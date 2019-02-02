@@ -7,13 +7,13 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//select[@type = 'select' and @id = 'cfa_attachments_export_control_rating_NEW_ATT_ROW_0']</value>
+         <value>(//select[@type = 'select' and starts-with(@id, 'cfa_attachments_export_control_rating_NEW_ATT_ROW_')])[last()]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
@@ -27,18 +27,18 @@
       <value>cfa_attachments_export_control_rating_NEW_ATT_ROW_1</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>type</name>
       <type>Main</type>
       <value>select</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <isSelected>false</isSelected>
+      <matchCondition>starts with</matchCondition>
       <name>id</name>
       <type>Main</type>
-      <value>cfa_attachments_export_control_rating_NEW_ATT_ROW_0</value>
+      <value>cfa_attachments_export_control_rating_NEW_ATT_ROW_</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -55,11 +55,11 @@
       <value> ---EAR99/NLRECCN 9E001Not Classified to US Export Ratings (ISS IP-Provided Safety Data)Not Export Controlled - Suitable for NASA and ISS-IP ReleaseNot Cleared for ExportEAR/15 CFR 730-774ECCN 3A999E49925A992.a/NLRITARUSML Cat XV1A999/NLR2B007.d4A0034A994b5D0025E9917A9949A0049A004A9A004.X9A515.a9A515.x9B9909D0019E0019E5159E515.a9E515.fE900019E002 </value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;cfa_attachments_export_control_rating_NEW_ATT_ROW_1&quot;)</value>
+      <value>(//select[@type = 'select' and starts-with(@id, 'cfa_attachments_export_control_rating_NEW_ATT_ROW_')])[last()]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

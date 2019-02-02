@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.mysql.jdbc.StringUtils;
@@ -27,13 +27,17 @@ Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training/se
 
 //https://fmea.iss.nasa.gov
 https://mas.nasa.gov/ARC-PRACA/editparams.cgi?section=daggrvmdb
-if (siteURL.contains('fmea.iss')||siteURL.contains('ocad.iss')) {
+if (siteURL.contains('fmea.iss')||siteURL.contains('ocad.iss')){
 	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
 	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training-vmdb/services/'
 }
-if (siteURL.contains('part.iss')||siteURL.contains('hazard.iss')){
+if (siteURL.contains('part.iss')||siteURL.contains('hazard.iss')||siteURL.contains('react_iss_hazard')){
 	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
 	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb-training/services/'
+}
+if (siteURL.contains('react_iss_hazard')){
+	Production_site_dagger_server= 'https://dig-it-dev.nas.nasa.gov/dig_it-server-vmdb/services/'
+	//Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb-training/services/'
 }
 
 
@@ -43,6 +47,7 @@ if (StringUtils.isNullOrEmpty(GlobalVariable.G_dagger_server_url)){
 	WebUI.comment 'check daggrvmdb_params_view'+daggrvmdb_params_view
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 
@@ -83,7 +88,7 @@ value_dagger_server=WebUI.getAttribute(findTestObject('Object Repository/Page_Co
 
 WebUI.comment('value of actual value_dagger_server = '+value_dagger_server)
 WebUI.comment 'check daggrvmdb_params_view'+daggrvmdb_params_view
-if ((siteURL.contains('MAKE-MAS')) && (siteURL.contains('dev'))) {
+if ((siteURL.contains('MAKE-MAS')) && (siteURL.contains('dev')) && (!siteURL.contains('react_iss_hazard'))) {
 	WebUI.comment 'this is a dev site, most likey using GlobalVariable.G_dagger_server_url: '+GlobalVariable.G_dagger_server_url
 	WebUI.verifyMatch(value_dagger_server, GlobalVariable.G_dagger_server_url, false)
 	//WebUI.comment 'matched with actual dagger_server_url value = '+value_dagger_server

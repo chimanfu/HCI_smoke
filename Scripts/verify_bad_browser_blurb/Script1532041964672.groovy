@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.stringtemplate.v4.compiler.CodeGenerator.region_return
 import com.kms.katalon.core.util.KeywordUtil

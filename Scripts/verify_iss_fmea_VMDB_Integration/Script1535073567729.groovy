@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.Keys as Keys
 import com.kms.katalon.core.util.KeywordUtil
@@ -9,6 +9,7 @@ println('Only for iss_fmea: Basic FMEA tab -> VMDB Integration')
 if (!GlobalVariable.G_MAKE_MAS_url.contains('iss_fmea')  &&  !GlobalVariable.G_MAKE_MAS_url.contains('fmea.iss')) {
 	WebUI.comment 'Skip this testcase as this is a specific testcase for a specific site'
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()

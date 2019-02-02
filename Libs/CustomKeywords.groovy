@@ -276,6 +276,10 @@ def static "kramp.Groups.delete_3_static_groups"() {
     (new kramp.Groups()).delete_3_static_groups()
 }
 
+def static "ip_permissions.utils.get_record_id"() {
+    (new ip_permissions.utils()).get_record_id()
+}
+
 def static "ip_permissions.utils.search_record_title"() {
     (new ip_permissions.utils()).search_record_title()
 }
@@ -320,6 +324,12 @@ def static "ip_permissions.utils.del_attachment_from_record"() {
     (new ip_permissions.utils()).del_attachment_from_record()
 }
 
+def static "ip_permissions.utils.add_attachments"(
+    	Object num_attachments	) {
+    (new ip_permissions.utils()).add_attachments(
+        	num_attachments)
+}
+
 def static "ip_permissions.utils.add_verify_attachment_flags"(
     	Object list_of_flags	
      , 	Object user_name	
@@ -342,6 +352,12 @@ def static "ip_permissions.utils.verify_attachment_partner_flags_after_save"(
          , 	user_name
          , 	product
          , 	info)
+}
+
+def static "ip_permissions.utils.check_edit_attachment_flags"(
+    	Object list_of_flags	) {
+    (new ip_permissions.utils()).check_edit_attachment_flags(
+        	list_of_flags)
 }
 
 def static "ip_permissions.utils.verify_attachment_partner_flags_before_save"(
@@ -786,6 +802,56 @@ def static "helper.excel.ExcelHelper.writeTOExcelFile"(
 
 def static "question.UniqueSelection.SelectCheckBox"() {
     (new question.UniqueSelection()).SelectCheckBox()
+}
+
+def static "attachments.utils.verify_search_attachment"() {
+    (new attachments.utils()).verify_search_attachment()
+}
+
+def static "attachments.utils.get_record_id"() {
+    (new attachments.utils()).get_record_id()
+}
+
+def static "attachments.utils.reuse_delete_related_attachments_On_RecordTypeField"() {
+    (new attachments.utils()).reuse_delete_related_attachments_On_RecordTypeField()
+}
+
+def static "attachments.utils.add_delete_related_attachments_On_RecordTypeField"() {
+    (new attachments.utils()).add_delete_related_attachments_On_RecordTypeField()
+}
+
+def static "attachments.utils.error_handling"() {
+    (new attachments.utils()).error_handling()
+}
+
+def static "attachments.utils.obsolete_attachments"() {
+    (new attachments.utils()).obsolete_attachments()
+}
+
+def static "attachments.utils.add_attachments"(
+    	Object num_attachments	) {
+    (new attachments.utils()).add_attachments(
+        	num_attachments)
+}
+
+def static "attachments.utils.save_changes"() {
+    (new attachments.utils()).save_changes()
+}
+
+def static "attachments.utils.verify_edit_attachments"() {
+    (new attachments.utils()).verify_edit_attachments()
+}
+
+def static "attachments.utils.verify_downloading_attachments"() {
+    (new attachments.utils()).verify_downloading_attachments()
+}
+
+def static "attachments.utils.verify_filtering_search"() {
+    (new attachments.utils()).verify_filtering_search()
+}
+
+def static "attachments.utils.verify_sorting_options"() {
+    (new attachments.utils()).verify_sorting_options()
 }
 
 def static "question.ClickAnyLink.wrapperClick"(

@@ -1,5 +1,6 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('raining')) return
+if (GlobalVariable.G_MAKE_MAS_url.contains('MAKE-MAS')) return
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData

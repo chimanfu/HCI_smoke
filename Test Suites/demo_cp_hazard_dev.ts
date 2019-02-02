@@ -4,7 +4,6 @@
    <name>demo_cp_hazard_dev</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-28T10:43:33</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>5</pageLoadTimeout>

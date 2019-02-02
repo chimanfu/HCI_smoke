@@ -7,13 +7,13 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//select[@type = 'select' and @id = 'cfa_attachment_type_NEW_ATT_ROW_0']</value>
+         <value>(//select[@type = 'select' and starts-with(@id, 'cfa_attachment_type_NEW_ATT_ROW_')])[last()]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
@@ -27,18 +27,18 @@
       <value>cfa_attachment_type_NEW_ATT_ROW_1</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>type</name>
       <type>Main</type>
       <value>select</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <isSelected>false</isSelected>
+      <matchCondition>starts with</matchCondition>
       <name>id</name>
       <type>Main</type>
-      <value>cfa_attachment_type_NEW_ATT_ROW_0</value>
+      <value>cfa_attachment_type_NEW_ATT_ROW_</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -55,11 +55,11 @@
       <value> ---Comments SheetVerification ClosureDrawingsAnalysisApplicability MatrixMeeting Details / Scheduling InfoPresentationMinutesSDPHazard ReportISS_OE_622 Reflight AssessmentISS_OE_906 Flight Safety CertificatesNCRVTLSupporting Documentation </value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;cfa_attachment_type_NEW_ATT_ROW_1&quot;)</value>
+      <value>(//select[@type = 'select' and starts-with(@id, 'cfa_attachment_type_NEW_ATT_ROW_')])[last()]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

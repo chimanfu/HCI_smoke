@@ -11,16 +11,19 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('iss_hazard')) && !(GlobalVariable.
 	GlobalVariable.userPin2 = 'SKIP'
 	return null
 }
+/*
 if ( GlobalVariable.G_MAKE_MAS_url.contains('react_iss_hazard')){
 	WebUI.comment 'Skip this testcase as react_iss_hazard may not work on attachments'
 	throw new AssertionError("react_iss_hazard may not work on adding attachments. Please check it by attaching a file in a record. Found issue....You made an invalid entry.   A value must be set for the 'Attachment Type' field. ")
 	return
-}
+}*/
+
 CustomKeywords.'helper.login.LoginHelper.login'()
 
 //String recordID='147'
 String recordID='43778'
-if ((GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss'))){
+
+if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss') || GlobalVariable.G_MAKE_MAS_url.contains('react_iss_hazard')){
 	recordID='8189'
 }
 

@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.util.KeywordUtil as KeywordUtil
@@ -10,7 +10,7 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 
 if (!GlobalVariable.G_MAKE_MAS_url.contains('raining')) {
 	WebUI.comment 'only run this test on training, skip the test as it is not a training site'
-	GlobalVariable.userPin2 = 'SKIP'
+	GlobalVariable.testrun_status = 'SKIP'
 	return null
 }
 if (GlobalVariable.G_MAKE_MAS_url.contains('hazard.iss')) {

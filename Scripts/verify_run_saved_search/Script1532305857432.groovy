@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.model.FailureHandling
@@ -29,6 +29,7 @@ import internal.GlobalVariable as GlobalVariable
 if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
 	WebUI.comment("Skip this testcase")
 	GlobalVariable.userPin2='SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
 String saveSearchName='joe_search'

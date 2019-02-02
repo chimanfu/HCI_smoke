@@ -4,7 +4,6 @@
    <name>test_create_record_from_new_link_AND_reload_record_on_all_user9-16</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2019-01-14T16:47:43</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>10</pageLoadTimeout>

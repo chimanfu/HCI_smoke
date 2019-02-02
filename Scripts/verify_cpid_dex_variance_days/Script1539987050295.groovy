@@ -1,4 +1,4 @@
-if (GlobalVariable.userPin2.equals('SKIP')) return
+if (GlobalVariable.testrun_status.equals('SKIP')) return
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
@@ -6,6 +6,7 @@ import internal.GlobalVariable as GlobalVariable
 if (!(GlobalVariable.G_MAKE_MAS_url.contains('cpid')) && !(GlobalVariable.G_MAKE_MAS_url.contains('dex'))){
 	println 'skip the test, only test the Variance of days in cpid and dex'
 	GlobalVariable.userPin2 = 'SKIP'
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return null
 	
 }
