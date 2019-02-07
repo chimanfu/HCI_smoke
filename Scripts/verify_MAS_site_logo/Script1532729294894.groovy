@@ -1,4 +1,6 @@
 if (GlobalVariable.testrun_status.equals('SKIP')) return
+if((GlobalVariable.G_MAKE_MAS_url).contains('etasksheet')) return
+
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 
 import org.sikuli.script.Pattern as Pattern

@@ -33,7 +33,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
 //GlobalVariable.G_tag_ver='master 7.0.5'
 GlobalVariable.G_tag_ver='release/7.3 HEAD (22275)'
 //GlobalVariable.G_tag_ver='master 7.0.2'
-
+GlobalVariable.G_tag_ver='master 7.3.2.1 (22316)'
 WebUI.comment  'for 7.0 rollout, expected correct tag = '+GlobalVariable.G_tag_ver
 //refer to https://docs.google.com/spreadsheets/d/1Y-aObiFf3VOppDvePzLnLsVXcxFN6EpnKlqsQHH03AY/edit#gid=1051137565
 

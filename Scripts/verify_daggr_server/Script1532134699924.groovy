@@ -31,7 +31,10 @@ if (siteURL.contains('fmea.iss')||siteURL.contains('ocad.iss')){
 	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
 	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-training-vmdb/services/'
 }
-if (siteURL.contains('part.iss')||siteURL.contains('hazard.iss')||siteURL.contains('react_iss_hazard')){
+if (siteURL.contains('part.iss')
+	||siteURL.contains('hazard.iss')
+	||siteURL.contains('ocad')
+	||siteURL.contains('react_iss_hazard')){
 	Production_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb/services/'
 	Training_site_dagger_server= 'https://cptrace.nasa.gov/dig_it-server-vmdb-training/services/'
 }

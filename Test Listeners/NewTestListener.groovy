@@ -23,14 +23,20 @@ class NewTestListener {
 	
 	@BeforeTestCase
 	def testListenerBeforeTestCase(TestCaseContext testCaseContext) {
-		GlobalVariable.userPin2='RUN'
-		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','RUN')
-		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
-		//GlobalVariable.G_image_path='opencv_images/'
+		
+		/////////////////////////////////////////////////////////////
 		//redefine the ActivID ActivClient pin (keychain pin) for the machine when using smartcard to login
 		//GlobalVariable.G_userPin='12345678'
+		/////////////////////////////////////////////////////////////
+		
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','RUN')
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('setEncryptedText','1005')
+		(new hci_smoke_test.common()).checkText()
+		//GlobalVariable.G_image_path='opencv_images/'
 		//GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
 		GlobalVariable.G_image_path= (new File("Include/opencv_images/").absolutePath)+'/'
+		GlobalVariable.userPin2='RUN'
 		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		String testcaseName=testCaseContext.getTestCaseId()
 		WebUI.comment 'Testcase: '+testcaseName

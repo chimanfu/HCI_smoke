@@ -2,6 +2,8 @@ import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import com.kms.katalon.core.util.KeywordUtil
+
 //CustomKeywords.'helper.login.LoginHelper.login'()
 //CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
 String training_site_url=''
@@ -30,7 +32,7 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 //CustomKeywords.'helper.login.LoginHelper.switch_to_training'()
 
 if (WebUI.verifyElementPresent(findTestObject('Object Repository/Page_404 Not Found/h1_Not Found'), 3,FailureHandling.OPTIONAL)){
-	WebUI.comment 'It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site'
+	KeywordUtil.markFailedAndStop('It seems '+GlobalVariable.G_MAKE_MAS_url+' does not have training site and cannot find the a_sandbox instance in Home page, will skip all the testcases from the testsuite (smoke_test_with_trainings) as it only runs for training site')
 	GlobalVariable.userPin3='SKIP'
 }
 return

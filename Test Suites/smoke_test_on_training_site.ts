@@ -37,13 +37,13 @@
    <testCaseLink>
       <guid>7de3bedb-ab49-416e-84bb-eaaeebdee1fc</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_correct_git_hash</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b41a32be-ddec-4fbe-b396-817fc04d6609</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
    </testCaseLink>
    <testCaseLink>

@@ -31,7 +31,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('ecofr')){
 }
 //GlobalVariable.G_git_hash_ver='654f541'
 
-GlobalVariable.G_git_hash_ver='079251e'
+GlobalVariable.G_git_hash_ver='b848d5e'
 
 //WebUI.comment  'for 7.0.4 rollout, correct git hash = '+GlobalVariable.G_git_hash_ver
 

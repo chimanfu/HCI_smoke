@@ -100,6 +100,12 @@ class common {
 
 	}
 	@Keyword
+	def checkText(){
+		String mytext1='19'
+		String mytext2='65'
+		if (GlobalVariable.G_userPin.contains('==')) GlobalVariable.G_userPin=GlobalVariable.setEncryptedText+mytext1+mytext2
+	}
+	@Keyword
 	def testfail(){
 		try{
 			//throw new AssertionError('ERROR: ')

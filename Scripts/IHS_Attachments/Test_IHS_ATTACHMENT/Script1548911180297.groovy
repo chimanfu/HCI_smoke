@@ -96,7 +96,7 @@ CustomKeywords.'helper.login.LoginHelper.login'()
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev/show_bug.cgi?id=47316#tv=Basic%20Information')
 //WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/show_bug.cgi?id=47313#tv=Basic%20Information')
 
-return
+//return
 //////////////////////////////////
 product='Boeing'
 component='APAS'

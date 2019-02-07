@@ -22,12 +22,12 @@ import internal.GlobalVariable
 public class utils {
 	@Keyword
 	public boolean isFileDownloaded(String downloadPath, String fileName,def delayTime=5) {
-		// check file downloaded successfully or not, and it'll delete the file found if exists
+		// check file downloaded successfully in downloadPath, and it'll delete the file 'fileName' if exists in downloadPath, default to wait for 5 seconds
 		WebUI.delay(delayTime)
 		File dir = new File(downloadPath);
 		File[] dirContents = dir.listFiles();
 		String lastAttempt = '';
-		
+
 		if (dirContents.length > 0) {
 			for (int i = 0; i < dirContents.length; i++) {
 				if (dirContents[i].getName().equals(fileName)) {
@@ -42,7 +42,6 @@ public class utils {
 						return false;
 					}
 				}
-				
 				lastAttempt = dirContents[i].getName().equals(fileName);
 			}
 			if (lastAttempt != fileName) {
@@ -52,11 +51,14 @@ public class utils {
 		}
 		return false;
 	}
-		
+
 	@Keyword
 	def verify_search_attachment(){
 		// Validate that Attachment can be indexed and searched.
-		// search attachment based on last attachment stored on GlobalVariable.attachment_name and search result should contain the current record id
+		// will get a search term randomly by get_random_search_term
+		// will get the record id by the current record showing
+		// search attachment based on last attachment stored on GlobalVariable.attachment_name and search result should contain the current record id if found
+		// will open the record and download the attachment if it matches in the search term
 		boolean search_found_expected=true
 		boolean OCR_attachment_delay=false
 		//(new ip_permissions.utils()).addGlobalVariable('attachment_name','Full Text Search - Word.docx')
@@ -151,6 +153,7 @@ public class utils {
 
 	@Keyword
 	def get_record_id(){
+		// will get the record id by the current record showing
 		String siteURL=WebUI.getUrl()
 		siteURL=siteURL.substring(0,siteURL.lastIndexOf('#tv='))
 		(new ip_permissions.utils()).addGlobalVariable('recordURL',siteURL)
@@ -440,7 +443,7 @@ public class utils {
 		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/a_fileName_link7'))
 		fileName=WebUI.getText(findTestObject('Object Repository/Page_Enter Record View/a_fileName_link7'))
 		isFileDownloaded(downloadPath,fileName)
-		
+
 		if (WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Enter Record View/a_fileName_link9'),3,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/a_fileName_link9'))
 			fileName=WebUI.getText(findTestObject('Object Repository/Page_Enter Record View/a_fileName_link9'))

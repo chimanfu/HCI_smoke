@@ -15,9 +15,9 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.m
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.cucumber.keyword.internal.CucumberDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/IHS_Attachments/Test_IHS_ATTACHMENT/20190201_192330/execution.properties')
+RunConfiguration.setExecutionSettingFile('/var/folders/7z/2461lv392kb9sc0jhqtcqlbmp18sj6/T/Katalon/Test Cases/login_basic_checks/20190206_214936/execution.properties')
 
 TestCaseMain.beforeStart()
 
-        TestCaseMain.runTestCase('Test Cases/IHS_Attachments/Test_IHS_ATTACHMENT', new TestCaseBinding('Test Cases/IHS_Attachments/Test_IHS_ATTACHMENT',[:]), FailureHandling.STOP_ON_FAILURE , false)
+        TestCaseMain.runTestCase('Test Cases/login_basic_checks', new TestCaseBinding('Test Cases/login_basic_checks',[:]), FailureHandling.STOP_ON_FAILURE , false)
     

@@ -18,11 +18,46 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
+//println 'my pin='+GlobalVariable.G_userPin
+//return
+
+def currentDir = new File("/Users/jcfu/Katalon Studio/HCI_Group/Profiles");
+def backupFile;
+def fileText;
+
+//Replace the contents of the list below with the
+//extensions to search for
+def exts = [".txt", ".glbl"]
+
+//Replace the value of srcExp to a String or regular expression
+//to search for.
+def srcExp = "cp_hazard.sikuli"
+
+//Replace the value of replaceText with the value new value to
+//replace srcExp
+//def replaceText = "FeyTxQmCiApXDlExS+ye4A=="
+def replaceText = "my_image_path"
+currentDir.eachFileRecurse(
+  {file ->
+	for (ext in exts){
+	  if (file.name.endsWith(ext)) {
+		fileText = file.text;
+		backupFile = new File('/Users/jcfu/Desktop/Profiles_new/'+file.name);
+		backupFile.write(fileText);
+		fileText = fileText.replaceAll(srcExp, replaceText)
+		file.write(fileText);
+	  }
+	}
+  }
+)
+return
+
+WebUI.setEncryptedText('FeyTxQmCiApXDlExS+ye4A==')
 
 String fileName='Full Text Search - Word.docx'
 String downloadPath=new File("/Users/jcfu/Downloads/").absolutePath
 
-isFileDownloaded(downloadPath,fileName)
+//isFileDownloaded(downloadPath,fileName)
 
 public boolean isFileDownloaded(String downloadPath, String fileName) {
 // check file downloaded successfully or not, and it'll delete the file found if exists

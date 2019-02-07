@@ -22,6 +22,10 @@ insidergroup_desc=siteURL+'/editparams.cgi?section=groupsecurity#insidergroup_de
 
 CustomKeywords.'helper.login.LoginHelper.login'()
 WebUI.navigateToUrl(insidergroup_desc)
+if(!(GlobalVariable.G_MAKE_MAS_url).contains('hazard')) {
+	WebUI.comment 'Only check insider group value for iss hazard'
+	return
+}
 
 if (!WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Configuration Group Security/dt_insidergroup_desc'),5)){
 	KeywordUtil.markWarning('dt_insidergroup_desc not found in Page_Configuration Group Security, so skip the test')

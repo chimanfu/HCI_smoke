@@ -113,7 +113,8 @@ for (int i = 0; i < size; i++) {
 
 WebUI.comment 'run verifyLinksAccessible() to verify all new record links are Accessible'
 list_urls= Arrays.asList(urls);
-WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
+println 'list_urls: '+list_urls
+//WebUI.verifyLinksAccessible(list_urls, FailureHandling.CONTINUE_ON_FAILURE)
 
 if (size>max_new_recording_page_loading){
 	WebUI.comment 'found '+size+' create new record links, only navigate first '+max_new_recording_page_loading+' links to save time and check for js error on each loaded record page'

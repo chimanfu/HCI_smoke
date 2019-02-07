@@ -29,6 +29,8 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 	WebUI.delay(1)
 	if (GlobalVariable.G_MAKE_MAS_url.contains('ARC-PRACA')){
 		WebUI.comment 'check Title_required_field, Business Area_required_field and Reporting Organization_required_field'
+		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/div_Title_required_field'),10)
+		
 		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Title_required_field'))
 		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Reporting Organization_required_field'))
 		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Business Area_required_field'))
@@ -74,7 +76,15 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 	}
 	if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'),1,FailureHandling.STOP_ON_FAILURE)){
 		WebUI.click(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'))
-		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), 2, FailureHandling.STOP_ON_FAILURE)
+		int option=2
+		if((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')
+			||(GlobalVariable.G_MAKE_MAS_url).contains('WSTFwebPAPER')
+			||(GlobalVariable.G_MAKE_MAS_url).contains('arcjetdb')
+			
+			||(GlobalVariable.G_MAKE_MAS_url).contains('doctree')) 
+		
+			option=1
+		WebUI.selectOptionByIndex(findTestObject('Object Repository/Page_Enter Record Boeing/select_subsystem_payload'), option, FailureHandling.STOP_ON_FAILURE)
 	}
 	//return
 	
@@ -94,7 +104,7 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 	}else if(WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),1) ){
 		WebUI.comment ('found save button, so the record has been created successfully')
 	}else{
-		KeywordUtil.markFailedAndStop("cannot determine the record has been created")
+		KeywordUtil.markWarning("cannot determine the record has been created")
 	}
 	
 }

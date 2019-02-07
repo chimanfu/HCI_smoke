@@ -804,6 +804,16 @@ def static "question.UniqueSelection.SelectCheckBox"() {
     (new question.UniqueSelection()).SelectCheckBox()
 }
 
+def static "attachments.utils.isFileDownloaded"(
+    	String downloadPath	
+     , 	String fileName	
+     , 	Object delayTime	) {
+    (new attachments.utils()).isFileDownloaded(
+        	downloadPath
+         , 	fileName
+         , 	delayTime)
+}
+
 def static "attachments.utils.verify_search_attachment"() {
     (new attachments.utils()).verify_search_attachment()
 }
@@ -852,6 +862,14 @@ def static "attachments.utils.verify_filtering_search"() {
 
 def static "attachments.utils.verify_sorting_options"() {
     (new attachments.utils()).verify_sorting_options()
+}
+
+def static "attachments.utils.isFileDownloaded"(
+    	String downloadPath	
+     , 	String fileName	) {
+    (new attachments.utils()).isFileDownloaded(
+        	downloadPath
+         , 	fileName)
 }
 
 def static "question.ClickAnyLink.wrapperClick"(

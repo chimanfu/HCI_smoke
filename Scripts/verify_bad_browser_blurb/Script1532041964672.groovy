@@ -108,7 +108,7 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('oms') && !GlobalVariable.G_MAKE_MAS
 }
 
 
-if (GlobalVariable.G_MAKE_MAS_url.contains('oms')||GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
+if (GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
 	expected_message='If you are not able to upgrade your browser, please contact the'
 }else{
 	expected_message='If you have an ACES machine and are not able to upgrade your browser, please contact the '

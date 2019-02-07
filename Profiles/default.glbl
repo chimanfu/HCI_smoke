@@ -6,12 +6,12 @@
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'/Users/jcfu/Katalon Studio/HCI_Group/cp_hazard.sikuli/'</initValue>
+      <initValue>'my_image_path'</initValue>
       <name>G_image_path</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
-      <description></description>
-      <initValue>'https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/'</initValue>
+      <description>https://mas.nasa.gov/sims</description>
+      <initValue>'https://hazard.iss.nasa.gov/training'</initValue>
       <name>G_MAKE_MAS_url</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -41,7 +41,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'10051965'</initValue>
+      <initValue>'FeyTxQmCiApXDlExS+ye4A=='</initValue>
       <name>G_userPin</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -66,12 +66,12 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'108676523'</initValue>
+      <initValue>'nShteHY1QfdTA51NoGpV+g=='</initValue>
       <name>userPin2</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'10062016'</initValue>
+      <initValue>'2Mrm9eW0RI/eVMk9eHplOA=='</initValue>
       <name>userPin3</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -100,7 +100,7 @@
       <name>recordName1</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
-      <description></description>
+      <description>https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/</description>
       <initValue>''</initValue>
       <name>recordName2</name>
    </GlobalVariableEntity>
