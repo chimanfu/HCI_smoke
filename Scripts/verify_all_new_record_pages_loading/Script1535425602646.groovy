@@ -131,6 +131,7 @@ for (int i = 0; i < size; i++) {
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 	//WebUI.click(findTestObject('Page_Main Page/a_New'))
 }
+
 // will exit if create_new_record_on_training=false
 if (!create_new_record_on_training) return
 
