@@ -53,11 +53,11 @@ while(true) {
 		if (++retry_count == maxTries) throw e;
 		WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 		String cmd = "pkill -f Chrome"
-		Runtime.getRuntime().exec(cmd)
+		//Runtime.getRuntime().exec(cmd)
 		
 	}
 }
-
+return
 /* retry code here
 
 int retry_count = 0;

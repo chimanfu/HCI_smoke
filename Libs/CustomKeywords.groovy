@@ -232,6 +232,14 @@ def static "helper.login.LoginHelper.loginVPN"() {
     (new helper.login.LoginHelper()).loginVPN()
 }
 
+def static "helper.login.LoginHelper.addGlobalVariable"(
+    	String name	
+     , 	Object value	) {
+    (new helper.login.LoginHelper()).addGlobalVariable(
+        	name
+         , 	value)
+}
+
 def static "helper.login.LoginHelper.checkHomePageExist"(
     	String site_url	) {
     (new helper.login.LoginHelper()).checkHomePageExist(
@@ -258,6 +266,10 @@ def static "helper.login.LoginHelper.login"(
     	String site_url	) {
     (new helper.login.LoginHelper()).login(
         	site_url)
+}
+
+def static "helper.login.LoginHelper.smartcard_login_new"() {
+    (new helper.login.LoginHelper()).smartcard_login_new()
 }
 
 def static "helper.login.LoginHelper.smartcard_login"() {
@@ -612,6 +624,14 @@ def static "question.RandomEmail.getEmail"(
          , 	prefix)
 }
 
+def static "hci_smoke_test.common.replaceTextFromAllProfiles"(
+    	Object srcExp	
+     , 	Object replaceText	) {
+    (new hci_smoke_test.common()).replaceTextFromAllProfiles(
+        	srcExp
+         , 	replaceText)
+}
+
 def static "hci_smoke_test.common.waifForElement"(
     	String xpath	
      , 	int inSeconds	) {
@@ -632,6 +652,10 @@ def static "hci_smoke_test.common.check_PDFFile_Downloaded"(
     	int seconds	) {
     (new hci_smoke_test.common()).check_PDFFile_Downloaded(
         	seconds)
+}
+
+def static "hci_smoke_test.common.checkText"() {
+    (new hci_smoke_test.common()).checkText()
 }
 
 def static "hci_smoke_test.common.testfail"() {
@@ -804,6 +828,10 @@ def static "question.UniqueSelection.SelectCheckBox"() {
     (new question.UniqueSelection()).SelectCheckBox()
 }
 
+def static "attachments.utils.add_attachments_all"() {
+    (new attachments.utils()).add_attachments_all()
+}
+
 def static "attachments.utils.isFileDownloaded"(
     	String downloadPath	
      , 	String fileName	
@@ -842,6 +870,10 @@ def static "attachments.utils.add_attachments"(
     	Object num_attachments	) {
     (new attachments.utils()).add_attachments(
         	num_attachments)
+}
+
+def static "attachments.utils.save_changes_and_time"() {
+    (new attachments.utils()).save_changes_and_time()
 }
 
 def static "attachments.utils.save_changes"() {

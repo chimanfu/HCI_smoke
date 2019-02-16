@@ -91,18 +91,23 @@ reuse, download and remove field link of attachment from "Reuse Attachment" on t
 
 
  */
-//////////////////////////////////
-CustomKeywords.'helper.login.LoginHelper.login'()
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev/show_bug.cgi?id=47316#tv=Basic%20Information')
-//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/show_bug.cgi?id=47313#tv=Basic%20Information')
-
-//return
-//////////////////////////////////
 product='Boeing'
 component='APAS'
 record_type='Hazard'
 record_title='test_attachments'
+CustomKeywords.'helper.login.LoginHelper.login'()
+//////////////////////////////////
 
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/react_iss_hazard_dev/show_bug.cgi?id=47316#tv=Basic%20Information')
+//WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/show_bug.cgi?id=47313#tv=Basic%20Information')
+// add big attachments, will check file size limit
+CustomKeywords.'ip_permissions.utils.create_new_record'(product, record_title, component, record_type)
+CustomKeywords.'attachments.utils.add_attachments_all'()
+return
+//////////////////////////////////
+
+
+// add 15 regular attachments
 CustomKeywords.'ip_permissions.utils.create_new_record'(product, record_title, component, record_type)
 CustomKeywords.'attachments.utils.add_attachments'(15)
 CustomKeywords.'attachments.utils.verify_sorting_options'()
@@ -116,3 +121,7 @@ CustomKeywords.'attachments.utils.error_handling'()
 
 CustomKeywords.'attachments.utils.add_delete_related_attachments_On_RecordTypeField'()
 CustomKeywords.'attachments.utils.reuse_delete_related_attachments_On_RecordTypeField'()
+
+// add big attachments, will check file size limit
+//CustomKeywords.'ip_permissions.utils.create_new_record'(product, record_title, component, record_type)
+//CustomKeywords.'attachments.utils.add_attachments_all'()

@@ -18,38 +18,135 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.model.FailureHandling
 
 import internal.GlobalVariable
-
+import groovy.io.FileType
+import java.io.File
 public class utils {
+	@Keyword
+	def add_attachments_all(){
+		KeywordUtil.logInfo 'add/upload attachments'
+		KeywordUtil.logInfo "will add all attachments into the record "
+		def list = []
+		def dir=new File("/Users/jcfu/Desktop/attachments_all/")
+		dir.eachFileRecurse (FileType.FILES) { file ->
+		  list << file
+		}
+		//WebUI.refresh(FailureHandling.OPTIONAL)
+		//WebUI.delay(2)
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),30)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),5)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),1)
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'),6)
+		WebUI.click(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'))
+	
+		'enter values for 3 required fields before adding attachments'
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'), 'ITAR', true)
+	
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/span_International Partner Designation'))
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+		WebUI.check(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+	
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'), 'TBD', true)
+		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+		WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
+		String number=0
+		// loop to add num_attachments of attachment from get_random_attachment()
+		String attachment_name
+		list.each {
+			attachment_name=it.toString()
+			println 'attachment_name='+attachment_name
+			KeywordUtil.logInfo 'add attachment from the Add New Attachment button, will randomly pick the attachment from "Data Files/IHS_IP_permissions/attachments/"'
+			//WebUI.delay(1)
+			WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Add New Attachment'),10)
+			//WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), '/Users/jcfu/Katalon Studio/HCI_Group/Data Files/IHS_IP_permissions/expected_results_partner.xlsx')
+			//(new ip_permissions.utils()).get_random_attachment()
+			KeywordUtil.logInfo('will add attachment into record with '+attachment_name+'\n')
+			//String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+			WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), attachment_name)
+			// check file size limit
+			if (attachment_name.contains('584MB')){
+				KeywordUtil.logInfo("check file size limit")
+				WebUI.waitForElementVisible(findTestObject('Object Repository/Page_attachments/h4_Maximum upload size exceeded'),5)
+				String reached_maximum_warning_message=WebUI.getText(findTestObject('Object Repository/Page_attachments/div_reached_maximum_warning_message'))
+				if (reached_maximum_warning_message.contains('Archive_584MB.zip')){
+					WebUI.click(findTestObject('Object Repository/Page_attachments/button_OK'))
+					KeywordUtil.markPassed('found fileName:'+attachment_name+' in reached_maximum_warning_message')
+				}else{
+					// failed
+					KeywordUtil.markFailed('Not found fileName:'+attachment_name+' in reached_maximum_warning_message')
+				}
+			}else{
+			WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
+			//WebUI.delay(1)
+			//WebUI.click(findTestObject('Object Repository/Page_Enter Record View/label_Add New Attachment'))
+			KeywordUtil.logInfo 'need to fill out all the required fields for adding attachment'
+			WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/select_attachment_type'),10)
+			WebUI.click(findTestObject('Page_Enter Record View/select_attachment_type'))
+			WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_attachment_type'), 'Comments Sheet', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'), 'Non-Phase Specific', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'), 'TBD', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'), 'Yes', true)
+			WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'))
+			WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'), 'ITAR', true)
+			// take care the Description for the attachment
+			WebUI.setText(findTestObject('Object Repository/Page_Enter Record View/input_Description_field'), 'test_attachment '+attachment_name)
+			}
+		}
+		//save_changes_and_time()
+	}
+	
 	@Keyword
 	public boolean isFileDownloaded(String downloadPath, String fileName,def delayTime=5) {
 		// check file downloaded successfully in downloadPath, and it'll delete the file 'fileName' if exists in downloadPath, default to wait for 5 seconds
 		WebUI.delay(delayTime)
-		File dir = new File(downloadPath);
-		File[] dirContents = dir.listFiles();
-		String lastAttempt = '';
+		int retry_count = 0;
+		int maxTries = 10;
+		boolean rerun=true
+		while(rerun) {
 
-		if (dirContents.length > 0) {
-			for (int i = 0; i < dirContents.length; i++) {
-				if (dirContents[i].getName().equals(fileName)) {
-					// File has been found, it can now be deleted:
-					println 'file found and will be deleted: '+dirContents[i]
-					//WebUI.delay(1)
-					if (dirContents[i].delete()){
-						KeywordUtil.markPassed('"'+fileName+'" exist in default download dir: ' + downloadPath + ', and was deleted')
-						return true;
-					}else{
-						KeywordUtil.markFailed('"'+fileName+'" exist in default download dir: ' + downloadPath+ ', but cannot be deleted')
-						return false;
+			File dir = new File(downloadPath);
+			File[] dirContents = dir.listFiles();
+			String lastAttempt = '';
+
+			if (dirContents.length > 0) {
+				for (int i = 0; i < dirContents.length; i++) {
+					if (dirContents[i].getName().equals(fileName)) {
+						// File has been found, it can now be deleted:
+						println 'file found and will be deleted: '+dirContents[i]
+						//WebUI.delay(1)
+						if (dirContents[i].delete()){
+							KeywordUtil.markPassed('"'+fileName+'" exist in default download dir: ' + downloadPath + ', and was deleted')
+							rerun=false
+							return true;
+						}else{
+							KeywordUtil.markFailed('"'+fileName+'" exist in default download dir: ' + downloadPath+ ', but cannot be deleted')
+							rerun=false
+							return false;
+						}
 					}
+					lastAttempt = dirContents[i].getName().equals(fileName);
 				}
-				lastAttempt = dirContents[i].getName().equals(fileName);
+				if (lastAttempt != fileName) {
+					KeywordUtil.markWarning('"'+fileName+'" does not exist in default download dir: ' + downloadPath)
+					//throw new AssertionError('"'+fileName+'" does not exist in default download dir: ' + downloadPath)
+
+					//return false;
+				}
 			}
-			if (lastAttempt != fileName) {
-				KeywordUtil.markFailed('"'+fileName+'" does not exist in default download dir: ' + downloadPath)
-				return false;
+			//return false;
+			//break
+			WebUI.delay(1)
+			if (++retry_count == maxTries) {
+				rerun=false
+				throw new AssertionError('"'+fileName+'" does not exist in default download dir: ' + downloadPath)
 			}
+			WebUI.comment('Retry:'+retry_count+' rerun isFileDownloaded now...')
+
 		}
-		return false;
 	}
 
 	@Keyword
@@ -250,7 +347,15 @@ public class utils {
 		WebUI.verifyTextPresent('Export Control Rating - Attachments (for attachment ', false)
 
 		//close the error popup
-		WebUI.click(findTestObject('Object Repository/Page_attachments/button_Okay'))
+		
+		if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_attachments/button_Close'),1)){
+			WebUI.click(findTestObject('Object Repository/Page_attachments/button_Close'))
+			
+		}else if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_attachments/button_Okay'),1)){
+			WebUI.click(findTestObject('Object Repository/Page_attachments/button_Okay'))
+			
+		}
+		
 		// close the New Attachment table
 		WebUI.click(findTestObject('Object Repository/Page_attachments/div_New Attachment_delete'))
 		save_changes()
@@ -355,10 +460,17 @@ public class utils {
 			// take care the Description for the attachment
 			if (it<10) number='0'+it
 			else number=it
-			WebUI.setText(findTestObject('Object Repository/Page_Enter Record View/input_Description_field'), 'test_attachment_'+it)
+			WebUI.setText(findTestObject('Object Repository/Page_Enter Record View/input_Description_field'), 'test_attachment_'+number)
 
 		}
 		save_changes()
+	}
+	@Keyword
+	def save_changes_and_time(){
+		WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),6)
+		WebUI.click(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'))
+		//WebUI.delay(6)
+		(new ip_permissions.utils()).check_record_save_time()
 	}
 	@Keyword
 	def save_changes(){

@@ -98,9 +98,9 @@ class NewTestListener {
 def setUp() {
 	// Put your code here.
 	String cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 	cmd="killall -9 chromedriver"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 	println('killed all processes of Chrome and chromedriver before running test')
 	
 	/*List desiredCapabilities = []

@@ -663,6 +663,25 @@ class utils {
 				KeywordUtil.logInfo (e)
 				WebUI.delay(5)
 			}
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_close_RecordSaved_alert'),2,FailureHandling.OPTIONAL))
+			WebUI.click(findTestObject('Object Repository/Page_Record_Created/span_close_RecordSaved_alert'))
+	}
+	def check_record_save_time(){
+		int i=2400 // 40 mins
+		int start = System.currentTimeMillis();
+		try{
+		WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),i,FailureHandling.STOP_ON_FAILURE)
+		WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record test_automation_record/div_Close alertRecord Saved'),i,FailureHandling.OPTIONAL)
+		KeywordUtil.markPassed "found alert Record Saved"
+		} catch (Exception e) {
+			KeywordUtil.markFailed('Already waited for '+i+' seconds, and still cannot find the alert Record Saved\n'+e.detailMessage)
+		}
+		int end = System.currentTimeMillis();
+		int loadintime = end - start;
+		KeywordUtil.logInfo 'record_save_time='+loadintime
+		if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/span_close_RecordSaved_alert'),2,FailureHandling.OPTIONAL))
+			WebUI.click(findTestObject('Object Repository/Page_Record_Created/span_close_RecordSaved_alert'))
+		return loadintime
 	}
 	@Keyword
 	def verify_attachment_partner_flags_after_save(list_of_flags,user_name,product, def info=null){

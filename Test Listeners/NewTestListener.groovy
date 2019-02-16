@@ -39,7 +39,8 @@ class NewTestListener {
 		GlobalVariable.userPin2='RUN'
 		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
 		String testcaseName=testCaseContext.getTestCaseId()
-		WebUI.comment 'Testcase: '+testcaseName
+		WebUI.comment 'Testcase name: '+testcaseName
+		WebUI.comment 'Site URL: '+GlobalVariable.G_MAKE_MAS_url
 		testcaseName=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
 		GlobalVariable.recordName1=testcaseName
 		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testcaseName',testcaseName)
@@ -74,12 +75,12 @@ class NewTestListener {
 			CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 		}
 		//println testCaseContext.getTestCaseVariables()
-		//String cmd = "pkill -f Chrome"
+		//String cmd = "p3  -f Chrome"
 		//Runtime.getRuntime().exec(cmd)
 		//String cmd="killall -9 chromedriver"
-		//Runtime.getRuntime().exec(cmd)
+		//Runtime.getRuntimuuyuyuyuyuyuyuyuyuyuuuyuyuye().exec(cmd)
 		//CustomKeywords.'helper.login.LoginHelper.login'()
-		WebUI.comment('---------------------------------------------------------------------------------------------------------------------------------')		
+		WebUI.comment('--------------------------------------TEST RUN Start-------------------------------------------------------------------------------------------')		
 	}
 
 	/**
@@ -88,24 +89,27 @@ class NewTestListener {
 	 */
 	@AfterTestCase
 	def testListenerAfterTestCase(TestCaseContext testCaseContext) {
-		WebUI.comment '---------------------------------------------------------------------------------------------------------------------------------'
+		WebUI.comment('--------------------------------------TEST RUN End-------------------------------------------------------------------------------------------')		
 		//WebUI.comment 'userPin2: '+ GlobalVariable.userPin2
-		def driver = DriverFactory.getWebDriver()
-		if (GlobalVariable.userPin2.equals('SKIP')){
+		
+		if (GlobalVariable.userPin2.equals('SKIP')||GlobalVariable.testrun_status.equals('SKIP')){
 			WebUI.comment 'testcase is skipped'
 			//GlobalVariable.userPin2='RUN'
 			return
 		}
+		def driver = DriverFactory.getWebDriver()
 		//println testCaseContext.getTestCaseId()
 		String testcaseName=testCaseContext.getTestCaseId()
 		testcaseName=testcaseName.substring(testcaseName.lastIndexOf('/')+1)
-		
-		println 'testcaseName: '+testcaseName
+		WebUI.comment 'Execution Profile: '+RunConfiguration.getExecutionProfile()
+		WebUI.comment 'Testcase Name: '+testcaseName
+		WebUI.comment 'Site URL: '+GlobalVariable.G_MAKE_MAS_url
+		WebUI.comment 'Current URL: '+WebUI.getUrl()
+		WebUI.comment 'Test Status: '+ testCaseContext.getTestCaseStatus()
 		//String yourValue = WebUI.callTestCase(findTestCase(testCaseContext.getTestCaseId(),[key1:value1]))
 		//WebUI.comment 'yourValue: '+yourValue
-		WebUI.comment 'Test Status: '+ testCaseContext.getTestCaseStatus()
-		if (GlobalVariable.userPin2.equals('ScreenshotTaken')){
-			println 'Screenshot Taken'
+		if (GlobalVariable.userPin2.equals('ScreenshotTaken')||GlobalVariable.testrun_status.equals('ScreenshotTaken')){
+			WebUI.comment 'Screenshot already taken, skip taking Screenshot '
 			//GlobalVariable.userPin2='RUN'
 		}else{
 			CustomKeywords.'helper.browserhelper.CustomBrowser.takingScreenshotStatus'(testcaseName,testCaseContext.getTestCaseStatus())
@@ -148,7 +152,27 @@ class NewTestListener {
 		//WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
 
 	}
-
+	def kill_chrome(){
+		String cmd
+		if (System.getProperty('os.name').contains('Mac')){
+			cmd = "pkill -f Chrome"
+		}else{
+			cmd = 'taskkill /IM chrome.exe /F'
+		}
+		Runtime.getRuntime().exec(cmd)
+		WebUI.comment('killed all processes of Chrome')
+		
+	}
+	def kill_chromedriver(){
+		String cmd
+		if (System.getProperty('os.name').contains('Mac')){
+			cmd = "killall -9 chromedriver"
+		}else{
+			cmd = 'taskkill /IM chromedriver.exe /F'
+		}
+		Runtime.getRuntime().exec(cmd)
+		WebUI.comment('killed all processes of chromedriver')
+	}
 	/**
 	 * Executes before every test suite starts.
 	 * @param testSuiteContext: related information of the executed test suite.
@@ -156,20 +180,16 @@ class NewTestListener {
 	@BeforeTestSuite
 	def sampleBeforeTestSuite(TestSuiteContext testSuiteContext) {
 		WebUI.comment 'TestSuite Name: '+ testSuiteContext.getTestSuiteId()
-		String cmd = "pkill -f Chrome"
-		//String cmd = 'while pgrep Chrome ; do pkill Chrome ; done'
-		Runtime.getRuntime().exec(cmd)
-		cmd="killall -9 chromedriver"
-		Runtime.getRuntime().exec(cmd)
-		println('killed all processes of Chrome and chromedriver before running test')
+		kill_chrome()
+		kill_chromedriver()
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('passed_PDF_diff_report',false)
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
 		
 		Screen s = new Screen();
 		//GlobalVariable.G_image_path='opencv_images/'
 		//GlobalVariable.G_image_path='/Users/jcfu/Katalon Studio/HCI_Group/Include/opencv_images/'
 		GlobalVariable.G_image_path= (new File("Include/opencv_images/").absolutePath)+'/'
-		//GlobalVariable.G_wait_s=0 // failed_case count from running the test suite
-		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('failed_issue_count',0)
-		
+		//GlobalVariable.G_wait_s=0 // failed_case count from running the test suite	
 		if (s.exists(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png',1)!=null){
 			s.click(GlobalVariable.G_image_path+'KatalonNetworkConnections_deny_button.png')
 			println('found KatalonNetworkConnections_deny_button and taken care of it')

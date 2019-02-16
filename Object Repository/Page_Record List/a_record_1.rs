@@ -4,6 +4,12 @@
    <name>a_record_1</name>
    <tag></tag>
    <elementGuidId>34a6a944-d79a-422b-a2f2-1529f84878bb</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>(//a[contains(@href, '/show_bug.cgi?id=')])[1]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
@@ -32,6 +38,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;yui-rec0&quot;)/td[@class=&quot;yui-dt0-col-id yui-dt-col-id&quot;]/div[@class=&quot;yui-dt-liner&quot;]/a[1]</value>
+      <value>(//a[contains(@href, '/show_bug.cgi?id=')])[1]</value>
    </webElementProperties>
 </WebElementEntity>

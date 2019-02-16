@@ -26,7 +26,7 @@ if (!(GlobalVariable.G_MAKE_MAS_url.contains('cp_hazard')) &&  !(GlobalVariable.
 WebDriver driver 
 WebDriverBackedSelenium selenium
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ break} catch (Exception e) {
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 	 cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 	
 }
 }

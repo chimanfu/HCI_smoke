@@ -35,7 +35,7 @@ if (siteURL.endsWith('/')) siteURL=siteURL.substring(0,siteURL.lastIndexOf('/'))
 bad_browser_blub_view=siteURL+'/editparams.cgi?section=nasa#bad_browser_blurb_desc'
 
 int retry_count = 0;
-int maxTries = 2;
+int maxTries = 1;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -99,14 +99,17 @@ if (!GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
 	expected_message='Safari'
 }
 check_message( bad_browser_blurb_message,  expected_message)
-if (!GlobalVariable.G_MAKE_MAS_url.contains('oms') && !GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
-//if (!GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
+if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
+	expected_message='firefox/usage-logo.png'
+	check_message( bad_browser_blurb_message,  expected_message)
+	expected_message='images/safari.svg'
+	check_message( bad_browser_blurb_message,  expected_message)
+}else if (!GlobalVariable.G_MAKE_MAS_url.contains('oms') && !GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) {
 	expected_message='images/firefox.svg'
 	check_message( bad_browser_blurb_message,  expected_message)
 	expected_message='images/safari.svg'
 	check_message( bad_browser_blurb_message,  expected_message)
 }
-
 
 if (GlobalVariable.G_MAKE_MAS_url.contains('oms')) {
 	expected_message='If you are not able to upgrade your browser, please contact the'
@@ -224,7 +227,7 @@ def check_message(String bad_browser_blurb_message, String expected_message){
 		if (bad_browser_blurb_message.contains(expected_message)){
 			KeywordUtil.markPassed('bad_browser_blurb_message is OK, found string: '+expected_message)
 		}else{
-			KeywordUtil.markFailed('ERROR: bad_browser_blurb_message is wrong, NOT found expected string: "'+expected_message+'", please check actual bad_browser_blurb_message: '+bad_browser_blurb_message)
+			KeywordUtil.markFailed('ERROR: bad_browser_blurb_message is wrong, \nNOT found expected string: "'+expected_message+'"\n\nplease check actual bad_browser_blurb_message below: '+bad_browser_blurb_message)
 			//throw new AssertionError('ERROR: bad_browser_blurb_message is wrong, NOT found expected string: "'+expected_message+'", please check actual bad_browser_blurb_message: '+bad_browser_blurb_message)
 		}
 	}

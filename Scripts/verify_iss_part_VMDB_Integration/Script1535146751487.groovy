@@ -19,7 +19,7 @@ String baseUrl=siteURL
 if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 siteURL=siteURL+'show_bug.cgi?id='+recordID
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 1;
 while(true){
 try {
 /////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ break} catch (Exception e) {
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 	String cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 	
 }
 }

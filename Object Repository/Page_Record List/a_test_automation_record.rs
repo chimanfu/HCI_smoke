@@ -7,20 +7,20 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>id(&quot;yui-rec0&quot;)/td[@class=&quot;yui-dt0-col-short_desc yui-dt-col-short_desc&quot;]/div[@class=&quot;yui-dt-liner&quot;]/a[1][count(. | //a[contains(@href, 'show_bug.cgi?id=')]) = count(//a[contains(@href, 'show_bug.cgi?id=')])]</value>
+         <value>(//a[contains(@href, '/show_bug.cgi?id=')])[1]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>a</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>
@@ -38,6 +38,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;yui-rec0&quot;)/td[@class=&quot;yui-dt0-col-short_desc yui-dt-col-short_desc&quot;]/div[@class=&quot;yui-dt-liner&quot;]/a[1]</value>
+      <value>(//a[contains(@href, '/show_bug.cgi?id=')])[1]</value>
    </webElementProperties>
 </WebElementEntity>

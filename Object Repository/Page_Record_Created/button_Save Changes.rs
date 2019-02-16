@@ -4,17 +4,23 @@
    <name>button_Save Changes</name>
    <tag></tag>
    <elementGuidId>e55c1a4e-1ecd-4731-bc7f-8eab84e4bee2</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>(//button[@type = 'button' and (text() = 'Save Changes' or . = 'Save Changes')])[1]</value>
+      </entry>
+   </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
       <value>button</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>type</name>
       <type>Main</type>
@@ -28,18 +34,18 @@
       <value>saveBtn btn btn-primary</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>Save Changes</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;sticky&quot;)/div[@class=&quot;sticky&quot;]/div[@class=&quot;buttonArea&quot;]/button[@class=&quot;saveBtn btn btn-primary&quot;]</value>
+      <value>(//button[@type = 'button' and (text() = 'Save Changes' or . = 'Save Changes')])[1]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

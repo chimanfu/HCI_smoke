@@ -49,8 +49,14 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	
 	WebUI.click(findTestObject('Object Repository/Page_Document Tree/a_edit details'))
 	
-	//// newly added
-	siteURL=GlobalVariable.G_MAKE_MAS_url
+	// check record loading on record 'DSG-PLAN-001' after search 
+	
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_1255 DSG Implementation Plan/span_DSG-PLAN-001_record_title'),10)
+	
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_1255 DSG Implementation Plan/button_Save Changes'),10)
+	
+	//// newly added (do we support this search in doctree?)
+	/*siteURL=GlobalVariable.G_MAKE_MAS_url
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
 	WebUI.navigateToUrl(siteURL+'query.cgi')
 	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Search for records/input_Search for words'),10)
@@ -60,7 +66,7 @@ if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	}else if (WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record List/div_No records found.'),1,FailureHandling.OPTIONAL)){
 		WebUI.comment 'No records found for search term='+search_term
 		KeywordUtil.markFailedAndStop('No records found for search term='+search_term)
-	}
+	}*/
 	//// newly added
 	return
 }else if (GlobalVariable.G_MAKE_MAS_url.contains('etasksheet')) {
@@ -158,7 +164,7 @@ break} catch (Exception e) {
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 	cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 }
 }
 

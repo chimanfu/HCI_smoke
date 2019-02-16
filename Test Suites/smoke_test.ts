@@ -13,7 +13,7 @@
    <testCaseLink>
       <guid>7afd3060-2e92-4ce8-8c98-795715a214db</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_disallow_record_modification_checked</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -31,13 +31,13 @@
    <testCaseLink>
       <guid>7de3bedb-ab49-416e-84bb-eaaeebdee1fc</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_correct_git_hash</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b41a32be-ddec-4fbe-b396-817fc04d6609</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_correct_tag</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -55,7 +55,7 @@
    <testCaseLink>
       <guid>a6cbfc62-8fa0-4791-a95e-46d1357be38f</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_add_new_record_if_not_exist</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -83,21 +83,21 @@
       <testCaseId>Test Cases/verify_mail_search_result_to_team_member</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
+      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_record_loading_on_tabs</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -265,7 +265,7 @@
    <testCaseLink>
       <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

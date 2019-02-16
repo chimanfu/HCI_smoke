@@ -17,41 +17,192 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import groovy.io.FileType
+import java.io.File
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import org.apache.commons.lang3.StringUtils
+import org.openqa.selenium.By
+import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import internal.GlobalVariable
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
+
+CustomKeywords.'helper.login.LoginHelper.login'()
+
+WebUI.navigateToUrl('https://mas-dev.nas.nasa.gov/MAKE-MAS/mas/iss_hazard_hotfix/show_bug.cgi?id=44031#tv=Basic%20Information')
+
+
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Record_Created/button_Save Changes'),10)
+WebDriver driver = DriverFactory.getWebDriver()
+List<WebElement> elements = driver.findElements(By.xpath("//div[@class='personLink']/span[@class='PersonContainer']/span[@class='input-group']/input[@type = 'text' and @class = 'form-control ui-autocomplete-input']"));
+int size=elements.size()
+String search_name='joseph.fu@nasa.'
+String found_name
+WebUI.comment('number of person fields found on page = '+size)
+for (int i = 0; i < size; i++) {
+	if(	elements.get(i).isDisplayed()){
+		//elements.get(i).click()
+		elements.get(i).sendKeys(search_name+'\n')
+		WebUI.delay(2)
+		elements.get(i).sendKeys('\n')
+		WebUI.delay(1)
+		found_name=elements.get(i).getAttribute("value")
+		if (found_name.contains(search_name)){
+			KeywordUtil.markPassed 'name found in person field '+i+': '+found_name+', it matches with the search name: '+search_name
+		}else{
+			KeywordUtil.markFailed 'name found in person field '+i+': '+found_name+', it does not matche with the search name: '+search_name
+		
+		}
+	}
+}	
+return
+
+if (attachment_name.contains('584MB')){
+	WebUI.waitForElementVisible(findTestObject('Object Repository/Page_attachments/h4_Maximum upload size exceeded'),5)
+	String reached_maximum_warning_message=WebUI.getText(findTestObject('Object Repository/Page_attachments/div_reached_maximum_warning_message'))
+	if (reached_maximum_warning_message.contains(attachment_name)){
+		WebUI.comment('found fileName:'+attachment_name+' in reached_maximum_warning_message')
+		WebUI.click(findTestObject('Object Repository/Page_attachments/button_OK'))
+	}else{
+	// failed
+	}
+}
+
+def list = []
+
+//def dir=new File("Data Files/IHS_IP_permissions/attachments/")
+def dir=new File("/Users/jcfu/Desktop/attachments_all/")
+//def dir = new File("path_to_parent_dir")
+dir.eachFileRecurse (FileType.FILES) { file ->
+  list << file
+}
+list.each {
+	println it.toString()
+  }
+return
+
+
+
+def add_attachments_all(){
+	KeywordUtil.logInfo 'add/upload attachments'
+	KeywordUtil.logInfo "will add all attachments into the record "
+	String[] list
+	def dir=new File("/Users/jcfu/Desktop/attachments_all/")
+	dir.eachFileRecurse (FileType.FILES) { file ->
+	  list << file
+	}
+	//WebUI.refresh(FailureHandling.OPTIONAL)
+	//WebUI.delay(2)
+	WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Main Page/a_Home'),30)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Main Page/a_Home'),5)
+	WebUI.scrollToElement(findTestObject('Object Repository/Page_Main Page/a_Home'),1)
+	WebUI.waitForElementClickable(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'),6)
+	WebUI.click(findTestObject('Object Repository/Page_Record_8265_react_iss_hazard/div_Basic Information'))
+
+	'enter values for 3 required fields before adding attachments'
+	WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'))
+	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_export_control_rating'), 'ITAR', true)
+
+	WebUI.click(findTestObject('Object Repository/Page_Record_Created/span_International Partner Designation'))
+	WebUI.click(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+	WebUI.check(findTestObject('Object Repository/Page_Record_Created/input_Not Applicable'))
+
+	WebUI.click(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'))
+	WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Record_Created/select_cf_proprietary_limited_rights'), 'TBD', true)
+	WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/label_Add New Attachment'),20)
+	WebUI.scrollToElement(findTestObject('Page_Enter Record View/label_Add New Attachment'),10)
+	String number=0
+	// loop to add num_attachments of attachment from get_random_attachment()
+	String attachment_name
+	list.each {
+		attachment_name=it.toString()
+		println attachment_name
+		KeywordUtil.logInfo 'add attachment from the Add New Attachment button, will randomly pick the attachment from "Data Files/IHS_IP_permissions/attachments/"'
+		//WebUI.delay(1)
+		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/input_Add New Attachment'),10)
+		//WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), '/Users/jcfu/Katalon Studio/HCI_Group/Data Files/IHS_IP_permissions/expected_results_partner.xlsx')
+		//(new ip_permissions.utils()).get_random_attachment()
+		KeywordUtil.logInfo('will add attachment into record with '+attachment_name+'\n')
+		String path=new File("Data Files/IHS_IP_permissions/attachments/").absolutePath
+		WebUI.uploadFile(findTestObject('Page_Enter Record View/input_Add New Attachment'), path+'/'+attachment_name)
+		WebUI.scrollToElement(findTestObject('Object Repository/Page_Record_Created/div_Attachments'),10)
+		//WebUI.delay(1)
+		//WebUI.click(findTestObject('Object Repository/Page_Enter Record View/label_Add New Attachment'))
+		KeywordUtil.logInfo 'need to fill out all the required fields for adding attachment'
+		WebUI.waitForElementClickable(findTestObject('Page_Enter Record View/select_attachment_type'),10)
+		WebUI.click(findTestObject('Page_Enter Record View/select_attachment_type'))
+		WebUI.selectOptionByValue(findTestObject('Page_Enter Record View/select_attachment_type'), 'Comments Sheet', true)
+		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_review_phase'), 'Non-Phase Specific', true)
+		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_proprietary_limited_right'), 'TBD', true)
+		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_ip_access_allowed'), 'Yes', true)
+		WebUI.click(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'))
+		WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Enter Record View/select_export_control_rating'), 'ITAR', true)
+		// take care the Description for the attachment
+		
+		WebUI.setText(findTestObject('Object Repository/Page_Enter Record View/input_Description_field'), 'test_attachment '+attachment_name)
+
+	}
+	save_changes()
+}
+
+main_page_title = WebUI.getWindowTitle()
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('main_page_title',main_page_title)
+site_name_title=main_page_title.substring(0,main_page_title.lastIndexOf(' Main Page'))
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('site_name_title',site_name_title)
+println "site_name_title='"+site_name_title+"'"
+return
+
+String cmd = "pkill -f Chrome"
+Runtime.getRuntime().exec(cmd)
+WebUI.closeBrowser()
+CustomKeywords.'helper.login.LoginHelper.login'()
+
+WebUI.closeBrowser()
+
+return
 
 //println 'my pin='+GlobalVariable.G_userPin
 //return
 
-def currentDir = new File("/Users/jcfu/Katalon Studio/HCI_Group/Profiles");
-def backupFile;
-def fileText;
+def replaceTextFromAllProfiles(srcExp,replaceText){
+	// replace text in srcExp to replaceText in Profiles
+	def currentDir = new File("/Users/jcfu/Katalon Studio/HCI_Group/Profiles");
+	def backupFile;
+	def fileText;
 
-//Replace the contents of the list below with the
-//extensions to search for
-def exts = [".txt", ".glbl"]
+	//Replace the contents of the list below with the
+	//extensions to search for
+	def exts = [".txt", ".glbl"]
 
-//Replace the value of srcExp to a String or regular expression
-//to search for.
-def srcExp = "cp_hazard.sikuli"
+	//Replace the value of srcExp to a String or regular expression
+	//to search for.
+	//def srcExp = "cp_hazard.sikuli"
 
-//Replace the value of replaceText with the value new value to
-//replace srcExp
-//def replaceText = "FeyTxQmCiApXDlExS+ye4A=="
-def replaceText = "my_image_path"
-currentDir.eachFileRecurse(
-  {file ->
-	for (ext in exts){
-	  if (file.name.endsWith(ext)) {
-		fileText = file.text;
-		backupFile = new File('/Users/jcfu/Desktop/Profiles_new/'+file.name);
-		backupFile.write(fileText);
-		fileText = fileText.replaceAll(srcExp, replaceText)
-		file.write(fileText);
-	  }
-	}
-  }
-)
-return
-
+	//Replace the value of replaceText with the value new value to
+	//replace srcExp
+	//def replaceText = "FeyTxQmCiApXDlExS+ye4A=="
+	//def replaceText = "my_image_path"
+	currentDir.eachFileRecurse(
+			{file ->
+				for (ext in exts){
+					if (file.name.endsWith(ext)) {
+						fileText = file.text;
+						backupFile = new File('/Users/jcfu/Desktop/Profiles_new/'+file.name);
+						backupFile.write(fileText);
+						fileText = fileText.replaceAll(srcExp, replaceText)
+						file.write(fileText);
+					}
+				}
+			}
+			)
+	return
+}
 WebUI.setEncryptedText('FeyTxQmCiApXDlExS+ye4A==')
 
 String fileName='Full Text Search - Word.docx'

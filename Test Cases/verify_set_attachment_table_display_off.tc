@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>verify_set_attachment_table_display_off</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>d475bc8d-33bd-4e27-864e-6f8db081d3b6</testCaseGuid>
+</TestCaseEntity>

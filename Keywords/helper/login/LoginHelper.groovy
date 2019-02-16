@@ -14,6 +14,16 @@ import internal.GlobalVariable
 
 
 public class LoginHelper {
+	def kill_chrome(){
+		String cmd
+		if (System.getProperty('os.name').contains('Mac')){
+			cmd = "pkill -f Chrome"
+		}else{
+			cmd = 'taskkill /IM chrome.exe /F'
+		}
+		Runtime.getRuntime().exec(cmd)
+		WebUI.comment('killed all processes of Chrome')
+	}
 	@Keyword
 	public void loginMailCatcher(){
 		try{
@@ -34,6 +44,8 @@ public class LoginHelper {
 				KeywordUtil.markWarning(e.message)
 			}
 			try{
+
+
 				//String cmd = "pkill -f Chrome"
 				//Runtime.getRuntime().exec(cmd)
 				//WebUI.comment('killed all processes of Chrome before running test')
@@ -215,7 +227,21 @@ public class LoginHelper {
 			KeywordUtil.markWarning(e.message)
 		}
 	}
-
+	@Keyword
+	void addGlobalVariable(String name, def value) {
+		GroovyShell shell1 = new GroovyShell()
+		MetaClass mc = shell1.evaluate("internal.GlobalVariable").metaClass
+		String getterName = "get" + name.capitalize()
+		mc.'static'."$getterName" = { -> return value }
+		mc.'static'."$name" = value
+	}
+	def get_main_page_title(){
+		String main_page_title = WebUI.getWindowTitle()
+		addGlobalVariable('main_page_title',main_page_title)
+		String site_name_title=main_page_title.substring(0,main_page_title.lastIndexOf(' Main Page'))
+		addGlobalVariable('site_name_title',site_name_title)
+		println "site_name_title='"+site_name_title+"'"
+	}
 	@Keyword
 	public boolean checkHomePageExist(String site_url){
 		try{
@@ -229,26 +255,42 @@ public class LoginHelper {
 				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 				// check if alert is showing
 				check_accept_alert()
-				WebUI.comment('*** Already in Home Page, do not need to login ***')
-				return true
+				if (!WebUI.getUrl().contains(site_url)) {
+					WebUI.navigateToUrl(site_url)
+				}else{
+					WebUI.comment('*** Already in Home Page, do not need to login ***')
+					get_main_page_title()
+					return true
+				}
+
 			}else if (site_url.contains('doctree') && WebUI.waitForElementPresent(findTestObject('Page_Document Tree/a_TREE'), 1, FailureHandling.OPTIONAL)){
 				WebUI.comment('found Tree link, login to MAKE_MAS url succeeded! on '+site_url)
 				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
 				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 				// check if alert is showing
 				check_accept_alert()
-				WebUI.comment('*** Already in Home Page, do not need to login ***')
-				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
-				return true
+				if (!WebUI.getUrl().contains(site_url)) {
+					WebUI.navigateToUrl(site_url)
+				}else{
+					WebUI.comment('*** Already in Home Page, do not need to login ***')
+					WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
+					get_main_page_title()
+					return true
+				}
 			}else if (site_url.contains('etasksheet') && WebUI.waitForElementPresent(findTestObject('Object Repository/Page_ARC JET/button_New Task Worksheet'), 1, FailureHandling.OPTIONAL)){
 				WebUI.comment('found button_New Task Worksheet, login to MAKE_MAS url succeeded! on '+site_url)
 				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
 				WebUI.waitForPageLoad(30,FailureHandling.OPTIONAL)
 				// check if alert is showing
 				check_accept_alert()
-				WebUI.comment('*** Already in Home Page, do not need to login ***')
-				WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
-				return true
+				if (!WebUI.getUrl().contains(site_url)) {
+					WebUI.navigateToUrl(site_url)
+				}else{
+					WebUI.comment('*** Already in Home Page, do not need to login ***')
+					WebUI.switchToWindowIndex(0,FailureHandling.OPTIONAL)
+					get_main_page_title()
+					return true
+				}
 			}
 			WebUI.comment('*** need to login ***')
 			return false
@@ -346,15 +388,16 @@ public class LoginHelper {
 	}
 
 	@Keyword
-	public void login(){
+	def login(){
 		if (checkHomePageExist()){
 			WebUI.comment('done checkHomePageExist, already in Home page')
 			return null
 		}
+		String site_url=GlobalVariable.G_MAKE_MAS_url
 		String cmd = "pkill -f Chrome"
 		//String cmd = 'while pgrep Chrome ; do pkill Chrome ; done'
-		Runtime.getRuntime().exec(cmd)
-		WebUI.comment('killed all processes of Chrome before running test')
+		//		Runtime.getRuntime().exec(cmd)
+		//WebUI.comment('killed all processes of Chrome before running test')
 		////////////////// new //////////////////
 		//cmd="killall -9 chromedriver"
 		//Runtime.getRuntime().exec(cmd)
@@ -362,9 +405,9 @@ public class LoginHelper {
 		//WebUI.delay(1)
 		////////////////// new //////////////////
 		try{
-			WebUI.openBrowser('')
-			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url)
-			WebUI.delay(2)
+			//WebUI.openBrowser('')
+			WebUI.navigateToUrl(site_url)
+			//WebUI.delay(1)
 			WebUI.maximizeWindow()
 			WebUI.switchToWindowIndex(0)
 			WebUI.switchToDefaultContent()
@@ -378,9 +421,11 @@ public class LoginHelper {
 			}
 		}catch (Exception e) {
 			//WebUI.switchToWindowIndex(0)
-			WebUI.delay(2)
+			//WebUI.delay(1)
 			KeywordUtil.markWarning(e.message)
-			WebUI.navigateToUrl(GlobalVariable.G_MAKE_MAS_url,FailureHandling.STOP_ON_FAILURE)
+			WebUI.openBrowser('')
+			WebUI.navigateToUrl(site_url,FailureHandling.STOP_ON_FAILURE)
+			//WebUI.maximizeWindow()
 		}
 		check_restore_pages_popup()
 		if (checkHomePageExist()){
@@ -392,18 +437,48 @@ public class LoginHelper {
 			WebUI.comment('found - You made an invalid entry, sudo cookie is invalid, refresh the page now')
 			WebUI.refresh()
 		}
-		//
+
 		WebUI.comment('checking input_login_btn')
 		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),8,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
 			WebUI.comment('clicked on input_login_btn')
-			WebUI.delay(2)
+			WebUI.delay(1)
 			if (checkHomePageExist()){
 				WebUI.comment('done checkHomePageExist')
 				return null
 			}
 		}
-		// run the smartcard login
+		smartcard_login_new()
+		//smartcard_login()
+
+		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn in 2nd attempt')
+		}
+		// check if alert is showing
+		check_accept_alert()
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
+		WebUI.comment 'Need to try again as it failed to login to site URL '+site_url
+		kill_chrome()
+		WebUI.openBrowser('')
+		WebUI.navigateToUrl(site_url)
+		WebUI.maximizeWindow()
+		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),7,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn')
+			if (checkHomePageExist(site_url)){
+				WebUI.comment('done checkHomePageExist')
+				return true
+			}
+		}
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
+		WebUI.comment 'try the old way to do smartcard_login'
 		smartcard_login()
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -411,24 +486,40 @@ public class LoginHelper {
 		}
 		// check if alert is showing
 		check_accept_alert()
-
-		if (checkHomePageExist()){
+		if (checkHomePageExist(site_url)){
 			WebUI.comment('done checkHomePageExist')
-			return null
+			return true
 		}
+		return false
 	}
 	@Keyword
 	def check_restore_pages_popup(){
-		Screen s = new Screen()
+
 		// check if the restore pages popup is showing (restore_pages_cancel_button.png)
-		if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
-			WebUI.delay(1)
-			//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
-			//WebUI.delay(1)
-			Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
-			//r=s.exists(pImage,1);
-			s.click(s.exists(pImage,1), 1)
+		try{
+			String os_name=System.getProperty('os.name')
+			WebUI.comment 'OS name: '+os_name
+			if ( os_name.contains('Mac')){
+
+				Screen s = new Screen()
+				if (s.exists(GlobalVariable.G_image_path+'restore_pages_cancel_button.png',1)!=null){
+					WebUI.delay(1)
+					//s.click(GlobalVariable.G_image_path+'restore_pages_cancel_button.png')
+					//WebUI.delay(1)
+					Pattern pImage = new Pattern(GlobalVariable.G_image_path + 'restore_pages_cancel_button.png').targetOffset(145,-6)
+					//r=s.exists(pImage,1);
+					s.click(s.exists(pImage,1), 1)
+				}
+			}else{
+				WebUI.comment 'Only run on Mac'
+			}
+		}catch (Exception e) {
+			WebUI.comment 'opencv: not found restore_pages_cancel_button'
+			WebUI.waitForImagePresent(findTestObject('Object Repository/Page_Login/restore_pages_cancel_button'),1)
+			//WebUI.click(findTestObject('Object Repository/Page_Login/restore_pages_cancel_button'))
+			//WebUI.comment 'clicked on restore_pages_cancel_button'
 		}
+
 	}
 	@Keyword
 	def check_accept_alert(){
@@ -495,7 +586,7 @@ public class LoginHelper {
 			WebUI.switchToDefaultContent()
 			/*WebDriver driver = DriverFactory.getWebDriver()
 			 ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles())
-			 println("No. of tabs: " + tabs.size())
+			 WebUI.comment("No. of tabs: " + tabs.size())
 			 int tabs_number=tabs.size()
 			 while (tabs_number>1){
 			 WebUI.closeWindowIndex(tabs_number-1,FailureHandling.CONTINUE_ON_FAILURE)
@@ -533,7 +624,8 @@ public class LoginHelper {
 			WebUI.comment('done checkHomePageExist')
 			return true
 		}
-		smartcard_login()
+		smartcard_login_new()
+		//smartcard_login()
 
 		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
 			WebUI.click(findTestObject('Page_Login/input_login_btn'))
@@ -545,13 +637,115 @@ public class LoginHelper {
 			WebUI.comment('done checkHomePageExist')
 			return true
 		}
-		WebUI.comment 'failed to login to site URL '+site_url
+		WebUI.comment 'Need to try again as it failed to login to site URL '+site_url
+		kill_chrome()
+		WebUI.openBrowser('')
+		WebUI.navigateToUrl(site_url)
+		WebUI.maximizeWindow()
+		if (WebUI.waitForElementVisible(findTestObject('Page_Login/input_login_btn'),7,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn')
+			if (checkHomePageExist(site_url)){
+				WebUI.comment('done checkHomePageExist')
+				return true
+			}
+		}
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
+		WebUI.comment 'try the old way to do smartcard_login'
+		smartcard_login()
+		if (WebUI.waitForElementPresent(findTestObject('Page_Login/input_login_btn'),1,FailureHandling.OPTIONAL)){
+			WebUI.click(findTestObject('Page_Login/input_login_btn'))
+			WebUI.comment('clicked on input_login_btn in 2nd attempt')
+		}
+		// check if alert is showing
+		check_accept_alert()
+		if (checkHomePageExist(site_url)){
+			WebUI.comment('done checkHomePageExist')
+			return true
+		}
 		return false
 	}
+	@Keyword
+	def smartcard_login_new(){
+		// take care the smartcard login sequence
+		String os_name=System.getProperty('os.name')
+		WebUI.comment 'OS name: '+os_name
+		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),17,FailureHandling.OPTIONAL)){
+			WebUI.delay(1)
+			try{
+				WebUI.waitForImagePresent(findTestObject('Page_Login/smartcard_login_button'),5,FailureHandling.STOP_ON_FAILURE)
+				WebUI.delay(1)
+				WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+				WebUI.delay(1)
+				WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+				WebUI.comment 'clicked on Page_Login/smartcard_login_button'
+				/////////////////////////////////////
+				WebUI.waitForImagePresent(findTestObject('Page_Login/acceptCert_ok_button'),8,FailureHandling.STOP_ON_FAILURE)
+				WebUI.clickImage(findTestObject('Page_Login/acceptCert_ok_button'))
+				WebUI.comment 'clicked on acceptCert_ok_button'
+				/////////////////////////////////////
+				WebUI.waitForImagePresent(findTestObject('Object Repository/Page_Login/pin_field_empty'),5,FailureHandling.OPTIONAL)
+				WebUI.comment 'found pin_field_empty'
+				WebUI.delay(1)
+				WebUI.waitForImagePresent(findTestObject('Object Repository/Page_Login/pin_field_empty'),5,FailureHandling.OPTIONAL)
+				WebUI.clickImage(findTestObject('Page_Login/pin_field_empty'))
+				WebUI.delay(1)
+				WebUI.typeOnImage(findTestObject('Page_Login/pin_field_empty'), GlobalVariable.G_userPin+"\n")
+				WebUI.comment 'typed PIN in pin_field_empty'
+				WebUI.comment 'the login should be done and suceesfully, need to check the Home page exists?'
+			}catch (Exception e) {
+				WebUI.comment 'something wrong in launchpad login'
+				e.printStackTrace()
 
+			}
+		}else{
+			WebUI.comment 'Not found Launchpad login button, maybe OK'
+		}
+		return
+
+	}
 	@Keyword
 	def smartcard_login(){
 		// take care the smartcard login sequence
+		String os_name=System.getProperty('os.name')
+		WebUI.comment 'OS name: '+os_name
+		if ( ! os_name.contains('Mac')){
+			WebUI.comment 'this is not a Mac machine, so could be Windows'
+			if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),17,FailureHandling.OPTIONAL)){
+				WebUI.delay(1)
+				try{
+					WebUI.waitForImagePresent(findTestObject('Page_Login/smartcard_login_button'),5,FailureHandling.STOP_ON_FAILURE)
+					WebUI.delay(1)
+					WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+					WebUI.delay(1)
+					WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+					WebUI.comment 'clicked on Page_Login/smartcard_login_button'
+					/////////////////////////////////////
+					WebUI.waitForImagePresent(findTestObject('Page_Login/acceptCert_ok_button'),8,FailureHandling.STOP_ON_FAILURE)
+					WebUI.clickImage(findTestObject('Page_Login/acceptCert_ok_button'))
+					WebUI.comment 'clicked on acceptCert_ok_button'
+					/////////////////////////////////////
+					WebUI.waitForImagePresent(findTestObject('Object Repository/Page_Login/pin_field_empty'),5,FailureHandling.OPTIONAL)
+					WebUI.comment 'found pin_field_empty'
+					WebUI.clickImage(findTestObject('Page_Login/pin_field_empty'))
+					WebUI.typeOnImage(findTestObject('Page_Login/pin_field_empty'), GlobalVariable.G_userPin+"\n")
+					WebUI.comment 'typed PIN in pin_field_empty'
+					WebUI.comment 'the login should be done and suceesfully, need to check the Home page exists?'
+				}catch (Exception e) {
+					WebUI.comment 'something wrong in launchpad login'
+					e.printStackTrace()
+
+				}
+			}else{
+				WebUI.comment 'Not found Launchpad login button, maybe OK'
+			}
+			return
+		}
+		//////////////////////////////////////////////////////////////////
+		// only run if OS is Mac
 		if (WebUI.waitForElementClickable(findTestObject('Page_Access Launchpad/input_SCLOGIN'),17,FailureHandling.OPTIONAL)){
 			try{
 				Screen s = new Screen()
@@ -564,40 +758,54 @@ public class LoginHelper {
 				for (int i = 0; i <3; i++) {
 					if (s.exists(smartcard_login_button,(5-i*2))!=null){
 						s.click(smartcard_login_button)
-						println 'openCV: found smartcard_login_button and click on it'
+						WebUI.comment 'openCV: found smartcard_login_button and click on it'
 					}else{
-						println '!!! openCV: not found smartcard_login_button'
+						WebUI.comment '!!! openCV: not found smartcard_login_button'
 						try {
 							WebUI.waitForImagePresent(findTestObject('Page_Login/smartcard_login_button'),1,FailureHandling.STOP_ON_FAILURE)
-							println 'found Page_Login/smartcard_login_button'
+							WebUI.comment 'found Page_Login/smartcard_login_button'
 							WebUI.delay(3)
 							WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
 							WebUI.delay(1)
 							WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
-							println 'clicked on Page_Login/smartcard_login_button'
+							WebUI.comment 'clicked on Page_Login/smartcard_login_button'
 						} catch (Exception e) {
-							println '!!! waitForImagePresent: not found Page_Login/smartcard_login_button'
+							WebUI.comment '!!! waitForImagePresent: not found Page_Login/smartcard_login_button'
 							e.printStackTrace()
 						}
 					}
-					if (s.exists(acceptCert_ok_button,(5-i*2))!=null){
+					if (s.exists(acceptCert_ok_button,(7-i*2))!=null){
 						s.click(acceptCert_ok_button)
-						println 'openCV: found acceptCert_ok_button and clicked on it'
+						WebUI.comment 'openCV: found acceptCert_ok_button and clicked on it'
 						WebUI.delay(1)
 					}else{
-						println '!!! openCV: not found acceptCert_ok_button'
-						try {
-							WebUI.waitForImagePresent(findTestObject('Page_Login/acceptCert_ok_button'),1,FailureHandling.STOP_ON_FAILURE)
-							WebUI.clickImage(findTestObject('Page_Login/acceptCert_ok_button'))
-							println 'clicked on Page_Login/acceptCert_ok_button'
-						} catch (Exception e) {
-							println '!!! waitForImagePresent: not found Page_Login/acceptCert_ok_button'
-							e.printStackTrace()
+						WebUI.comment '!!! openCV: not found acceptCert_ok_button, try again'
+						if (s.exists(smartcard_login_button,(5-i*2))!=null){
+							s.click(smartcard_login_button)
+							WebUI.comment 'openCV: found smartcard_login_button and click on it'
+							if (s.exists(acceptCert_ok_button,(5-i*2))!=null){
+								WebUI.comment 'openCV: found acceptCert_ok_button and clicked on it'
+								s.click(acceptCert_ok_button)
+							}
+						}else{
+							try {
+								WebUI.waitForImagePresent(findTestObject('Page_Login/acceptCert_ok_button'),1,FailureHandling.STOP_ON_FAILURE)
+								WebUI.clickImage(findTestObject('Page_Login/acceptCert_ok_button'))
+								WebUI.comment 'clicked on Page_Login/acceptCert_ok_button'
+							} catch (Exception e) {
+								WebUI.comment '!!! waitForImagePresent: not found Page_Login/acceptCert_ok_button'
+								e.printStackTrace()
+							}
 						}
 					}
+
 					//WebUI.delay(1)
-					if (s.exists(smartcard_login_button,1)!=null){
-						println 'openCV: found smartcard_login_button at the end of login sequence'
+					if ((s.exists(smartcard_login_button,1)!=null)||
+					(s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i*2))!=null)||
+					(s.exists(GlobalVariable.G_image_path+'activID_ActivClient.png',1)!=null)||
+					(s.exists(GlobalVariable.G_image_path+'pin_field_empty.png',1)!=null)
+					){
+						WebUI.comment 'openCV: found smartcard_login_button at the end of login sequence'
 						if (s.exists(GlobalVariable.G_image_path+'pin_field_activID.png',(5-i*2))!=null){
 							WebUI.comment('found on pin_field_activID, so enter the PIN for the user')
 							s.type(GlobalVariable.G_userPin+"\n")
@@ -616,16 +824,33 @@ public class LoginHelper {
 							s.type(GlobalVariable.G_userPin+"\n")
 							break
 						}
-					}else{
-						println '!!! openCV: not found smartcard_login_button at the end of login sequence'
+					}else if (checkHomePageExist()){
+						WebUI.comment('done checkHomePageExist')
+						return null
+					}
+
+					else{
+						WebUI.comment '!!! openCV: not found smartcard_login_button at the end of login sequence'
 						try{
-							WebUI.waitForImagePresent(findTestObject('Page_Login/pin_field_empty'),6,FailureHandling.STOP_ON_FAILURE)
 							WebUI.delay(1)
+							WebUI.waitForImagePresent(findTestObject('Page_Login/smartcard_login_button'),5,FailureHandling.STOP_ON_FAILURE)
+							WebUI.delay(1)
+							WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+							WebUI.delay(1)
+							WebUI.clickImage(findTestObject('Page_Login/smartcard_login_button'))
+							WebUI.comment 'clicked on Page_Login/smartcard_login_button'
+							/////////////////////////////////
+							WebUI.waitForImagePresent(findTestObject('Page_Login/acceptCert_ok_button'),5,FailureHandling.STOP_ON_FAILURE)
+							WebUI.clickImage(findTestObject('Page_Login/acceptCert_ok_button'))
+							WebUI.comment 'clicked on acceptCert_ok_button'
+							/////////////////////////////////
+							WebUI.waitForImagePresent(findTestObject('Object Repository/Page_Login/pin_field_empty'),10,FailureHandling.OPTIONAL)
+							WebUI.comment 'found pin_field_empty'
 							WebUI.clickImage(findTestObject('Page_Login/pin_field_empty'))
 							WebUI.typeOnImage(findTestObject('Page_Login/pin_field_empty'), GlobalVariable.G_userPin+"\n")
-							break
+							WebUI.comment 'typed PIN in pin_field_empty'
 						} catch (Exception e) {
-							println 'not found Page_Login/pin_field_empty'
+							WebUI.comment 'not found Page_Login/pin_field_empty'
 							e.printStackTrace()
 							if (s.exists(GlobalVariable.G_image_path+'activID_ActivClient.png',(5-i*2))!=null){
 								WebUI.comment('found activID_ActivClient, so enter the PIN for the user')
@@ -649,5 +874,5 @@ public class LoginHelper {
 			}
 		}
 	}
-
 }
+

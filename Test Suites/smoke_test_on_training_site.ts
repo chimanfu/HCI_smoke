@@ -89,16 +89,16 @@
       <testCaseId>Test Cases/verify_mail_search_result_to_team_member</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
       <guid>8bdf3cce-204d-425e-a4d8-f93581ed1cb4</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_generate_diff_report_on_advancedSearch</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>055baace-6dc7-4b28-aa36-38ee9127af48</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/verify_generate_PDF_from_record_page</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>d003a3b2-14f6-4305-9b08-05574db74399</guid>
@@ -159,6 +159,12 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_insidergroup</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>false</isRun>
+      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>3878f30d-db59-4848-b5a1-0a3657506827</guid>
@@ -273,11 +279,5 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/verify_auto_status</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>35ccb626-eb73-4d14-9f2f-b66b9bb7093a</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/verify_MAS_site_logo</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

@@ -22,6 +22,7 @@ import internal.GlobalVariable as GlobalVariable
  * 		verify all links are accessible
  * 		verify all links from Table of Contents are working fine in the Help doc
  */
+boolean checkLinksInHelpPage=false // set to true if checking all links in Help page
 
 if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	WebUI.comment('do not need to run this test, No help available for SSMA -- expected')
@@ -30,7 +31,13 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('ssma')){
 	return
 }
 CustomKeywords.'helper.login.LoginHelper.login'()
-
+/*
+'Get title of Documentation window'
+main_page_title = WebUI.getWindowTitle()
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('main_page_title',main_page_title)
+site_name_title=main_page_title.substring(0,main_page_title.lastIndexOf(' Main Page'))
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('site_name_title',site_name_title)
+*/
 if (GlobalVariable.G_MAKE_MAS_url.contains('doctree')) {
 	siteURL=GlobalVariable.G_MAKE_MAS_url
 	if (!siteURL.endsWith('/')) siteURL=siteURL+'/'
@@ -68,38 +75,46 @@ try{
 	//throw new AssertionError('ERROR: Unable to verify alert present: ', e)
 	WebUI.switchToWindowTitle(GlobalVariable.G_MAKE_MAS_title+' User Guide')
 }
-WebUI.delay(1)
-if (WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),5))
-	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))
-// need dynamically check all links in Help Page (User Guide)
-driver = DriverFactory.getWebDriver()
-WebUI.comment('get all help links from the Help Doc Page')
-elements = driver.findElements(By.xpath("//div[@class='toc']//a"));
-//WebElement firstElement = elements.get(0);
-size=elements.size()
-WebUI.comment 'found '+size+' links from the Help Doc Page'
-urls = new String[size]
-for (int i = 0; i < size; i++) {
-	//WebUI.comment('get new record link name and url')
-	found_link=elements.get(i).getText()
-	url = elements.get(i).getAttribute("href");
-	urls[i]=url
-	WebUI.comment ("found help link name: " + found_link+ "with URL: " + url);
-}
-//WebUI.comment 'use verifyLinksAccessible() to verify all links from the Help Doc Page'
-list_urls= Arrays.asList(urls);
-WebUI.comment 'list_urls=\n'+list_urls
-//WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
-/*try{
-	WebUI.verifyLinksAccessible(list_urls, FailureHandling.CONTINUE_ON_FAILURE)
-	
-}catch (Exception e) {
-	WebUI.comment('Unable to verify links are accessible: ' + e.detailMessage)
-}*/
-WebUI.comment('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
-String xpath="//div[@class='toc']//a"
-CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
+'Get title of Documentation window'
+page_title = WebUI.getWindowTitle()
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('help_page_title',page_title)
 
+//WebUI.delay(1)
+WebUI.verifyElementPresent(findTestObject('Page_Help User Guide/h1_User Guide'),5)
+WebUI.verifyElementVisible(findTestObject('Page_Help User Guide/h1_User Guide'))
+
+/*if (WebUI.waitForElementClickable(findTestObject('Page_Help User Guide/h1_User Guide'),5))
+	WebUI.click(findTestObject('Page_Help User Guide/h1_User Guide'))*/
+
+if (checkLinksInHelpPage){
+	// need dynamically check all links in Help Page (User Guide)
+	driver = DriverFactory.getWebDriver()
+	WebUI.comment('get all help links from the Help Doc Page')
+	elements = driver.findElements(By.xpath("//div[@class='toc']//a"));
+	//WebElement firstElement = elements.get(0);
+	size=elements.size()
+	WebUI.comment 'found '+size+' links from the Help Doc Page'
+	urls = new String[size]
+	for (int i = 0; i < size; i++) {
+		//WebUI.comment('get new record link name and url')
+		found_link=elements.get(i).getText()
+		url = elements.get(i).getAttribute("href");
+		urls[i]=url
+		WebUI.comment ("found help link name: " + found_link+ "with URL: " + url);
+	}
+	//WebUI.comment 'use verifyLinksAccessible() to verify all links from the Help Doc Page'
+	list_urls= Arrays.asList(urls);
+	WebUI.comment 'list_urls=\n'+list_urls
+	//WebUI.verifyLinksAccessible(list_urls, FailureHandling.STOP_ON_FAILURE)
+	/*try{
+	 WebUI.verifyLinksAccessible(list_urls, FailureHandling.CONTINUE_ON_FAILURE)
+	 }catch (Exception e) {
+	 WebUI.comment('Unable to verify links are accessible: ' + e.detailMessage)
+	 }*/
+	WebUI.comment('verify all Displayed Name and URL from Table Of Contents to be verified from the current Page of Help Page (User Guide)')
+	String xpath="//div[@class='toc']//a"
+	CustomKeywords.'hci_smoke_test.common.navigateAllLinks_ByXpath'(xpath)
+}
 try {
 	WebUI.closeWindowIndex(currentTab + 1)
 }
@@ -120,6 +135,7 @@ catch (Exception e) {
 
 return
 ////////////////////////////////////////////////////////////
+// old code below
 
 //WebUI.waitForPageLoad(5)
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_hazard')){

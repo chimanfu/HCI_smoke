@@ -28,10 +28,12 @@ import internal.GlobalVariable as GlobalVariable
  * 		check pdf file is generated correctly
  */
 
-
+// if this test passed, do not need to run verify_generate_PDF_from_record_page
+CustomKeywords.'ip_permissions.utils.addGlobalVariable'('passed_PDF_diff_report',false)
+String record_id=''
 
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -48,7 +50,7 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 	
 	WebUI.click(findTestObject('Page_Search for records/input_select_option_xmlversion'))
 
-	WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2018-08-20')
+	WebUI.setText(findTestObject('Page_Search for records/input_chfieldto_display'), '2019-02-10')
 
 	WebUI.click(findTestObject('Page_Search for records/input_Search'))
 
@@ -66,12 +68,23 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Search for records/input_se
 WebUI.delay(2)
 try{
 	println('if more than 1 record found, then select the first record first')
-	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),60)){
+	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),15)){
 		WebUI.click(findTestObject('Page_Record List/a_record_1'))
+	}else if (WebUI.waitForElementPresent(findTestObject('Object Repository/Page_Record List/div_No records found.'),1)){
+		WebUI.comment("no record found, Skip this testcase")
+		GlobalVariable.userPin2='SKIP'
+		CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
+		return
+	}else{
+		if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_record_1'),15))
+			WebUI.click(findTestObject('Page_Record List/a_record_1'))
 	}
+	
+	
+	/*
 	if (WebUI.waitForElementPresent(findTestObject('Page_Record List/a_test_automation_record'),1)){
 		WebUI.click(findTestObject('Page_Record List/a_test_automation_record'))
-	}
+	}*/
 	WebUI.delay(2)
 }catch (Exception e) {
 	e.printStackTrace()
@@ -96,9 +109,17 @@ if (WebUI.waitForElementVisible(findTestObject('Page_Record test_automation_reco
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/button_Generate PDF'),5)
 	WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	WebUI.delay(5)
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(10)
+	record_id=(new ip_permissions.utils()).get_record_id()
+	String pdf_file_name=GlobalVariable.site_name_title+' Record '+record_id+'.pdf'
+	println 'pdf_file_name='+pdf_file_name
+	String home = System.getProperty("user.home");
+	String downloadPath = new File(home+"/Downloads/")
+	(new attachments.utils()).isFileDownloaded(downloadPath,pdf_file_name,10)
+	//CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(10)
 	WebUI.waitForElementPresent(findTestObject('Page_Record test_automation_record/a_Home'),25)
 	WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_record/a_Home'),25)
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('passed_PDF_diff_report',true)
+	
 }else{
 	println('Not found Snapshot link so it cannot do diff report')
 }

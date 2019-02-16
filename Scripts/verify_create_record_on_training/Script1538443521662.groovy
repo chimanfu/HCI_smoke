@@ -6,6 +6,10 @@ import internal.GlobalVariable as GlobalVariable
 
 ///////// create a new record for the training site
 search_term = 'test_create_record_on_training'
+// assume it's already in Create New Record view
+
+WebUI.waitForElementVisible(findTestObject('Object Repository/Page_Enter Record View/input_Create New Record'),10,FailureHandling.STOP_ON_FAILURE)
+
 //recordID=search_term
 //search_term = 'test'
 //if ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training')){
@@ -32,8 +36,8 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 		WebUI.waitForElementVisible(findTestObject('Page_Enter Record View/div_Title_required_field'),10)
 		
 		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Title_required_field'))
-		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Reporting Organization_required_field'))
-		WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Business Area_required_field'))
+		//WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Reporting Organization_required_field'))
+		//WebUI.verifyElementVisible(findTestObject('Page_Enter Record View/div_Business Area_required_field'))
 		
 	}
 		

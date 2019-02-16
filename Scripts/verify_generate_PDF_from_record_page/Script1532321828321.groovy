@@ -1,5 +1,6 @@
 if (GlobalVariable.testrun_status.equals('SKIP')) return
 if (GlobalVariable.G_MAKE_MAS_url.contains('arcjetdb')) return
+
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver
@@ -9,7 +10,6 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
 
 /*
  * verify PDF is being generated correctly for a record
@@ -22,7 +22,14 @@ import internal.GlobalVariable as GlobalVariable
  * click 'Generate PDF' button
  * verify PDF is generated 
  */
-
+try{
+if (GlobalVariable.passed_PDF_diff_report.equals(true)) {
+	KeywordUtil.markPassed('do not need to run this test as it already passed the PDF_diff_report test')
+	return
+}
+}catch (Exception e) {
+		e.printStackTrace()
+	}
 if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
 	println('do not need to run generate PDF report test as no PDF feature in record')
 	WebUI.comment("Skip this testcase")
@@ -30,9 +37,9 @@ if ((GlobalVariable.G_MAKE_MAS_url).contains('cp_inventory')){
 	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('testrun_status','SKIP')
 	return
 }
-
+String record_id
 int retry_count = 0;
-int maxTries = 3;
+int maxTries = 2;
 while(true) {
 	try {
 /////////////////////////////////////////////////////////////////////////////
@@ -149,7 +156,14 @@ if (WebUI.waitForElementClickable(findTestObject('Page_Record test_automation_re
 		WebUI.delay(1)
 		WebUI.click(findTestObject('Page_Record test_automation_record/button_Generate PDF'))
 	}
-	CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(15)
+	WebUI.delay(5)
+	record_id=(new ip_permissions.utils()).get_record_id()
+	String pdf_file_name=GlobalVariable.site_name_title+' Record '+record_id+'.pdf'
+	println 'pdf_file_name='+pdf_file_name
+	String home = System.getProperty("user.home");
+	String downloadPath = new File(home+"/Downloads/")
+	(new attachments.utils()).isFileDownloaded(downloadPath,pdf_file_name,10)
+	//CustomKeywords.'hci_smoke_test.common.check_PDFFile_Downloaded'(15)
 }else{
 	WebUI.comment('not found PDF link, so the site may not support PDF generation')
 }
@@ -163,7 +177,7 @@ break} catch (Exception e) {
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
 	cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	//Runtime.getRuntime().exec(cmd)
 	
 }
 }

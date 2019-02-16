@@ -132,18 +132,33 @@ public class CustomBrowser {
 		}
 	}
 
-
+	def kill_chrome(){
+		String cmd
+		if (System.getProperty('os.name').contains('Mac')){
+			cmd = "pkill -f Chrome"
+		}else{
+			cmd = 'taskkill /IM "Chrome" /F'
+		}
+		Runtime.getRuntime().exec(cmd)
+		WebUI.comment('killed all processes of Chrome')
+		
+	}
 	@Keyword
 	public void not_save_exit() {
-		println('takingScreenshot and exit the current state and reload page after popup')
-		Screen s = new Screen()
-		takingScreenshot()
-		GlobalVariable.userPin2 = 'ScreenshotTaken'
-		// take care the popup and un-save it
-		s.type('w', KeyModifier.CMD)
-		WebUI.delay(1)
-		s.type('\n')
-
+		if (System.getProperty('os.name').contains('Mac')){
+			WebUI.comment('takingScreenshot and exit the current state and reload page after popup')
+			Screen s = new Screen()
+			 takingScreenshot()
+			 GlobalVariable.userPin2 = 'ScreenshotTaken'
+			 // take care the popup and un-save it
+			 s.type('w', KeyModifier.CMD)
+			 WebUI.delay(1)
+			 s.type('\n')
+		}else{
+			//println('takingScreenshot and exit the current state and reload page after popup')
+			WebUI.closeBrowser()
+			kill_chrome()
+			return
+		}		
 	}
-
 }

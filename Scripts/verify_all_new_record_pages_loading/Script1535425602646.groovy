@@ -125,6 +125,8 @@ if (size>max_new_recording_page_loading){
 for (int i = 0; i < size; i++) {
 	WebUI.comment('navigate to new record link: '+urls[i])
 	WebUI.navigateToUrl(urls[i])
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('new_record_url',urls[i])
+	
 	//driver.navigate().to(url)
 	CustomKeywords.'helper.javascript.JavaScriptHelper.appendBrowserLogs'()
 	//WebUI.click(findTestObject('Page_Main Page/a_New'))
@@ -133,13 +135,21 @@ for (int i = 0; i < size; i++) {
 if (!create_new_record_on_training) return
 
 /////////////////////////////////////////////////////////////////////////////
-if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) ){
+if (have_All_link){
+	WebUI.navigateToUrl(urls[0])
+	CustomKeywords.'ip_permissions.utils.addGlobalVariable'('new_record_url',urls[0])
+	WebUI.delay(1)
+}
+WebUI.callTestCase(findTestCase('verify_person_fields'),[('is_new_record'):true])
+
+if( ((GlobalVariable.G_MAKE_MAS_url).contains('MAKE-MAS')) || (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) {
 //if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAKE_MAS_url).toLowerCase().contains('training') ) || ((WebUI.getUrl()).contains('MAKE-MAS')&& (GlobalVariable.G_MAKE_MAS_url).contains('MAKE-MAS')) ){
 	WebUI.comment 'going to run testcase:verify_create_record_on_training'
 	WebUI.comment 'this is a training site, so trying to create a new record'
 	//WebUI.comment 'navigate to the first create new record link from the list (should be less mandatory required fields), which is '+urls[0]
-	if (have_All_link)
-		WebUI.navigateToUrl(urls[0])
+	CustomKeywords.'helper.login.LoginHelper.login'()
+	//if (have_All_link)
+	WebUI.navigateToUrl(GlobalVariable.new_record_url)
 	WebUI.delay(1)
 	WebUI.callTestCase(findTestCase('verify_create_record_on_training'),[('call'):'test'])	
 
@@ -149,6 +159,8 @@ if( ((WebUI.getUrl()).toLowerCase().contains('training')&& (GlobalVariable.G_MAK
 		WebUI.comment 'going to run testcase: verify_save_comments_SignatureClosure_TAB'
 		WebUI.callTestCase(findTestCase('verify_save_comments_SignatureClosure_TAB'),[('call'):'test'])
 	}
+	WebUI.callTestCase(findTestCase('verify_person_fields'),[('is_new_record'):false])
+	
 }
 
 return
@@ -157,8 +169,8 @@ break} catch (Exception e) {
 	e.printStackTrace()
 	if (++retry_count == maxTries) throw e;
 	WebUI.comment('Retry:'+retry_count+' rerun failed case now...')
-	 cmd = "pkill -f Chrome"
-	Runtime.getRuntime().exec(cmd)
+	cmd = "pkill -f Chrome"
+	//Runtime.getRuntime().exec(cmd)
 	
 }
 }

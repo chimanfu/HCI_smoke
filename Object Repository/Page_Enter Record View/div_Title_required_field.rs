@@ -9,6 +9,10 @@
          <key>XPATH</key>
          <value>//div[@id='create_fields']/div</value>
       </entry>
+      <entry>
+         <key>BASIC</key>
+         <value>//label[@id = 'short_desc_label' and (starts-with(text(), 'Title:') or starts-with(., 'Title:'))]</value>
+      </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
@@ -38,7 +42,7 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;create_fields&quot;)/div[@class = 'yui-gf' and contains(., '*') and contains(., 'Title:')]</value>
+      <value>//label[@id = 'short_desc_label' and (starts-with(text(), 'Title:') or starts-with(., 'Title:'))]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>

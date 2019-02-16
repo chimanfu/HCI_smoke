@@ -32,7 +32,7 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;results&quot;)/table[1]/tbody[@class=&quot;yui-dt-message&quot;]/tr[@class=&quot;yui-dt-first yui-dt-last&quot;]/td[@class=&quot;yui-dt-empty&quot;]/div[@class=&quot;yui-dt-liner&quot;]</value>
+      <value>id(&quot;results&quot;)/table[1]/tbody[@class=&quot;yui-dt-message&quot;]/tr[@class=&quot;yui-dt-first yui-dt-last bz_row_odd&quot;]/td[@class=&quot;yui-dt-empty&quot;]/div[@class=&quot;yui-dt-liner&quot;]</value>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>
@@ -56,12 +56,12 @@
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath:neighbor</name>
-      <value>(.//*[normalize-space(text()) and normalize-space(.)='No DocTree Records Found.'])[2]/preceding::div[1]</value>
+      <value>(.//*[normalize-space(text()) and normalize-space(.)='(0)'])[1]/preceding::div[1]</value>
    </webElementXpaths>
    <webElementXpaths>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath:position</name>
-      <value>//div[5]/table/tbody/tr/td/div</value>
+      <value>//div[6]/table/tbody/tr/td/div</value>
    </webElementXpaths>
 </WebElementEntity>
